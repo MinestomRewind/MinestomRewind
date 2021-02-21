@@ -1,15 +1,14 @@
 package net.minestom.codegen.entitytypes;
 
-import net.minestom.codegen.BasicEnumGenerator;
-import net.minestom.codegen.stats.StatsEnumGenerator;
-import net.minestom.server.registry.ResourceGatherer;
+import net.minestom.codegen.BasicPrismarineEnumGenerator;
+import net.minestom.codegen.PrismarinePaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
-public class EntityTypeEnumGenerator extends BasicEnumGenerator {
+public class EntityTypeEnumGenerator extends BasicPrismarineEnumGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EntityTypeEnumGenerator.class);
 
@@ -22,12 +21,6 @@ public class EntityTypeEnumGenerator extends BasicEnumGenerator {
 
         targetVersion = args[0];
 
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         String targetPart = DEFAULT_TARGET_PATH;
         if(args.length >= 2) {
             targetPart = args[1];
@@ -38,16 +31,16 @@ public class EntityTypeEnumGenerator extends BasicEnumGenerator {
             targetFolder.mkdirs();
         }
 
-        new EntityTypeEnumGenerator(targetFolder);
+        new EntityTypeEnumGenerator(targetVersion, targetFolder);
     }
 
-    private EntityTypeEnumGenerator(File targetFolder) throws IOException {
-        super(targetFolder);
+    private EntityTypeEnumGenerator(String targetVersion, File targetFolder) throws IOException {
+        super(targetVersion, targetFolder, false);
     }
 
     @Override
-    protected String getCategoryID() {
-        return "minecraft:entity_type";
+    protected File getCategoryFile(PrismarinePaths paths) {
+        return paths.getEntitiesFile();
     }
 
     @Override

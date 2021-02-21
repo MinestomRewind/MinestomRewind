@@ -1,6 +1,5 @@
 package net.minestom.server.item.metadata;
 
-import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.PlayerSkin;
 import net.minestom.server.utils.Utils;
@@ -15,7 +14,7 @@ import java.util.UUID;
 /**
  * Represents a skull that can have an owner.
  */
-public class PlayerHeadMeta extends ItemMeta {
+public class SkullMeta extends ItemMeta {
 
     private UUID skullOwner;
     private PlayerSkin playerSkin;
@@ -86,10 +85,10 @@ public class PlayerHeadMeta extends ItemMeta {
      */
     @Override
     public boolean isSimilar(@NotNull ItemMeta itemMeta) {
-        if (!(itemMeta instanceof PlayerHeadMeta))
+        if (!(itemMeta instanceof SkullMeta))
             return false;
-        final PlayerHeadMeta playerHeadMeta = (PlayerHeadMeta) itemMeta;
-        return playerHeadMeta.playerSkin == playerSkin;
+        final SkullMeta skullMeta = (SkullMeta) itemMeta;
+        return skullMeta.playerSkin == playerSkin;
     }
 
     /**
@@ -148,10 +147,10 @@ public class PlayerHeadMeta extends ItemMeta {
     @NotNull
     @Override
     public ItemMeta clone() {
-        PlayerHeadMeta playerHeadMeta = (PlayerHeadMeta) super.clone();
-        playerHeadMeta.skullOwner = this.skullOwner;
-        playerHeadMeta.playerSkin = this.playerSkin;
-        return playerHeadMeta;
+        SkullMeta skullMeta = (SkullMeta) super.clone();
+        skullMeta.skullOwner = this.skullOwner;
+        skullMeta.playerSkin = this.playerSkin;
+        return skullMeta;
     }
 
 

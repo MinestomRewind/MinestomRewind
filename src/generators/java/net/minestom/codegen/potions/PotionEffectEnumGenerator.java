@@ -1,14 +1,14 @@
 package net.minestom.codegen.potions;
 
-import net.minestom.codegen.BasicEnumGenerator;
-import net.minestom.server.registry.ResourceGatherer;
+import net.minestom.codegen.BasicPrismarineEnumGenerator;
+import net.minestom.codegen.PrismarinePaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
-public class PotionEffectEnumGenerator extends BasicEnumGenerator {
+public class PotionEffectEnumGenerator extends BasicPrismarineEnumGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PotionEffectEnumGenerator.class);
 
@@ -21,12 +21,6 @@ public class PotionEffectEnumGenerator extends BasicEnumGenerator {
 
         targetVersion = args[0];
 
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         String targetPart = DEFAULT_TARGET_PATH;
         if (args.length >= 2) {
             targetPart = args[1];
@@ -37,16 +31,16 @@ public class PotionEffectEnumGenerator extends BasicEnumGenerator {
             targetFolder.mkdirs();
         }
 
-        new PotionEffectEnumGenerator(targetFolder);
+        new PotionEffectEnumGenerator(targetVersion, targetFolder);
     }
 
-    private PotionEffectEnumGenerator(File targetFolder) throws IOException {
-        super(targetFolder, true, true);
+    private PotionEffectEnumGenerator(String targetVersion, File targetFolder) throws IOException {
+        super(targetVersion, targetFolder, true, true);
     }
 
     @Override
-    protected String getCategoryID() {
-        return "minecraft:mob_effect";
+    protected File getCategoryFile(PrismarinePaths paths) {
+        return paths.getEffectsFile();
     }
 
     @Override

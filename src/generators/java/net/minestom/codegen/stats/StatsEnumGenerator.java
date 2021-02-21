@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
+// TODO(koesie10): Update for 1.8, can probably use Burger data
 public class StatsEnumGenerator extends BasicEnumGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatsEnumGenerator.class);

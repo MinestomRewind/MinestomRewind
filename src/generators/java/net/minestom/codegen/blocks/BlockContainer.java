@@ -3,7 +3,6 @@ package net.minestom.codegen.blocks;
 import net.minestom.server.utils.NamespaceID;
 
 import java.util.List;
-import java.util.Map;
 
 public class BlockContainer implements Comparable<BlockContainer> {
 
@@ -11,10 +10,10 @@ public class BlockContainer implements Comparable<BlockContainer> {
     private NamespaceID id;
     private double hardness;
     private double resistance;
-    private BlockState defaultState;
+    private BlockVariation defaultVariation;
     private boolean isSolid;
     private boolean isAir;
-    private List<BlockState> states;
+    private List<BlockVariation> variations;
 
     private boolean isMushroom;
     private boolean isLiquid;
@@ -23,26 +22,26 @@ public class BlockContainer implements Comparable<BlockContainer> {
     private boolean isCoral;
     private NamespaceID blockEntity;
 
-    public BlockContainer(int ordinal, NamespaceID id, double hardness, double resistance, NamespaceID blockEntity, BlockState defaultState, List<BlockState> states) {
+    public BlockContainer(int ordinal, NamespaceID id, double hardness, double resistance, NamespaceID blockEntity, BlockVariation defaultVariation, List<BlockVariation> variations) {
         this.ordinal = ordinal;
         this.id = id;
         this.hardness = hardness;
         this.resistance = resistance;
         this.blockEntity = blockEntity;
-        this.defaultState = defaultState;
-        this.states = states;
+        this.defaultVariation = defaultVariation;
+        this.variations = variations;
     }
 
     public int getOrdinal() {
         return ordinal;
     }
 
-    public BlockState getDefaultState() {
-        return defaultState;
+    public BlockVariation getDefaultVariation() {
+        return defaultVariation;
     }
 
-    public List<BlockState> getStates() {
-        return states;
+    public List<BlockVariation> getVariations() {
+        return variations;
     }
 
     public NamespaceID getId() {
@@ -103,10 +102,10 @@ public class BlockContainer implements Comparable<BlockContainer> {
                 "id=" + id +
                 ", hardness=" + hardness +
                 ", resistance=" + resistance +
-                ", defaultState=" + defaultState +
+                ", defaultState=" + defaultVariation +
                 ", isSolid=" + isSolid +
                 ", isAir=" + isAir +
-                ", states=" + states +
+                ", states=" + variations +
                 ", isMushroom=" + isMushroom +
                 ", isLiquid=" + isLiquid +
                 ", isFlower=" + isFlower +
@@ -121,28 +120,21 @@ public class BlockContainer implements Comparable<BlockContainer> {
         return Integer.compare(ordinal, o.ordinal);
     }
 
-    public static class BlockState {
-        private short id;
-        private Map<String, String> properties;
+    public static class BlockVariation {
+        private short metadata;
 
-        public BlockState(short id, Map<String, String> properties) {
-            this.id = id;
-            this.properties = properties;
+        public BlockVariation(short metadata) {
+            this.metadata = metadata;
         }
 
-        public short getId() {
-            return id;
-        }
-
-        public Map<String, String> getProperties() {
-            return properties;
+        public short getMetadata() {
+            return metadata;
         }
 
         @Override
         public String toString() {
-            return "BlockState{" +
-                    "id=" + id +
-                    ", properties=" + properties +
+            return "BlockVariation{" +
+                    "id=" + metadata +
                     '}';
         }
     }

@@ -1,15 +1,14 @@
 package net.minestom.codegen.particles;
 
-import net.minestom.codegen.BasicEnumGenerator;
-import net.minestom.codegen.stats.StatsEnumGenerator;
-import net.minestom.server.registry.ResourceGatherer;
+import net.minestom.codegen.BasicPrismarineEnumGenerator;
+import net.minestom.codegen.PrismarinePaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
-public class ParticleEnumGenerator extends BasicEnumGenerator {
+public class ParticleEnumGenerator extends BasicPrismarineEnumGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ParticleEnumGenerator.class);
 
@@ -22,12 +21,6 @@ public class ParticleEnumGenerator extends BasicEnumGenerator {
 
         targetVersion = args[0];
 
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         String targetPart = DEFAULT_TARGET_PATH;
         if(args.length >= 2) {
             targetPart = args[1];
@@ -38,16 +31,16 @@ public class ParticleEnumGenerator extends BasicEnumGenerator {
             targetFolder.mkdirs();
         }
 
-        new ParticleEnumGenerator(targetFolder);
+        new ParticleEnumGenerator(targetVersion, targetFolder);
     }
 
-    private ParticleEnumGenerator(File targetFolder) throws IOException {
-        super(targetFolder);
+    private ParticleEnumGenerator(String targetVersion, File targetFolder) throws IOException {
+        super(targetVersion, targetFolder);
     }
 
     @Override
-    protected String getCategoryID() {
-        return "minecraft:particle_type";
+    protected File getCategoryFile(PrismarinePaths paths) {
+        return paths.getParticlesFile();
     }
 
     @Override

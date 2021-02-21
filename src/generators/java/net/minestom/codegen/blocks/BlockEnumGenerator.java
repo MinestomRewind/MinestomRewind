@@ -11,7 +11,6 @@ import net.minestom.codegen.PrismarinePaths;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockAlternative;
 import net.minestom.server.registry.Registries;
-import net.minestom.server.registry.ResourceGatherer;
 import net.minestom.server.utils.NamespaceID;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,8 +29,6 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BlockEnumGenerator.class);
 
-    public static final String MC_DATA_BLOCKS_PATH = "minecraft_data/reports/blocks.json";
-
     private final String targetVersion;
     private final File targetFolder;
 
@@ -46,12 +43,6 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         }
 
         targetVersion = args[0];
-
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         String targetPart = DEFAULT_TARGET_PATH;
         if (args.length >= 2) {
@@ -75,47 +66,45 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
     /**
      * Compiles all block information in a single location
      *
-     * @param dataBlocks
      * @param prismarineJSBlocks
      * @param burgerBlocks
      */
-    private Collection<BlockContainer> compile(List<DataReportBlock> dataBlocks, List<PrismarineJSBlock> prismarineJSBlocks, List<BurgerBlock> burgerBlocks) {
+    private Collection<BlockContainer> compile(List<PrismarineJSBlock> prismarineJSBlocks, List<BurgerBlock> burgerBlocks) {
         TreeSet<BlockContainer> blocks = new TreeSet<>(BlockContainer::compareTo);
         // ensure the 3 list have the same length and order
-        dataBlocks.sort(Comparator.comparing(block -> block.name.toString()));
         prismarineJSBlocks.sort(Comparator.comparing(block -> NamespaceID.from(block.name).toString()));
         burgerBlocks.sort(Comparator.comparing(block -> NamespaceID.from(block.text_id).toString()));
 
         // if one of these tests fail, you probably forgot to clear the minecraft_data cache before launching this program
-        if (dataBlocks.size() != prismarineJSBlocks.size()) {
-            throw new Error("minecraft_data block count is different from PrismarineJS count! Try clearing the minecraft_data cache");
-        }
         if (prismarineJSBlocks.size() != burgerBlocks.size()) {
             throw new Error("Burger's block count is different from PrismarineJS count! Try clearing the minecraft_data cache");
         }
 
-        for (int i = 0; i < dataBlocks.size(); i++) {
-            DataReportBlock data = dataBlocks.get(i);
+        for (int i = 0; i < prismarineJSBlocks.size(); i++) {
             PrismarineJSBlock prismarine = prismarineJSBlocks.get(i);
             BurgerBlock burger = burgerBlocks.get(i);
 
-            assert data.name.getPath().equals(prismarine.name) && prismarine.name.equalsIgnoreCase(burger.text_id);
+            BlockContainer.BlockVariation defaultVariation = new BlockContainer.BlockVariation((short) 0);
 
-            List<BlockContainer.BlockState> states = new LinkedList<>();
-            for (DataReportBlock.BlockState s : data.states) {
-                states.add(new BlockContainer.BlockState(s.id, s.properties));
+            List<BlockContainer.BlockVariation> variations = new LinkedList<>();
+            if (prismarine.variations == null) {
+                variations.add(defaultVariation);
+            } else {
+                for (PrismarineJSBlock.Variation s : prismarine.variations) {
+                    variations.add(new BlockContainer.BlockVariation(s.metadata));
+                }
             }
 
-            BlockContainer.BlockState defaultState = new BlockContainer.BlockState(data.defaultState.id, data.defaultState.properties);
+            NamespaceID name = NamespaceID.from("minecraft", prismarine.name);
 
-            BlockContainer block = new BlockContainer(prismarine.id, data.name, prismarine.hardness, burger.resistance, burger.blockEntity == null ? null : NamespaceID.from(burger.blockEntity.name), defaultState, states);
+            BlockContainer block = new BlockContainer(prismarine.id, name, prismarine.hardness, burger.resistance, burger.blockEntity == null ? null : NamespaceID.from(burger.blockEntity.name), defaultVariation, variations);
             if (!"empty".equals(prismarine.boundingBox)) {
                 block.setSolid();
             }
-            if (data.name.equals(NamespaceID.from("minecraft:water")) || data.name.equals(NamespaceID.from("minecraft:lava"))) {
+            if (name.equals(NamespaceID.from("minecraft:water")) || name.equals(NamespaceID.from("minecraft:flowing_water")) || name.equals(NamespaceID.from("minecraft:lava")) || name.equals(NamespaceID.from("minecraft:flowing_lava"))) {
                 block.setLiquid();
             }
-            boolean isAir = data.name.equals(NamespaceID.from("minecraft:air")) || data.name.getPath().endsWith("_air");
+            boolean isAir = name.equals(NamespaceID.from("minecraft:air"));
             if (isAir) {
                 block.setAir();
             }
@@ -130,13 +119,12 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
      * Extracts block information from Burger
      *
      * @param gson
-     * @param url
+     * @param path
      * @return
      * @throws IOException
      */
-    private List<BurgerBlock> parseBlocksFromBurger(Gson gson, String url) throws IOException {
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {
-            LOGGER.debug("\tConnection established, reading file");
+    private List<BurgerBlock> parseBlocksFromBurger(Gson gson, String path) throws IOException {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             JsonObject dictionary = gson.fromJson(bufferedReader, JsonArray.class).get(0).getAsJsonObject();
             JsonObject tileEntityMap = dictionary.getAsJsonObject("tileentity").getAsJsonObject("tileentities");
 
@@ -179,35 +167,6 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         }
     }
 
-    /**
-     * Extract block information from reports generated by the data extractor present in minecraft_server.jar
-     *
-     * @param gson
-     * @param path
-     * @return
-     */
-    private List<DataReportBlock> parseBlocksFromMCData(Gson gson, String path) {
-        List<DataReportBlock> blocks = new LinkedList<>();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-
-            JsonObject obj = gson.fromJson(bufferedReader, JsonObject.class);
-            for (var entry : obj.entrySet()) {
-                NamespaceID id = NamespaceID.from(entry.getKey());
-                JsonElement blockInfo = entry.getValue();
-                DataReportBlock block = gson.fromJson(blockInfo, DataReportBlock.class);
-                block.bindDefaultState();
-                block.name = id;
-
-                blocks.add(block);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return blocks;
-    }
-
     @Override
     public String getPackageName() {
         return "net.minestom.server.instance.block";
@@ -222,9 +181,6 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
     protected Collection<BlockContainer> compile() throws IOException {
         Gson gson = new Gson();
 
-        // load report blocks and block states
-        LOGGER.debug("Loading information from data extraction");
-        List<DataReportBlock> dataBlocks = parseBlocksFromMCData(gson, MC_DATA_BLOCKS_PATH);
         // load properties from Prismarine
         LOGGER.debug("Finding path for PrismarineJS blocks");
         JsonObject dataPaths = gson.fromJson(new BufferedReader(new FileReader(PRISMARINE_JS_DATA_PATHS)), JsonObject.class);
@@ -238,7 +194,7 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         List<BurgerBlock> burgerBlocks = parseBlocksFromBurger(gson, BURGER_URL_BASE_URL + targetVersion + ".json");
 
         LOGGER.debug("Compiling information");
-        return compile(dataBlocks, prismarineJSBlocks, burgerBlocks);
+        return compile(prismarineJSBlocks, burgerBlocks);
     }
 
     @Override
@@ -271,32 +227,32 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         generator.addMethod("breaksInstantaneously", new ParameterSpec[0], TypeName.BOOLEAN, code -> code.addStatement("return hardness == 0"));
         generator.addMethod("addBlockAlternative", new ParameterSpec[]{ParameterSpec.builder(BlockAlternative.class, "alternative").build()}, TypeName.VOID, code -> {
             code.addStatement("alternatives.add(alternative)")
-                .addStatement("$T.blocks[alternative.getId()] = this", ClassName.get("net.minestom.server.instance.block", "BlockArray"));
+                    .addStatement("$T.blocks[alternative.getId()] = this", ClassName.get("net.minestom.server.instance.block", "BlockArray"));
         });
 
         generator.addMethod("getAlternative", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockId").build()}, ClassName.get(BlockAlternative.class), code -> {
             code.beginControlFlow("for($T alt : alternatives)", BlockAlternative.class)
                     .beginControlFlow("if(alt.getId() == blockId)")
-                        .addStatement("return alt")
+                    .addStatement("return alt")
                     .endControlFlow()
-                .endControlFlow()
-                .addStatement("return null");
+                    .endControlFlow()
+                    .addStatement("return null");
         });
         generator.addMethod("getAlternatives", new ParameterSpec[0], ParameterizedTypeName.get(List.class, BlockAlternative.class), code -> code.addStatement("return alternatives"));
         generator.addVarargMethod("withProperties", new ParameterSpec[]{ParameterSpec.builder(String[].class, "properties").build()}, TypeName.SHORT, code -> {
             code.beginControlFlow("for($T alt : alternatives)", BlockAlternative.class)
                     .beginControlFlow("if($T.equals(alt.getProperties(), properties))", Arrays.class)
-                        .addStatement("return alt.getId()")
+                    .addStatement("return alt.getId()")
                     .endControlFlow()
-                .endControlFlow()
-                .addStatement("return defaultID");
+                    .endControlFlow()
+                    .addStatement("return defaultID");
         });
         generator.addStaticMethod("fromStateId", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockStateId").build()}, className, code -> code.addStatement("return $T.blocks[blockStateId]", ClassName.get("net.minestom.server.instance.block", "BlockArray")));
         generator.appendToConstructor(code -> {
             code.beginControlFlow("if(singleState)")
                     .addStatement("addBlockAlternative(new BlockAlternative(defaultID))")
-                .endControlFlow()
-                .addStatement("$T.blocks.put($T.from(namespaceID), this)", Registries.class, NamespaceID.class);
+                    .endControlFlow()
+                    .addStatement("$T.blocks.put($T.from(namespaceID), this)", Registries.class, NamespaceID.class);
         });
     }
 
@@ -305,19 +261,19 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         String instanceName = block.getId().getPath().toUpperCase();
         generator.addInstance(instanceName,
                 "\"" + block.getId().toString() + "\"",
-                "(short) " + block.getDefaultState().getId(),
+                "(short) " + block.getDefaultVariation().getMetadata(),
                 block.getHardness(),
                 block.getResistance(),
                 block.isAir(),
                 block.isSolid(),
                 block.getBlockEntityName() != null ? "NamespaceID.from(\"" + block.getBlockEntityName() + "\")" : "null",
-                block.getStates().size() == 1 // used to avoid duplicates inside the 'alternatives' field due to both constructor addition and subclasses initStates()
+                block.getVariations().size() == 1 // used to avoid duplicates inside the 'alternatives' field due to both constructor addition and subclasses initStates()
         );
 
-        if (block.getStates().size() > 1) {
+        if (block.getVariations().size() > 1) {
             String blockName = snakeCaseToCapitalizedCamelCase(block.getId().getPath());
             blockName = blockName.replace("_", "");
-            staticBlock.addStatement("$T.initStates()", ClassName.get(getPackageName()+".states", blockName));
+            staticBlock.addStatement("$T.initStates()", ClassName.get(getPackageName() + ".states", blockName));
         }
     }
 
@@ -335,9 +291,9 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
 
         final String warningComment = "Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.";
         final AnnotationSpec internalUseAnnotation = AnnotationSpec.builder(Deprecated.class).addMember("since", "$S", "forever").addMember("forRemoval", "$L", false).build();
-        for(BlockContainer block : items) {
+        for (BlockContainer block : items) {
             // do not add alternative for default states. This will be added by default inside the constructor
-            if (block.getStates().size() > 1) {
+            if (block.getVariations().size() > 1) {
                 String blockName = snakeCaseToCapitalizedCamelCase(block.getId().getPath());
                 blockName = blockName.replace("_", "");
                 TypeSpec.Builder subclass = TypeSpec.classBuilder(blockName)
@@ -351,24 +307,17 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
                         .addAnnotation(internalUseAnnotation)
                         .addJavadoc(warningComment);
 
-                for (BlockContainer.BlockState state : block.getStates()) {
-                    if (state == block.getDefaultState())
+                for (BlockContainer.BlockVariation state : block.getVariations()) {
+                    if (state == block.getDefaultVariation())
                         continue;
                     // generate BlockAlternative instance that will be used to lookup block alternatives
                     StringBuilder propertyList = new StringBuilder();
-                    // add block state properties if applicable
-                    if (state.getProperties() != null) {
-                        for (var property : state.getProperties().entrySet()) {
-                            propertyList.append(", ");
-                            propertyList.append("\"").append(property.getKey()).append("=").append(property.getValue()).append("\"");
-                        }
-                    }
-                    initStatesMethod.addStatement("$T.$N.addBlockAlternative(new $T((short) $L"+propertyList+"))", Block.class, block.getId().getPath().toUpperCase(), BlockAlternative.class, state.getId());
+                    initStatesMethod.addStatement("$T.$N.addBlockAlternative(new $T((short) $L" + propertyList + "))", Block.class, block.getId().getPath().toUpperCase(), BlockAlternative.class, state.getMetadata());
                 }
                 subclass.addMethod(initStatesMethod.build());
-                staticBlock.addStatement("$T.initStates()", ClassName.get(getPackageName()+".states", blockName));
+                staticBlock.addStatement("$T.initStates()", ClassName.get(getPackageName() + ".states", blockName));
 
-                additionalFiles.add(JavaFile.builder(getPackageName()+".states", subclass.build())
+                additionalFiles.add(JavaFile.builder(getPackageName() + ".states", subclass.build())
                         .indent("    ")
                         .skipJavaLangImports(true)
                         .build());

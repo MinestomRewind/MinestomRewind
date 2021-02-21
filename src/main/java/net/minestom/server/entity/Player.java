@@ -850,7 +850,7 @@ public class Player extends LivingEntity implements CommandSender {
      */
     public void playSound(@NotNull Sound sound, @NotNull SoundCategory soundCategory, int x, int y, int z, float volume, float pitch) {
         SoundEffectPacket soundEffectPacket = new SoundEffectPacket();
-        soundEffectPacket.soundId = sound.getId();
+        soundEffectPacket.soundId = 0; // TODO(koesie10): Use the correct sound name
         soundEffectPacket.soundCategory = soundCategory;
         soundEffectPacket.x = x;
         soundEffectPacket.y = y;

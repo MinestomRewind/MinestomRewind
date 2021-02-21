@@ -1,5 +1,7 @@
 package net.minestom.codegen.blocks;
 
+import java.util.List;
+
 public class PrismarineJSBlock {
 
     int id;
@@ -12,6 +14,7 @@ public class PrismarineJSBlock {
     String boundingBox;
     int stackSize;
     String material;
+    List<Variation> variations;
 
     @Override
     public String toString() {
@@ -27,6 +30,17 @@ public class PrismarineJSBlock {
                 ", stackSize=" + stackSize +
                 ", material='" + material + '\'' +
                 '}';
+    }
+
+    public static class Variation {
+        short metadata;
+
+        @Override
+        public String toString() {
+            return "blocks.PrismarineJSBlock.Variation{" +
+                    "metadata=" + metadata +
+                    '}';
+        }
     }
 
     /*

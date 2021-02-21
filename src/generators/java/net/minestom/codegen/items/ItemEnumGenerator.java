@@ -6,10 +6,8 @@ import com.google.gson.JsonObject;
 import com.squareup.javapoet.*;
 import net.minestom.codegen.EnumGenerator;
 import net.minestom.codegen.MinestomEnumGenerator;
-import net.minestom.codegen.PrismarinePaths;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.registry.Registries;
-import net.minestom.server.registry.ResourceGatherer;
 import net.minestom.server.utils.NamespaceID;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,12 +39,6 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
 
         targetVersion = args[0];
 
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         String targetPart = DEFAULT_TARGET_PATH;
         if (args.length >= 2) {
             targetPart = args[1];
@@ -70,12 +62,12 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
      * Extract item information from Burger (submodule of Minestom)
      *
      * @param gson
-     * @param url
+     * @param path
      * @return
      * @throws IOException
      */
-    private List<BurgerItem> parseItemsFromBurger(Gson gson, String url) throws IOException {
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new URL(url).openStream()))) {
+    private List<BurgerItem> parseItemsFromBurger(Gson gson, String path) throws IOException {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             LOGGER.debug("\tConnection established, reading file");
             JsonObject dictionary = gson.fromJson(bufferedReader, JsonArray.class).get(0).getAsJsonObject();
             JsonObject itemMap = dictionary.getAsJsonObject("items").getAsJsonObject("item");
@@ -101,18 +93,16 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
     @Override
     protected Collection<ItemContainer> compile() throws IOException {
         Gson gson = new Gson();
-        LOGGER.debug("Finding path for PrismarineJS items");
-        JsonObject dataPaths = gson.fromJson(new BufferedReader(new FileReader(PRISMARINE_JS_DATA_PATHS)), JsonObject.class);
-        JsonObject pathsJson = dataPaths.getAsJsonObject("pc").getAsJsonObject(targetVersion);
-
-        PrismarinePaths paths = gson.fromJson(pathsJson, PrismarinePaths.class);
-        LOGGER.debug("Loading PrismarineJS blocks data");
         List<BurgerItem> burgerItems = parseItemsFromBurger(gson, BURGER_URL_BASE_URL + targetVersion + ".json");
 
         TreeSet<ItemContainer> items = new TreeSet<>(ItemContainer::compareTo);
         for (var burgerItem : burgerItems) {
             items.add(new ItemContainer(burgerItem.numeric_id, NamespaceID.from("minecraft:" + burgerItem.text_id), burgerItem.max_stack_size, getBlock(burgerItem.text_id.toUpperCase())));
         }
+
+        // This will only add it if it doesn't already exists
+        items.add(new ItemContainer(0, NamespaceID.from("minecraft", "air"), 64, Block.AIR));
+
         return items;
     }
 

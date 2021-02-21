@@ -1,15 +1,14 @@
 package net.minestom.codegen.enchantment;
 
-import net.minestom.codegen.BasicEnumGenerator;
-import net.minestom.codegen.stats.StatsEnumGenerator;
-import net.minestom.server.registry.ResourceGatherer;
+import net.minestom.codegen.BasicPrismarineEnumGenerator;
+import net.minestom.codegen.PrismarinePaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
-public class EnchantmentEnumGenerator extends BasicEnumGenerator {
+public class EnchantmentEnumGenerator extends BasicPrismarineEnumGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EnchantmentEnumGenerator.class);
 
@@ -22,12 +21,6 @@ public class EnchantmentEnumGenerator extends BasicEnumGenerator {
 
         targetVersion = args[0];
 
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         String targetPart = DEFAULT_TARGET_PATH;
         if(args.length >= 2) {
             targetPart = args[1];
@@ -38,16 +31,16 @@ public class EnchantmentEnumGenerator extends BasicEnumGenerator {
             targetFolder.mkdirs();
         }
 
-        new EnchantmentEnumGenerator(targetFolder);
+        new EnchantmentEnumGenerator(targetVersion, targetFolder);
     }
 
-    private EnchantmentEnumGenerator(File targetFolder) throws IOException {
-        super(targetFolder);
+    private EnchantmentEnumGenerator(String targetVersion, File targetFolder) throws IOException {
+        super(targetVersion, targetFolder);
     }
 
     @Override
-    protected String getCategoryID() {
-        return "minecraft:enchantment";
+    protected File getCategoryFile(PrismarinePaths paths) {
+        return paths.getEnchantmentsFile();
     }
 
     @Override

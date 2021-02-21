@@ -672,10 +672,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      */
     @Nullable
     private ItemMeta findMeta() {
-        if (material == Material.POTION ||
-                material == Material.LINGERING_POTION ||
-                material == Material.SPLASH_POTION ||
-                material == Material.TIPPED_ARROW)
+        if (material == Material.POTION)
             return new PotionMeta();
 
         if (material == Material.FILLED_MAP)
@@ -687,23 +684,20 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
         if (material == Material.ENCHANTED_BOOK)
             return new EnchantedBookMeta();
 
-        if (material == Material.CROSSBOW)
-            return new CrossbowMeta();
-
         if (material == Material.WRITABLE_BOOK)
             return new WritableBookMeta();
 
         if (material == Material.WRITTEN_BOOK)
             return new WrittenBookMeta();
 
-        if (material == Material.FIREWORK_STAR)
+        if (material == Material.FIREWORK_CHARGE)
             return new FireworkEffectMeta();
 
-        if (material == Material.FIREWORK_ROCKET)
+        if (material == Material.FIREWORKS)
             return new FireworkMeta();
 
-        if (material == Material.PLAYER_HEAD)
-            return new PlayerHeadMeta();
+        if (material == Material.SKULL)
+            return new SkullMeta();
 
         if (material == Material.LEATHER_HELMET ||
                 material == Material.LEATHER_CHESTPLATE ||

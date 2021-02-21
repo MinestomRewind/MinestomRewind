@@ -3,6 +3,8 @@ package net.minestom.codegen.items;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.utils.NamespaceID;
 
+import java.util.Objects;
+
 public class ItemContainer implements Comparable<ItemContainer> {
     private int id;
     private NamespaceID name;
@@ -35,5 +37,18 @@ public class ItemContainer implements Comparable<ItemContainer> {
     @Override
     public int compareTo(ItemContainer o) {
         return Integer.compare(id, o.id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemContainer that = (ItemContainer) o;
+        return id == that.id && Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

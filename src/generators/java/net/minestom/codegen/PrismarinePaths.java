@@ -6,12 +6,14 @@ public class PrismarinePaths {
 
     private String blocks;
     private String biomes;
+    private String enchantments;
     private String effects;
     private String items;
     private String recipes;
     private String instruments;
     private String materials;
     private String entities;
+    private String particles;
     private String protocol;
     private String windows;
     private String version;
@@ -27,6 +29,22 @@ public class PrismarinePaths {
 
     public File getBiomesFile() {
         return getFile(biomes, "biomes");
+    }
+
+    public File getEnchantmentsFile() {
+        return getFile(enchantments, "enchantments");
+    }
+
+    public File getEffectsFile() {
+        return getFile(effects, "effects");
+    }
+
+    public File getEntitiesFile() {
+        return getFile(entities, "entities");
+    }
+
+    public File getParticlesFile() {
+        return getFile(particles, "particles");
     }
 
     public File getFile(String path, String type) {
