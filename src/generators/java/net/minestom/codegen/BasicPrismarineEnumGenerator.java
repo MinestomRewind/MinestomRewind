@@ -88,7 +88,7 @@ public abstract class BasicPrismarineEnumGenerator extends MinestomEnumGenerator
             );
         } else {
             generator.addStaticMethod("fromId", signature, className, code -> {
-                        code.beginControlFlow("for ($T o : values())")
+                        code.beginControlFlow("for ($T o : values())", className)
                                 .beginControlFlow("if (o.getId() == id)")
                                 .addStatement("return o")
                                 .endControlFlow()
@@ -99,7 +99,7 @@ public abstract class BasicPrismarineEnumGenerator extends MinestomEnumGenerator
         }
     }
 
-    private String identifier(NamespaceID id) {
+    protected String identifier(NamespaceID id) {
         return id.getPath().toUpperCase().replace(".", "_"); // block.ambient.cave will be replaced by "BLOCK_AMBIENT_CAVE"
     }
 

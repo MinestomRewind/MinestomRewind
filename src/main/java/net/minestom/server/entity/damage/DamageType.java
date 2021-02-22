@@ -24,12 +24,7 @@ public class DamageType implements DataContainer {
 
     public static final DamageType VOID = new DamageType("attack.outOfWorld");
     public static final DamageType GRAVITY = new DamageType("attack.fall");
-    public static final DamageType ON_FIRE = new DamageType("attack.onFire") {
-        @Override
-        protected Sound getPlayerSound(@NotNull Player player) {
-            return Sound.ENTITY_PLAYER_HURT_ON_FIRE;
-        }
-    };
+    public static final DamageType ON_FIRE = new DamageType("attack.onFire");
     private final String identifier;
     private Data data;
 
@@ -129,11 +124,29 @@ public class DamageType implements DataContainer {
     }
 
     protected Sound getGenericSound(@NotNull LivingEntity entity) {
-        return Sound.ENTITY_GENERIC_HURT;
+        switch (entity.getEntityType()) {
+            case BAT:
+                return Sound.MOB_BAT_HURT;
+            case CHICKEN:
+                return Sound.MOB_CHICKEN_HURT;
+            case COW:
+                return Sound.MOB_COW_HURT;
+            case RABBIT:
+                return Sound.MOB_RABBIT_HURT;
+            case SKELETON:
+                return Sound.MOB_SKELETON_HURT;
+            case WITHER_BOSS:
+                return Sound.MOB_WITHER_HURT;
+            case WOLF:
+                return Sound.MOB_WOLF_HURT;
+            case ZOMBIE:
+                return Sound.MOB_ZOMBIE_HURT;
+        }
+        return Sound.GAME_NEUTRAL_HURT;
     }
 
     protected Sound getPlayerSound(@NotNull Player player) {
-        return Sound.ENTITY_PLAYER_HURT;
+        return Sound.GAME_NEUTRAL_HURT;
     }
 
     @Override

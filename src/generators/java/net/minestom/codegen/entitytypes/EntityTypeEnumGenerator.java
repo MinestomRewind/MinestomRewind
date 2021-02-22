@@ -1,7 +1,9 @@
 package net.minestom.codegen.entitytypes;
 
+import com.google.common.base.CaseFormat;
 import net.minestom.codegen.BasicPrismarineEnumGenerator;
 import net.minestom.codegen.PrismarinePaths;
+import net.minestom.server.utils.NamespaceID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +43,11 @@ public class EntityTypeEnumGenerator extends BasicPrismarineEnumGenerator {
     @Override
     protected File getCategoryFile(PrismarinePaths paths) {
         return paths.getEntitiesFile();
+    }
+
+    @Override
+    protected String identifier(NamespaceID id) {
+        return CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, id.getPath()); // CaveSpider will be replaced by "CAVE_SPIDER"
     }
 
     @Override

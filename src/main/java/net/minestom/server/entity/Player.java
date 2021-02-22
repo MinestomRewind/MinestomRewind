@@ -196,7 +196,7 @@ public class Player extends LivingEntity implements CommandSender {
     private final PlayerTickEvent playerTickEvent = new PlayerTickEvent(this);
 
     public Player(@NotNull UUID uuid, @NotNull String username, @NotNull PlayerConnection playerConnection) {
-        super(EntityType.PLAYER, uuid);
+        super(null, uuid);
         this.username = username;
         this.playerConnection = playerConnection;
 
@@ -894,7 +894,7 @@ public class Player extends LivingEntity implements CommandSender {
     public void playSound(@NotNull Sound sound, @NotNull SoundCategory soundCategory, float volume, float pitch) {
         EntitySoundEffectPacket entitySoundEffectPacket = new EntitySoundEffectPacket();
         entitySoundEffectPacket.entityId = getEntityId();
-        entitySoundEffectPacket.soundId = sound.getId();
+        entitySoundEffectPacket.soundId = 0; // TODO(koesie10): Use the correct sound name
         entitySoundEffectPacket.soundCategory = soundCategory;
         entitySoundEffectPacket.volume = volume;
         entitySoundEffectPacket.pitch = pitch;

@@ -11,7 +11,7 @@ import net.minestom.server.utils.Position;
 public class EntityEyeOfEnder extends ObjectEntity implements Projectile {
 
     public EntityEyeOfEnder(Position spawnPosition) {
-        super(EntityType.EYE_OF_ENDER, spawnPosition);
+        super(EntityType.EYE_OF_ENDER_SIGNAL, spawnPosition);
     }
 
 

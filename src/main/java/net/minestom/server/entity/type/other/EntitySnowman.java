@@ -9,7 +9,7 @@ import net.minestom.server.utils.Position;
 public class EntitySnowman extends EntityCreature implements Constructable {
 
     public EntitySnowman(Position spawnPosition) {
-        super(EntityType.SNOW_GOLEM, spawnPosition);
+        super(EntityType.SNOW_MAN, spawnPosition);
         setBoundingBox(0.7f, 1.9f, 0.7f);
     }
 

@@ -71,7 +71,7 @@ public class TestLootTables {
         Assertions.assertTrue(lootTable.getPools().get(0).getEntries().get(0).getType() instanceof ItemType);
         Assertions.assertTrue(lootTable.getPools().get(0).getEntries().get(0) instanceof ItemEntry);
         ItemEntry entry = (ItemEntry) lootTable.getPools().get(0).getEntries().get(0);
-        Assertions.assertEquals(Material.ACACIA_BUTTON, entry.getItem());
+        Assertions.assertEquals(Material.WOODEN_BUTTON, entry.getItem());
         Assertions.assertEquals(0, entry.getFunctions().size());
         Assertions.assertEquals(1, lootTable.getPools().get(0).getConditions().size());
         Assertions.assertTrue(lootTable.getPools().get(0).getConditions().get(0) instanceof SurvivesExplosionCondition);
@@ -88,7 +88,7 @@ public class TestLootTables {
         Assertions.assertTrue(lootTable.getPools().get(0).getEntries().get(0).getType() instanceof ItemType);
         Assertions.assertTrue(lootTable.getPools().get(0).getEntries().get(0) instanceof ItemEntry);
         ItemEntry entry = (ItemEntry) lootTable.getPools().get(0).getEntries().get(0);
-        Assertions.assertEquals(Material.ACACIA_BUTTON, entry.getItem());
+        Assertions.assertEquals(Material.WOODEN_BUTTON, entry.getItem());
         Assertions.assertEquals(0, entry.getFunctions().size());
         Assertions.assertEquals(1, lootTable.getPools().get(0).getConditions().size());
         Assertions.assertTrue(lootTable.getPools().get(0).getConditions().get(0) instanceof SurvivesExplosionCondition);
@@ -107,7 +107,7 @@ public class TestLootTables {
         Data arguments = new DataImpl();
         List<ItemStack> stacks = lootTable.generate(arguments);
         Assertions.assertEquals(1, stacks.size());
-        Assertions.assertEquals(Material.ACACIA_BUTTON, stacks.get(0).getMaterial());
+        Assertions.assertEquals(Material.WOODEN_BUTTON, stacks.get(0).getMaterial());
     }
 
     @Test

@@ -1,7 +1,9 @@
 package net.minestom.codegen.potions;
 
+import com.google.common.base.CaseFormat;
 import net.minestom.codegen.BasicPrismarineEnumGenerator;
 import net.minestom.codegen.PrismarinePaths;
+import net.minestom.server.utils.NamespaceID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,11 @@ public class PotionEffectEnumGenerator extends BasicPrismarineEnumGenerator {
 
     private PotionEffectEnumGenerator(String targetVersion, File targetFolder) throws IOException {
         super(targetVersion, targetFolder, true, true);
+    }
+
+    @Override
+    protected String identifier(NamespaceID id) {
+        return CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, id.getPath()); // MiningFatigue will be replaced by "MINING_FATIGUE"
     }
 
     @Override

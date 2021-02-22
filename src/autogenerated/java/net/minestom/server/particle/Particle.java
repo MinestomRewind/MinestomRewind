@@ -10,149 +10,89 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum Particle {
-    AMBIENT_ENTITY_EFFECT("minecraft:ambient_entity_effect"),
+    EXPLODE("minecraft:explode"),
 
-    ANGRY_VILLAGER("minecraft:angry_villager"),
+    LARGEEXPLODE("minecraft:largeexplode"),
 
-    BARRIER("minecraft:barrier"),
+    HUGEEXPLOSION("minecraft:hugeexplosion"),
 
-    BLOCK("minecraft:block"),
+    FIREWORKSSPARK("minecraft:fireworksSpark"),
 
     BUBBLE("minecraft:bubble"),
 
-    CLOUD("minecraft:cloud"),
+    SPLASH("minecraft:splash"),
+
+    WAKE("minecraft:wake"),
+
+    SUSPENDED("minecraft:suspended"),
+
+    DEPTHSUSPEND("minecraft:depthsuspend"),
 
     CRIT("minecraft:crit"),
 
-    DAMAGE_INDICATOR("minecraft:damage_indicator"),
-
-    DRAGON_BREATH("minecraft:dragon_breath"),
-
-    DRIPPING_LAVA("minecraft:dripping_lava"),
-
-    FALLING_LAVA("minecraft:falling_lava"),
-
-    LANDING_LAVA("minecraft:landing_lava"),
-
-    DRIPPING_WATER("minecraft:dripping_water"),
-
-    FALLING_WATER("minecraft:falling_water"),
-
-    DUST("minecraft:dust"),
-
-    EFFECT("minecraft:effect"),
-
-    ELDER_GUARDIAN("minecraft:elder_guardian"),
-
-    ENCHANTED_HIT("minecraft:enchanted_hit"),
-
-    ENCHANT("minecraft:enchant"),
-
-    END_ROD("minecraft:end_rod"),
-
-    ENTITY_EFFECT("minecraft:entity_effect"),
-
-    EXPLOSION_EMITTER("minecraft:explosion_emitter"),
-
-    EXPLOSION("minecraft:explosion"),
-
-    FALLING_DUST("minecraft:falling_dust"),
-
-    FIREWORK("minecraft:firework"),
-
-    FISHING("minecraft:fishing"),
-
-    FLAME("minecraft:flame"),
-
-    SOUL_FIRE_FLAME("minecraft:soul_fire_flame"),
-
-    SOUL("minecraft:soul"),
-
-    FLASH("minecraft:flash"),
-
-    HAPPY_VILLAGER("minecraft:happy_villager"),
-
-    COMPOSTER("minecraft:composter"),
-
-    HEART("minecraft:heart"),
-
-    INSTANT_EFFECT("minecraft:instant_effect"),
-
-    ITEM("minecraft:item"),
-
-    ITEM_SLIME("minecraft:item_slime"),
-
-    ITEM_SNOWBALL("minecraft:item_snowball"),
-
-    LARGE_SMOKE("minecraft:large_smoke"),
-
-    LAVA("minecraft:lava"),
-
-    MYCELIUM("minecraft:mycelium"),
-
-    NOTE("minecraft:note"),
-
-    POOF("minecraft:poof"),
-
-    PORTAL("minecraft:portal"),
-
-    RAIN("minecraft:rain"),
+    MAGICCRIT("minecraft:magicCrit"),
 
     SMOKE("minecraft:smoke"),
 
-    SNEEZE("minecraft:sneeze"),
+    LARGESMOKE("minecraft:largesmoke"),
 
-    SPIT("minecraft:spit"),
+    SPELL("minecraft:spell"),
 
-    SQUID_INK("minecraft:squid_ink"),
+    INSTANTSPELL("minecraft:instantSpell"),
 
-    SWEEP_ATTACK("minecraft:sweep_attack"),
+    MOBSPELL("minecraft:mobSpell"),
 
-    TOTEM_OF_UNDYING("minecraft:totem_of_undying"),
+    MOBSPELLAMBIENT("minecraft:mobSpellAmbient"),
 
-    UNDERWATER("minecraft:underwater"),
+    WITCHMAGIC("minecraft:witchMagic"),
 
-    SPLASH("minecraft:splash"),
+    DRIPWATER("minecraft:dripWater"),
 
-    WITCH("minecraft:witch"),
+    DRIPLAVA("minecraft:dripLava"),
 
-    BUBBLE_POP("minecraft:bubble_pop"),
+    ANGRYVILLAGER("minecraft:angryVillager"),
 
-    CURRENT_DOWN("minecraft:current_down"),
+    HAPPYVILLAGER("minecraft:happyVillager"),
 
-    BUBBLE_COLUMN_UP("minecraft:bubble_column_up"),
+    TOWNAURA("minecraft:townaura"),
 
-    NAUTILUS("minecraft:nautilus"),
+    NOTE("minecraft:note"),
 
-    DOLPHIN("minecraft:dolphin"),
+    PORTAL("minecraft:portal"),
 
-    CAMPFIRE_COSY_SMOKE("minecraft:campfire_cosy_smoke"),
+    ENCHANTMENTTABLE("minecraft:enchantmenttable"),
 
-    CAMPFIRE_SIGNAL_SMOKE("minecraft:campfire_signal_smoke"),
+    FLAME("minecraft:flame"),
 
-    DRIPPING_HONEY("minecraft:dripping_honey"),
+    LAVA("minecraft:lava"),
 
-    FALLING_HONEY("minecraft:falling_honey"),
+    FOOTSTEP("minecraft:footstep"),
 
-    LANDING_HONEY("minecraft:landing_honey"),
+    CLOUD("minecraft:cloud"),
 
-    FALLING_NECTAR("minecraft:falling_nectar"),
+    REDDUST("minecraft:reddust"),
 
-    ASH("minecraft:ash"),
+    SNOWBALLPOOF("minecraft:snowballpoof"),
 
-    CRIMSON_SPORE("minecraft:crimson_spore"),
+    SNOWSHOVEL("minecraft:snowshovel"),
 
-    WARPED_SPORE("minecraft:warped_spore"),
+    SLIME("minecraft:slime"),
 
-    DRIPPING_OBSIDIAN_TEAR("minecraft:dripping_obsidian_tear"),
+    HEART("minecraft:heart"),
 
-    FALLING_OBSIDIAN_TEAR("minecraft:falling_obsidian_tear"),
+    BARRIER("minecraft:barrier"),
 
-    LANDING_OBSIDIAN_TEAR("minecraft:landing_obsidian_tear"),
+    ICONCRACK_("minecraft:iconcrack_"),
 
-    REVERSE_PORTAL("minecraft:reverse_portal"),
+    BLOCKCRACK_("minecraft:blockcrack_"),
 
-    WHITE_ASH("minecraft:white_ash");
+    BLOCKDUST_("minecraft:blockdust_"),
+
+    DROPLET("minecraft:droplet"),
+
+    TAKE("minecraft:take"),
+
+    MOBAPPEARANCE("minecraft:mobappearance");
 
     private String namespaceID;
 

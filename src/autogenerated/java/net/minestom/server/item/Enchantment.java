@@ -28,12 +28,6 @@ public enum Enchantment {
 
     DEPTH_STRIDER("minecraft:depth_strider"),
 
-    FROST_WALKER("minecraft:frost_walker"),
-
-    BINDING_CURSE("minecraft:binding_curse"),
-
-    SOUL_SPEED("minecraft:soul_speed"),
-
     SHARPNESS("minecraft:sharpness"),
 
     SMITE("minecraft:smite"),
@@ -45,8 +39,6 @@ public enum Enchantment {
     FIRE_ASPECT("minecraft:fire_aspect"),
 
     LOOTING("minecraft:looting"),
-
-    SWEEPING("minecraft:sweeping"),
 
     EFFICIENCY("minecraft:efficiency"),
 
@@ -66,25 +58,7 @@ public enum Enchantment {
 
     LUCK_OF_THE_SEA("minecraft:luck_of_the_sea"),
 
-    LURE("minecraft:lure"),
-
-    LOYALTY("minecraft:loyalty"),
-
-    IMPALING("minecraft:impaling"),
-
-    RIPTIDE("minecraft:riptide"),
-
-    CHANNELING("minecraft:channeling"),
-
-    MULTISHOT("minecraft:multishot"),
-
-    QUICK_CHARGE("minecraft:quick_charge"),
-
-    PIERCING("minecraft:piercing"),
-
-    MENDING("minecraft:mending"),
-
-    VANISHING_CURSE("minecraft:vanishing_curse");
+    LURE("minecraft:lure");
 
     private String namespaceID;
 

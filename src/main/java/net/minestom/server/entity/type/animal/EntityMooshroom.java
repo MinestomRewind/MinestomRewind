@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class EntityMooshroom extends EntityCreature implements Animal {
 
     public EntityMooshroom(Position spawnPosition) {
-        super(EntityType.MOOSHROOM, spawnPosition);
+        super(EntityType.MUSHROOM_COW, spawnPosition);
         setBoundingBox(0.9f, 1.4f, 0.9f);
     }
 

@@ -43,7 +43,7 @@ public class NoiseTestGenerator implements ChunkGenerator {
                     if (y == 0) {
                         batch.setBlock(x, y, z, Block.BEDROCK);
                     } else if (y == height - 1) {
-                        batch.setBlock(x, y, z, Block.GRASS_BLOCK);
+                        batch.setBlock(x, y, z, Block.GRASS);
                     } else if (y > height - 7) {
                         // Data for debugging purpose
                         //SerializableData serializableData = new SerializableDataImpl();
@@ -82,88 +82,88 @@ public class NoiseTestGenerator implements ChunkGenerator {
         public TreePopulator() {
             tree = new Structure();
             tree.addBlock(Block.DIRT, 0, -1, 0);
-            tree.addBlock(Block.OAK_LOG, 0, 0, 0);
-            tree.addBlock(Block.OAK_LOG, 0, 1, 0);
-            tree.addBlock(Block.OAK_LOG, 0, 2, 0);
-            tree.addBlock(Block.OAK_LOG, 0, 3, 0);
+            tree.addBlock(Block.LOG, 0, 0, 0);
+            tree.addBlock(Block.LOG, 0, 1, 0);
+            tree.addBlock(Block.LOG, 0, 2, 0);
+            tree.addBlock(Block.LOG, 0, 3, 0);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 1, 0);
-            tree.addBlock(Block.OAK_LEAVES, 2, 1, 0);
-            tree.addBlock(Block.OAK_LEAVES, -1, 1, 0);
-            tree.addBlock(Block.OAK_LEAVES, -2, 1, 0);
+            tree.addBlock(Block.LEAVES, 1, 1, 0);
+            tree.addBlock(Block.LEAVES, 2, 1, 0);
+            tree.addBlock(Block.LEAVES, -1, 1, 0);
+            tree.addBlock(Block.LEAVES, -2, 1, 0);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 1, 1);
-            tree.addBlock(Block.OAK_LEAVES, 2, 1, 1);
-            tree.addBlock(Block.OAK_LEAVES, 0, 1, 1);
-            tree.addBlock(Block.OAK_LEAVES, -1, 1, 1);
-            tree.addBlock(Block.OAK_LEAVES, -2, 1, 1);
+            tree.addBlock(Block.LEAVES, 1, 1, 1);
+            tree.addBlock(Block.LEAVES, 2, 1, 1);
+            tree.addBlock(Block.LEAVES, 0, 1, 1);
+            tree.addBlock(Block.LEAVES, -1, 1, 1);
+            tree.addBlock(Block.LEAVES, -2, 1, 1);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 1, 2);
-            tree.addBlock(Block.OAK_LEAVES, 2, 1, 2);
-            tree.addBlock(Block.OAK_LEAVES, 0, 1, 2);
-            tree.addBlock(Block.OAK_LEAVES, -1, 1, 2);
-            tree.addBlock(Block.OAK_LEAVES, -2, 1, 2);
+            tree.addBlock(Block.LEAVES, 1, 1, 2);
+            tree.addBlock(Block.LEAVES, 2, 1, 2);
+            tree.addBlock(Block.LEAVES, 0, 1, 2);
+            tree.addBlock(Block.LEAVES, -1, 1, 2);
+            tree.addBlock(Block.LEAVES, -2, 1, 2);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 1, -1);
-            tree.addBlock(Block.OAK_LEAVES, 2, 1, -1);
-            tree.addBlock(Block.OAK_LEAVES, 0, 1, -1);
-            tree.addBlock(Block.OAK_LEAVES, -1, 1, -1);
-            tree.addBlock(Block.OAK_LEAVES, -2, 1, -1);
+            tree.addBlock(Block.LEAVES, 1, 1, -1);
+            tree.addBlock(Block.LEAVES, 2, 1, -1);
+            tree.addBlock(Block.LEAVES, 0, 1, -1);
+            tree.addBlock(Block.LEAVES, -1, 1, -1);
+            tree.addBlock(Block.LEAVES, -2, 1, -1);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 1, -2);
-            tree.addBlock(Block.OAK_LEAVES, 2, 1, -2);
-            tree.addBlock(Block.OAK_LEAVES, 0, 1, -2);
-            tree.addBlock(Block.OAK_LEAVES, -1, 1, -2);
-            tree.addBlock(Block.OAK_LEAVES, -2, 1, -2);
+            tree.addBlock(Block.LEAVES, 1, 1, -2);
+            tree.addBlock(Block.LEAVES, 2, 1, -2);
+            tree.addBlock(Block.LEAVES, 0, 1, -2);
+            tree.addBlock(Block.LEAVES, -1, 1, -2);
+            tree.addBlock(Block.LEAVES, -2, 1, -2);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 2, 0);
-            tree.addBlock(Block.OAK_LEAVES, 2, 2, 0);
-            tree.addBlock(Block.OAK_LEAVES, -1, 2, 0);
-            tree.addBlock(Block.OAK_LEAVES, -2, 2, 0);
+            tree.addBlock(Block.LEAVES, 1, 2, 0);
+            tree.addBlock(Block.LEAVES, 2, 2, 0);
+            tree.addBlock(Block.LEAVES, -1, 2, 0);
+            tree.addBlock(Block.LEAVES, -2, 2, 0);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 2, 1);
-            tree.addBlock(Block.OAK_LEAVES, 2, 2, 1);
-            tree.addBlock(Block.OAK_LEAVES, 0, 2, 1);
-            tree.addBlock(Block.OAK_LEAVES, -1, 2, 1);
-            tree.addBlock(Block.OAK_LEAVES, -2, 2, 1);
+            tree.addBlock(Block.LEAVES, 1, 2, 1);
+            tree.addBlock(Block.LEAVES, 2, 2, 1);
+            tree.addBlock(Block.LEAVES, 0, 2, 1);
+            tree.addBlock(Block.LEAVES, -1, 2, 1);
+            tree.addBlock(Block.LEAVES, -2, 2, 1);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 2, 2);
-            tree.addBlock(Block.OAK_LEAVES, 2, 2, 2);
-            tree.addBlock(Block.OAK_LEAVES, 0, 2, 2);
-            tree.addBlock(Block.OAK_LEAVES, -1, 2, 2);
-            tree.addBlock(Block.OAK_LEAVES, -2, 2, 2);
+            tree.addBlock(Block.LEAVES, 1, 2, 2);
+            tree.addBlock(Block.LEAVES, 2, 2, 2);
+            tree.addBlock(Block.LEAVES, 0, 2, 2);
+            tree.addBlock(Block.LEAVES, -1, 2, 2);
+            tree.addBlock(Block.LEAVES, -2, 2, 2);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 2, -1);
-            tree.addBlock(Block.OAK_LEAVES, 2, 2, -1);
-            tree.addBlock(Block.OAK_LEAVES, 0, 2, -1);
-            tree.addBlock(Block.OAK_LEAVES, -1, 2, -1);
-            tree.addBlock(Block.OAK_LEAVES, -2, 2, -1);
+            tree.addBlock(Block.LEAVES, 1, 2, -1);
+            tree.addBlock(Block.LEAVES, 2, 2, -1);
+            tree.addBlock(Block.LEAVES, 0, 2, -1);
+            tree.addBlock(Block.LEAVES, -1, 2, -1);
+            tree.addBlock(Block.LEAVES, -2, 2, -1);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 2, -2);
-            tree.addBlock(Block.OAK_LEAVES, 2, 2, -2);
-            tree.addBlock(Block.OAK_LEAVES, 0, 2, -2);
-            tree.addBlock(Block.OAK_LEAVES, -1, 2, -2);
-            tree.addBlock(Block.OAK_LEAVES, -2, 2, -2);
+            tree.addBlock(Block.LEAVES, 1, 2, -2);
+            tree.addBlock(Block.LEAVES, 2, 2, -2);
+            tree.addBlock(Block.LEAVES, 0, 2, -2);
+            tree.addBlock(Block.LEAVES, -1, 2, -2);
+            tree.addBlock(Block.LEAVES, -2, 2, -2);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 3, 0);
-            tree.addBlock(Block.OAK_LEAVES, -1, 3, 0);
+            tree.addBlock(Block.LEAVES, 1, 3, 0);
+            tree.addBlock(Block.LEAVES, -1, 3, 0);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 3, 1);
-            tree.addBlock(Block.OAK_LEAVES, 0, 3, 1);
-            tree.addBlock(Block.OAK_LEAVES, -1, 3, 1);
+            tree.addBlock(Block.LEAVES, 1, 3, 1);
+            tree.addBlock(Block.LEAVES, 0, 3, 1);
+            tree.addBlock(Block.LEAVES, -1, 3, 1);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 3, -1);
-            tree.addBlock(Block.OAK_LEAVES, 0, 3, -1);
-            tree.addBlock(Block.OAK_LEAVES, -1, 3, -1);
+            tree.addBlock(Block.LEAVES, 1, 3, -1);
+            tree.addBlock(Block.LEAVES, 0, 3, -1);
+            tree.addBlock(Block.LEAVES, -1, 3, -1);
 
-            tree.addBlock(Block.OAK_LEAVES, 1, 4, 0);
-            tree.addBlock(Block.OAK_LEAVES, 0, 4, 0);
-            tree.addBlock(Block.OAK_LEAVES, -1, 4, 0);
+            tree.addBlock(Block.LEAVES, 1, 4, 0);
+            tree.addBlock(Block.LEAVES, 0, 4, 0);
+            tree.addBlock(Block.LEAVES, -1, 4, 0);
 
-            tree.addBlock(Block.OAK_LEAVES, 0, 4, 1);
+            tree.addBlock(Block.LEAVES, 0, 4, 1);
 
-            tree.addBlock(Block.OAK_LEAVES, 0, 4, -1);
-            tree.addBlock(Block.OAK_LEAVES, -1, 4, -1);
+            tree.addBlock(Block.LEAVES, 0, 4, -1);
+            tree.addBlock(Block.LEAVES, -1, 4, -1);
         }
 
         //todo improve

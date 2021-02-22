@@ -21,7 +21,7 @@ public class AllGenerators {
         EntityTypeEnumGenerator.main(args);
         SoundEnumGenerator.main(args);
         ParticleEnumGenerator.main(args);
-        StatsEnumGenerator.main(args);
+//        StatsEnumGenerator.main(args);
         RegistriesGenerator.main(args);
     }
 }

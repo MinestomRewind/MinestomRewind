@@ -113,40 +113,21 @@ public class PFBlockObject implements IBlockObject {
         }
 
         switch (block) {
-            case CHORUS_FLOWER:
-            case CHORUS_PLANT:
-            case BAMBOO:
-            case BAMBOO_SAPLING:
-            case SEA_PICKLE:
-            case TURTLE_EGG:
             case SNOW:
             case FLOWER_POT:
-            case LILY_PAD:
+            case WATERLILY:
             case ANVIL:
-            case CHIPPED_ANVIL:
-            case DAMAGED_ANVIL:
             case CAKE:
             case CACTUS:
             case BREWING_STAND:
-            case LECTERN:
             case DAYLIGHT_DETECTOR:
-            case CAMPFIRE:
-            case SOUL_CAMPFIRE:
             case ENCHANTING_TABLE:
             case CHEST:
             case ENDER_CHEST:
-            case GRINDSTONE:
             case TRAPPED_CHEST:
             case SOUL_SAND:
-            case SOUL_SOIL:
-            case LANTERN:
             case COCOA:
-            case CONDUIT:
-            case GRASS_PATH:
-            case FARMLAND:
-            case END_ROD:
-            case STONECUTTER:
-            case BELL: {
+            case FARMLAND: {
                 return false;
             }
             default: {
@@ -162,6 +143,6 @@ public class PFBlockObject implements IBlockObject {
 
     @Override
     public boolean isIncinerating() {
-        return block == Block.LAVA || block == Block.FIRE || block == Block.SOUL_FIRE;
+        return block == Block.LAVA || block == Block.FIRE;
     }
 }

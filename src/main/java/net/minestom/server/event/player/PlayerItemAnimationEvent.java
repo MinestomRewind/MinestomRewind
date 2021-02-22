@@ -33,9 +33,6 @@ public class PlayerItemAnimationEvent extends PlayerEvent implements Cancellable
 
     public enum ItemAnimationType {
         BOW,
-        CROSSBOW,
-        TRIDENT,
-        SHIELD,
         EAT
     }
 

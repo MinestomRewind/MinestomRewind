@@ -132,7 +132,7 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
     private long ticks;
     private final EntityTickEvent tickEvent = new EntityTickEvent(this);
 
-    public Entity(@NotNull EntityType entityType, @NotNull UUID uuid, @NotNull Position spawnPosition) {
+    public Entity(@Nullable EntityType entityType, @NotNull UUID uuid, @NotNull Position spawnPosition) {
         this.id = generateId();
         this.entityType = entityType;
         this.uuid = uuid;
@@ -149,11 +149,11 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
         Entity.entityByUuid.put(uuid, this);
     }
 
-    public Entity(@NotNull EntityType entityType, @NotNull Position spawnPosition) {
+    public Entity(@Nullable EntityType entityType, @NotNull Position spawnPosition) {
         this(entityType, UUID.randomUUID(), spawnPosition);
     }
 
-    public Entity(@NotNull EntityType entityType) {
+    public Entity(@Nullable EntityType entityType) {
         this(entityType, new Position());
     }
 

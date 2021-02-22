@@ -19,7 +19,10 @@ public final class RedstoneTorch {
             forRemoval = false
     )
     public static void initStates() {
-        Block.REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 3887, "lit=true"));
-        Block.REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 3888, "lit=false"));
+        Block.REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 0));
+        Block.REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 2));
+        Block.REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 3));
+        Block.REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 4));
     }
 }

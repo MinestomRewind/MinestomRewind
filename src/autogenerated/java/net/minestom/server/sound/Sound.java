@@ -10,1989 +10,497 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum Sound {
-    AMBIENT_CAVE("minecraft:ambient.cave"),
+    AMBIENT_CAVE_CAVE("minecraft:ambient.cave.cave"),
 
-    AMBIENT_BASALT_DELTAS_ADDITIONS("minecraft:ambient.basalt_deltas.additions"),
+    AMBIENT_WEATHER_RAIN("minecraft:ambient.weather.rain"),
 
-    AMBIENT_BASALT_DELTAS_LOOP("minecraft:ambient.basalt_deltas.loop"),
+    AMBIENT_WEATHER_THUNDER("minecraft:ambient.weather.thunder"),
 
-    AMBIENT_BASALT_DELTAS_MOOD("minecraft:ambient.basalt_deltas.mood"),
+    GAME_PLAYER_HURT_FALL_BIG("minecraft:game.player.hurt.fall.big"),
 
-    AMBIENT_CRIMSON_FOREST_ADDITIONS("minecraft:ambient.crimson_forest.additions"),
+    GAME_PLAYER_HURT_FALL_SMALL("minecraft:game.player.hurt.fall.small"),
 
-    AMBIENT_CRIMSON_FOREST_LOOP("minecraft:ambient.crimson_forest.loop"),
+    GAME_NEUTRAL_HURT_FALL_BIG("minecraft:game.neutral.hurt.fall.big"),
 
-    AMBIENT_CRIMSON_FOREST_MOOD("minecraft:ambient.crimson_forest.mood"),
+    GAME_NEUTRAL_HURT_FALL_SMALL("minecraft:game.neutral.hurt.fall.small"),
 
-    AMBIENT_NETHER_WASTES_ADDITIONS("minecraft:ambient.nether_wastes.additions"),
+    GAME_HOSTILE_HURT_FALL_BIG("minecraft:game.hostile.hurt.fall.big"),
 
-    AMBIENT_NETHER_WASTES_LOOP("minecraft:ambient.nether_wastes.loop"),
+    GAME_HOSTILE_HURT_FALL_SMALL("minecraft:game.hostile.hurt.fall.small"),
 
-    AMBIENT_NETHER_WASTES_MOOD("minecraft:ambient.nether_wastes.mood"),
+    GAME_PLAYER_HURT("minecraft:game.player.hurt"),
 
-    AMBIENT_SOUL_SAND_VALLEY_ADDITIONS("minecraft:ambient.soul_sand_valley.additions"),
+    GAME_NEUTRAL_HURT("minecraft:game.neutral.hurt"),
 
-    AMBIENT_SOUL_SAND_VALLEY_LOOP("minecraft:ambient.soul_sand_valley.loop"),
+    GAME_HOSTILE_HURT("minecraft:game.hostile.hurt"),
 
-    AMBIENT_SOUL_SAND_VALLEY_MOOD("minecraft:ambient.soul_sand_valley.mood"),
+    GAME_PLAYER_DIE("minecraft:game.player.die"),
 
-    AMBIENT_WARPED_FOREST_ADDITIONS("minecraft:ambient.warped_forest.additions"),
+    GAME_NEUTRAL_DIE("minecraft:game.neutral.die"),
 
-    AMBIENT_WARPED_FOREST_LOOP("minecraft:ambient.warped_forest.loop"),
+    GAME_HOSTILE_DIE("minecraft:game.hostile.die"),
 
-    AMBIENT_WARPED_FOREST_MOOD("minecraft:ambient.warped_forest.mood"),
+    DIG_CLOTH("minecraft:dig.cloth"),
 
-    AMBIENT_UNDERWATER_ENTER("minecraft:ambient.underwater.enter"),
+    DIG_GRASS("minecraft:dig.grass"),
 
-    AMBIENT_UNDERWATER_EXIT("minecraft:ambient.underwater.exit"),
+    DIG_GRAVEL("minecraft:dig.gravel"),
 
-    AMBIENT_UNDERWATER_LOOP("minecraft:ambient.underwater.loop"),
+    DIG_SAND("minecraft:dig.sand"),
 
-    AMBIENT_UNDERWATER_LOOP_ADDITIONS("minecraft:ambient.underwater.loop.additions"),
+    DIG_SNOW("minecraft:dig.snow"),
 
-    AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE("minecraft:ambient.underwater.loop.additions.rare"),
+    DIG_STONE("minecraft:dig.stone"),
 
-    AMBIENT_UNDERWATER_LOOP_ADDITIONS_ULTRA_RARE("minecraft:ambient.underwater.loop.additions.ultra_rare"),
+    DIG_WOOD("minecraft:dig.wood"),
 
-    BLOCK_ANCIENT_DEBRIS_BREAK("minecraft:block.ancient_debris.break"),
+    FIRE_FIRE("minecraft:fire.fire"),
 
-    BLOCK_ANCIENT_DEBRIS_STEP("minecraft:block.ancient_debris.step"),
+    FIRE_IGNITE("minecraft:fire.ignite"),
 
-    BLOCK_ANCIENT_DEBRIS_PLACE("minecraft:block.ancient_debris.place"),
+    ITEM_FIRECHARGE_USE("minecraft:item.fireCharge.use"),
 
-    BLOCK_ANCIENT_DEBRIS_HIT("minecraft:block.ancient_debris.hit"),
+    FIREWORKS_BLAST("minecraft:fireworks.blast"),
 
-    BLOCK_ANCIENT_DEBRIS_FALL("minecraft:block.ancient_debris.fall"),
+    FIREWORKS_BLAST_FAR("minecraft:fireworks.blast_far"),
 
-    BLOCK_ANVIL_BREAK("minecraft:block.anvil.break"),
+    FIREWORKS_LARGEBLAST("minecraft:fireworks.largeBlast"),
 
-    BLOCK_ANVIL_DESTROY("minecraft:block.anvil.destroy"),
+    FIREWORKS_LARGEBLAST_FAR("minecraft:fireworks.largeBlast_far"),
 
-    BLOCK_ANVIL_FALL("minecraft:block.anvil.fall"),
+    FIREWORKS_LAUNCH("minecraft:fireworks.launch"),
 
-    BLOCK_ANVIL_HIT("minecraft:block.anvil.hit"),
+    FIREWORKS_TWINKLE("minecraft:fireworks.twinkle"),
 
-    BLOCK_ANVIL_LAND("minecraft:block.anvil.land"),
+    FIREWORKS_TWINKLE_FAR("minecraft:fireworks.twinkle_far"),
 
-    BLOCK_ANVIL_PLACE("minecraft:block.anvil.place"),
+    LIQUID_LAVA("minecraft:liquid.lava"),
 
-    BLOCK_ANVIL_STEP("minecraft:block.anvil.step"),
+    LIQUID_LAVAPOP("minecraft:liquid.lavapop"),
 
-    BLOCK_ANVIL_USE("minecraft:block.anvil.use"),
+    GAME_NEUTRAL_SWIM_SPLASH("minecraft:game.neutral.swim.splash"),
 
-    ITEM_ARMOR_EQUIP_CHAIN("minecraft:item.armor.equip_chain"),
+    GAME_PLAYER_SWIM_SPLASH("minecraft:game.player.swim.splash"),
 
-    ITEM_ARMOR_EQUIP_DIAMOND("minecraft:item.armor.equip_diamond"),
+    GAME_HOSTILE_SWIM_SPLASH("minecraft:game.hostile.swim.splash"),
 
-    ITEM_ARMOR_EQUIP_ELYTRA("minecraft:item.armor.equip_elytra"),
+    GAME_PLAYER_SWIM("minecraft:game.player.swim"),
 
-    ITEM_ARMOR_EQUIP_GENERIC("minecraft:item.armor.equip_generic"),
+    GAME_NEUTRAL_SWIM("minecraft:game.neutral.swim"),
 
-    ITEM_ARMOR_EQUIP_GOLD("minecraft:item.armor.equip_gold"),
+    GAME_HOSTILE_SWIM("minecraft:game.hostile.swim"),
 
-    ITEM_ARMOR_EQUIP_IRON("minecraft:item.armor.equip_iron"),
+    LIQUID_WATER("minecraft:liquid.water"),
 
-    ITEM_ARMOR_EQUIP_LEATHER("minecraft:item.armor.equip_leather"),
+    MINECART_BASE("minecraft:minecart.base"),
 
-    ITEM_ARMOR_EQUIP_NETHERITE("minecraft:item.armor.equip_netherite"),
+    MINECART_INSIDE("minecraft:minecart.inside"),
 
-    ITEM_ARMOR_EQUIP_TURTLE("minecraft:item.armor.equip_turtle"),
+    MOB_BAT_DEATH("minecraft:mob.bat.death"),
 
-    ENTITY_ARMOR_STAND_BREAK("minecraft:entity.armor_stand.break"),
+    MOB_BAT_HURT("minecraft:mob.bat.hurt"),
 
-    ENTITY_ARMOR_STAND_FALL("minecraft:entity.armor_stand.fall"),
+    MOB_BAT_IDLE("minecraft:mob.bat.idle"),
 
-    ENTITY_ARMOR_STAND_HIT("minecraft:entity.armor_stand.hit"),
+    MOB_BAT_LOOP("minecraft:mob.bat.loop"),
 
-    ENTITY_ARMOR_STAND_PLACE("minecraft:entity.armor_stand.place"),
+    MOB_BAT_TAKEOFF("minecraft:mob.bat.takeoff"),
 
-    ENTITY_ARROW_HIT("minecraft:entity.arrow.hit"),
+    MOB_BLAZE_BREATHE("minecraft:mob.blaze.breathe"),
 
-    ENTITY_ARROW_HIT_PLAYER("minecraft:entity.arrow.hit_player"),
+    MOB_BLAZE_DEATH("minecraft:mob.blaze.death"),
 
-    ENTITY_ARROW_SHOOT("minecraft:entity.arrow.shoot"),
+    MOB_BLAZE_HIT("minecraft:mob.blaze.hit"),
 
-    ITEM_AXE_STRIP("minecraft:item.axe.strip"),
+    MOB_GUARDIAN_HIT("minecraft:mob.guardian.hit"),
 
-    BLOCK_BAMBOO_BREAK("minecraft:block.bamboo.break"),
+    MOB_GUARDIAN_IDLE("minecraft:mob.guardian.idle"),
 
-    BLOCK_BAMBOO_FALL("minecraft:block.bamboo.fall"),
+    MOB_GUARDIAN_DEATH("minecraft:mob.guardian.death"),
 
-    BLOCK_BAMBOO_HIT("minecraft:block.bamboo.hit"),
+    MOB_GUARDIAN_ELDER_HIT("minecraft:mob.guardian.elder.hit"),
 
-    BLOCK_BAMBOO_PLACE("minecraft:block.bamboo.place"),
+    MOB_GUARDIAN_ELDER_IDLE("minecraft:mob.guardian.elder.idle"),
 
-    BLOCK_BAMBOO_STEP("minecraft:block.bamboo.step"),
+    MOB_GUARDIAN_ELDER_DEATH("minecraft:mob.guardian.elder.death"),
 
-    BLOCK_BAMBOO_SAPLING_BREAK("minecraft:block.bamboo_sapling.break"),
+    MOB_GUARDIAN_LAND_HIT("minecraft:mob.guardian.land.hit"),
 
-    BLOCK_BAMBOO_SAPLING_HIT("minecraft:block.bamboo_sapling.hit"),
+    MOB_GUARDIAN_LAND_IDLE("minecraft:mob.guardian.land.idle"),
 
-    BLOCK_BAMBOO_SAPLING_PLACE("minecraft:block.bamboo_sapling.place"),
+    MOB_GUARDIAN_LAND_DEATH("minecraft:mob.guardian.land.death"),
 
-    BLOCK_BARREL_CLOSE("minecraft:block.barrel.close"),
+    MOB_GUARDIAN_CURSE("minecraft:mob.guardian.curse"),
 
-    BLOCK_BARREL_OPEN("minecraft:block.barrel.open"),
+    MOB_GUARDIAN_ATTACK("minecraft:mob.guardian.attack"),
 
-    BLOCK_BASALT_BREAK("minecraft:block.basalt.break"),
+    MOB_GUARDIAN_FLOP("minecraft:mob.guardian.flop"),
 
-    BLOCK_BASALT_STEP("minecraft:block.basalt.step"),
+    MOB_CAT_HISS("minecraft:mob.cat.hiss"),
 
-    BLOCK_BASALT_PLACE("minecraft:block.basalt.place"),
+    MOB_CAT_HITT("minecraft:mob.cat.hitt"),
 
-    BLOCK_BASALT_HIT("minecraft:block.basalt.hit"),
+    MOB_CAT_MEOW("minecraft:mob.cat.meow"),
 
-    BLOCK_BASALT_FALL("minecraft:block.basalt.fall"),
+    MOB_CAT_PURR("minecraft:mob.cat.purr"),
 
-    ENTITY_BAT_AMBIENT("minecraft:entity.bat.ambient"),
+    MOB_CAT_PURREOW("minecraft:mob.cat.purreow"),
 
-    ENTITY_BAT_DEATH("minecraft:entity.bat.death"),
+    MOB_CHICKEN_HURT("minecraft:mob.chicken.hurt"),
 
-    ENTITY_BAT_HURT("minecraft:entity.bat.hurt"),
+    MOB_CHICKEN_PLOP("minecraft:mob.chicken.plop"),
 
-    ENTITY_BAT_LOOP("minecraft:entity.bat.loop"),
+    MOB_CHICKEN_SAY("minecraft:mob.chicken.say"),
 
-    ENTITY_BAT_TAKEOFF("minecraft:entity.bat.takeoff"),
+    MOB_CHICKEN_STEP("minecraft:mob.chicken.step"),
 
-    BLOCK_BEACON_ACTIVATE("minecraft:block.beacon.activate"),
+    MOB_COW_HURT("minecraft:mob.cow.hurt"),
 
-    BLOCK_BEACON_AMBIENT("minecraft:block.beacon.ambient"),
+    MOB_COW_SAY("minecraft:mob.cow.say"),
 
-    BLOCK_BEACON_DEACTIVATE("minecraft:block.beacon.deactivate"),
+    MOB_COW_STEP("minecraft:mob.cow.step"),
 
-    BLOCK_BEACON_POWER_SELECT("minecraft:block.beacon.power_select"),
+    MOB_CREEPER_DEATH("minecraft:mob.creeper.death"),
 
-    ENTITY_BEE_DEATH("minecraft:entity.bee.death"),
+    MOB_CREEPER_SAY("minecraft:mob.creeper.say"),
 
-    ENTITY_BEE_HURT("minecraft:entity.bee.hurt"),
+    MOB_ENDERDRAGON_END("minecraft:mob.enderdragon.end"),
 
-    ENTITY_BEE_LOOP_AGGRESSIVE("minecraft:entity.bee.loop_aggressive"),
+    MOB_ENDERDRAGON_GROWL("minecraft:mob.enderdragon.growl"),
 
-    ENTITY_BEE_LOOP("minecraft:entity.bee.loop"),
+    MOB_ENDERDRAGON_HIT("minecraft:mob.enderdragon.hit"),
 
-    ENTITY_BEE_STING("minecraft:entity.bee.sting"),
+    MOB_ENDERDRAGON_WINGS("minecraft:mob.enderdragon.wings"),
 
-    ENTITY_BEE_POLLINATE("minecraft:entity.bee.pollinate"),
+    MOB_ENDERMEN_DEATH("minecraft:mob.endermen.death"),
 
-    BLOCK_BEEHIVE_DRIP("minecraft:block.beehive.drip"),
+    MOB_ENDERMEN_HIT("minecraft:mob.endermen.hit"),
 
-    BLOCK_BEEHIVE_ENTER("minecraft:block.beehive.enter"),
+    MOB_ENDERMEN_IDLE("minecraft:mob.endermen.idle"),
 
-    BLOCK_BEEHIVE_EXIT("minecraft:block.beehive.exit"),
+    MOB_ENDERMEN_PORTAL("minecraft:mob.endermen.portal"),
 
-    BLOCK_BEEHIVE_SHEAR("minecraft:block.beehive.shear"),
+    MOB_ENDERMEN_SCREAM("minecraft:mob.endermen.scream"),
 
-    BLOCK_BEEHIVE_WORK("minecraft:block.beehive.work"),
+    MOB_ENDERMEN_STARE("minecraft:mob.endermen.stare"),
 
-    BLOCK_BELL_USE("minecraft:block.bell.use"),
+    MOB_GHAST_AFFECTIONATE_SCREAM("minecraft:mob.ghast.affectionate_scream"),
 
-    BLOCK_BELL_RESONATE("minecraft:block.bell.resonate"),
+    MOB_GHAST_CHARGE("minecraft:mob.ghast.charge"),
 
-    ENTITY_BLAZE_AMBIENT("minecraft:entity.blaze.ambient"),
+    MOB_GHAST_DEATH("minecraft:mob.ghast.death"),
 
-    ENTITY_BLAZE_BURN("minecraft:entity.blaze.burn"),
+    MOB_GHAST_FIREBALL("minecraft:mob.ghast.fireball"),
 
-    ENTITY_BLAZE_DEATH("minecraft:entity.blaze.death"),
+    MOB_GHAST_MOAN("minecraft:mob.ghast.moan"),
 
-    ENTITY_BLAZE_HURT("minecraft:entity.blaze.hurt"),
+    MOB_GHAST_SCREAM("minecraft:mob.ghast.scream"),
 
-    ENTITY_BLAZE_SHOOT("minecraft:entity.blaze.shoot"),
+    MOB_HORSE_ANGRY("minecraft:mob.horse.angry"),
 
-    ENTITY_BOAT_PADDLE_LAND("minecraft:entity.boat.paddle_land"),
+    MOB_HORSE_ARMOR("minecraft:mob.horse.armor"),
 
-    ENTITY_BOAT_PADDLE_WATER("minecraft:entity.boat.paddle_water"),
+    MOB_HORSE_BREATHE("minecraft:mob.horse.breathe"),
 
-    BLOCK_BONE_BLOCK_BREAK("minecraft:block.bone_block.break"),
+    MOB_HORSE_DEATH("minecraft:mob.horse.death"),
 
-    BLOCK_BONE_BLOCK_FALL("minecraft:block.bone_block.fall"),
+    MOB_HORSE_DONKEY_ANGRY("minecraft:mob.horse.donkey.angry"),
 
-    BLOCK_BONE_BLOCK_HIT("minecraft:block.bone_block.hit"),
+    MOB_HORSE_DONKEY_DEATH("minecraft:mob.horse.donkey.death"),
 
-    BLOCK_BONE_BLOCK_PLACE("minecraft:block.bone_block.place"),
+    MOB_HORSE_DONKEY_HIT("minecraft:mob.horse.donkey.hit"),
 
-    BLOCK_BONE_BLOCK_STEP("minecraft:block.bone_block.step"),
+    MOB_HORSE_DONKEY_IDLE("minecraft:mob.horse.donkey.idle"),
 
-    ITEM_BOOK_PAGE_TURN("minecraft:item.book.page_turn"),
+    MOB_HORSE_GALLOP("minecraft:mob.horse.gallop"),
 
-    ITEM_BOOK_PUT("minecraft:item.book.put"),
+    MOB_HORSE_HIT("minecraft:mob.horse.hit"),
 
-    BLOCK_BLASTFURNACE_FIRE_CRACKLE("minecraft:block.blastfurnace.fire_crackle"),
+    MOB_HORSE_IDLE("minecraft:mob.horse.idle"),
 
-    ITEM_BOTTLE_EMPTY("minecraft:item.bottle.empty"),
+    MOB_HORSE_JUMP("minecraft:mob.horse.jump"),
 
-    ITEM_BOTTLE_FILL("minecraft:item.bottle.fill"),
+    MOB_HORSE_LAND("minecraft:mob.horse.land"),
 
-    ITEM_BOTTLE_FILL_DRAGONBREATH("minecraft:item.bottle.fill_dragonbreath"),
+    MOB_HORSE_LEATHER("minecraft:mob.horse.leather"),
 
-    BLOCK_BREWING_STAND_BREW("minecraft:block.brewing_stand.brew"),
+    MOB_HORSE_SKELETON_DEATH("minecraft:mob.horse.skeleton.death"),
 
-    BLOCK_BUBBLE_COLUMN_BUBBLE_POP("minecraft:block.bubble_column.bubble_pop"),
+    MOB_HORSE_SKELETON_HIT("minecraft:mob.horse.skeleton.hit"),
 
-    BLOCK_BUBBLE_COLUMN_UPWARDS_AMBIENT("minecraft:block.bubble_column.upwards_ambient"),
+    MOB_HORSE_SKELETON_IDLE("minecraft:mob.horse.skeleton.idle"),
 
-    BLOCK_BUBBLE_COLUMN_UPWARDS_INSIDE("minecraft:block.bubble_column.upwards_inside"),
+    MOB_HORSE_SOFT("minecraft:mob.horse.soft"),
 
-    BLOCK_BUBBLE_COLUMN_WHIRLPOOL_AMBIENT("minecraft:block.bubble_column.whirlpool_ambient"),
+    MOB_HORSE_WOOD("minecraft:mob.horse.wood"),
 
-    BLOCK_BUBBLE_COLUMN_WHIRLPOOL_INSIDE("minecraft:block.bubble_column.whirlpool_inside"),
+    MOB_HORSE_ZOMBIE_DEATH("minecraft:mob.horse.zombie.death"),
 
-    ITEM_BUCKET_EMPTY("minecraft:item.bucket.empty"),
+    MOB_HORSE_ZOMBIE_HIT("minecraft:mob.horse.zombie.hit"),
 
-    ITEM_BUCKET_EMPTY_FISH("minecraft:item.bucket.empty_fish"),
+    MOB_HORSE_ZOMBIE_IDLE("minecraft:mob.horse.zombie.idle"),
 
-    ITEM_BUCKET_EMPTY_LAVA("minecraft:item.bucket.empty_lava"),
+    MOB_IRONGOLEM_DEATH("minecraft:mob.irongolem.death"),
 
-    ITEM_BUCKET_FILL("minecraft:item.bucket.fill"),
+    MOB_IRONGOLEM_HIT("minecraft:mob.irongolem.hit"),
 
-    ITEM_BUCKET_FILL_FISH("minecraft:item.bucket.fill_fish"),
+    MOB_IRONGOLEM_THROW("minecraft:mob.irongolem.throw"),
 
-    ITEM_BUCKET_FILL_LAVA("minecraft:item.bucket.fill_lava"),
+    MOB_IRONGOLEM_WALK("minecraft:mob.irongolem.walk"),
 
-    BLOCK_CAMPFIRE_CRACKLE("minecraft:block.campfire.crackle"),
+    MOB_MAGMACUBE_BIG("minecraft:mob.magmacube.big"),
 
-    ENTITY_CAT_AMBIENT("minecraft:entity.cat.ambient"),
+    MOB_MAGMACUBE_JUMP("minecraft:mob.magmacube.jump"),
 
-    ENTITY_CAT_STRAY_AMBIENT("minecraft:entity.cat.stray_ambient"),
+    MOB_MAGMACUBE_SMALL("minecraft:mob.magmacube.small"),
 
-    ENTITY_CAT_DEATH("minecraft:entity.cat.death"),
+    MOB_PIG_DEATH("minecraft:mob.pig.death"),
 
-    ENTITY_CAT_EAT("minecraft:entity.cat.eat"),
+    MOB_PIG_SAY("minecraft:mob.pig.say"),
 
-    ENTITY_CAT_HISS("minecraft:entity.cat.hiss"),
+    MOB_PIG_STEP("minecraft:mob.pig.step"),
 
-    ENTITY_CAT_BEG_FOR_FOOD("minecraft:entity.cat.beg_for_food"),
+    MOB_RABBIT_HURT("minecraft:mob.rabbit.hurt"),
 
-    ENTITY_CAT_HURT("minecraft:entity.cat.hurt"),
+    MOB_RABBIT_IDLE("minecraft:mob.rabbit.idle"),
 
-    ENTITY_CAT_PURR("minecraft:entity.cat.purr"),
+    MOB_RABBIT_HOP("minecraft:mob.rabbit.hop"),
 
-    ENTITY_CAT_PURREOW("minecraft:entity.cat.purreow"),
+    MOB_RABBIT_DEATH("minecraft:mob.rabbit.death"),
 
-    BLOCK_CHAIN_BREAK("minecraft:block.chain.break"),
+    MOB_SHEEP_SAY("minecraft:mob.sheep.say"),
 
-    BLOCK_CHAIN_FALL("minecraft:block.chain.fall"),
+    MOB_SHEEP_SHEAR("minecraft:mob.sheep.shear"),
 
-    BLOCK_CHAIN_HIT("minecraft:block.chain.hit"),
+    MOB_SHEEP_STEP("minecraft:mob.sheep.step"),
 
-    BLOCK_CHAIN_PLACE("minecraft:block.chain.place"),
+    MOB_SILVERFISH_HIT("minecraft:mob.silverfish.hit"),
 
-    BLOCK_CHAIN_STEP("minecraft:block.chain.step"),
+    MOB_SILVERFISH_KILL("minecraft:mob.silverfish.kill"),
 
-    BLOCK_CHEST_CLOSE("minecraft:block.chest.close"),
+    MOB_SILVERFISH_SAY("minecraft:mob.silverfish.say"),
 
-    BLOCK_CHEST_LOCKED("minecraft:block.chest.locked"),
+    MOB_SILVERFISH_STEP("minecraft:mob.silverfish.step"),
 
-    BLOCK_CHEST_OPEN("minecraft:block.chest.open"),
+    MOB_SKELETON_DEATH("minecraft:mob.skeleton.death"),
 
-    ENTITY_CHICKEN_AMBIENT("minecraft:entity.chicken.ambient"),
+    MOB_SKELETON_HURT("minecraft:mob.skeleton.hurt"),
 
-    ENTITY_CHICKEN_DEATH("minecraft:entity.chicken.death"),
+    MOB_SKELETON_SAY("minecraft:mob.skeleton.say"),
 
-    ENTITY_CHICKEN_EGG("minecraft:entity.chicken.egg"),
+    MOB_SKELETON_STEP("minecraft:mob.skeleton.step"),
 
-    ENTITY_CHICKEN_HURT("minecraft:entity.chicken.hurt"),
+    MOB_SLIME_ATTACK("minecraft:mob.slime.attack"),
 
-    ENTITY_CHICKEN_STEP("minecraft:entity.chicken.step"),
+    MOB_SLIME_BIG("minecraft:mob.slime.big"),
 
-    BLOCK_CHORUS_FLOWER_DEATH("minecraft:block.chorus_flower.death"),
+    MOB_SLIME_SMALL("minecraft:mob.slime.small"),
 
-    BLOCK_CHORUS_FLOWER_GROW("minecraft:block.chorus_flower.grow"),
+    MOB_SPIDER_DEATH("minecraft:mob.spider.death"),
 
-    ITEM_CHORUS_FRUIT_TELEPORT("minecraft:item.chorus_fruit.teleport"),
+    MOB_SPIDER_SAY("minecraft:mob.spider.say"),
 
-    ENTITY_COD_AMBIENT("minecraft:entity.cod.ambient"),
+    MOB_SPIDER_STEP("minecraft:mob.spider.step"),
 
-    ENTITY_COD_DEATH("minecraft:entity.cod.death"),
+    MOB_VILLAGER_DEATH("minecraft:mob.villager.death"),
 
-    ENTITY_COD_FLOP("minecraft:entity.cod.flop"),
+    MOB_VILLAGER_HAGGLE("minecraft:mob.villager.haggle"),
 
-    ENTITY_COD_HURT("minecraft:entity.cod.hurt"),
+    MOB_VILLAGER_HIT("minecraft:mob.villager.hit"),
 
-    BLOCK_COMPARATOR_CLICK("minecraft:block.comparator.click"),
+    MOB_VILLAGER_IDLE("minecraft:mob.villager.idle"),
 
-    BLOCK_COMPOSTER_EMPTY("minecraft:block.composter.empty"),
+    MOB_VILLAGER_NO("minecraft:mob.villager.no"),
 
-    BLOCK_COMPOSTER_FILL("minecraft:block.composter.fill"),
+    MOB_VILLAGER_YES("minecraft:mob.villager.yes"),
 
-    BLOCK_COMPOSTER_FILL_SUCCESS("minecraft:block.composter.fill_success"),
+    MOB_WITHER_DEATH("minecraft:mob.wither.death"),
 
-    BLOCK_COMPOSTER_READY("minecraft:block.composter.ready"),
+    MOB_WITHER_HURT("minecraft:mob.wither.hurt"),
 
-    BLOCK_CONDUIT_ACTIVATE("minecraft:block.conduit.activate"),
+    MOB_WITHER_IDLE("minecraft:mob.wither.idle"),
 
-    BLOCK_CONDUIT_AMBIENT("minecraft:block.conduit.ambient"),
+    MOB_WITHER_SHOOT("minecraft:mob.wither.shoot"),
 
-    BLOCK_CONDUIT_AMBIENT_SHORT("minecraft:block.conduit.ambient.short"),
+    MOB_WITHER_SPAWN("minecraft:mob.wither.spawn"),
 
-    BLOCK_CONDUIT_ATTACK_TARGET("minecraft:block.conduit.attack.target"),
+    MOB_WOLF_BARK("minecraft:mob.wolf.bark"),
 
-    BLOCK_CONDUIT_DEACTIVATE("minecraft:block.conduit.deactivate"),
+    MOB_WOLF_DEATH("minecraft:mob.wolf.death"),
 
-    BLOCK_CORAL_BLOCK_BREAK("minecraft:block.coral_block.break"),
+    MOB_WOLF_GROWL("minecraft:mob.wolf.growl"),
 
-    BLOCK_CORAL_BLOCK_FALL("minecraft:block.coral_block.fall"),
+    MOB_WOLF_HOWL("minecraft:mob.wolf.howl"),
 
-    BLOCK_CORAL_BLOCK_HIT("minecraft:block.coral_block.hit"),
+    MOB_WOLF_HURT("minecraft:mob.wolf.hurt"),
 
-    BLOCK_CORAL_BLOCK_PLACE("minecraft:block.coral_block.place"),
+    MOB_WOLF_PANTING("minecraft:mob.wolf.panting"),
 
-    BLOCK_CORAL_BLOCK_STEP("minecraft:block.coral_block.step"),
+    MOB_WOLF_SHAKE("minecraft:mob.wolf.shake"),
 
-    ENTITY_COW_AMBIENT("minecraft:entity.cow.ambient"),
+    MOB_WOLF_STEP("minecraft:mob.wolf.step"),
 
-    ENTITY_COW_DEATH("minecraft:entity.cow.death"),
+    MOB_WOLF_WHINE("minecraft:mob.wolf.whine"),
 
-    ENTITY_COW_HURT("minecraft:entity.cow.hurt"),
+    MOB_ZOMBIE_DEATH("minecraft:mob.zombie.death"),
 
-    ENTITY_COW_MILK("minecraft:entity.cow.milk"),
+    MOB_ZOMBIE_HURT("minecraft:mob.zombie.hurt"),
 
-    ENTITY_COW_STEP("minecraft:entity.cow.step"),
+    MOB_ZOMBIE_INFECT("minecraft:mob.zombie.infect"),
 
-    ENTITY_CREEPER_DEATH("minecraft:entity.creeper.death"),
+    MOB_ZOMBIE_METAL("minecraft:mob.zombie.metal"),
 
-    ENTITY_CREEPER_HURT("minecraft:entity.creeper.hurt"),
+    MOB_ZOMBIE_REMEDY("minecraft:mob.zombie.remedy"),
 
-    ENTITY_CREEPER_PRIMED("minecraft:entity.creeper.primed"),
+    MOB_ZOMBIE_SAY("minecraft:mob.zombie.say"),
 
-    BLOCK_CROP_BREAK("minecraft:block.crop.break"),
+    MOB_ZOMBIE_STEP("minecraft:mob.zombie.step"),
 
-    ITEM_CROP_PLANT("minecraft:item.crop.plant"),
+    MOB_ZOMBIE_UNFECT("minecraft:mob.zombie.unfect"),
 
-    ITEM_CROSSBOW_HIT("minecraft:item.crossbow.hit"),
+    MOB_ZOMBIE_WOOD("minecraft:mob.zombie.wood"),
 
-    ITEM_CROSSBOW_LOADING_END("minecraft:item.crossbow.loading_end"),
+    MOB_ZOMBIE_WOODBREAK("minecraft:mob.zombie.woodbreak"),
 
-    ITEM_CROSSBOW_LOADING_MIDDLE("minecraft:item.crossbow.loading_middle"),
+    MOB_ZOMBIEPIG_ZPIG("minecraft:mob.zombiepig.zpig"),
 
-    ITEM_CROSSBOW_LOADING_START("minecraft:item.crossbow.loading_start"),
+    MOB_ZOMBIEPIG_ZPIGANGRY("minecraft:mob.zombiepig.zpigangry"),
 
-    ITEM_CROSSBOW_QUICK_CHARGE_1("minecraft:item.crossbow.quick_charge_1"),
+    MOB_ZOMBIEPIG_ZPIGDEATH("minecraft:mob.zombiepig.zpigdeath"),
 
-    ITEM_CROSSBOW_QUICK_CHARGE_2("minecraft:item.crossbow.quick_charge_2"),
+    MOB_ZOMBIEPIG_ZPIGHURT("minecraft:mob.zombiepig.zpighurt"),
 
-    ITEM_CROSSBOW_QUICK_CHARGE_3("minecraft:item.crossbow.quick_charge_3"),
+    NOTE_BASS("minecraft:note.bass"),
 
-    ITEM_CROSSBOW_SHOOT("minecraft:item.crossbow.shoot"),
+    NOTE_BASSATTACK("minecraft:note.bassattack"),
 
-    BLOCK_DISPENSER_DISPENSE("minecraft:block.dispenser.dispense"),
+    NOTE_BD("minecraft:note.bd"),
 
-    BLOCK_DISPENSER_FAIL("minecraft:block.dispenser.fail"),
+    NOTE_HARP("minecraft:note.harp"),
 
-    BLOCK_DISPENSER_LAUNCH("minecraft:block.dispenser.launch"),
+    NOTE_HAT("minecraft:note.hat"),
 
-    ENTITY_DOLPHIN_AMBIENT("minecraft:entity.dolphin.ambient"),
+    NOTE_PLING("minecraft:note.pling"),
 
-    ENTITY_DOLPHIN_AMBIENT_WATER("minecraft:entity.dolphin.ambient_water"),
+    NOTE_SNARE("minecraft:note.snare"),
 
-    ENTITY_DOLPHIN_ATTACK("minecraft:entity.dolphin.attack"),
+    PORTAL_PORTAL("minecraft:portal.portal"),
 
-    ENTITY_DOLPHIN_DEATH("minecraft:entity.dolphin.death"),
+    PORTAL_TRAVEL("minecraft:portal.travel"),
 
-    ENTITY_DOLPHIN_EAT("minecraft:entity.dolphin.eat"),
+    PORTAL_TRIGGER("minecraft:portal.trigger"),
 
-    ENTITY_DOLPHIN_HURT("minecraft:entity.dolphin.hurt"),
+    RANDOM_ANVIL_BREAK("minecraft:random.anvil_break"),
 
-    ENTITY_DOLPHIN_JUMP("minecraft:entity.dolphin.jump"),
+    RANDOM_ANVIL_LAND("minecraft:random.anvil_land"),
 
-    ENTITY_DOLPHIN_PLAY("minecraft:entity.dolphin.play"),
+    RANDOM_ANVIL_USE("minecraft:random.anvil_use"),
 
-    ENTITY_DOLPHIN_SPLASH("minecraft:entity.dolphin.splash"),
+    RANDOM_BOW("minecraft:random.bow"),
 
-    ENTITY_DOLPHIN_SWIM("minecraft:entity.dolphin.swim"),
+    RANDOM_BOWHIT("minecraft:random.bowhit"),
 
-    ENTITY_DONKEY_AMBIENT("minecraft:entity.donkey.ambient"),
+    RANDOM_BREAK("minecraft:random.break"),
 
-    ENTITY_DONKEY_ANGRY("minecraft:entity.donkey.angry"),
+    RANDOM_BURP("minecraft:random.burp"),
 
-    ENTITY_DONKEY_CHEST("minecraft:entity.donkey.chest"),
+    RANDOM_CHESTCLOSED("minecraft:random.chestclosed"),
 
-    ENTITY_DONKEY_DEATH("minecraft:entity.donkey.death"),
+    RANDOM_CHESTOPEN("minecraft:random.chestopen"),
 
-    ENTITY_DONKEY_EAT("minecraft:entity.donkey.eat"),
+    GUI_BUTTON_PRESS("minecraft:gui.button.press"),
 
-    ENTITY_DONKEY_HURT("minecraft:entity.donkey.hurt"),
+    RANDOM_CLICK("minecraft:random.click"),
 
-    ENTITY_DROWNED_AMBIENT("minecraft:entity.drowned.ambient"),
+    RANDOM_DOOR_CLOSE("minecraft:random.door_close"),
 
-    ENTITY_DROWNED_AMBIENT_WATER("minecraft:entity.drowned.ambient_water"),
+    RANDOM_DOOR_OPEN("minecraft:random.door_open"),
 
-    ENTITY_DROWNED_DEATH("minecraft:entity.drowned.death"),
+    RANDOM_DRINK("minecraft:random.drink"),
 
-    ENTITY_DROWNED_DEATH_WATER("minecraft:entity.drowned.death_water"),
+    RANDOM_EAT("minecraft:random.eat"),
 
-    ENTITY_DROWNED_HURT("minecraft:entity.drowned.hurt"),
+    RANDOM_EXPLODE("minecraft:random.explode"),
 
-    ENTITY_DROWNED_HURT_WATER("minecraft:entity.drowned.hurt_water"),
+    RANDOM_FIZZ("minecraft:random.fizz"),
 
-    ENTITY_DROWNED_SHOOT("minecraft:entity.drowned.shoot"),
+    GAME_TNT_PRIMED("minecraft:game.tnt.primed"),
 
-    ENTITY_DROWNED_STEP("minecraft:entity.drowned.step"),
+    CREEPER_PRIMED("minecraft:creeper.primed"),
 
-    ENTITY_DROWNED_SWIM("minecraft:entity.drowned.swim"),
+    DIG_GLASS("minecraft:dig.glass"),
 
-    ENTITY_EGG_THROW("minecraft:entity.egg.throw"),
+    GAME_POTION_SMASH("minecraft:game.potion.smash"),
 
-    ENTITY_ELDER_GUARDIAN_AMBIENT("minecraft:entity.elder_guardian.ambient"),
+    RANDOM_LEVELUP("minecraft:random.levelup"),
 
-    ENTITY_ELDER_GUARDIAN_AMBIENT_LAND("minecraft:entity.elder_guardian.ambient_land"),
+    RANDOM_ORB("minecraft:random.orb"),
 
-    ENTITY_ELDER_GUARDIAN_CURSE("minecraft:entity.elder_guardian.curse"),
+    RANDOM_POP("minecraft:random.pop"),
 
-    ENTITY_ELDER_GUARDIAN_DEATH("minecraft:entity.elder_guardian.death"),
+    RANDOM_SPLASH("minecraft:random.splash"),
 
-    ENTITY_ELDER_GUARDIAN_DEATH_LAND("minecraft:entity.elder_guardian.death_land"),
+    RANDOM_SUCCESSFUL_HIT("minecraft:random.successful_hit"),
 
-    ENTITY_ELDER_GUARDIAN_FLOP("minecraft:entity.elder_guardian.flop"),
+    RANDOM_WOOD_CLICK("minecraft:random.wood_click"),
 
-    ENTITY_ELDER_GUARDIAN_HURT("minecraft:entity.elder_guardian.hurt"),
+    RECORDS_11("minecraft:records.11"),
 
-    ENTITY_ELDER_GUARDIAN_HURT_LAND("minecraft:entity.elder_guardian.hurt_land"),
+    RECORDS_13("minecraft:records.13"),
 
-    ITEM_ELYTRA_FLYING("minecraft:item.elytra.flying"),
+    RECORDS_BLOCKS("minecraft:records.blocks"),
 
-    BLOCK_ENCHANTMENT_TABLE_USE("minecraft:block.enchantment_table.use"),
+    RECORDS_CAT("minecraft:records.cat"),
 
-    BLOCK_ENDER_CHEST_CLOSE("minecraft:block.ender_chest.close"),
+    RECORDS_CHIRP("minecraft:records.chirp"),
 
-    BLOCK_ENDER_CHEST_OPEN("minecraft:block.ender_chest.open"),
+    RECORDS_FAR("minecraft:records.far"),
 
-    ENTITY_ENDER_DRAGON_AMBIENT("minecraft:entity.ender_dragon.ambient"),
+    RECORDS_MALL("minecraft:records.mall"),
 
-    ENTITY_ENDER_DRAGON_DEATH("minecraft:entity.ender_dragon.death"),
+    RECORDS_MELLOHI("minecraft:records.mellohi"),
 
-    ENTITY_DRAGON_FIREBALL_EXPLODE("minecraft:entity.dragon_fireball.explode"),
+    RECORDS_STAL("minecraft:records.stal"),
 
-    ENTITY_ENDER_DRAGON_FLAP("minecraft:entity.ender_dragon.flap"),
+    RECORDS_STRAD("minecraft:records.strad"),
 
-    ENTITY_ENDER_DRAGON_GROWL("minecraft:entity.ender_dragon.growl"),
+    RECORDS_WAIT("minecraft:records.wait"),
 
-    ENTITY_ENDER_DRAGON_HURT("minecraft:entity.ender_dragon.hurt"),
+    RECORDS_WARD("minecraft:records.ward"),
 
-    ENTITY_ENDER_DRAGON_SHOOT("minecraft:entity.ender_dragon.shoot"),
+    STEP_CLOTH("minecraft:step.cloth"),
 
-    ENTITY_ENDER_EYE_DEATH("minecraft:entity.ender_eye.death"),
+    STEP_GRASS("minecraft:step.grass"),
 
-    ENTITY_ENDER_EYE_LAUNCH("minecraft:entity.ender_eye.launch"),
+    STEP_GRAVEL("minecraft:step.gravel"),
 
-    ENTITY_ENDERMAN_AMBIENT("minecraft:entity.enderman.ambient"),
+    STEP_LADDER("minecraft:step.ladder"),
 
-    ENTITY_ENDERMAN_DEATH("minecraft:entity.enderman.death"),
+    STEP_SAND("minecraft:step.sand"),
 
-    ENTITY_ENDERMAN_HURT("minecraft:entity.enderman.hurt"),
+    STEP_SNOW("minecraft:step.snow"),
 
-    ENTITY_ENDERMAN_SCREAM("minecraft:entity.enderman.scream"),
+    STEP_STONE("minecraft:step.stone"),
 
-    ENTITY_ENDERMAN_STARE("minecraft:entity.enderman.stare"),
+    STEP_WOOD("minecraft:step.wood"),
 
-    ENTITY_ENDERMAN_TELEPORT("minecraft:entity.enderman.teleport"),
+    TILE_PISTON_IN("minecraft:tile.piston.in"),
 
-    ENTITY_ENDERMITE_AMBIENT("minecraft:entity.endermite.ambient"),
-
-    ENTITY_ENDERMITE_DEATH("minecraft:entity.endermite.death"),
-
-    ENTITY_ENDERMITE_HURT("minecraft:entity.endermite.hurt"),
-
-    ENTITY_ENDERMITE_STEP("minecraft:entity.endermite.step"),
-
-    ENTITY_ENDER_PEARL_THROW("minecraft:entity.ender_pearl.throw"),
-
-    BLOCK_END_GATEWAY_SPAWN("minecraft:block.end_gateway.spawn"),
-
-    BLOCK_END_PORTAL_FRAME_FILL("minecraft:block.end_portal_frame.fill"),
-
-    BLOCK_END_PORTAL_SPAWN("minecraft:block.end_portal.spawn"),
-
-    ENTITY_EVOKER_AMBIENT("minecraft:entity.evoker.ambient"),
-
-    ENTITY_EVOKER_CAST_SPELL("minecraft:entity.evoker.cast_spell"),
-
-    ENTITY_EVOKER_CELEBRATE("minecraft:entity.evoker.celebrate"),
-
-    ENTITY_EVOKER_DEATH("minecraft:entity.evoker.death"),
-
-    ENTITY_EVOKER_FANGS_ATTACK("minecraft:entity.evoker_fangs.attack"),
-
-    ENTITY_EVOKER_HURT("minecraft:entity.evoker.hurt"),
-
-    ENTITY_EVOKER_PREPARE_ATTACK("minecraft:entity.evoker.prepare_attack"),
-
-    ENTITY_EVOKER_PREPARE_SUMMON("minecraft:entity.evoker.prepare_summon"),
-
-    ENTITY_EVOKER_PREPARE_WOLOLO("minecraft:entity.evoker.prepare_wololo"),
-
-    ENTITY_EXPERIENCE_BOTTLE_THROW("minecraft:entity.experience_bottle.throw"),
-
-    ENTITY_EXPERIENCE_ORB_PICKUP("minecraft:entity.experience_orb.pickup"),
-
-    BLOCK_FENCE_GATE_CLOSE("minecraft:block.fence_gate.close"),
-
-    BLOCK_FENCE_GATE_OPEN("minecraft:block.fence_gate.open"),
-
-    ITEM_FIRECHARGE_USE("minecraft:item.firecharge.use"),
-
-    ENTITY_FIREWORK_ROCKET_BLAST("minecraft:entity.firework_rocket.blast"),
-
-    ENTITY_FIREWORK_ROCKET_BLAST_FAR("minecraft:entity.firework_rocket.blast_far"),
-
-    ENTITY_FIREWORK_ROCKET_LARGE_BLAST("minecraft:entity.firework_rocket.large_blast"),
-
-    ENTITY_FIREWORK_ROCKET_LARGE_BLAST_FAR("minecraft:entity.firework_rocket.large_blast_far"),
-
-    ENTITY_FIREWORK_ROCKET_LAUNCH("minecraft:entity.firework_rocket.launch"),
-
-    ENTITY_FIREWORK_ROCKET_SHOOT("minecraft:entity.firework_rocket.shoot"),
-
-    ENTITY_FIREWORK_ROCKET_TWINKLE("minecraft:entity.firework_rocket.twinkle"),
-
-    ENTITY_FIREWORK_ROCKET_TWINKLE_FAR("minecraft:entity.firework_rocket.twinkle_far"),
-
-    BLOCK_FIRE_AMBIENT("minecraft:block.fire.ambient"),
-
-    BLOCK_FIRE_EXTINGUISH("minecraft:block.fire.extinguish"),
-
-    ENTITY_FISH_SWIM("minecraft:entity.fish.swim"),
-
-    ENTITY_FISHING_BOBBER_RETRIEVE("minecraft:entity.fishing_bobber.retrieve"),
-
-    ENTITY_FISHING_BOBBER_SPLASH("minecraft:entity.fishing_bobber.splash"),
-
-    ENTITY_FISHING_BOBBER_THROW("minecraft:entity.fishing_bobber.throw"),
-
-    ITEM_FLINTANDSTEEL_USE("minecraft:item.flintandsteel.use"),
-
-    ENTITY_FOX_AGGRO("minecraft:entity.fox.aggro"),
-
-    ENTITY_FOX_AMBIENT("minecraft:entity.fox.ambient"),
-
-    ENTITY_FOX_BITE("minecraft:entity.fox.bite"),
-
-    ENTITY_FOX_DEATH("minecraft:entity.fox.death"),
-
-    ENTITY_FOX_EAT("minecraft:entity.fox.eat"),
-
-    ENTITY_FOX_HURT("minecraft:entity.fox.hurt"),
-
-    ENTITY_FOX_SCREECH("minecraft:entity.fox.screech"),
-
-    ENTITY_FOX_SLEEP("minecraft:entity.fox.sleep"),
-
-    ENTITY_FOX_SNIFF("minecraft:entity.fox.sniff"),
-
-    ENTITY_FOX_SPIT("minecraft:entity.fox.spit"),
-
-    ENTITY_FOX_TELEPORT("minecraft:entity.fox.teleport"),
-
-    BLOCK_ROOTS_BREAK("minecraft:block.roots.break"),
-
-    BLOCK_ROOTS_STEP("minecraft:block.roots.step"),
-
-    BLOCK_ROOTS_PLACE("minecraft:block.roots.place"),
-
-    BLOCK_ROOTS_HIT("minecraft:block.roots.hit"),
-
-    BLOCK_ROOTS_FALL("minecraft:block.roots.fall"),
-
-    BLOCK_FURNACE_FIRE_CRACKLE("minecraft:block.furnace.fire_crackle"),
-
-    ENTITY_GENERIC_BIG_FALL("minecraft:entity.generic.big_fall"),
-
-    ENTITY_GENERIC_BURN("minecraft:entity.generic.burn"),
-
-    ENTITY_GENERIC_DEATH("minecraft:entity.generic.death"),
-
-    ENTITY_GENERIC_DRINK("minecraft:entity.generic.drink"),
-
-    ENTITY_GENERIC_EAT("minecraft:entity.generic.eat"),
-
-    ENTITY_GENERIC_EXPLODE("minecraft:entity.generic.explode"),
-
-    ENTITY_GENERIC_EXTINGUISH_FIRE("minecraft:entity.generic.extinguish_fire"),
-
-    ENTITY_GENERIC_HURT("minecraft:entity.generic.hurt"),
-
-    ENTITY_GENERIC_SMALL_FALL("minecraft:entity.generic.small_fall"),
-
-    ENTITY_GENERIC_SPLASH("minecraft:entity.generic.splash"),
-
-    ENTITY_GENERIC_SWIM("minecraft:entity.generic.swim"),
-
-    ENTITY_GHAST_AMBIENT("minecraft:entity.ghast.ambient"),
-
-    ENTITY_GHAST_DEATH("minecraft:entity.ghast.death"),
-
-    ENTITY_GHAST_HURT("minecraft:entity.ghast.hurt"),
-
-    ENTITY_GHAST_SCREAM("minecraft:entity.ghast.scream"),
-
-    ENTITY_GHAST_SHOOT("minecraft:entity.ghast.shoot"),
-
-    ENTITY_GHAST_WARN("minecraft:entity.ghast.warn"),
-
-    BLOCK_GILDED_BLACKSTONE_BREAK("minecraft:block.gilded_blackstone.break"),
-
-    BLOCK_GILDED_BLACKSTONE_FALL("minecraft:block.gilded_blackstone.fall"),
-
-    BLOCK_GILDED_BLACKSTONE_HIT("minecraft:block.gilded_blackstone.hit"),
-
-    BLOCK_GILDED_BLACKSTONE_PLACE("minecraft:block.gilded_blackstone.place"),
-
-    BLOCK_GILDED_BLACKSTONE_STEP("minecraft:block.gilded_blackstone.step"),
-
-    BLOCK_GLASS_BREAK("minecraft:block.glass.break"),
-
-    BLOCK_GLASS_FALL("minecraft:block.glass.fall"),
-
-    BLOCK_GLASS_HIT("minecraft:block.glass.hit"),
-
-    BLOCK_GLASS_PLACE("minecraft:block.glass.place"),
-
-    BLOCK_GLASS_STEP("minecraft:block.glass.step"),
-
-    BLOCK_GRASS_BREAK("minecraft:block.grass.break"),
-
-    BLOCK_GRASS_FALL("minecraft:block.grass.fall"),
-
-    BLOCK_GRASS_HIT("minecraft:block.grass.hit"),
-
-    BLOCK_GRASS_PLACE("minecraft:block.grass.place"),
-
-    BLOCK_GRASS_STEP("minecraft:block.grass.step"),
-
-    BLOCK_GRAVEL_BREAK("minecraft:block.gravel.break"),
-
-    BLOCK_GRAVEL_FALL("minecraft:block.gravel.fall"),
-
-    BLOCK_GRAVEL_HIT("minecraft:block.gravel.hit"),
-
-    BLOCK_GRAVEL_PLACE("minecraft:block.gravel.place"),
-
-    BLOCK_GRAVEL_STEP("minecraft:block.gravel.step"),
-
-    BLOCK_GRINDSTONE_USE("minecraft:block.grindstone.use"),
-
-    ENTITY_GUARDIAN_AMBIENT("minecraft:entity.guardian.ambient"),
-
-    ENTITY_GUARDIAN_AMBIENT_LAND("minecraft:entity.guardian.ambient_land"),
-
-    ENTITY_GUARDIAN_ATTACK("minecraft:entity.guardian.attack"),
-
-    ENTITY_GUARDIAN_DEATH("minecraft:entity.guardian.death"),
-
-    ENTITY_GUARDIAN_DEATH_LAND("minecraft:entity.guardian.death_land"),
-
-    ENTITY_GUARDIAN_FLOP("minecraft:entity.guardian.flop"),
-
-    ENTITY_GUARDIAN_HURT("minecraft:entity.guardian.hurt"),
-
-    ENTITY_GUARDIAN_HURT_LAND("minecraft:entity.guardian.hurt_land"),
-
-    ITEM_HOE_TILL("minecraft:item.hoe.till"),
-
-    ENTITY_HOGLIN_AMBIENT("minecraft:entity.hoglin.ambient"),
-
-    ENTITY_HOGLIN_ANGRY("minecraft:entity.hoglin.angry"),
-
-    ENTITY_HOGLIN_ATTACK("minecraft:entity.hoglin.attack"),
-
-    ENTITY_HOGLIN_CONVERTED_TO_ZOMBIFIED("minecraft:entity.hoglin.converted_to_zombified"),
-
-    ENTITY_HOGLIN_DEATH("minecraft:entity.hoglin.death"),
-
-    ENTITY_HOGLIN_HURT("minecraft:entity.hoglin.hurt"),
-
-    ENTITY_HOGLIN_RETREAT("minecraft:entity.hoglin.retreat"),
-
-    ENTITY_HOGLIN_STEP("minecraft:entity.hoglin.step"),
-
-    BLOCK_HONEY_BLOCK_BREAK("minecraft:block.honey_block.break"),
-
-    BLOCK_HONEY_BLOCK_FALL("minecraft:block.honey_block.fall"),
-
-    BLOCK_HONEY_BLOCK_HIT("minecraft:block.honey_block.hit"),
-
-    BLOCK_HONEY_BLOCK_PLACE("minecraft:block.honey_block.place"),
-
-    BLOCK_HONEY_BLOCK_SLIDE("minecraft:block.honey_block.slide"),
-
-    BLOCK_HONEY_BLOCK_STEP("minecraft:block.honey_block.step"),
-
-    ITEM_HONEY_BOTTLE_DRINK("minecraft:item.honey_bottle.drink"),
-
-    ENTITY_HORSE_AMBIENT("minecraft:entity.horse.ambient"),
-
-    ENTITY_HORSE_ANGRY("minecraft:entity.horse.angry"),
-
-    ENTITY_HORSE_ARMOR("minecraft:entity.horse.armor"),
-
-    ENTITY_HORSE_BREATHE("minecraft:entity.horse.breathe"),
-
-    ENTITY_HORSE_DEATH("minecraft:entity.horse.death"),
-
-    ENTITY_HORSE_EAT("minecraft:entity.horse.eat"),
-
-    ENTITY_HORSE_GALLOP("minecraft:entity.horse.gallop"),
-
-    ENTITY_HORSE_HURT("minecraft:entity.horse.hurt"),
-
-    ENTITY_HORSE_JUMP("minecraft:entity.horse.jump"),
-
-    ENTITY_HORSE_LAND("minecraft:entity.horse.land"),
-
-    ENTITY_HORSE_SADDLE("minecraft:entity.horse.saddle"),
-
-    ENTITY_HORSE_STEP("minecraft:entity.horse.step"),
-
-    ENTITY_HORSE_STEP_WOOD("minecraft:entity.horse.step_wood"),
-
-    ENTITY_HOSTILE_BIG_FALL("minecraft:entity.hostile.big_fall"),
-
-    ENTITY_HOSTILE_DEATH("minecraft:entity.hostile.death"),
-
-    ENTITY_HOSTILE_HURT("minecraft:entity.hostile.hurt"),
-
-    ENTITY_HOSTILE_SMALL_FALL("minecraft:entity.hostile.small_fall"),
-
-    ENTITY_HOSTILE_SPLASH("minecraft:entity.hostile.splash"),
-
-    ENTITY_HOSTILE_SWIM("minecraft:entity.hostile.swim"),
-
-    ENTITY_HUSK_AMBIENT("minecraft:entity.husk.ambient"),
-
-    ENTITY_HUSK_CONVERTED_TO_ZOMBIE("minecraft:entity.husk.converted_to_zombie"),
-
-    ENTITY_HUSK_DEATH("minecraft:entity.husk.death"),
-
-    ENTITY_HUSK_HURT("minecraft:entity.husk.hurt"),
-
-    ENTITY_HUSK_STEP("minecraft:entity.husk.step"),
-
-    ENTITY_ILLUSIONER_AMBIENT("minecraft:entity.illusioner.ambient"),
-
-    ENTITY_ILLUSIONER_CAST_SPELL("minecraft:entity.illusioner.cast_spell"),
-
-    ENTITY_ILLUSIONER_DEATH("minecraft:entity.illusioner.death"),
-
-    ENTITY_ILLUSIONER_HURT("minecraft:entity.illusioner.hurt"),
-
-    ENTITY_ILLUSIONER_MIRROR_MOVE("minecraft:entity.illusioner.mirror_move"),
-
-    ENTITY_ILLUSIONER_PREPARE_BLINDNESS("minecraft:entity.illusioner.prepare_blindness"),
-
-    ENTITY_ILLUSIONER_PREPARE_MIRROR("minecraft:entity.illusioner.prepare_mirror"),
-
-    BLOCK_IRON_DOOR_CLOSE("minecraft:block.iron_door.close"),
-
-    BLOCK_IRON_DOOR_OPEN("minecraft:block.iron_door.open"),
-
-    ENTITY_IRON_GOLEM_ATTACK("minecraft:entity.iron_golem.attack"),
-
-    ENTITY_IRON_GOLEM_DAMAGE("minecraft:entity.iron_golem.damage"),
-
-    ENTITY_IRON_GOLEM_DEATH("minecraft:entity.iron_golem.death"),
-
-    ENTITY_IRON_GOLEM_HURT("minecraft:entity.iron_golem.hurt"),
-
-    ENTITY_IRON_GOLEM_REPAIR("minecraft:entity.iron_golem.repair"),
-
-    ENTITY_IRON_GOLEM_STEP("minecraft:entity.iron_golem.step"),
-
-    BLOCK_IRON_TRAPDOOR_CLOSE("minecraft:block.iron_trapdoor.close"),
-
-    BLOCK_IRON_TRAPDOOR_OPEN("minecraft:block.iron_trapdoor.open"),
-
-    ENTITY_ITEM_FRAME_ADD_ITEM("minecraft:entity.item_frame.add_item"),
-
-    ENTITY_ITEM_FRAME_BREAK("minecraft:entity.item_frame.break"),
-
-    ENTITY_ITEM_FRAME_PLACE("minecraft:entity.item_frame.place"),
-
-    ENTITY_ITEM_FRAME_REMOVE_ITEM("minecraft:entity.item_frame.remove_item"),
-
-    ENTITY_ITEM_FRAME_ROTATE_ITEM("minecraft:entity.item_frame.rotate_item"),
-
-    ENTITY_ITEM_BREAK("minecraft:entity.item.break"),
-
-    ENTITY_ITEM_PICKUP("minecraft:entity.item.pickup"),
-
-    BLOCK_LADDER_BREAK("minecraft:block.ladder.break"),
-
-    BLOCK_LADDER_FALL("minecraft:block.ladder.fall"),
-
-    BLOCK_LADDER_HIT("minecraft:block.ladder.hit"),
-
-    BLOCK_LADDER_PLACE("minecraft:block.ladder.place"),
-
-    BLOCK_LADDER_STEP("minecraft:block.ladder.step"),
-
-    BLOCK_LANTERN_BREAK("minecraft:block.lantern.break"),
-
-    BLOCK_LANTERN_FALL("minecraft:block.lantern.fall"),
-
-    BLOCK_LANTERN_HIT("minecraft:block.lantern.hit"),
-
-    BLOCK_LANTERN_PLACE("minecraft:block.lantern.place"),
-
-    BLOCK_LANTERN_STEP("minecraft:block.lantern.step"),
-
-    BLOCK_LAVA_AMBIENT("minecraft:block.lava.ambient"),
-
-    BLOCK_LAVA_EXTINGUISH("minecraft:block.lava.extinguish"),
-
-    BLOCK_LAVA_POP("minecraft:block.lava.pop"),
-
-    ENTITY_LEASH_KNOT_BREAK("minecraft:entity.leash_knot.break"),
-
-    ENTITY_LEASH_KNOT_PLACE("minecraft:entity.leash_knot.place"),
-
-    BLOCK_LEVER_CLICK("minecraft:block.lever.click"),
-
-    ENTITY_LIGHTNING_BOLT_IMPACT("minecraft:entity.lightning_bolt.impact"),
-
-    ENTITY_LIGHTNING_BOLT_THUNDER("minecraft:entity.lightning_bolt.thunder"),
-
-    ENTITY_LINGERING_POTION_THROW("minecraft:entity.lingering_potion.throw"),
-
-    ENTITY_LLAMA_AMBIENT("minecraft:entity.llama.ambient"),
-
-    ENTITY_LLAMA_ANGRY("minecraft:entity.llama.angry"),
-
-    ENTITY_LLAMA_CHEST("minecraft:entity.llama.chest"),
-
-    ENTITY_LLAMA_DEATH("minecraft:entity.llama.death"),
-
-    ENTITY_LLAMA_EAT("minecraft:entity.llama.eat"),
-
-    ENTITY_LLAMA_HURT("minecraft:entity.llama.hurt"),
-
-    ENTITY_LLAMA_SPIT("minecraft:entity.llama.spit"),
-
-    ENTITY_LLAMA_STEP("minecraft:entity.llama.step"),
-
-    ENTITY_LLAMA_SWAG("minecraft:entity.llama.swag"),
-
-    ENTITY_MAGMA_CUBE_DEATH_SMALL("minecraft:entity.magma_cube.death_small"),
-
-    BLOCK_LODESTONE_BREAK("minecraft:block.lodestone.break"),
-
-    BLOCK_LODESTONE_STEP("minecraft:block.lodestone.step"),
-
-    BLOCK_LODESTONE_PLACE("minecraft:block.lodestone.place"),
-
-    BLOCK_LODESTONE_HIT("minecraft:block.lodestone.hit"),
-
-    BLOCK_LODESTONE_FALL("minecraft:block.lodestone.fall"),
-
-    ITEM_LODESTONE_COMPASS_LOCK("minecraft:item.lodestone_compass.lock"),
-
-    ENTITY_MAGMA_CUBE_DEATH("minecraft:entity.magma_cube.death"),
-
-    ENTITY_MAGMA_CUBE_HURT("minecraft:entity.magma_cube.hurt"),
-
-    ENTITY_MAGMA_CUBE_HURT_SMALL("minecraft:entity.magma_cube.hurt_small"),
-
-    ENTITY_MAGMA_CUBE_JUMP("minecraft:entity.magma_cube.jump"),
-
-    ENTITY_MAGMA_CUBE_SQUISH("minecraft:entity.magma_cube.squish"),
-
-    ENTITY_MAGMA_CUBE_SQUISH_SMALL("minecraft:entity.magma_cube.squish_small"),
-
-    BLOCK_METAL_BREAK("minecraft:block.metal.break"),
-
-    BLOCK_METAL_FALL("minecraft:block.metal.fall"),
-
-    BLOCK_METAL_HIT("minecraft:block.metal.hit"),
-
-    BLOCK_METAL_PLACE("minecraft:block.metal.place"),
-
-    BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF("minecraft:block.metal_pressure_plate.click_off"),
-
-    BLOCK_METAL_PRESSURE_PLATE_CLICK_ON("minecraft:block.metal_pressure_plate.click_on"),
-
-    BLOCK_METAL_STEP("minecraft:block.metal.step"),
-
-    ENTITY_MINECART_INSIDE("minecraft:entity.minecart.inside"),
-
-    ENTITY_MINECART_RIDING("minecraft:entity.minecart.riding"),
-
-    ENTITY_MOOSHROOM_CONVERT("minecraft:entity.mooshroom.convert"),
-
-    ENTITY_MOOSHROOM_EAT("minecraft:entity.mooshroom.eat"),
-
-    ENTITY_MOOSHROOM_MILK("minecraft:entity.mooshroom.milk"),
-
-    ENTITY_MOOSHROOM_SUSPICIOUS_MILK("minecraft:entity.mooshroom.suspicious_milk"),
-
-    ENTITY_MOOSHROOM_SHEAR("minecraft:entity.mooshroom.shear"),
-
-    ENTITY_MULE_AMBIENT("minecraft:entity.mule.ambient"),
-
-    ENTITY_MULE_ANGRY("minecraft:entity.mule.angry"),
-
-    ENTITY_MULE_CHEST("minecraft:entity.mule.chest"),
-
-    ENTITY_MULE_DEATH("minecraft:entity.mule.death"),
-
-    ENTITY_MULE_EAT("minecraft:entity.mule.eat"),
-
-    ENTITY_MULE_HURT("minecraft:entity.mule.hurt"),
-
-    MUSIC_CREATIVE("minecraft:music.creative"),
-
-    MUSIC_CREDITS("minecraft:music.credits"),
-
-    MUSIC_DISC_11("minecraft:music_disc.11"),
-
-    MUSIC_DISC_13("minecraft:music_disc.13"),
-
-    MUSIC_DISC_BLOCKS("minecraft:music_disc.blocks"),
-
-    MUSIC_DISC_CAT("minecraft:music_disc.cat"),
-
-    MUSIC_DISC_CHIRP("minecraft:music_disc.chirp"),
-
-    MUSIC_DISC_FAR("minecraft:music_disc.far"),
-
-    MUSIC_DISC_MALL("minecraft:music_disc.mall"),
-
-    MUSIC_DISC_MELLOHI("minecraft:music_disc.mellohi"),
-
-    MUSIC_DISC_PIGSTEP("minecraft:music_disc.pigstep"),
-
-    MUSIC_DISC_STAL("minecraft:music_disc.stal"),
-
-    MUSIC_DISC_STRAD("minecraft:music_disc.strad"),
-
-    MUSIC_DISC_WAIT("minecraft:music_disc.wait"),
-
-    MUSIC_DISC_WARD("minecraft:music_disc.ward"),
-
-    MUSIC_DRAGON("minecraft:music.dragon"),
-
-    MUSIC_END("minecraft:music.end"),
-
-    MUSIC_GAME("minecraft:music.game"),
+    TILE_PISTON_OUT("minecraft:tile.piston.out"),
 
     MUSIC_MENU("minecraft:music.menu"),
 
-    MUSIC_NETHER_BASALT_DELTAS("minecraft:music.nether.basalt_deltas"),
+    MUSIC_GAME("minecraft:music.game"),
 
-    MUSIC_NETHER_NETHER_WASTES("minecraft:music.nether.nether_wastes"),
+    MUSIC_GAME_CREATIVE("minecraft:music.game.creative"),
 
-    MUSIC_NETHER_SOUL_SAND_VALLEY("minecraft:music.nether.soul_sand_valley"),
+    MUSIC_GAME_END("minecraft:music.game.end"),
 
-    MUSIC_NETHER_CRIMSON_FOREST("minecraft:music.nether.crimson_forest"),
+    MUSIC_GAME_END_DRAGON("minecraft:music.game.end.dragon"),
 
-    MUSIC_NETHER_WARPED_FOREST("minecraft:music.nether.warped_forest"),
+    MUSIC_GAME_END_CREDITS("minecraft:music.game.end.credits"),
 
-    MUSIC_UNDER_WATER("minecraft:music.under_water"),
-
-    BLOCK_NETHER_BRICKS_BREAK("minecraft:block.nether_bricks.break"),
-
-    BLOCK_NETHER_BRICKS_STEP("minecraft:block.nether_bricks.step"),
-
-    BLOCK_NETHER_BRICKS_PLACE("minecraft:block.nether_bricks.place"),
-
-    BLOCK_NETHER_BRICKS_HIT("minecraft:block.nether_bricks.hit"),
-
-    BLOCK_NETHER_BRICKS_FALL("minecraft:block.nether_bricks.fall"),
-
-    BLOCK_NETHER_WART_BREAK("minecraft:block.nether_wart.break"),
-
-    ITEM_NETHER_WART_PLANT("minecraft:item.nether_wart.plant"),
-
-    BLOCK_STEM_BREAK("minecraft:block.stem.break"),
-
-    BLOCK_STEM_STEP("minecraft:block.stem.step"),
-
-    BLOCK_STEM_PLACE("minecraft:block.stem.place"),
-
-    BLOCK_STEM_HIT("minecraft:block.stem.hit"),
-
-    BLOCK_STEM_FALL("minecraft:block.stem.fall"),
-
-    BLOCK_NYLIUM_BREAK("minecraft:block.nylium.break"),
-
-    BLOCK_NYLIUM_STEP("minecraft:block.nylium.step"),
-
-    BLOCK_NYLIUM_PLACE("minecraft:block.nylium.place"),
-
-    BLOCK_NYLIUM_HIT("minecraft:block.nylium.hit"),
-
-    BLOCK_NYLIUM_FALL("minecraft:block.nylium.fall"),
-
-    BLOCK_NETHER_SPROUTS_BREAK("minecraft:block.nether_sprouts.break"),
-
-    BLOCK_NETHER_SPROUTS_STEP("minecraft:block.nether_sprouts.step"),
-
-    BLOCK_NETHER_SPROUTS_PLACE("minecraft:block.nether_sprouts.place"),
-
-    BLOCK_NETHER_SPROUTS_HIT("minecraft:block.nether_sprouts.hit"),
-
-    BLOCK_NETHER_SPROUTS_FALL("minecraft:block.nether_sprouts.fall"),
-
-    BLOCK_FUNGUS_BREAK("minecraft:block.fungus.break"),
-
-    BLOCK_FUNGUS_STEP("minecraft:block.fungus.step"),
-
-    BLOCK_FUNGUS_PLACE("minecraft:block.fungus.place"),
-
-    BLOCK_FUNGUS_HIT("minecraft:block.fungus.hit"),
-
-    BLOCK_FUNGUS_FALL("minecraft:block.fungus.fall"),
-
-    BLOCK_WEEPING_VINES_BREAK("minecraft:block.weeping_vines.break"),
-
-    BLOCK_WEEPING_VINES_STEP("minecraft:block.weeping_vines.step"),
-
-    BLOCK_WEEPING_VINES_PLACE("minecraft:block.weeping_vines.place"),
-
-    BLOCK_WEEPING_VINES_HIT("minecraft:block.weeping_vines.hit"),
-
-    BLOCK_WEEPING_VINES_FALL("minecraft:block.weeping_vines.fall"),
-
-    BLOCK_WART_BLOCK_BREAK("minecraft:block.wart_block.break"),
-
-    BLOCK_WART_BLOCK_STEP("minecraft:block.wart_block.step"),
-
-    BLOCK_WART_BLOCK_PLACE("minecraft:block.wart_block.place"),
-
-    BLOCK_WART_BLOCK_HIT("minecraft:block.wart_block.hit"),
-
-    BLOCK_WART_BLOCK_FALL("minecraft:block.wart_block.fall"),
-
-    BLOCK_NETHERITE_BLOCK_BREAK("minecraft:block.netherite_block.break"),
-
-    BLOCK_NETHERITE_BLOCK_STEP("minecraft:block.netherite_block.step"),
-
-    BLOCK_NETHERITE_BLOCK_PLACE("minecraft:block.netherite_block.place"),
-
-    BLOCK_NETHERITE_BLOCK_HIT("minecraft:block.netherite_block.hit"),
-
-    BLOCK_NETHERITE_BLOCK_FALL("minecraft:block.netherite_block.fall"),
-
-    BLOCK_NETHERRACK_BREAK("minecraft:block.netherrack.break"),
-
-    BLOCK_NETHERRACK_STEP("minecraft:block.netherrack.step"),
-
-    BLOCK_NETHERRACK_PLACE("minecraft:block.netherrack.place"),
-
-    BLOCK_NETHERRACK_HIT("minecraft:block.netherrack.hit"),
-
-    BLOCK_NETHERRACK_FALL("minecraft:block.netherrack.fall"),
-
-    BLOCK_NOTE_BLOCK_BASEDRUM("minecraft:block.note_block.basedrum"),
-
-    BLOCK_NOTE_BLOCK_BASS("minecraft:block.note_block.bass"),
-
-    BLOCK_NOTE_BLOCK_BELL("minecraft:block.note_block.bell"),
-
-    BLOCK_NOTE_BLOCK_CHIME("minecraft:block.note_block.chime"),
-
-    BLOCK_NOTE_BLOCK_FLUTE("minecraft:block.note_block.flute"),
-
-    BLOCK_NOTE_BLOCK_GUITAR("minecraft:block.note_block.guitar"),
-
-    BLOCK_NOTE_BLOCK_HARP("minecraft:block.note_block.harp"),
-
-    BLOCK_NOTE_BLOCK_HAT("minecraft:block.note_block.hat"),
-
-    BLOCK_NOTE_BLOCK_PLING("minecraft:block.note_block.pling"),
-
-    BLOCK_NOTE_BLOCK_SNARE("minecraft:block.note_block.snare"),
-
-    BLOCK_NOTE_BLOCK_XYLOPHONE("minecraft:block.note_block.xylophone"),
-
-    BLOCK_NOTE_BLOCK_IRON_XYLOPHONE("minecraft:block.note_block.iron_xylophone"),
-
-    BLOCK_NOTE_BLOCK_COW_BELL("minecraft:block.note_block.cow_bell"),
-
-    BLOCK_NOTE_BLOCK_DIDGERIDOO("minecraft:block.note_block.didgeridoo"),
-
-    BLOCK_NOTE_BLOCK_BIT("minecraft:block.note_block.bit"),
-
-    BLOCK_NOTE_BLOCK_BANJO("minecraft:block.note_block.banjo"),
-
-    ENTITY_OCELOT_HURT("minecraft:entity.ocelot.hurt"),
-
-    ENTITY_OCELOT_AMBIENT("minecraft:entity.ocelot.ambient"),
-
-    ENTITY_OCELOT_DEATH("minecraft:entity.ocelot.death"),
-
-    ENTITY_PAINTING_BREAK("minecraft:entity.painting.break"),
-
-    ENTITY_PAINTING_PLACE("minecraft:entity.painting.place"),
-
-    ENTITY_PANDA_PRE_SNEEZE("minecraft:entity.panda.pre_sneeze"),
-
-    ENTITY_PANDA_SNEEZE("minecraft:entity.panda.sneeze"),
-
-    ENTITY_PANDA_AMBIENT("minecraft:entity.panda.ambient"),
-
-    ENTITY_PANDA_DEATH("minecraft:entity.panda.death"),
-
-    ENTITY_PANDA_EAT("minecraft:entity.panda.eat"),
-
-    ENTITY_PANDA_STEP("minecraft:entity.panda.step"),
-
-    ENTITY_PANDA_CANT_BREED("minecraft:entity.panda.cant_breed"),
-
-    ENTITY_PANDA_AGGRESSIVE_AMBIENT("minecraft:entity.panda.aggressive_ambient"),
-
-    ENTITY_PANDA_WORRIED_AMBIENT("minecraft:entity.panda.worried_ambient"),
-
-    ENTITY_PANDA_HURT("minecraft:entity.panda.hurt"),
-
-    ENTITY_PANDA_BITE("minecraft:entity.panda.bite"),
-
-    ENTITY_PARROT_AMBIENT("minecraft:entity.parrot.ambient"),
-
-    ENTITY_PARROT_DEATH("minecraft:entity.parrot.death"),
-
-    ENTITY_PARROT_EAT("minecraft:entity.parrot.eat"),
-
-    ENTITY_PARROT_FLY("minecraft:entity.parrot.fly"),
-
-    ENTITY_PARROT_HURT("minecraft:entity.parrot.hurt"),
-
-    ENTITY_PARROT_IMITATE_BLAZE("minecraft:entity.parrot.imitate.blaze"),
-
-    ENTITY_PARROT_IMITATE_CREEPER("minecraft:entity.parrot.imitate.creeper"),
-
-    ENTITY_PARROT_IMITATE_DROWNED("minecraft:entity.parrot.imitate.drowned"),
-
-    ENTITY_PARROT_IMITATE_ELDER_GUARDIAN("minecraft:entity.parrot.imitate.elder_guardian"),
-
-    ENTITY_PARROT_IMITATE_ENDER_DRAGON("minecraft:entity.parrot.imitate.ender_dragon"),
-
-    ENTITY_PARROT_IMITATE_ENDERMITE("minecraft:entity.parrot.imitate.endermite"),
-
-    ENTITY_PARROT_IMITATE_EVOKER("minecraft:entity.parrot.imitate.evoker"),
-
-    ENTITY_PARROT_IMITATE_GHAST("minecraft:entity.parrot.imitate.ghast"),
-
-    ENTITY_PARROT_IMITATE_GUARDIAN("minecraft:entity.parrot.imitate.guardian"),
-
-    ENTITY_PARROT_IMITATE_HOGLIN("minecraft:entity.parrot.imitate.hoglin"),
-
-    ENTITY_PARROT_IMITATE_HUSK("minecraft:entity.parrot.imitate.husk"),
-
-    ENTITY_PARROT_IMITATE_ILLUSIONER("minecraft:entity.parrot.imitate.illusioner"),
-
-    ENTITY_PARROT_IMITATE_MAGMA_CUBE("minecraft:entity.parrot.imitate.magma_cube"),
-
-    ENTITY_PARROT_IMITATE_PHANTOM("minecraft:entity.parrot.imitate.phantom"),
-
-    ENTITY_PARROT_IMITATE_PIGLIN("minecraft:entity.parrot.imitate.piglin"),
-
-    ENTITY_PARROT_IMITATE_PIGLIN_BRUTE("minecraft:entity.parrot.imitate.piglin_brute"),
-
-    ENTITY_PARROT_IMITATE_PILLAGER("minecraft:entity.parrot.imitate.pillager"),
-
-    ENTITY_PARROT_IMITATE_RAVAGER("minecraft:entity.parrot.imitate.ravager"),
-
-    ENTITY_PARROT_IMITATE_SHULKER("minecraft:entity.parrot.imitate.shulker"),
-
-    ENTITY_PARROT_IMITATE_SILVERFISH("minecraft:entity.parrot.imitate.silverfish"),
-
-    ENTITY_PARROT_IMITATE_SKELETON("minecraft:entity.parrot.imitate.skeleton"),
-
-    ENTITY_PARROT_IMITATE_SLIME("minecraft:entity.parrot.imitate.slime"),
-
-    ENTITY_PARROT_IMITATE_SPIDER("minecraft:entity.parrot.imitate.spider"),
-
-    ENTITY_PARROT_IMITATE_STRAY("minecraft:entity.parrot.imitate.stray"),
-
-    ENTITY_PARROT_IMITATE_VEX("minecraft:entity.parrot.imitate.vex"),
-
-    ENTITY_PARROT_IMITATE_VINDICATOR("minecraft:entity.parrot.imitate.vindicator"),
-
-    ENTITY_PARROT_IMITATE_WITCH("minecraft:entity.parrot.imitate.witch"),
-
-    ENTITY_PARROT_IMITATE_WITHER("minecraft:entity.parrot.imitate.wither"),
-
-    ENTITY_PARROT_IMITATE_WITHER_SKELETON("minecraft:entity.parrot.imitate.wither_skeleton"),
-
-    ENTITY_PARROT_IMITATE_ZOGLIN("minecraft:entity.parrot.imitate.zoglin"),
-
-    ENTITY_PARROT_IMITATE_ZOMBIE("minecraft:entity.parrot.imitate.zombie"),
-
-    ENTITY_PARROT_IMITATE_ZOMBIE_VILLAGER("minecraft:entity.parrot.imitate.zombie_villager"),
-
-    ENTITY_PARROT_STEP("minecraft:entity.parrot.step"),
-
-    ENTITY_PHANTOM_AMBIENT("minecraft:entity.phantom.ambient"),
-
-    ENTITY_PHANTOM_BITE("minecraft:entity.phantom.bite"),
-
-    ENTITY_PHANTOM_DEATH("minecraft:entity.phantom.death"),
-
-    ENTITY_PHANTOM_FLAP("minecraft:entity.phantom.flap"),
-
-    ENTITY_PHANTOM_HURT("minecraft:entity.phantom.hurt"),
-
-    ENTITY_PHANTOM_SWOOP("minecraft:entity.phantom.swoop"),
-
-    ENTITY_PIG_AMBIENT("minecraft:entity.pig.ambient"),
-
-    ENTITY_PIG_DEATH("minecraft:entity.pig.death"),
-
-    ENTITY_PIG_HURT("minecraft:entity.pig.hurt"),
-
-    ENTITY_PIG_SADDLE("minecraft:entity.pig.saddle"),
-
-    ENTITY_PIG_STEP("minecraft:entity.pig.step"),
-
-    ENTITY_PIGLIN_ADMIRING_ITEM("minecraft:entity.piglin.admiring_item"),
-
-    ENTITY_PIGLIN_AMBIENT("minecraft:entity.piglin.ambient"),
-
-    ENTITY_PIGLIN_ANGRY("minecraft:entity.piglin.angry"),
-
-    ENTITY_PIGLIN_CELEBRATE("minecraft:entity.piglin.celebrate"),
-
-    ENTITY_PIGLIN_DEATH("minecraft:entity.piglin.death"),
-
-    ENTITY_PIGLIN_JEALOUS("minecraft:entity.piglin.jealous"),
-
-    ENTITY_PIGLIN_HURT("minecraft:entity.piglin.hurt"),
-
-    ENTITY_PIGLIN_RETREAT("minecraft:entity.piglin.retreat"),
-
-    ENTITY_PIGLIN_STEP("minecraft:entity.piglin.step"),
-
-    ENTITY_PIGLIN_CONVERTED_TO_ZOMBIFIED("minecraft:entity.piglin.converted_to_zombified"),
-
-    ENTITY_PIGLIN_BRUTE_AMBIENT("minecraft:entity.piglin_brute.ambient"),
-
-    ENTITY_PIGLIN_BRUTE_ANGRY("minecraft:entity.piglin_brute.angry"),
-
-    ENTITY_PIGLIN_BRUTE_DEATH("minecraft:entity.piglin_brute.death"),
-
-    ENTITY_PIGLIN_BRUTE_HURT("minecraft:entity.piglin_brute.hurt"),
-
-    ENTITY_PIGLIN_BRUTE_STEP("minecraft:entity.piglin_brute.step"),
-
-    ENTITY_PIGLIN_BRUTE_CONVERTED_TO_ZOMBIFIED("minecraft:entity.piglin_brute.converted_to_zombified"),
-
-    ENTITY_PILLAGER_AMBIENT("minecraft:entity.pillager.ambient"),
-
-    ENTITY_PILLAGER_CELEBRATE("minecraft:entity.pillager.celebrate"),
-
-    ENTITY_PILLAGER_DEATH("minecraft:entity.pillager.death"),
-
-    ENTITY_PILLAGER_HURT("minecraft:entity.pillager.hurt"),
-
-    BLOCK_PISTON_CONTRACT("minecraft:block.piston.contract"),
-
-    BLOCK_PISTON_EXTEND("minecraft:block.piston.extend"),
-
-    ENTITY_PLAYER_ATTACK_CRIT("minecraft:entity.player.attack.crit"),
-
-    ENTITY_PLAYER_ATTACK_KNOCKBACK("minecraft:entity.player.attack.knockback"),
-
-    ENTITY_PLAYER_ATTACK_NODAMAGE("minecraft:entity.player.attack.nodamage"),
-
-    ENTITY_PLAYER_ATTACK_STRONG("minecraft:entity.player.attack.strong"),
-
-    ENTITY_PLAYER_ATTACK_SWEEP("minecraft:entity.player.attack.sweep"),
-
-    ENTITY_PLAYER_ATTACK_WEAK("minecraft:entity.player.attack.weak"),
-
-    ENTITY_PLAYER_BIG_FALL("minecraft:entity.player.big_fall"),
-
-    ENTITY_PLAYER_BREATH("minecraft:entity.player.breath"),
-
-    ENTITY_PLAYER_BURP("minecraft:entity.player.burp"),
-
-    ENTITY_PLAYER_DEATH("minecraft:entity.player.death"),
-
-    ENTITY_PLAYER_HURT("minecraft:entity.player.hurt"),
-
-    ENTITY_PLAYER_HURT_DROWN("minecraft:entity.player.hurt_drown"),
-
-    ENTITY_PLAYER_HURT_ON_FIRE("minecraft:entity.player.hurt_on_fire"),
-
-    ENTITY_PLAYER_HURT_SWEET_BERRY_BUSH("minecraft:entity.player.hurt_sweet_berry_bush"),
-
-    ENTITY_PLAYER_LEVELUP("minecraft:entity.player.levelup"),
-
-    ENTITY_PLAYER_SMALL_FALL("minecraft:entity.player.small_fall"),
-
-    ENTITY_PLAYER_SPLASH("minecraft:entity.player.splash"),
-
-    ENTITY_PLAYER_SPLASH_HIGH_SPEED("minecraft:entity.player.splash.high_speed"),
-
-    ENTITY_PLAYER_SWIM("minecraft:entity.player.swim"),
-
-    ENTITY_POLAR_BEAR_AMBIENT("minecraft:entity.polar_bear.ambient"),
-
-    ENTITY_POLAR_BEAR_AMBIENT_BABY("minecraft:entity.polar_bear.ambient_baby"),
-
-    ENTITY_POLAR_BEAR_DEATH("minecraft:entity.polar_bear.death"),
-
-    ENTITY_POLAR_BEAR_HURT("minecraft:entity.polar_bear.hurt"),
-
-    ENTITY_POLAR_BEAR_STEP("minecraft:entity.polar_bear.step"),
-
-    ENTITY_POLAR_BEAR_WARNING("minecraft:entity.polar_bear.warning"),
-
-    BLOCK_PORTAL_AMBIENT("minecraft:block.portal.ambient"),
-
-    BLOCK_PORTAL_TRAVEL("minecraft:block.portal.travel"),
-
-    BLOCK_PORTAL_TRIGGER("minecraft:block.portal.trigger"),
-
-    ENTITY_PUFFER_FISH_AMBIENT("minecraft:entity.puffer_fish.ambient"),
-
-    ENTITY_PUFFER_FISH_BLOW_OUT("minecraft:entity.puffer_fish.blow_out"),
-
-    ENTITY_PUFFER_FISH_BLOW_UP("minecraft:entity.puffer_fish.blow_up"),
-
-    ENTITY_PUFFER_FISH_DEATH("minecraft:entity.puffer_fish.death"),
-
-    ENTITY_PUFFER_FISH_FLOP("minecraft:entity.puffer_fish.flop"),
-
-    ENTITY_PUFFER_FISH_HURT("minecraft:entity.puffer_fish.hurt"),
-
-    ENTITY_PUFFER_FISH_STING("minecraft:entity.puffer_fish.sting"),
-
-    BLOCK_PUMPKIN_CARVE("minecraft:block.pumpkin.carve"),
-
-    ENTITY_RABBIT_AMBIENT("minecraft:entity.rabbit.ambient"),
-
-    ENTITY_RABBIT_ATTACK("minecraft:entity.rabbit.attack"),
-
-    ENTITY_RABBIT_DEATH("minecraft:entity.rabbit.death"),
-
-    ENTITY_RABBIT_HURT("minecraft:entity.rabbit.hurt"),
-
-    ENTITY_RABBIT_JUMP("minecraft:entity.rabbit.jump"),
-
-    EVENT_RAID_HORN("minecraft:event.raid.horn"),
-
-    ENTITY_RAVAGER_AMBIENT("minecraft:entity.ravager.ambient"),
-
-    ENTITY_RAVAGER_ATTACK("minecraft:entity.ravager.attack"),
-
-    ENTITY_RAVAGER_CELEBRATE("minecraft:entity.ravager.celebrate"),
-
-    ENTITY_RAVAGER_DEATH("minecraft:entity.ravager.death"),
-
-    ENTITY_RAVAGER_HURT("minecraft:entity.ravager.hurt"),
-
-    ENTITY_RAVAGER_STEP("minecraft:entity.ravager.step"),
-
-    ENTITY_RAVAGER_STUNNED("minecraft:entity.ravager.stunned"),
-
-    ENTITY_RAVAGER_ROAR("minecraft:entity.ravager.roar"),
-
-    BLOCK_NETHER_GOLD_ORE_BREAK("minecraft:block.nether_gold_ore.break"),
-
-    BLOCK_NETHER_GOLD_ORE_FALL("minecraft:block.nether_gold_ore.fall"),
-
-    BLOCK_NETHER_GOLD_ORE_HIT("minecraft:block.nether_gold_ore.hit"),
-
-    BLOCK_NETHER_GOLD_ORE_PLACE("minecraft:block.nether_gold_ore.place"),
-
-    BLOCK_NETHER_GOLD_ORE_STEP("minecraft:block.nether_gold_ore.step"),
-
-    BLOCK_NETHER_ORE_BREAK("minecraft:block.nether_ore.break"),
-
-    BLOCK_NETHER_ORE_FALL("minecraft:block.nether_ore.fall"),
-
-    BLOCK_NETHER_ORE_HIT("minecraft:block.nether_ore.hit"),
-
-    BLOCK_NETHER_ORE_PLACE("minecraft:block.nether_ore.place"),
-
-    BLOCK_NETHER_ORE_STEP("minecraft:block.nether_ore.step"),
-
-    BLOCK_REDSTONE_TORCH_BURNOUT("minecraft:block.redstone_torch.burnout"),
-
-    BLOCK_RESPAWN_ANCHOR_AMBIENT("minecraft:block.respawn_anchor.ambient"),
-
-    BLOCK_RESPAWN_ANCHOR_CHARGE("minecraft:block.respawn_anchor.charge"),
-
-    BLOCK_RESPAWN_ANCHOR_DEPLETE("minecraft:block.respawn_anchor.deplete"),
-
-    BLOCK_RESPAWN_ANCHOR_SET_SPAWN("minecraft:block.respawn_anchor.set_spawn"),
-
-    ENTITY_SALMON_AMBIENT("minecraft:entity.salmon.ambient"),
-
-    ENTITY_SALMON_DEATH("minecraft:entity.salmon.death"),
-
-    ENTITY_SALMON_FLOP("minecraft:entity.salmon.flop"),
-
-    ENTITY_SALMON_HURT("minecraft:entity.salmon.hurt"),
-
-    BLOCK_SAND_BREAK("minecraft:block.sand.break"),
-
-    BLOCK_SAND_FALL("minecraft:block.sand.fall"),
-
-    BLOCK_SAND_HIT("minecraft:block.sand.hit"),
-
-    BLOCK_SAND_PLACE("minecraft:block.sand.place"),
-
-    BLOCK_SAND_STEP("minecraft:block.sand.step"),
-
-    BLOCK_SCAFFOLDING_BREAK("minecraft:block.scaffolding.break"),
-
-    BLOCK_SCAFFOLDING_FALL("minecraft:block.scaffolding.fall"),
-
-    BLOCK_SCAFFOLDING_HIT("minecraft:block.scaffolding.hit"),
-
-    BLOCK_SCAFFOLDING_PLACE("minecraft:block.scaffolding.place"),
-
-    BLOCK_SCAFFOLDING_STEP("minecraft:block.scaffolding.step"),
-
-    ENTITY_SHEEP_AMBIENT("minecraft:entity.sheep.ambient"),
-
-    ENTITY_SHEEP_DEATH("minecraft:entity.sheep.death"),
-
-    ENTITY_SHEEP_HURT("minecraft:entity.sheep.hurt"),
-
-    ENTITY_SHEEP_SHEAR("minecraft:entity.sheep.shear"),
-
-    ENTITY_SHEEP_STEP("minecraft:entity.sheep.step"),
-
-    ITEM_SHIELD_BLOCK("minecraft:item.shield.block"),
-
-    ITEM_SHIELD_BREAK("minecraft:item.shield.break"),
-
-    BLOCK_SHROOMLIGHT_BREAK("minecraft:block.shroomlight.break"),
-
-    BLOCK_SHROOMLIGHT_STEP("minecraft:block.shroomlight.step"),
-
-    BLOCK_SHROOMLIGHT_PLACE("minecraft:block.shroomlight.place"),
-
-    BLOCK_SHROOMLIGHT_HIT("minecraft:block.shroomlight.hit"),
-
-    BLOCK_SHROOMLIGHT_FALL("minecraft:block.shroomlight.fall"),
-
-    ITEM_SHOVEL_FLATTEN("minecraft:item.shovel.flatten"),
-
-    ENTITY_SHULKER_AMBIENT("minecraft:entity.shulker.ambient"),
-
-    BLOCK_SHULKER_BOX_CLOSE("minecraft:block.shulker_box.close"),
-
-    BLOCK_SHULKER_BOX_OPEN("minecraft:block.shulker_box.open"),
-
-    ENTITY_SHULKER_BULLET_HIT("minecraft:entity.shulker_bullet.hit"),
-
-    ENTITY_SHULKER_BULLET_HURT("minecraft:entity.shulker_bullet.hurt"),
-
-    ENTITY_SHULKER_CLOSE("minecraft:entity.shulker.close"),
-
-    ENTITY_SHULKER_DEATH("minecraft:entity.shulker.death"),
-
-    ENTITY_SHULKER_HURT("minecraft:entity.shulker.hurt"),
-
-    ENTITY_SHULKER_HURT_CLOSED("minecraft:entity.shulker.hurt_closed"),
-
-    ENTITY_SHULKER_OPEN("minecraft:entity.shulker.open"),
-
-    ENTITY_SHULKER_SHOOT("minecraft:entity.shulker.shoot"),
-
-    ENTITY_SHULKER_TELEPORT("minecraft:entity.shulker.teleport"),
-
-    ENTITY_SILVERFISH_AMBIENT("minecraft:entity.silverfish.ambient"),
-
-    ENTITY_SILVERFISH_DEATH("minecraft:entity.silverfish.death"),
-
-    ENTITY_SILVERFISH_HURT("minecraft:entity.silverfish.hurt"),
-
-    ENTITY_SILVERFISH_STEP("minecraft:entity.silverfish.step"),
-
-    ENTITY_SKELETON_AMBIENT("minecraft:entity.skeleton.ambient"),
-
-    ENTITY_SKELETON_DEATH("minecraft:entity.skeleton.death"),
-
-    ENTITY_SKELETON_HORSE_AMBIENT("minecraft:entity.skeleton_horse.ambient"),
-
-    ENTITY_SKELETON_HORSE_DEATH("minecraft:entity.skeleton_horse.death"),
-
-    ENTITY_SKELETON_HORSE_HURT("minecraft:entity.skeleton_horse.hurt"),
-
-    ENTITY_SKELETON_HORSE_SWIM("minecraft:entity.skeleton_horse.swim"),
-
-    ENTITY_SKELETON_HORSE_AMBIENT_WATER("minecraft:entity.skeleton_horse.ambient_water"),
-
-    ENTITY_SKELETON_HORSE_GALLOP_WATER("minecraft:entity.skeleton_horse.gallop_water"),
-
-    ENTITY_SKELETON_HORSE_JUMP_WATER("minecraft:entity.skeleton_horse.jump_water"),
-
-    ENTITY_SKELETON_HORSE_STEP_WATER("minecraft:entity.skeleton_horse.step_water"),
-
-    ENTITY_SKELETON_HURT("minecraft:entity.skeleton.hurt"),
-
-    ENTITY_SKELETON_SHOOT("minecraft:entity.skeleton.shoot"),
-
-    ENTITY_SKELETON_STEP("minecraft:entity.skeleton.step"),
-
-    ENTITY_SLIME_ATTACK("minecraft:entity.slime.attack"),
-
-    ENTITY_SLIME_DEATH("minecraft:entity.slime.death"),
-
-    ENTITY_SLIME_HURT("minecraft:entity.slime.hurt"),
-
-    ENTITY_SLIME_JUMP("minecraft:entity.slime.jump"),
-
-    ENTITY_SLIME_SQUISH("minecraft:entity.slime.squish"),
-
-    BLOCK_SLIME_BLOCK_BREAK("minecraft:block.slime_block.break"),
-
-    BLOCK_SLIME_BLOCK_FALL("minecraft:block.slime_block.fall"),
-
-    BLOCK_SLIME_BLOCK_HIT("minecraft:block.slime_block.hit"),
-
-    BLOCK_SLIME_BLOCK_PLACE("minecraft:block.slime_block.place"),
-
-    BLOCK_SLIME_BLOCK_STEP("minecraft:block.slime_block.step"),
-
-    BLOCK_SOUL_SAND_BREAK("minecraft:block.soul_sand.break"),
-
-    BLOCK_SOUL_SAND_STEP("minecraft:block.soul_sand.step"),
-
-    BLOCK_SOUL_SAND_PLACE("minecraft:block.soul_sand.place"),
-
-    BLOCK_SOUL_SAND_HIT("minecraft:block.soul_sand.hit"),
-
-    BLOCK_SOUL_SAND_FALL("minecraft:block.soul_sand.fall"),
-
-    BLOCK_SOUL_SOIL_BREAK("minecraft:block.soul_soil.break"),
-
-    BLOCK_SOUL_SOIL_STEP("minecraft:block.soul_soil.step"),
-
-    BLOCK_SOUL_SOIL_PLACE("minecraft:block.soul_soil.place"),
-
-    BLOCK_SOUL_SOIL_HIT("minecraft:block.soul_soil.hit"),
-
-    BLOCK_SOUL_SOIL_FALL("minecraft:block.soul_soil.fall"),
-
-    PARTICLE_SOUL_ESCAPE("minecraft:particle.soul_escape"),
-
-    ENTITY_STRIDER_AMBIENT("minecraft:entity.strider.ambient"),
-
-    ENTITY_STRIDER_HAPPY("minecraft:entity.strider.happy"),
-
-    ENTITY_STRIDER_RETREAT("minecraft:entity.strider.retreat"),
-
-    ENTITY_STRIDER_DEATH("minecraft:entity.strider.death"),
-
-    ENTITY_STRIDER_HURT("minecraft:entity.strider.hurt"),
-
-    ENTITY_STRIDER_STEP("minecraft:entity.strider.step"),
-
-    ENTITY_STRIDER_STEP_LAVA("minecraft:entity.strider.step_lava"),
-
-    ENTITY_STRIDER_EAT("minecraft:entity.strider.eat"),
-
-    ENTITY_STRIDER_SADDLE("minecraft:entity.strider.saddle"),
-
-    ENTITY_SLIME_DEATH_SMALL("minecraft:entity.slime.death_small"),
-
-    ENTITY_SLIME_HURT_SMALL("minecraft:entity.slime.hurt_small"),
-
-    ENTITY_SLIME_JUMP_SMALL("minecraft:entity.slime.jump_small"),
-
-    ENTITY_SLIME_SQUISH_SMALL("minecraft:entity.slime.squish_small"),
-
-    BLOCK_SMITHING_TABLE_USE("minecraft:block.smithing_table.use"),
-
-    BLOCK_SMOKER_SMOKE("minecraft:block.smoker.smoke"),
-
-    ENTITY_SNOWBALL_THROW("minecraft:entity.snowball.throw"),
-
-    BLOCK_SNOW_BREAK("minecraft:block.snow.break"),
-
-    BLOCK_SNOW_FALL("minecraft:block.snow.fall"),
-
-    ENTITY_SNOW_GOLEM_AMBIENT("minecraft:entity.snow_golem.ambient"),
-
-    ENTITY_SNOW_GOLEM_DEATH("minecraft:entity.snow_golem.death"),
-
-    ENTITY_SNOW_GOLEM_HURT("minecraft:entity.snow_golem.hurt"),
-
-    ENTITY_SNOW_GOLEM_SHOOT("minecraft:entity.snow_golem.shoot"),
-
-    ENTITY_SNOW_GOLEM_SHEAR("minecraft:entity.snow_golem.shear"),
-
-    BLOCK_SNOW_HIT("minecraft:block.snow.hit"),
-
-    BLOCK_SNOW_PLACE("minecraft:block.snow.place"),
-
-    BLOCK_SNOW_STEP("minecraft:block.snow.step"),
-
-    ENTITY_SPIDER_AMBIENT("minecraft:entity.spider.ambient"),
-
-    ENTITY_SPIDER_DEATH("minecraft:entity.spider.death"),
-
-    ENTITY_SPIDER_HURT("minecraft:entity.spider.hurt"),
-
-    ENTITY_SPIDER_STEP("minecraft:entity.spider.step"),
-
-    ENTITY_SPLASH_POTION_BREAK("minecraft:entity.splash_potion.break"),
-
-    ENTITY_SPLASH_POTION_THROW("minecraft:entity.splash_potion.throw"),
-
-    ENTITY_SQUID_AMBIENT("minecraft:entity.squid.ambient"),
-
-    ENTITY_SQUID_DEATH("minecraft:entity.squid.death"),
-
-    ENTITY_SQUID_HURT("minecraft:entity.squid.hurt"),
-
-    ENTITY_SQUID_SQUIRT("minecraft:entity.squid.squirt"),
-
-    BLOCK_STONE_BREAK("minecraft:block.stone.break"),
-
-    BLOCK_STONE_BUTTON_CLICK_OFF("minecraft:block.stone_button.click_off"),
-
-    BLOCK_STONE_BUTTON_CLICK_ON("minecraft:block.stone_button.click_on"),
-
-    BLOCK_STONE_FALL("minecraft:block.stone.fall"),
-
-    BLOCK_STONE_HIT("minecraft:block.stone.hit"),
-
-    BLOCK_STONE_PLACE("minecraft:block.stone.place"),
-
-    BLOCK_STONE_PRESSURE_PLATE_CLICK_OFF("minecraft:block.stone_pressure_plate.click_off"),
-
-    BLOCK_STONE_PRESSURE_PLATE_CLICK_ON("minecraft:block.stone_pressure_plate.click_on"),
-
-    BLOCK_STONE_STEP("minecraft:block.stone.step"),
-
-    ENTITY_STRAY_AMBIENT("minecraft:entity.stray.ambient"),
-
-    ENTITY_STRAY_DEATH("minecraft:entity.stray.death"),
-
-    ENTITY_STRAY_HURT("minecraft:entity.stray.hurt"),
-
-    ENTITY_STRAY_STEP("minecraft:entity.stray.step"),
-
-    BLOCK_SWEET_BERRY_BUSH_BREAK("minecraft:block.sweet_berry_bush.break"),
-
-    BLOCK_SWEET_BERRY_BUSH_PLACE("minecraft:block.sweet_berry_bush.place"),
-
-    ITEM_SWEET_BERRIES_PICK_FROM_BUSH("minecraft:item.sweet_berries.pick_from_bush"),
-
-    ENCHANT_THORNS_HIT("minecraft:enchant.thorns.hit"),
-
-    ENTITY_TNT_PRIMED("minecraft:entity.tnt.primed"),
-
-    ITEM_TOTEM_USE("minecraft:item.totem.use"),
-
-    ITEM_TRIDENT_HIT("minecraft:item.trident.hit"),
-
-    ITEM_TRIDENT_HIT_GROUND("minecraft:item.trident.hit_ground"),
-
-    ITEM_TRIDENT_RETURN("minecraft:item.trident.return"),
-
-    ITEM_TRIDENT_RIPTIDE_1("minecraft:item.trident.riptide_1"),
-
-    ITEM_TRIDENT_RIPTIDE_2("minecraft:item.trident.riptide_2"),
-
-    ITEM_TRIDENT_RIPTIDE_3("minecraft:item.trident.riptide_3"),
-
-    ITEM_TRIDENT_THROW("minecraft:item.trident.throw"),
-
-    ITEM_TRIDENT_THUNDER("minecraft:item.trident.thunder"),
-
-    BLOCK_TRIPWIRE_ATTACH("minecraft:block.tripwire.attach"),
-
-    BLOCK_TRIPWIRE_CLICK_OFF("minecraft:block.tripwire.click_off"),
-
-    BLOCK_TRIPWIRE_CLICK_ON("minecraft:block.tripwire.click_on"),
-
-    BLOCK_TRIPWIRE_DETACH("minecraft:block.tripwire.detach"),
-
-    ENTITY_TROPICAL_FISH_AMBIENT("minecraft:entity.tropical_fish.ambient"),
-
-    ENTITY_TROPICAL_FISH_DEATH("minecraft:entity.tropical_fish.death"),
-
-    ENTITY_TROPICAL_FISH_FLOP("minecraft:entity.tropical_fish.flop"),
-
-    ENTITY_TROPICAL_FISH_HURT("minecraft:entity.tropical_fish.hurt"),
-
-    ENTITY_TURTLE_AMBIENT_LAND("minecraft:entity.turtle.ambient_land"),
-
-    ENTITY_TURTLE_DEATH("minecraft:entity.turtle.death"),
-
-    ENTITY_TURTLE_DEATH_BABY("minecraft:entity.turtle.death_baby"),
-
-    ENTITY_TURTLE_EGG_BREAK("minecraft:entity.turtle.egg_break"),
-
-    ENTITY_TURTLE_EGG_CRACK("minecraft:entity.turtle.egg_crack"),
-
-    ENTITY_TURTLE_EGG_HATCH("minecraft:entity.turtle.egg_hatch"),
-
-    ENTITY_TURTLE_HURT("minecraft:entity.turtle.hurt"),
-
-    ENTITY_TURTLE_HURT_BABY("minecraft:entity.turtle.hurt_baby"),
-
-    ENTITY_TURTLE_LAY_EGG("minecraft:entity.turtle.lay_egg"),
-
-    ENTITY_TURTLE_SHAMBLE("minecraft:entity.turtle.shamble"),
-
-    ENTITY_TURTLE_SHAMBLE_BABY("minecraft:entity.turtle.shamble_baby"),
-
-    ENTITY_TURTLE_SWIM("minecraft:entity.turtle.swim"),
-
-    UI_BUTTON_CLICK("minecraft:ui.button.click"),
-
-    UI_LOOM_SELECT_PATTERN("minecraft:ui.loom.select_pattern"),
-
-    UI_LOOM_TAKE_RESULT("minecraft:ui.loom.take_result"),
-
-    UI_CARTOGRAPHY_TABLE_TAKE_RESULT("minecraft:ui.cartography_table.take_result"),
-
-    UI_STONECUTTER_TAKE_RESULT("minecraft:ui.stonecutter.take_result"),
-
-    UI_STONECUTTER_SELECT_RECIPE("minecraft:ui.stonecutter.select_recipe"),
-
-    UI_TOAST_CHALLENGE_COMPLETE("minecraft:ui.toast.challenge_complete"),
-
-    UI_TOAST_IN("minecraft:ui.toast.in"),
-
-    UI_TOAST_OUT("minecraft:ui.toast.out"),
-
-    ENTITY_VEX_AMBIENT("minecraft:entity.vex.ambient"),
-
-    ENTITY_VEX_CHARGE("minecraft:entity.vex.charge"),
-
-    ENTITY_VEX_DEATH("minecraft:entity.vex.death"),
-
-    ENTITY_VEX_HURT("minecraft:entity.vex.hurt"),
-
-    ENTITY_VILLAGER_AMBIENT("minecraft:entity.villager.ambient"),
-
-    ENTITY_VILLAGER_CELEBRATE("minecraft:entity.villager.celebrate"),
-
-    ENTITY_VILLAGER_DEATH("minecraft:entity.villager.death"),
-
-    ENTITY_VILLAGER_HURT("minecraft:entity.villager.hurt"),
-
-    ENTITY_VILLAGER_NO("minecraft:entity.villager.no"),
-
-    ENTITY_VILLAGER_TRADE("minecraft:entity.villager.trade"),
-
-    ENTITY_VILLAGER_YES("minecraft:entity.villager.yes"),
-
-    ENTITY_VILLAGER_WORK_ARMORER("minecraft:entity.villager.work_armorer"),
-
-    ENTITY_VILLAGER_WORK_BUTCHER("minecraft:entity.villager.work_butcher"),
-
-    ENTITY_VILLAGER_WORK_CARTOGRAPHER("minecraft:entity.villager.work_cartographer"),
-
-    ENTITY_VILLAGER_WORK_CLERIC("minecraft:entity.villager.work_cleric"),
-
-    ENTITY_VILLAGER_WORK_FARMER("minecraft:entity.villager.work_farmer"),
-
-    ENTITY_VILLAGER_WORK_FISHERMAN("minecraft:entity.villager.work_fisherman"),
-
-    ENTITY_VILLAGER_WORK_FLETCHER("minecraft:entity.villager.work_fletcher"),
-
-    ENTITY_VILLAGER_WORK_LEATHERWORKER("minecraft:entity.villager.work_leatherworker"),
-
-    ENTITY_VILLAGER_WORK_LIBRARIAN("minecraft:entity.villager.work_librarian"),
-
-    ENTITY_VILLAGER_WORK_MASON("minecraft:entity.villager.work_mason"),
-
-    ENTITY_VILLAGER_WORK_SHEPHERD("minecraft:entity.villager.work_shepherd"),
-
-    ENTITY_VILLAGER_WORK_TOOLSMITH("minecraft:entity.villager.work_toolsmith"),
-
-    ENTITY_VILLAGER_WORK_WEAPONSMITH("minecraft:entity.villager.work_weaponsmith"),
-
-    ENTITY_VINDICATOR_AMBIENT("minecraft:entity.vindicator.ambient"),
-
-    ENTITY_VINDICATOR_CELEBRATE("minecraft:entity.vindicator.celebrate"),
-
-    ENTITY_VINDICATOR_DEATH("minecraft:entity.vindicator.death"),
-
-    ENTITY_VINDICATOR_HURT("minecraft:entity.vindicator.hurt"),
-
-    BLOCK_VINE_STEP("minecraft:block.vine.step"),
-
-    BLOCK_LILY_PAD_PLACE("minecraft:block.lily_pad.place"),
-
-    ENTITY_WANDERING_TRADER_AMBIENT("minecraft:entity.wandering_trader.ambient"),
-
-    ENTITY_WANDERING_TRADER_DEATH("minecraft:entity.wandering_trader.death"),
-
-    ENTITY_WANDERING_TRADER_DISAPPEARED("minecraft:entity.wandering_trader.disappeared"),
-
-    ENTITY_WANDERING_TRADER_DRINK_MILK("minecraft:entity.wandering_trader.drink_milk"),
-
-    ENTITY_WANDERING_TRADER_DRINK_POTION("minecraft:entity.wandering_trader.drink_potion"),
-
-    ENTITY_WANDERING_TRADER_HURT("minecraft:entity.wandering_trader.hurt"),
-
-    ENTITY_WANDERING_TRADER_NO("minecraft:entity.wandering_trader.no"),
-
-    ENTITY_WANDERING_TRADER_REAPPEARED("minecraft:entity.wandering_trader.reappeared"),
-
-    ENTITY_WANDERING_TRADER_TRADE("minecraft:entity.wandering_trader.trade"),
-
-    ENTITY_WANDERING_TRADER_YES("minecraft:entity.wandering_trader.yes"),
-
-    BLOCK_WATER_AMBIENT("minecraft:block.water.ambient"),
-
-    WEATHER_RAIN("minecraft:weather.rain"),
-
-    WEATHER_RAIN_ABOVE("minecraft:weather.rain.above"),
-
-    BLOCK_WET_GRASS_BREAK("minecraft:block.wet_grass.break"),
-
-    BLOCK_WET_GRASS_FALL("minecraft:block.wet_grass.fall"),
-
-    BLOCK_WET_GRASS_HIT("minecraft:block.wet_grass.hit"),
-
-    BLOCK_WET_GRASS_PLACE("minecraft:block.wet_grass.place"),
-
-    BLOCK_WET_GRASS_STEP("minecraft:block.wet_grass.step"),
-
-    ENTITY_WITCH_AMBIENT("minecraft:entity.witch.ambient"),
-
-    ENTITY_WITCH_CELEBRATE("minecraft:entity.witch.celebrate"),
-
-    ENTITY_WITCH_DEATH("minecraft:entity.witch.death"),
-
-    ENTITY_WITCH_DRINK("minecraft:entity.witch.drink"),
-
-    ENTITY_WITCH_HURT("minecraft:entity.witch.hurt"),
-
-    ENTITY_WITCH_THROW("minecraft:entity.witch.throw"),
-
-    ENTITY_WITHER_AMBIENT("minecraft:entity.wither.ambient"),
-
-    ENTITY_WITHER_BREAK_BLOCK("minecraft:entity.wither.break_block"),
-
-    ENTITY_WITHER_DEATH("minecraft:entity.wither.death"),
-
-    ENTITY_WITHER_HURT("minecraft:entity.wither.hurt"),
-
-    ENTITY_WITHER_SHOOT("minecraft:entity.wither.shoot"),
-
-    ENTITY_WITHER_SKELETON_AMBIENT("minecraft:entity.wither_skeleton.ambient"),
-
-    ENTITY_WITHER_SKELETON_DEATH("minecraft:entity.wither_skeleton.death"),
-
-    ENTITY_WITHER_SKELETON_HURT("minecraft:entity.wither_skeleton.hurt"),
-
-    ENTITY_WITHER_SKELETON_STEP("minecraft:entity.wither_skeleton.step"),
-
-    ENTITY_WITHER_SPAWN("minecraft:entity.wither.spawn"),
-
-    ENTITY_WOLF_AMBIENT("minecraft:entity.wolf.ambient"),
-
-    ENTITY_WOLF_DEATH("minecraft:entity.wolf.death"),
-
-    ENTITY_WOLF_GROWL("minecraft:entity.wolf.growl"),
-
-    ENTITY_WOLF_HOWL("minecraft:entity.wolf.howl"),
-
-    ENTITY_WOLF_HURT("minecraft:entity.wolf.hurt"),
-
-    ENTITY_WOLF_PANT("minecraft:entity.wolf.pant"),
-
-    ENTITY_WOLF_SHAKE("minecraft:entity.wolf.shake"),
-
-    ENTITY_WOLF_STEP("minecraft:entity.wolf.step"),
-
-    ENTITY_WOLF_WHINE("minecraft:entity.wolf.whine"),
-
-    BLOCK_WOODEN_DOOR_CLOSE("minecraft:block.wooden_door.close"),
-
-    BLOCK_WOODEN_DOOR_OPEN("minecraft:block.wooden_door.open"),
-
-    BLOCK_WOODEN_TRAPDOOR_CLOSE("minecraft:block.wooden_trapdoor.close"),
-
-    BLOCK_WOODEN_TRAPDOOR_OPEN("minecraft:block.wooden_trapdoor.open"),
-
-    BLOCK_WOOD_BREAK("minecraft:block.wood.break"),
-
-    BLOCK_WOODEN_BUTTON_CLICK_OFF("minecraft:block.wooden_button.click_off"),
-
-    BLOCK_WOODEN_BUTTON_CLICK_ON("minecraft:block.wooden_button.click_on"),
-
-    BLOCK_WOOD_FALL("minecraft:block.wood.fall"),
-
-    BLOCK_WOOD_HIT("minecraft:block.wood.hit"),
-
-    BLOCK_WOOD_PLACE("minecraft:block.wood.place"),
-
-    BLOCK_WOODEN_PRESSURE_PLATE_CLICK_OFF("minecraft:block.wooden_pressure_plate.click_off"),
-
-    BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON("minecraft:block.wooden_pressure_plate.click_on"),
-
-    BLOCK_WOOD_STEP("minecraft:block.wood.step"),
-
-    BLOCK_WOOL_BREAK("minecraft:block.wool.break"),
-
-    BLOCK_WOOL_FALL("minecraft:block.wool.fall"),
-
-    BLOCK_WOOL_HIT("minecraft:block.wool.hit"),
-
-    BLOCK_WOOL_PLACE("minecraft:block.wool.place"),
-
-    BLOCK_WOOL_STEP("minecraft:block.wool.step"),
-
-    ENTITY_ZOGLIN_AMBIENT("minecraft:entity.zoglin.ambient"),
-
-    ENTITY_ZOGLIN_ANGRY("minecraft:entity.zoglin.angry"),
-
-    ENTITY_ZOGLIN_ATTACK("minecraft:entity.zoglin.attack"),
-
-    ENTITY_ZOGLIN_DEATH("minecraft:entity.zoglin.death"),
-
-    ENTITY_ZOGLIN_HURT("minecraft:entity.zoglin.hurt"),
-
-    ENTITY_ZOGLIN_STEP("minecraft:entity.zoglin.step"),
-
-    ENTITY_ZOMBIE_AMBIENT("minecraft:entity.zombie.ambient"),
-
-    ENTITY_ZOMBIE_ATTACK_WOODEN_DOOR("minecraft:entity.zombie.attack_wooden_door"),
-
-    ENTITY_ZOMBIE_ATTACK_IRON_DOOR("minecraft:entity.zombie.attack_iron_door"),
-
-    ENTITY_ZOMBIE_BREAK_WOODEN_DOOR("minecraft:entity.zombie.break_wooden_door"),
-
-    ENTITY_ZOMBIE_CONVERTED_TO_DROWNED("minecraft:entity.zombie.converted_to_drowned"),
-
-    ENTITY_ZOMBIE_DEATH("minecraft:entity.zombie.death"),
-
-    ENTITY_ZOMBIE_DESTROY_EGG("minecraft:entity.zombie.destroy_egg"),
-
-    ENTITY_ZOMBIE_HORSE_AMBIENT("minecraft:entity.zombie_horse.ambient"),
-
-    ENTITY_ZOMBIE_HORSE_DEATH("minecraft:entity.zombie_horse.death"),
-
-    ENTITY_ZOMBIE_HORSE_HURT("minecraft:entity.zombie_horse.hurt"),
-
-    ENTITY_ZOMBIE_HURT("minecraft:entity.zombie.hurt"),
-
-    ENTITY_ZOMBIE_INFECT("minecraft:entity.zombie.infect"),
-
-    ENTITY_ZOMBIFIED_PIGLIN_AMBIENT("minecraft:entity.zombified_piglin.ambient"),
-
-    ENTITY_ZOMBIFIED_PIGLIN_ANGRY("minecraft:entity.zombified_piglin.angry"),
-
-    ENTITY_ZOMBIFIED_PIGLIN_DEATH("minecraft:entity.zombified_piglin.death"),
-
-    ENTITY_ZOMBIFIED_PIGLIN_HURT("minecraft:entity.zombified_piglin.hurt"),
-
-    ENTITY_ZOMBIE_STEP("minecraft:entity.zombie.step"),
-
-    ENTITY_ZOMBIE_VILLAGER_AMBIENT("minecraft:entity.zombie_villager.ambient"),
-
-    ENTITY_ZOMBIE_VILLAGER_CONVERTED("minecraft:entity.zombie_villager.converted"),
-
-    ENTITY_ZOMBIE_VILLAGER_CURE("minecraft:entity.zombie_villager.cure"),
-
-    ENTITY_ZOMBIE_VILLAGER_DEATH("minecraft:entity.zombie_villager.death"),
-
-    ENTITY_ZOMBIE_VILLAGER_HURT("minecraft:entity.zombie_villager.hurt"),
-
-    ENTITY_ZOMBIE_VILLAGER_STEP("minecraft:entity.zombie_villager.step");
+    MUSIC_GAME_NETHER("minecraft:music.game.nether");
 
     private String namespaceID;
 
@@ -2001,18 +509,7 @@ public enum Sound {
         Registries.sounds.put(NamespaceID.from(namespaceID), this);
     }
 
-    public int getId() {
-        return ordinal();
-    }
-
     public String getNamespaceID() {
         return namespaceID;
-    }
-
-    public static Sound fromId(int id) {
-        if (id >= 0 && id < values().length) {
-            return values()[id];
-        }
-        return null;
     }
 }

@@ -19,11 +19,21 @@ public final class StoneSlab {
             forRemoval = false
     )
     public static void initStates() {
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8340, "type=top", "waterlogged=true"));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8341, "type=top", "waterlogged=false"));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8342, "type=bottom", "waterlogged=true"));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8343, "type=bottom", "waterlogged=false"));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8344, "type=double", "waterlogged=true"));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8345, "type=double", "waterlogged=false"));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 0));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 2));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 3));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 4));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 5));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 6));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 7));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 9));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 10));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 11));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 12));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 13));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 14));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 15));
     }
 }

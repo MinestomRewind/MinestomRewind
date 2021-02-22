@@ -10,69 +10,51 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum PotionEffect {
-    SPEED("minecraft:speed"),
+    SPEED("minecraft:Speed"),
 
-    SLOWNESS("minecraft:slowness"),
+    SLOWNESS("minecraft:Slowness"),
 
-    HASTE("minecraft:haste"),
+    HASTE("minecraft:Haste"),
 
-    MINING_FATIGUE("minecraft:mining_fatigue"),
+    MINING_FATIGUE("minecraft:MiningFatigue"),
 
-    STRENGTH("minecraft:strength"),
+    STRENGTH("minecraft:Strength"),
 
-    INSTANT_HEALTH("minecraft:instant_health"),
+    INSTANTHEALTH("minecraft:InstantHealth"),
 
-    INSTANT_DAMAGE("minecraft:instant_damage"),
+    INSTANTDAMAGE("minecraft:InstantDamage"),
 
-    JUMP_BOOST("minecraft:jump_boost"),
+    JUMPBOOST("minecraft:JumpBoost"),
 
-    NAUSEA("minecraft:nausea"),
+    NAUSEA("minecraft:Nausea"),
 
-    REGENERATION("minecraft:regeneration"),
+    REGENERATION("minecraft:Regeneration"),
 
-    RESISTANCE("minecraft:resistance"),
+    RESISTANCE("minecraft:Resistance"),
 
-    FIRE_RESISTANCE("minecraft:fire_resistance"),
+    FIRERESISTANCE("minecraft:FireResistance"),
 
-    WATER_BREATHING("minecraft:water_breathing"),
+    WATERBREATHING("minecraft:WaterBreathing"),
 
-    INVISIBILITY("minecraft:invisibility"),
+    INVISIBILITY("minecraft:Invisibility"),
 
-    BLINDNESS("minecraft:blindness"),
+    BLINDNESS("minecraft:Blindness"),
 
-    NIGHT_VISION("minecraft:night_vision"),
+    NIGHTVISION("minecraft:NightVision"),
 
-    HUNGER("minecraft:hunger"),
+    HUNGER("minecraft:Hunger"),
 
-    WEAKNESS("minecraft:weakness"),
+    WEAKNESS("minecraft:Weakness"),
 
-    POISON("minecraft:poison"),
+    POISON("minecraft:Poison"),
 
-    WITHER("minecraft:wither"),
+    WITHER("minecraft:Wither"),
 
-    HEALTH_BOOST("minecraft:health_boost"),
+    HEALTHBOOST("minecraft:HealthBoost"),
 
-    ABSORPTION("minecraft:absorption"),
+    ABSORPTION("minecraft:Absorption"),
 
-    SATURATION("minecraft:saturation"),
-
-    GLOWING("minecraft:glowing"),
-
-    LEVITATION("minecraft:levitation"),
-
-    LUCK("minecraft:luck"),
-
-    UNLUCK("minecraft:unluck"),
-
-    SLOW_FALLING("minecraft:slow_falling"),
-
-    CONDUIT_POWER("minecraft:conduit_power"),
-
-    DOLPHINS_GRACE("minecraft:dolphins_grace"),
-
-    BAD_OMEN("minecraft:bad_omen"),
-
-    HERO_OF_THE_VILLAGE("minecraft:hero_of_the_village");
+    SATURATION("minecraft:Saturation");
 
     private String namespaceID;
 

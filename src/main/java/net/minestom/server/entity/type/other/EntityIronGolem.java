@@ -9,7 +9,7 @@ import net.minestom.server.utils.Position;
 public class EntityIronGolem extends EntityCreature implements Constructable {
 
     public EntityIronGolem(Position spawnPosition) {
-        super(EntityType.IRON_GOLEM, spawnPosition);
+        super(EntityType.VILLAGER_GOLEM, spawnPosition);
         setBoundingBox(1.4f, 2.7f, 1.4f);
     }
 

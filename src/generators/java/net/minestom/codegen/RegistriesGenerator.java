@@ -153,12 +153,6 @@ public class RegistriesGenerator implements CodeGenerator {
 
         targetVersion = args[0];
 
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         String targetPart = DEFAULT_TARGET_PATH;
         if (args.length >= 2) {
             targetPart = args[1];

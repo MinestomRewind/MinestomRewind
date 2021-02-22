@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class EntityPotion extends ObjectEntity implements Projectile {
 
     public EntityPotion(Position spawnPosition, @NotNull ItemStack potion) {
-        super(EntityType.POTION, spawnPosition);
+        super(EntityType.THROWN_POTION, spawnPosition);
         setBoundingBox(0.25f, 0.25f, 0.25f);
         setPotion(potion);
     }

@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -101,7 +100,7 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
         }
 
         // This will only add it if it doesn't already exists
-        items.add(new ItemContainer(0, NamespaceID.from("minecraft", "air"), 64, Block.AIR));
+        items.add(new ItemContainer(0, NamespaceID.from("minecraft", "air"), 64, "AIR"));
 
         return items;
     }
@@ -112,14 +111,23 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
      * @param itemName
      * @return
      */
-    private Block getBlock(String itemName) {
+    private String getBlock(String itemName) {
         // special cases
-        if (itemName.equals("REDSTONE"))
-            return Block.REDSTONE_WIRE;
+
+        switch (itemName) {
+            case "REDSTONE":
+                return "REDSTONE_WIRE";
+            case "REPEATER":
+                return "UNPOWERED_REPEATER";
+            case "COMPARATOR":
+                return "UNPOWERED_COMPARATOR";
+            case "MELON":
+                return "MELON_BLOCK";
+        }
         // end of special cases
 
         try {
-            return Block.valueOf(itemName);
+            return Block.valueOf(itemName).name();
         } catch (IllegalArgumentException e) {
             return null;
         }
@@ -162,17 +170,11 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
                     .add("case PORKCHOP:\n")
                     .add("case COOKED_PORKCHOP:\n")
                     .add("case GOLDEN_APPLE:\n")
-                    .add("case ENCHANTED_GOLDEN_APPLE:\n")
-                    .add("case COD:\n")
-                    .add("case SALMON:\n")
-                    .add("case TROPICAL_FISH:\n")
-                    .add("case PUFFERFISH:\n")
-                    .add("case COOKED_COD:\n")
-                    .add("case COOKED_SALMON:\n")
+                    .add("case FISH:\n")
+                    .add("case COOKED_FISH:\n")
                     .add("case CAKE:\n")
                     .add("case COOKIE:\n")
-                    .add("case MELON_SLICE:\n")
-                    .add("case DRIED_KELP:\n")
+                    .add("case MELON:\n")
                     .add("case BEEF:\n")
                     .add("case COOKED_BEEF:\n")
                     .add("case CHICKEN:\n")
@@ -189,11 +191,6 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
                     .add("case RABBIT_STEW:\n")
                     .add("case MUTTON:\n")
                     .add("case COOKED_MUTTON:\n")
-                    .add("case BEETROOT:\n")
-                    .add("case BEETROOT_SOUP:\n")
-                    .add("case SWEET_BERRIES:\n")
-                    .add("case HONEY_BOTTLE:\n")
-                    .add("case CHORUS_FRUIT:\n")
                     .addStatement("return true")
                 .endControlFlow()
                 .addStatement("return false");
@@ -201,9 +198,6 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
         generator.addMethod("hasState", new ParameterSpec[0], TypeName.BOOLEAN, code -> {
             code.beginControlFlow("switch(this)")
                     .add("case BOW:\n")
-                    .add("case TRIDENT:\n")
-                    .add("case CROSSBOW:\n")
-                    .add("case SHIELD:\n")
                     .addStatement("return true")
                 .endControlFlow()
                 .addStatement("return isFood()");
@@ -216,7 +210,7 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
         generator.addInstance(instanceName,
                 "\"" + item.getName().toString() + "\"",
                 item.getStackSize(),
-                item.getBlock() == null ? "null" : ("Block." + item.getBlock().name())
+                item.getBlockName() == null ? "null" : ("Block." + item.getBlockName())
         );
     }
 

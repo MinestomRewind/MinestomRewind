@@ -10,7 +10,8 @@ public class TestArrow extends ObjectEntity {
     private LivingEntity shooter;
 
     public TestArrow(LivingEntity shooter, Position spawnPosition) {
-        super(EntityType.ARROW, spawnPosition);
+        // super(EntityType.ARROW, spawnPosition); TODO(koesie10): Fix ARROW not appearing in EntityType
+        super(null, spawnPosition);
         this.shooter = shooter;
     }
 

@@ -9,13 +9,13 @@ public class ItemContainer implements Comparable<ItemContainer> {
     private int id;
     private NamespaceID name;
     private int stackSize;
-    private Block block;
+    private String blockName;
 
-    public ItemContainer(int id, NamespaceID name, int stackSize, Block block) {
+    public ItemContainer(int id, NamespaceID name, int stackSize, String blockName) {
         this.id = id;
         this.name = name;
         this.stackSize = stackSize;
-        this.block = block;
+        this.blockName = blockName;
     }
 
     public int getId() {
@@ -26,8 +26,8 @@ public class ItemContainer implements Comparable<ItemContainer> {
         return name;
     }
 
-    public Block getBlock() {
-        return block;
+    public String getBlockName() {
+        return blockName;
     }
 
     public int getStackSize() {

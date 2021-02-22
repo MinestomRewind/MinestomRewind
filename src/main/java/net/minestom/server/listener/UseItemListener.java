@@ -72,12 +72,6 @@ public class UseItemListener {
 
         if (material == Material.BOW) {
             itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.BOW;
-        } else if (material == Material.CROSSBOW) {
-            itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.CROSSBOW;
-        } else if (material == Material.SHIELD) {
-            itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.SHIELD;
-        } else if (material == Material.TRIDENT) {
-            itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.TRIDENT;
         } else if (material.isFood()) {
             itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.EAT;
 

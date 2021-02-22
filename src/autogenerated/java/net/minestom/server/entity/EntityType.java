@@ -10,231 +10,108 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum EntityType {
-    AREA_EFFECT_CLOUD("minecraft:area_effect_cloud"),
+    BOAT("minecraft:Boat", 1),
 
-    ARMOR_STAND("minecraft:armor_stand"),
+    ITEM("minecraft:Item", 2),
 
-    ARROW("minecraft:arrow"),
+    MINECART_RIDEABLE("minecraft:MinecartRideable", 12),
 
-    BAT("minecraft:bat"),
+    MOB("minecraft:Mob", 48),
 
-    BEE("minecraft:bee"),
+    MONSTER("minecraft:Monster", 49),
 
-    BLAZE("minecraft:blaze"),
+    CREEPER("minecraft:Creeper", 50),
 
-    BOAT("minecraft:boat"),
+    SKELETON("minecraft:Skeleton", 51),
 
-    CAT("minecraft:cat"),
+    SPIDER("minecraft:Spider", 52),
 
-    CAVE_SPIDER("minecraft:cave_spider"),
+    GIANT("minecraft:Giant", 53),
 
-    CHICKEN("minecraft:chicken"),
+    ZOMBIE("minecraft:Zombie", 54),
 
-    COD("minecraft:cod"),
+    SLIME("minecraft:Slime", 55),
 
-    COW("minecraft:cow"),
+    GHAST("minecraft:Ghast", 56),
 
-    CREEPER("minecraft:creeper"),
+    PIG_ZOMBIE("minecraft:PigZombie", 57),
 
-    DOLPHIN("minecraft:dolphin"),
+    ENDERMAN("minecraft:Enderman", 58),
 
-    DONKEY("minecraft:donkey"),
+    CAVE_SPIDER("minecraft:CaveSpider", 59),
 
-    DRAGON_FIREBALL("minecraft:dragon_fireball"),
+    SILVERFISH("minecraft:Silverfish", 60),
 
-    DROWNED("minecraft:drowned"),
+    BLAZE("minecraft:Blaze", 61),
 
-    ELDER_GUARDIAN("minecraft:elder_guardian"),
+    LAVA_SLIME("minecraft:LavaSlime", 62),
 
-    END_CRYSTAL("minecraft:end_crystal"),
+    ENDER_DRAGON("minecraft:EnderDragon", 63),
 
-    ENDER_DRAGON("minecraft:ender_dragon"),
+    WITHER_BOSS("minecraft:WitherBoss", 64),
 
-    ENDERMAN("minecraft:enderman"),
+    BAT("minecraft:Bat", 65),
 
-    ENDERMITE("minecraft:endermite"),
+    WITCH("minecraft:Witch", 66),
 
-    EVOKER("minecraft:evoker"),
+    ENDERMITE("minecraft:Endermite", 67),
 
-    EVOKER_FANGS("minecraft:evoker_fangs"),
+    GUARDIAN("minecraft:Guardian", 68),
 
-    EXPERIENCE_ORB("minecraft:experience_orb"),
+    FALLING_SAND("minecraft:FallingSand", 74),
 
-    EYE_OF_ENDER("minecraft:eye_of_ender"),
+    ITEM_FRAME("minecraft:ItemFrame", 71),
 
-    FALLING_BLOCK("minecraft:falling_block"),
+    EYE_OF_ENDER_SIGNAL("minecraft:EyeOfEnderSignal", 72),
 
-    FIREWORK_ROCKET("minecraft:firework_rocket"),
+    THROWN_POTION("minecraft:ThrownPotion", 73),
 
-    FOX("minecraft:fox"),
+    THROWN_EXP_BOTTLE("minecraft:ThrownExpBottle", 75),
 
-    GHAST("minecraft:ghast"),
+    FIREWORKS_ROCKET_ENTITY("minecraft:FireworksRocketEntity", 76),
 
-    GIANT("minecraft:giant"),
+    LEASH_KNOT("minecraft:LeashKnot", 77),
 
-    GUARDIAN("minecraft:guardian"),
+    ARMOR_STAND("minecraft:ArmorStand", 78),
 
-    HOGLIN("minecraft:hoglin"),
+    PIG("minecraft:Pig", 90),
 
-    HORSE("minecraft:horse"),
+    SHEEP("minecraft:Sheep", 91),
 
-    HUSK("minecraft:husk"),
+    COW("minecraft:Cow", 92),
 
-    ILLUSIONER("minecraft:illusioner"),
+    CHICKEN("minecraft:Chicken", 93),
 
-    IRON_GOLEM("minecraft:iron_golem"),
+    SQUID("minecraft:Squid", 94),
 
-    ITEM("minecraft:item"),
+    WOLF("minecraft:Wolf", 95),
 
-    ITEM_FRAME("minecraft:item_frame"),
+    MUSHROOM_COW("minecraft:MushroomCow", 96),
 
-    FIREBALL("minecraft:fireball"),
+    SNOW_MAN("minecraft:SnowMan", 97),
 
-    LEASH_KNOT("minecraft:leash_knot"),
+    OZELOT("minecraft:Ozelot", 98),
 
-    LIGHTNING_BOLT("minecraft:lightning_bolt"),
+    VILLAGER_GOLEM("minecraft:VillagerGolem", 99),
 
-    LLAMA("minecraft:llama"),
+    ENTITY_HORSE("minecraft:EntityHorse", 100),
 
-    LLAMA_SPIT("minecraft:llama_spit"),
+    RABBIT("minecraft:Rabbit", 101),
 
-    MAGMA_CUBE("minecraft:magma_cube"),
-
-    MINECART("minecraft:minecart"),
-
-    CHEST_MINECART("minecraft:chest_minecart"),
-
-    COMMAND_BLOCK_MINECART("minecraft:command_block_minecart"),
-
-    FURNACE_MINECART("minecraft:furnace_minecart"),
-
-    HOPPER_MINECART("minecraft:hopper_minecart"),
-
-    SPAWNER_MINECART("minecraft:spawner_minecart"),
-
-    TNT_MINECART("minecraft:tnt_minecart"),
-
-    MULE("minecraft:mule"),
-
-    MOOSHROOM("minecraft:mooshroom"),
-
-    OCELOT("minecraft:ocelot"),
-
-    PAINTING("minecraft:painting"),
-
-    PANDA("minecraft:panda"),
-
-    PARROT("minecraft:parrot"),
-
-    PHANTOM("minecraft:phantom"),
-
-    PIG("minecraft:pig"),
-
-    PIGLIN("minecraft:piglin"),
-
-    PIGLIN_BRUTE("minecraft:piglin_brute"),
-
-    PILLAGER("minecraft:pillager"),
-
-    POLAR_BEAR("minecraft:polar_bear"),
-
-    TNT("minecraft:tnt"),
-
-    PUFFERFISH("minecraft:pufferfish"),
-
-    RABBIT("minecraft:rabbit"),
-
-    RAVAGER("minecraft:ravager"),
-
-    SALMON("minecraft:salmon"),
-
-    SHEEP("minecraft:sheep"),
-
-    SHULKER("minecraft:shulker"),
-
-    SHULKER_BULLET("minecraft:shulker_bullet"),
-
-    SILVERFISH("minecraft:silverfish"),
-
-    SKELETON("minecraft:skeleton"),
-
-    SKELETON_HORSE("minecraft:skeleton_horse"),
-
-    SLIME("minecraft:slime"),
-
-    SMALL_FIREBALL("minecraft:small_fireball"),
-
-    SNOW_GOLEM("minecraft:snow_golem"),
-
-    SNOWBALL("minecraft:snowball"),
-
-    SPECTRAL_ARROW("minecraft:spectral_arrow"),
-
-    SPIDER("minecraft:spider"),
-
-    SQUID("minecraft:squid"),
-
-    STRAY("minecraft:stray"),
-
-    STRIDER("minecraft:strider"),
-
-    EGG("minecraft:egg"),
-
-    ENDER_PEARL("minecraft:ender_pearl"),
-
-    EXPERIENCE_BOTTLE("minecraft:experience_bottle"),
-
-    POTION("minecraft:potion"),
-
-    TRIDENT("minecraft:trident"),
-
-    TRADER_LLAMA("minecraft:trader_llama"),
-
-    TROPICAL_FISH("minecraft:tropical_fish"),
-
-    TURTLE("minecraft:turtle"),
-
-    VEX("minecraft:vex"),
-
-    VILLAGER("minecraft:villager"),
-
-    VINDICATOR("minecraft:vindicator"),
-
-    WANDERING_TRADER("minecraft:wandering_trader"),
-
-    WITCH("minecraft:witch"),
-
-    WITHER("minecraft:wither"),
-
-    WITHER_SKELETON("minecraft:wither_skeleton"),
-
-    WITHER_SKULL("minecraft:wither_skull"),
-
-    WOLF("minecraft:wolf"),
-
-    ZOGLIN("minecraft:zoglin"),
-
-    ZOMBIE("minecraft:zombie"),
-
-    ZOMBIE_HORSE("minecraft:zombie_horse"),
-
-    ZOMBIE_VILLAGER("minecraft:zombie_villager"),
-
-    ZOMBIFIED_PIGLIN("minecraft:zombified_piglin"),
-
-    PLAYER("minecraft:player"),
-
-    FISHING_BOBBER("minecraft:fishing_bobber");
+    VILLAGER("minecraft:Villager", 120);
 
     private String namespaceID;
 
-    EntityType(String namespaceID) {
+    private int id;
+
+    EntityType(String namespaceID, int id) {
         this.namespaceID = namespaceID;
+        this.id = id;
         Registries.entityTypes.put(NamespaceID.from(namespaceID), this);
     }
 
     public int getId() {
-        return ordinal();
+        return id;
     }
 
     public String getNamespaceID() {
@@ -242,9 +119,11 @@ public enum EntityType {
     }
 
     public static EntityType fromId(int id) {
-        if (id >= 0 && id < values().length) {
-            return values()[id];
+        for (EntityType o : values()) {
+            if (o.getId() == id) {
+                return o;
+            }
         }
-        return PIG;
+        return null;
     }
 }

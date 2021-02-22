@@ -11,7 +11,8 @@ import org.jetbrains.annotations.Nullable;
 public class EntityEndCrystal extends ObjectEntity {
 
     public EntityEndCrystal(@NotNull Position spawnPosition) {
-        super(EntityType.END_CRYSTAL, spawnPosition);
+        super(null, spawnPosition);
+        // super(EntityType.ENDER_CRYSTAL, spawnPosition); TODO(koesie10: Fix ender crystals not appearing as entity type
 
         setBoundingBox(2f, 2f, 2f);
     }
