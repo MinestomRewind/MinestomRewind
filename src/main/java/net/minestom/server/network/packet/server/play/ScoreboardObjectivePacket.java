@@ -34,7 +34,7 @@ public class ScoreboardObjectivePacket implements ServerPacket {
 
         if (mode == 0 || mode == 2) {
             writer.writeSizedString(objectiveValue.toString());
-            writer.writeVarInt(type.ordinal());
+            writer.writeSizedString(type.id);
         }
     }
 
@@ -47,7 +47,13 @@ public class ScoreboardObjectivePacket implements ServerPacket {
      * This enumeration represents all available types for the scoreboard objective
      */
     public enum Type {
-        INTEGER,
-        HEARTS
+        INTEGER("integer"),
+        HEARTS("hearts");
+
+        private final String id;
+
+        Type(String id) {
+            this.id = id;
+        }
     }
 }

@@ -19,10 +19,10 @@ public final class UnlitRedstoneTorch {
             forRemoval = false
     )
     public static void initStates() {
-        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 4));
+        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 75));
+        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 75));
+        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 75));
+        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 75));
+        Block.UNLIT_REDSTONE_TORCH.addBlockAlternative(new BlockAlternative((short) 75));
     }
 }

@@ -19,13 +19,13 @@ public final class Log2 {
             forRemoval = false
     )
     public static void initStates() {
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 13));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
+        Block.LOG2.addBlockAlternative(new BlockAlternative((short) 162));
     }
 }

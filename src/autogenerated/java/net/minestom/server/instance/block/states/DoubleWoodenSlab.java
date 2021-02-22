@@ -19,11 +19,11 @@ public final class DoubleWoodenSlab {
             forRemoval = false
     )
     public static void initStates() {
-        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 5));
+        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 125));
+        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 125));
+        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 125));
+        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 125));
+        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 125));
+        Block.DOUBLE_WOODEN_SLAB.addBlockAlternative(new BlockAlternative((short) 125));
     }
 }

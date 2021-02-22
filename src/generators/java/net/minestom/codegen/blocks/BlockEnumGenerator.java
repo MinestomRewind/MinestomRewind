@@ -312,7 +312,8 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
                         continue;
                     // generate BlockAlternative instance that will be used to lookup block alternatives
                     StringBuilder propertyList = new StringBuilder();
-                    initStatesMethod.addStatement("$T.$N.addBlockAlternative(new $T((short) $L" + propertyList + "))", Block.class, block.getId().getPath().toUpperCase(), BlockAlternative.class, state.getMetadata());
+                    // TODO(koesie10): Fix block states
+                    initStatesMethod.addStatement("$T.$N.addBlockAlternative(new $T((short) $L" + propertyList + "))", Block.class, block.getId().getPath().toUpperCase(), BlockAlternative.class, block.getOrdinal());
                 }
                 subclass.addMethod(initStatesMethod.build());
                 staticBlock.addStatement("$T.initStates()", ClassName.get(getPackageName() + ".states", blockName));

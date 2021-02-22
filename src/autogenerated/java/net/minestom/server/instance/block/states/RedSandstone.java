@@ -19,8 +19,8 @@ public final class RedSandstone {
             forRemoval = false
     )
     public static void initStates() {
-        Block.RED_SANDSTONE.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.RED_SANDSTONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.RED_SANDSTONE.addBlockAlternative(new BlockAlternative((short) 2));
+        Block.RED_SANDSTONE.addBlockAlternative(new BlockAlternative((short) 179));
+        Block.RED_SANDSTONE.addBlockAlternative(new BlockAlternative((short) 179));
+        Block.RED_SANDSTONE.addBlockAlternative(new BlockAlternative((short) 179));
     }
 }

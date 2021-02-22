@@ -22,7 +22,7 @@ public class ArgumentColor extends Argument<ChatColor> {
     @Override
     public ChatColor parse(@NotNull String input) throws ArgumentSyntaxException {
         final ChatColor color = ChatColor.fromName(input);
-        if (color == ChatColor.NO_COLOR)
+        if (color == null)
             throw new ArgumentSyntaxException("Undefined color", input, UNDEFINED_COLOR);
 
         return color;

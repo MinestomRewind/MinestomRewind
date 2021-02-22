@@ -1,6 +1,5 @@
 package net.minestom.server;
 
-import net.minestom.server.advancements.AdvancementManager;
 import net.minestom.server.benchmark.BenchmarkManager;
 import net.minestom.server.command.CommandManager;
 import net.minestom.server.data.DataManager;
@@ -27,7 +26,6 @@ import net.minestom.server.network.PacketProcessor;
 import net.minestom.server.network.netty.NettyServer;
 import net.minestom.server.network.packet.server.play.PluginMessagePacket;
 import net.minestom.server.network.packet.server.play.ServerDifficultyPacket;
-import net.minestom.server.network.packet.server.play.UpdateViewDistancePacket;
 import net.minestom.server.particle.Particle;
 import net.minestom.server.ping.ResponseDataConsumer;
 import net.minestom.server.potion.PotionEffect;
@@ -108,7 +106,6 @@ public final class MinecraftServer {
     private static SchedulerManager schedulerManager;
     private static BenchmarkManager benchmarkManager;
     private static BiomeManager biomeManager;
-    private static AdvancementManager advancementManager;
 
     private static ExtensionManager extensionManager;
 
@@ -170,7 +167,6 @@ public final class MinecraftServer {
         schedulerManager = new SchedulerManager();
         benchmarkManager = new BenchmarkManager();
         biomeManager = new BiomeManager();
-        advancementManager = new AdvancementManager();
 
         updateManager = new UpdateManager();
 
@@ -456,20 +452,6 @@ public final class MinecraftServer {
         Check.argCondition(!MathUtils.isBetween(chunkViewDistance, 2, 32),
                 "The chunk view distance must be between 2 and 32");
         MinecraftServer.chunkViewDistance = chunkViewDistance;
-        if (started) {
-
-            for (final Player player : connectionManager.getOnlinePlayers()) {
-                final Chunk playerChunk = player.getChunk();
-                if (playerChunk != null) {
-
-                    UpdateViewDistancePacket updateViewDistancePacket = new UpdateViewDistancePacket();
-                    updateViewDistancePacket.viewDistance = player.getChunkRange();
-                    player.getPlayerConnection().sendPacket(updateViewDistancePacket);
-
-                    player.refreshVisibleChunks(playerChunk);
-                }
-            }
-        }
     }
 
     /**
@@ -597,16 +579,6 @@ public final class MinecraftServer {
     public static BiomeManager getBiomeManager() {
         checkInitStatus(biomeManager);
         return biomeManager;
-    }
-
-    /**
-     * Gets the manager handling advancements.
-     *
-     * @return the advancement manager
-     */
-    public static AdvancementManager getAdvancementManager() {
-        checkInitStatus(advancementManager);
-        return advancementManager;
     }
 
     /**

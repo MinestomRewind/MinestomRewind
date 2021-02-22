@@ -1,6 +1,7 @@
 package net.minestom.server.item.metadata;
 
 import net.minestom.server.chat.ChatColor;
+import net.minestom.server.utils.RGBColor;
 import org.jetbrains.annotations.NotNull;
 import org.jglrxavpok.hephaistos.nbt.NBTCompound;
 
@@ -21,8 +22,7 @@ public class LeatherArmorMeta extends ItemMeta {
      *
      * @param color the color of the leather armor
      */
-    public void setColor(ChatColor color) {
-        // TODO using "CHAT color" is pretty weird, maybe that the class should be renamed to "Color"
+    public void setColor(RGBColor color) {
         this.red = color.getRed();
         this.green = color.getGreen();
         this.blue = color.getBlue();

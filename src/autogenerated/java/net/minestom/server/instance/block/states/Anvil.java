@@ -19,20 +19,20 @@ public final class Anvil {
             forRemoval = false
     )
     public static void initStates() {
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 10));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 11));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 13));
-        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 14));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
+        Block.ANVIL.addBlockAlternative(new BlockAlternative((short) 145));
     }
 }

@@ -14,8 +14,6 @@ public class TitlePacket implements ServerPacket {
 
     public JsonMessage subtitleText; // Only text
 
-    public JsonMessage actionBarText; // Only text
-
     public int fadeIn;
     public int stay;
     public int fadeOut;
@@ -30,9 +28,6 @@ public class TitlePacket implements ServerPacket {
                 break;
             case SET_SUBTITLE:
                 writer.writeSizedString(subtitleText.toString());
-                break;
-            case SET_ACTION_BAR:
-                writer.writeSizedString(actionBarText.toString());
                 break;
             case SET_TIMES_AND_DISPLAY:
                 writer.writeInt(fadeIn);
@@ -53,7 +48,6 @@ public class TitlePacket implements ServerPacket {
     public enum Action {
         SET_TITLE,
         SET_SUBTITLE,
-        SET_ACTION_BAR,
         SET_TIMES_AND_DISPLAY,
         HIDE,
         RESET

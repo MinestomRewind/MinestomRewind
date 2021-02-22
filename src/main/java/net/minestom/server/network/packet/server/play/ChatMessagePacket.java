@@ -11,23 +11,16 @@ public class ChatMessagePacket implements ServerPacket {
 
     public String jsonMessage;
     public Position position;
-    public UUID uuid;
-
-    public ChatMessagePacket(String jsonMessage, Position position, UUID uuid) {
-        this.jsonMessage = jsonMessage;
-        this.position = position;
-        this.uuid = uuid;
-    }
 
     public ChatMessagePacket(String jsonMessage, Position position) {
-        this(jsonMessage, position, new UUID(0, 0));
+        this.jsonMessage = jsonMessage;
+        this.position = position;
     }
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeSizedString(jsonMessage);
         writer.writeByte((byte) position.ordinal());
-        writer.writeUuid(uuid);
     }
 
     @Override

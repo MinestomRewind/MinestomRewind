@@ -19,13 +19,13 @@ public final class Leaves2 {
             forRemoval = false
     )
     public static void initStates() {
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 13));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
+        Block.LEAVES2.addBlockAlternative(new BlockAlternative((short) 161));
     }
 }

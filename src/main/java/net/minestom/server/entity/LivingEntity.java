@@ -19,7 +19,6 @@ import net.minestom.server.network.packet.server.play.EntityPropertiesPacket;
 import net.minestom.server.network.packet.server.play.SoundEffectPacket;
 import net.minestom.server.scoreboard.Team;
 import net.minestom.server.sound.Sound;
-import net.minestom.server.sound.SoundCategory;
 import net.minestom.server.utils.BlockPosition;
 import net.minestom.server.utils.Position;
 import net.minestom.server.utils.block.BlockIterator;
@@ -135,7 +134,6 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
                             CollectItemPacket collectItemPacket = new CollectItemPacket();
                             collectItemPacket.collectedEntityId = itemEntity.getEntityId();
                             collectItemPacket.collectorEntityId = getEntityId();
-                            collectItemPacket.pickupItemCount = item.getAmount();
                             sendPacketToViewersAndSelf(collectItemPacket);
                             entity.remove();
                         });
@@ -191,11 +189,6 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
 
         // Reset velocity
         velocity.zero();
-
-        // Remove passengers if any
-        if (hasPassenger()) {
-            getPassengers().forEach(this::removePassenger);
-        }
 
         EntityDeathEvent entityDeathEvent = new EntityDeathEvent(this);
         callEvent(EntityDeathEvent.class, entityDeathEvent);
@@ -279,16 +272,8 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
             // play damage sound
             final Sound sound = type.getSound(this);
             if (sound != null) {
-                SoundCategory soundCategory;
-                if (this instanceof Player) {
-                    soundCategory = SoundCategory.PLAYERS;
-                } else {
-                    // TODO: separate living entity categories
-                    soundCategory = SoundCategory.HOSTILE;
-                }
-
                 SoundEffectPacket damageSoundPacket =
-                        SoundEffectPacket.create(soundCategory, sound,
+                        SoundEffectPacket.create(sound,
                                 getPosition(),
                                 1.0f, 1.0f);
                 sendPacketToViewersAndSelf(damageSoundPacket);
@@ -430,7 +415,7 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
     public void swingMainHand() {
         EntityAnimationPacket animationPacket = new EntityAnimationPacket();
         animationPacket.entityId = getEntityId();
-        animationPacket.animation = EntityAnimationPacket.Animation.SWING_MAIN_ARM;
+        animationPacket.animation = EntityAnimationPacket.Animation.SWING_ARM;
         sendPacketToViewers(animationPacket);
     }
 
@@ -441,7 +426,7 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
     public void swingOffHand() {
         EntityAnimationPacket animationPacket = new EntityAnimationPacket();
         animationPacket.entityId = getEntityId();
-        animationPacket.animation = EntityAnimationPacket.Animation.SWING_OFF_HAND;
+        animationPacket.animation = EntityAnimationPacket.Animation.EAT_FOOD;
         sendPacketToViewers(animationPacket);
     }
 

@@ -19,11 +19,11 @@ public final class MonsterEgg {
             forRemoval = false
     )
     public static void initStates() {
-        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 5));
+        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 97));
+        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 97));
+        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 97));
+        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 97));
+        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 97));
+        Block.MONSTER_EGG.addBlockAlternative(new BlockAlternative((short) 97));
     }
 }

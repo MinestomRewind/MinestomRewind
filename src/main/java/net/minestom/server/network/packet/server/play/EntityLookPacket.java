@@ -5,7 +5,7 @@ import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
 import org.jetbrains.annotations.NotNull;
 
-public class EntityRotationPacket implements ServerPacket {
+public class EntityLookPacket implements ServerPacket {
 
     public int entityId;
     public float yaw, pitch;
@@ -21,19 +21,19 @@ public class EntityRotationPacket implements ServerPacket {
 
     @Override
     public int getId() {
-        return ServerPacketIdentifier.ENTITY_ROTATION;
+        return ServerPacketIdentifier.ENTITY_LOOK;
     }
 
     @NotNull
-    public static EntityRotationPacket getPacket(int entityId,
-                                                 float yaw, float pitch,
-                                                 boolean onGround) {
-        EntityRotationPacket entityRotationPacket = new EntityRotationPacket();
-        entityRotationPacket.entityId = entityId;
-        entityRotationPacket.yaw = yaw;
-        entityRotationPacket.pitch = pitch;
-        entityRotationPacket.onGround = onGround;
+    public static EntityLookPacket getPacket(int entityId,
+                                             float yaw, float pitch,
+                                             boolean onGround) {
+        EntityLookPacket entityLookPacket = new EntityLookPacket();
+        entityLookPacket.entityId = entityId;
+        entityLookPacket.yaw = yaw;
+        entityLookPacket.pitch = pitch;
+        entityLookPacket.onGround = onGround;
 
-        return entityRotationPacket;
+        return entityLookPacket;
     }
 }

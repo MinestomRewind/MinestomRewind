@@ -19,10 +19,10 @@ public final class QuartzBlock {
             forRemoval = false
     )
     public static void initStates() {
-        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 4));
+        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 155));
+        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 155));
+        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 155));
+        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 155));
+        Block.QUARTZ_BLOCK.addBlockAlternative(new BlockAlternative((short) 155));
     }
 }

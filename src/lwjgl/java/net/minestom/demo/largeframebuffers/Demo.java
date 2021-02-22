@@ -73,7 +73,7 @@ public class Demo {
         itemFrame.setItemStack(map);
         itemFrame.setInstance(instance);
         itemFrame.setCustomNameVisible(true);
-        itemFrame.setCustomName(ColoredText.of("MapID: " + id));
+        itemFrame.setCustomName("MapID: " + id);
     }
 
     private static void setupMaps(Instance instance, int mapIDStart, int zCoordinate) {

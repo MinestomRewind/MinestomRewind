@@ -9,13 +9,11 @@ public class CollectItemPacket implements ServerPacket {
 
     public int collectedEntityId;
     public int collectorEntityId;
-    public int pickupItemCount;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeVarInt(collectedEntityId);
         writer.writeVarInt(collectorEntityId);
-        writer.writeVarInt(pickupItemCount);
     }
 
     @Override

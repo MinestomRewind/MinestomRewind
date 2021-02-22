@@ -7,14 +7,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class UpdateScorePacket implements ServerPacket {
 
-    public String entityName;
+    public String scoreName;
     public byte action;
     public String objectiveName;
     public int value;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeSizedString(entityName);
+        writer.writeSizedString(scoreName);
         writer.writeByte(action);
         writer.writeSizedString(objectiveName);
         if (action != 1) {

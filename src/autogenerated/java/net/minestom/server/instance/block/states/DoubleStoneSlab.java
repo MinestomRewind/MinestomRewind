@@ -19,16 +19,16 @@ public final class DoubleStoneSlab {
             forRemoval = false
     )
     public static void initStates() {
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 15));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
+        Block.DOUBLE_STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 43));
     }
 }

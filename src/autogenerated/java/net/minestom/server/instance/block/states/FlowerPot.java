@@ -19,19 +19,19 @@ public final class FlowerPot {
             forRemoval = false
     )
     public static void initStates() {
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 10));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 11));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 13));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
+        Block.FLOWER_POT.addBlockAlternative(new BlockAlternative((short) 140));
     }
 }

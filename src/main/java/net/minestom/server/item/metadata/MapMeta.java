@@ -17,7 +17,7 @@ public class MapMeta extends ItemMeta {
     private int mapId;
     private int mapScaleDirection = 1;
     private List<MapDecoration> decorations = new CopyOnWriteArrayList<>();
-    private ChatColor mapColor = ChatColor.NO_COLOR;
+    private ChatColor mapColor = null;
 
     public MapMeta() {
     }
@@ -191,7 +191,9 @@ public class MapMeta extends ItemMeta {
             } else {
                 displayCompound = new NBTCompound();
             }
-            displayCompound.setInt("MapColor", mapColor.getId());
+            if (mapColor != null) {
+                displayCompound.setInt("MapColor", mapColor.getId());
+            }
         }
     }
 

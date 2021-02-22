@@ -1,6 +1,7 @@
 package net.minestom.server.item.firework;
 
 import net.minestom.server.chat.ChatColor;
+import net.minestom.server.utils.RGBColor;
 import org.jetbrains.annotations.NotNull;
 import org.jglrxavpok.hephaistos.nbt.NBTCompound;
 
@@ -11,8 +12,8 @@ public class FireworkEffect {
     private final boolean flicker;
     private final boolean trail;
     private final FireworkEffectType type;
-    private final ChatColor color;
-    private final ChatColor fadeColor;
+    private final RGBColor color;
+    private final RGBColor fadeColor;
 
     /**
      * Initializes a new firework effect.
@@ -23,7 +24,7 @@ public class FireworkEffect {
      * @param color     The primary color of this firework effect.
      * @param fadeColor The secondary color of this firework effect.
      */
-    public FireworkEffect(boolean flicker, boolean trail, FireworkEffectType type, ChatColor color, ChatColor fadeColor) {
+    public FireworkEffect(boolean flicker, boolean trail, FireworkEffectType type, RGBColor color, RGBColor fadeColor) {
         this.flicker = flicker;
         this.trail = trail;
         this.type = type;
@@ -39,17 +40,17 @@ public class FireworkEffect {
      */
     public static FireworkEffect fromCompound(@NotNull NBTCompound compound) {
 
-        ChatColor primaryColor = null;
-        ChatColor secondaryColor = null;
+        RGBColor primaryColor = null;
+        RGBColor secondaryColor = null;
 
         if (compound.containsKey("Colors")) {
             int[] color = compound.getIntArray("Colors");
-            primaryColor = ChatColor.fromRGB((byte) color[0], (byte) color[1], (byte) color[2]);
+            primaryColor = RGBColor.fromRGB((byte) color[0], (byte) color[1], (byte) color[2]);
         }
 
         if (compound.containsKey("FadeColors")) {
             int[] fadeColor = compound.getIntArray("FadeColors");
-            secondaryColor = ChatColor.fromRGB((byte) fadeColor[0], (byte) fadeColor[1], (byte) fadeColor[2]);
+            secondaryColor = RGBColor.fromRGB((byte) fadeColor[0], (byte) fadeColor[1], (byte) fadeColor[2]);
 
         }
 

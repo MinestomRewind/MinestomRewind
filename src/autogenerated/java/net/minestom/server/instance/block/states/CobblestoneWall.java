@@ -19,7 +19,7 @@ public final class CobblestoneWall {
             forRemoval = false
     )
     public static void initStates() {
-        Block.COBBLESTONE_WALL.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.COBBLESTONE_WALL.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.COBBLESTONE_WALL.addBlockAlternative(new BlockAlternative((short) 139));
+        Block.COBBLESTONE_WALL.addBlockAlternative(new BlockAlternative((short) 139));
     }
 }

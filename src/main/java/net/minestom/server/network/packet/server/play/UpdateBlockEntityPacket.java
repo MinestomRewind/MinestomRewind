@@ -7,7 +7,7 @@ import net.minestom.server.utils.binary.BinaryWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jglrxavpok.hephaistos.nbt.NBTCompound;
 
-public class BlockEntityDataPacket implements ServerPacket {
+public class UpdateBlockEntityPacket implements ServerPacket {
 
     public BlockPosition blockPosition;
     public byte action;
@@ -27,6 +27,6 @@ public class BlockEntityDataPacket implements ServerPacket {
 
     @Override
     public int getId() {
-        return ServerPacketIdentifier.BLOCK_ENTITY_DATA;
+        return ServerPacketIdentifier.UPDATE_BLOCK_ENTITY;
     }
 }

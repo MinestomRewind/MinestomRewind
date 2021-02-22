@@ -105,8 +105,8 @@ public class DamageType implements DataContainer {
      * @return the death screen text, null to do not send anything
      */
     @Nullable
-    public JsonMessage buildDeathScreenText(@NotNull Player killed) {
-        return ColoredText.of("{@death." + identifier + "}");
+    public String buildDeathScreenText(@NotNull Player killed) {
+        return "death." + identifier;
     }
 
     /**

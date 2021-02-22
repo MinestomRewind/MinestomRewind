@@ -19,13 +19,13 @@ public final class SnowLayer {
             forRemoval = false
     )
     public static void initStates() {
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 7));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
+        Block.SNOW_LAYER.addBlockAlternative(new BlockAlternative((short) 78));
     }
 }

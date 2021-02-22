@@ -2,10 +2,10 @@ package net.minestom.server.inventory.type;
 
 import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.InventoryType;
-import net.minestom.server.network.packet.server.play.TradeListPacket;
 import net.minestom.server.utils.ArrayUtils;
 
-public class VillagerInventory extends Inventory {
+// TODO(koesie10): Use channels for this
+/*public class VillagerInventory extends Inventory {
 
     protected TradeListPacket tradeListPacket;
 
@@ -88,4 +88,4 @@ public class VillagerInventory extends Inventory {
         this.tradeListPacket.regularVillager = false;
         this.tradeListPacket.canRestock = false;
     }
-}
+}*/

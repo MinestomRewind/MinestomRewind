@@ -2,10 +2,8 @@ package net.minestom.server.entity;
 
 import com.google.common.collect.Queues;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.advancements.AdvancementTab;
 import net.minestom.server.attribute.AttributeInstance;
 import net.minestom.server.attribute.Attributes;
-import net.minestom.server.bossbar.BossBar;
 import net.minestom.server.chat.ChatParser;
 import net.minestom.server.chat.ColoredText;
 import net.minestom.server.chat.JsonMessage;
@@ -44,7 +42,6 @@ import net.minestom.server.resourcepack.ResourcePack;
 import net.minestom.server.scoreboard.BelowNameTag;
 import net.minestom.server.scoreboard.Team;
 import net.minestom.server.sound.Sound;
-import net.minestom.server.sound.SoundCategory;
 import net.minestom.server.stat.PlayerStatistic;
 import net.minestom.server.utils.*;
 import net.minestom.server.utils.callback.OptionalCallback;
@@ -149,9 +146,6 @@ public class Player extends LivingEntity implements CommandSender {
     private long defaultEatingTime = 1000L;
     private long eatingTime;
     private boolean isEating;
-
-    // Game state (https://wiki.vg/Protocol#Change_Game_State)
-    private boolean enableRespawnScreen;
 
     // CustomBlock break delay
     private CustomBlock targetCustomBlock;
@@ -402,14 +396,14 @@ public class Player extends LivingEntity implements CommandSender {
                 ServerPacket updatePacket;
                 ServerPacket optionalUpdatePacket = null;
                 if (positionChanged && viewChanged) {
-                    updatePacket = EntityPositionAndRotationPacket.getPacket(getEntityId(),
+                    updatePacket = EntityLookAndRelativeMove.getPacket(getEntityId(),
                             position, new Position(lastPlayerSyncX, lastPlayerSyncY, lastPlayerSyncZ), onGround);
                 } else if (positionChanged) {
-                    updatePacket = EntityPositionPacket.getPacket(getEntityId(),
+                    updatePacket = EntityRelativeMovePacket.getPacket(getEntityId(),
                             position, new Position(lastPlayerSyncX, lastPlayerSyncY, lastPlayerSyncZ), onGround);
                 } else {
                     // View changed
-                    updatePacket = EntityRotationPacket.getPacket(getEntityId(),
+                    updatePacket = EntityLookPacket.getPacket(getEntityId(),
                             position.getYaw(), position.getPitch(), onGround);
                 }
 
@@ -448,7 +442,7 @@ public class Player extends LivingEntity implements CommandSender {
     public void kill() {
         if (!isDead()) {
 
-            JsonMessage deathText;
+            String deathText;
             JsonMessage chatMessage;
 
             // get death screen text to the killed player
@@ -456,7 +450,7 @@ public class Player extends LivingEntity implements CommandSender {
                 if (lastDamageSource != null) {
                     deathText = lastDamageSource.buildDeathScreenText(this);
                 } else { // may happen if killed by the server without applying damage
-                    deathText = ColoredText.of("Killed by poor programming.");
+                    deathText = "Killed by poor programming.";
                 }
             }
 
@@ -534,26 +528,6 @@ public class Player extends LivingEntity implements CommandSender {
         this.packets.clear();
         if (getOpenInventory() != null)
             getOpenInventory().removeViewer(this);
-
-        // Boss bars cache
-        {
-            Set<BossBar> bossBars = BossBar.getBossBars(this);
-            if (bossBars != null) {
-                for (BossBar bossBar : bossBars) {
-                    bossBar.removeViewer(this);
-                }
-            }
-        }
-
-        // Advancement tabs cache
-        {
-            Set<AdvancementTab> advancementTabs = AdvancementTab.getTabs(this);
-            if (advancementTabs != null) {
-                for (AdvancementTab advancementTab : advancementTabs) {
-                    advancementTab.removeViewer(this);
-                }
-            }
-        }
 
         // Item ownership cache
         {
@@ -779,17 +753,15 @@ public class Player extends LivingEntity implements CommandSender {
      * Plays a sound from the {@link Sound} enum.
      *
      * @param sound         the sound to play
-     * @param soundCategory the sound category
      * @param x             the effect X
      * @param y             the effect Y
      * @param z             the effect Z
      * @param volume        the volume of the sound (1 is 100%)
      * @param pitch         the pitch of the sound, between 0.5 and 2.0
      */
-    public void playSound(@NotNull Sound sound, @NotNull SoundCategory soundCategory, int x, int y, int z, float volume, float pitch) {
+    public void playSound(@NotNull Sound sound, int x, int y, int z, float volume, float pitch) {
         SoundEffectPacket soundEffectPacket = new SoundEffectPacket();
-        soundEffectPacket.soundId = 0; // TODO(koesie10): Use the correct sound name
-        soundEffectPacket.soundCategory = soundCategory;
+        soundEffectPacket.soundName = sound.getId();
         soundEffectPacket.x = x;
         soundEffectPacket.y = y;
         soundEffectPacket.z = z;
@@ -802,41 +774,21 @@ public class Player extends LivingEntity implements CommandSender {
      * Plays a sound from an identifier (represents a custom sound in a resource pack).
      *
      * @param identifier    the identifier of the sound to play
-     * @param soundCategory the sound category
      * @param x             the effect X
      * @param y             the effect Y
      * @param z             the effect Z
      * @param volume        the volume of the sound (1 is 100%)
      * @param pitch         the pitch of the sound, between 0.5 and 2.0
      */
-    public void playSound(@NotNull String identifier, @NotNull SoundCategory soundCategory, int x, int y, int z, float volume, float pitch) {
-        NamedSoundEffectPacket namedSoundEffectPacket = new NamedSoundEffectPacket();
+    public void playSound(@NotNull String identifier, int x, int y, int z, float volume, float pitch) {
+        SoundEffectPacket namedSoundEffectPacket = new SoundEffectPacket();
         namedSoundEffectPacket.soundName = identifier;
-        namedSoundEffectPacket.soundCategory = soundCategory;
         namedSoundEffectPacket.x = x;
         namedSoundEffectPacket.y = y;
         namedSoundEffectPacket.z = z;
         namedSoundEffectPacket.volume = volume;
         namedSoundEffectPacket.pitch = pitch;
         playerConnection.sendPacket(namedSoundEffectPacket);
-    }
-
-    /**
-     * Plays a sound directly to the player (constant volume).
-     *
-     * @param sound         the sound to play
-     * @param soundCategory the sound category
-     * @param volume        the volume of the sound (1 is 100%)
-     * @param pitch         the pitch of the sound, between 0.5 and 2.0
-     */
-    public void playSound(@NotNull Sound sound, @NotNull SoundCategory soundCategory, float volume, float pitch) {
-        EntitySoundEffectPacket entitySoundEffectPacket = new EntitySoundEffectPacket();
-        entitySoundEffectPacket.entityId = getEntityId();
-        entitySoundEffectPacket.soundId = 0; // TODO(koesie10): Use the correct sound name
-        entitySoundEffectPacket.soundCategory = soundCategory;
-        entitySoundEffectPacket.volume = volume;
-        entitySoundEffectPacket.pitch = pitch;
-        playerConnection.sendPacket(entitySoundEffectPacket);
     }
 
     /**
@@ -856,15 +808,6 @@ public class Player extends LivingEntity implements CommandSender {
         packet.data = data;
         packet.disableRelativeVolume = disableRelativeVolume;
         playerConnection.sendPacket(packet);
-    }
-
-    /**
-     * Sends a {@link StopSoundPacket} packet.
-     */
-    public void stopSound() {
-        StopSoundPacket stopSoundPacket = new StopSoundPacket();
-        stopSoundPacket.flags = 0x00;
-        playerConnection.sendPacket(stopSoundPacket);
     }
 
     /**
@@ -898,9 +841,6 @@ public class Player extends LivingEntity implements CommandSender {
                 break;
             case SET_SUBTITLE:
                 titlePacket.subtitleText = text;
-                break;
-            case SET_ACTION_BAR:
-                titlePacket.actionBarText = text;
                 break;
             default:
                 throw new UnsupportedOperationException("Invalid TitlePacket.Action type!");
@@ -948,7 +888,8 @@ public class Player extends LivingEntity implements CommandSender {
      * @see #sendTitleTime(int, int, int) to specify the display time
      */
     public void sendActionBarMessage(@NotNull JsonMessage actionBar) {
-        sendTitle(actionBar, TitlePacket.Action.SET_ACTION_BAR);
+        ChatMessagePacket chatMessagePacket = new ChatMessagePacket(actionBar.toString(), ChatMessagePacket.Position.GAME_INFO);
+        playerConnection.sendPacket(chatMessagePacket);
     }
 
     /**
@@ -1194,25 +1135,6 @@ public class Player extends LivingEntity implements CommandSender {
     }
 
     /**
-     * Gets if the player has the respawn screen enabled or disabled.
-     *
-     * @return true if the player has the respawn screen, false if he didn't
-     */
-    public boolean isEnableRespawnScreen() {
-        return enableRespawnScreen;
-    }
-
-    /**
-     * Enables or disable the respawn screen.
-     *
-     * @param enableRespawnScreen true to enable the respawn screen, false to disable it
-     */
-    public void setEnableRespawnScreen(boolean enableRespawnScreen) {
-        this.enableRespawnScreen = enableRespawnScreen;
-        sendChangeGameStatePacket(ChangeGameStatePacket.Reason.ENABLE_RESPAWN_SCREEN, enableRespawnScreen ? 0 : 1);
-    }
-
-    /**
      * Gets the player username.
      *
      * @return the player username
@@ -1273,43 +1195,6 @@ public class Player extends LivingEntity implements CommandSender {
     }
 
     /**
-     * Rotates the player to face {@code targetPosition}.
-     *
-     * @param facePoint      the point from where the player should aim
-     * @param targetPosition the target position to face
-     */
-    public void facePosition(@NotNull FacePoint facePoint, @NotNull Position targetPosition) {
-        facePosition(facePoint, targetPosition, null, null);
-    }
-
-    /**
-     * Rotates the player to face {@code entity}.
-     *
-     * @param facePoint   the point from where the player should aim
-     * @param entity      the entity to face
-     * @param targetPoint the point to aim at {@code entity} position
-     */
-    public void facePosition(@NotNull FacePoint facePoint, Entity entity, FacePoint targetPoint) {
-        facePosition(facePoint, entity.getPosition(), entity, targetPoint);
-    }
-
-    private void facePosition(@NotNull FacePoint facePoint, @NotNull Position targetPosition,
-                              @Nullable Entity entity, @Nullable FacePoint targetPoint) {
-        FacePlayerPacket facePlayerPacket = new FacePlayerPacket();
-        facePlayerPacket.entityFacePosition = facePoint == FacePoint.EYE ?
-                FacePlayerPacket.FacePosition.EYES : FacePlayerPacket.FacePosition.FEET;
-        facePlayerPacket.targetX = targetPosition.getX();
-        facePlayerPacket.targetY = targetPosition.getY();
-        facePlayerPacket.targetZ = targetPosition.getZ();
-        if (entity != null) {
-            facePlayerPacket.entityId = entity.getEntityId();
-            facePlayerPacket.entityFacePosition = targetPoint == FacePoint.EYE ?
-                    FacePlayerPacket.FacePosition.EYES : FacePlayerPacket.FacePosition.FEET;
-        }
-        playerConnection.sendPacket(facePlayerPacket);
-    }
-
-    /**
      * Sets the camera at {@code entity} eyes.
      *
      * @param entity the entity to spectate
@@ -1359,6 +1244,8 @@ public class Player extends LivingEntity implements CommandSender {
         spawnPlayerPacket.entityId = getEntityId();
         spawnPlayerPacket.playerUuid = getUuid();
         spawnPlayerPacket.position = getPosition();
+        spawnPlayerPacket.heldItem = heldSlot;
+        spawnPlayerPacket.metadataEntries = metadata.getEntries();
         sendPacketToViewers(spawnPlayerPacket);
 
         // Update for viewers
@@ -1803,6 +1690,7 @@ public class Player extends LivingEntity implements CommandSender {
             OpenWindowPacket openWindowPacket = new OpenWindowPacket();
             openWindowPacket.windowId = newInventory.getWindowId();
             openWindowPacket.windowType = newInventory.getInventoryType().getWindowType();
+            openWindowPacket.numberOfSlots = (byte) newInventory.getSize();
             openWindowPacket.title = newInventory.getTitle();
             playerConnection.sendPacket(openWindowPacket);
             newInventory.addViewer(this);
@@ -2344,6 +2232,8 @@ public class Player extends LivingEntity implements CommandSender {
         spawnPlayerPacket.entityId = getEntityId();
         spawnPlayerPacket.playerUuid = getUuid();
         spawnPlayerPacket.position = getPosition();
+        spawnPlayerPacket.heldItem = heldSlot;
+        spawnPlayerPacket.metadataEntries = metadata.getEntries();
 
         connection.sendPacket(getAddPlayerToList());
 
@@ -2353,10 +2243,6 @@ public class Player extends LivingEntity implements CommandSender {
 
         // Equipments synchronization
         syncEquipments(connection);
-
-        if (hasPassenger()) {
-            connection.sendPacket(getPassengersPacket());
-        }
 
         // Team
         if (this.getTeam() != null)
@@ -2496,7 +2382,6 @@ public class Player extends LivingEntity implements CommandSender {
          * @param chatMode           the player chat mode
          * @param chatColors         the player chat colors
          * @param displayedSkinParts the player displayed skin parts
-         * @param mainHand           the player main hand
          */
         public void refresh(String locale, byte viewDistance, ChatMode chatMode, boolean chatColors,
                             byte displayedSkinParts) {

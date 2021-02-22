@@ -98,7 +98,7 @@ public final class TeamManager {
      * @param suffix    The team suffix
      * @return the created {@link Team} with a prefix, teamColor and suffix
      */
-    public Team createTeam(String name, JsonMessage prefix, ChatColor teamColor, JsonMessage suffix) {
+    public Team createTeam(String name, String prefix, ChatColor teamColor, String suffix) {
         return this.createBuilder(name).prefix(prefix).teamColor(teamColor).suffix(suffix).updateTeamPacket().build();
     }
 
@@ -112,7 +112,7 @@ public final class TeamManager {
      * @param suffix      The team suffix
      * @return the created {@link Team} with a prefix, teamColor, suffix and the display name
      */
-    public Team createTeam(String name, JsonMessage displayName, JsonMessage prefix, ChatColor teamColor, JsonMessage suffix) {
+    public Team createTeam(String name, String displayName, String prefix, ChatColor teamColor, String suffix) {
         return this.createBuilder(name).teamDisplayName(displayName).prefix(prefix).teamColor(teamColor).suffix(suffix).updateTeamPacket().build();
     }
 

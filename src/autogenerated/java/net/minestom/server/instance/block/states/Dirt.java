@@ -19,8 +19,8 @@ public final class Dirt {
             forRemoval = false
     )
     public static void initStates() {
-        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 2));
+        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 3));
+        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 3));
+        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 3));
     }
 }

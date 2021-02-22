@@ -19,10 +19,10 @@ public final class Torch {
             forRemoval = false
     )
     public static void initStates() {
-        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 4));
+        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 50));
+        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 50));
+        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 50));
+        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 50));
+        Block.TORCH.addBlockAlternative(new BlockAlternative((short) 50));
     }
 }

@@ -3,7 +3,6 @@ package net.minestom.server.scoreboard;
 import net.minestom.server.chat.ChatColor;
 import net.minestom.server.chat.ColoredText;
 import net.minestom.server.chat.JsonMessage;
-import net.minestom.server.network.packet.server.play.TeamsPacket.CollisionRule;
 import net.minestom.server.network.packet.server.play.TeamsPacket.NameTagVisibility;
 
 /**
@@ -53,16 +52,6 @@ public class TeamBuilder {
      * @return this builder, for chaining
      */
     public TeamBuilder updatePrefix(String prefix) {
-        return this.updatePrefix(ColoredText.of(prefix));
-    }
-
-    /**
-     * Updates the prefix of the {@link Team}.
-     *
-     * @param prefix The new prefix
-     * @return this builder, for chaining
-     */
-    public TeamBuilder updatePrefix(JsonMessage prefix) {
         this.team.updatePrefix(prefix);
         return this;
     }
@@ -85,16 +74,6 @@ public class TeamBuilder {
      * @return this builder, for chaining
      */
     public TeamBuilder updateSuffix(String suffix) {
-        return updateSuffix(ColoredText.of(suffix));
-    }
-
-    /**
-     * Updates the suffix of the {@link Team}.
-     *
-     * @param suffix The new suffix
-     * @return this builder, for chaining
-     */
-    public TeamBuilder updateSuffix(JsonMessage suffix) {
         this.team.updateSuffix(suffix);
         return this;
     }
@@ -106,28 +85,7 @@ public class TeamBuilder {
      * @return this builder, for chaining
      */
     public TeamBuilder updateTeamDisplayName(String displayName) {
-        return this.updateTeamDisplayName(ColoredText.of(displayName));
-    }
-
-    /**
-     * Updates the display name of the {@link Team}.
-     *
-     * @param displayName The new display name
-     * @return this builder, for chaining
-     */
-    public TeamBuilder updateTeamDisplayName(JsonMessage displayName) {
         this.team.updateTeamDisplayName(displayName);
-        return this;
-    }
-
-    /**
-     * Updates the {@link CollisionRule} of the {@link Team}.
-     *
-     * @param rule The new rule
-     * @return this builder, for chaining
-     */
-    public TeamBuilder updateCollisionRule(CollisionRule rule) {
-        this.team.updateCollisionRule(rule);
         return this;
     }
 
@@ -180,18 +138,6 @@ public class TeamBuilder {
      * @return this builder, for chaining
      */
     public TeamBuilder prefix(String prefix) {
-        return this.prefix(ColoredText.of(prefix));
-    }
-
-    /**
-     * Changes the prefix of the {@link Team} without an update packet.
-     * <br><br>
-     * <b>Warning: </b> If you do not call {@link #updateTeamPacket()}, this is only changed of the <b>server side</b>.
-     *
-     * @param prefix The new prefix
-     * @return this builder, for chaining
-     */
-    public TeamBuilder prefix(JsonMessage prefix) {
         this.team.setPrefix(prefix);
         return this;
     }
@@ -205,19 +151,6 @@ public class TeamBuilder {
      * @return this builder, for chaining
      */
     public TeamBuilder suffix(String suffix) {
-        this.team.setSuffix(ColoredText.of(suffix));
-        return this;
-    }
-
-    /**
-     * Changes the suffix of the {@link Team} without an update packet.
-     * <br><br>
-     * <b>Warning: </b> If you do not call {@link #updateTeamPacket()}, this is only changed of the <b>server side</b>.
-     *
-     * @param suffix The new suffix
-     * @return this builder, for chaining
-     */
-    public TeamBuilder suffix(JsonMessage suffix) {
         this.team.setSuffix(suffix);
         return this;
     }
@@ -244,32 +177,7 @@ public class TeamBuilder {
      * @return this builder, for chaining
      */
     public TeamBuilder teamDisplayName(String displayName) {
-        return this.teamDisplayName(ColoredText.of(displayName));
-    }
-
-    /**
-     * Changes the display name of the {@link Team} without an update packet.
-     * <br><br>
-     * <b>Warning: </b> If you do not call {@link #updateTeamPacket()}, this is only changed of the <b>server side</b>.
-     *
-     * @param displayName The new display name
-     * @return this builder, for chaining
-     */
-    public TeamBuilder teamDisplayName(JsonMessage displayName) {
         this.team.setTeamDisplayName(displayName);
-        return this;
-    }
-
-    /**
-     * Changes the {@link CollisionRule} of the {@link Team} without an update packet.
-     * <br><br>
-     * <b>Warning: </b> If you do not call {@link #updateTeamPacket()}, this is only changed of the <b>server side</b>.
-     *
-     * @param rule The new rule
-     * @return this builder, for chaining
-     */
-    public TeamBuilder collisionRule(CollisionRule rule) {
-        this.team.setCollisionRule(rule);
         return this;
     }
 

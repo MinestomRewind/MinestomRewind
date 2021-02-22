@@ -26,8 +26,7 @@ public class StatusListener {
                     int value = entry.getValue();
 
                     StatisticsPacket.Statistic statistic = new StatisticsPacket.Statistic();
-                    statistic.category = playerStatistic.getCategory();
-                    statistic.statisticId = playerStatistic.getStatisticId();
+                    statistic.name = playerStatistic.getStatisticName();
                     statistic.value = value;
 
                     statisticList.add(statistic);

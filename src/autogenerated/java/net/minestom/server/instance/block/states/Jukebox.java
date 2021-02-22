@@ -19,7 +19,7 @@ public final class Jukebox {
             forRemoval = false
     )
     public static void initStates() {
-        Block.JUKEBOX.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.JUKEBOX.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.JUKEBOX.addBlockAlternative(new BlockAlternative((short) 84));
+        Block.JUKEBOX.addBlockAlternative(new BlockAlternative((short) 84));
     }
 }

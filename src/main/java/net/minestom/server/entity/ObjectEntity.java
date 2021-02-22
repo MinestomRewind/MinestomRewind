@@ -48,10 +48,6 @@ public abstract class ObjectEntity extends Entity {
         playerConnection.sendPacket(getVelocityPacket());
         playerConnection.sendPacket(getMetadataPacket());
 
-        if (hasPassenger()) {
-            playerConnection.sendPacket(getPassengersPacket());
-        }
-
         return true;
     }
 

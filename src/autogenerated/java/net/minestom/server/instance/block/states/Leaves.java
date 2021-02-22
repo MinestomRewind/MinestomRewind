@@ -19,21 +19,21 @@ public final class Leaves {
             forRemoval = false
     )
     public static void initStates() {
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 10));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 11));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 13));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 14));
-        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 15));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
+        Block.LEAVES.addBlockAlternative(new BlockAlternative((short) 18));
     }
 }

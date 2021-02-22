@@ -15,9 +15,9 @@ public class SpawnExperienceOrbPacket implements ServerPacket {
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeVarInt(entityId);
-        writer.writeDouble(position.getX());
-        writer.writeDouble(position.getY());
-        writer.writeDouble(position.getZ());
+        writer.writeInt((int) (position.getX() * 32.0));
+        writer.writeInt((int) (position.getY() * 32.0));
+        writer.writeInt((int) (position.getZ() * 32.0));
         writer.writeShort(expCount);
     }
 

@@ -101,7 +101,9 @@ public class ColoredText extends JsonMessage {
      */
     @NotNull
     public ColoredText append(@NotNull String message) {
-        return append(ChatColor.NO_COLOR, message);
+        this.message.append(message);
+        refreshUpdate();
+        return this;
     }
 
     /**
@@ -209,9 +211,8 @@ public class ColoredText extends JsonMessage {
                     // Remove the first # character to get code
                     final String colorCode = formatString.substring(1);
                     final ChatColor color = ChatColor.fromName(colorCode);
-                    if (color == ChatColor.NO_COLOR) {
-                        // Use rgb formatting (#ffffff)
-                        currentColor = COLOR_PREFIX + colorCode;
+                    if (color == null) {
+                        throw new IllegalStateException("Invalid color " + colorCode);
                     } else if (color.isSpecial()) {
                         // Check for special color (reset/bold/etc...)
                         if (color == ChatColor.RESET) {
@@ -347,7 +348,7 @@ public class ColoredText extends JsonMessage {
             if (c == colorChar) {
                 final char nextChar = message.charAt(i + 1);
                 final ChatColor color = ChatColor.fromLegacyColorCodes(nextChar);
-                if (color != ChatColor.NO_COLOR) {
+                if (color != null) {
                     final String replacement = color.toString();
                     result.append(replacement);
                     i++; // Increment to ignore the color code

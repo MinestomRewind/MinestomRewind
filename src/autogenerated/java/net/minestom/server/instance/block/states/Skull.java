@@ -19,10 +19,10 @@ public final class Skull {
             forRemoval = false
     )
     public static void initStates() {
-        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 4));
+        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 144));
+        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 144));
+        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 144));
+        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 144));
+        Block.SKULL.addBlockAlternative(new BlockAlternative((short) 144));
     }
 }

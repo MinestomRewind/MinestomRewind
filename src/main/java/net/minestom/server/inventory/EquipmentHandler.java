@@ -120,7 +120,9 @@ public interface EquipmentHandler {
      * @param connection the connection to send the equipments to
      */
     default void syncEquipments(@NotNull PlayerConnection connection) {
-        connection.sendPacket(getEquipmentsPacket());
+        for (EntityEquipmentPacket packet : getEquipmentsPacket()) {
+            connection.sendPacket(packet);
+        }
     }
 
     /**
@@ -130,7 +132,9 @@ public interface EquipmentHandler {
         Check.stateCondition(!(this instanceof Viewable), "Only accessible for Entity");
 
         Viewable viewable = (Viewable) this;
-        viewable.sendPacketToViewersAndSelf(getEquipmentsPacket());
+        for (EntityEquipmentPacket packet : getEquipmentsPacket()) {
+            viewable.sendPacketToViewersAndSelf(packet);
+        }
     }
 
     /**
@@ -147,8 +151,8 @@ public interface EquipmentHandler {
 
         EntityEquipmentPacket entityEquipmentPacket = new EntityEquipmentPacket();
         entityEquipmentPacket.entityId = entity.getEntityId();
-        entityEquipmentPacket.slots = new EntityEquipmentPacket.Slot[]{slot};
-        entityEquipmentPacket.itemStacks = new ItemStack[]{itemStack};
+        entityEquipmentPacket.slot = slot;
+        entityEquipmentPacket.itemStack = itemStack;
 
         entity.sendPacketToViewers(entityEquipmentPacket);
     }
@@ -160,27 +164,29 @@ public interface EquipmentHandler {
      * @throws IllegalStateException if 'this' is not an {@link Entity}
      */
     @NotNull
-    default EntityEquipmentPacket getEquipmentsPacket() {
+    default EntityEquipmentPacket[] getEquipmentsPacket() {
         Check.stateCondition(!(this instanceof Entity), "Only accessible for Entity");
 
         final Entity entity = (Entity) this;
 
         final EntityEquipmentPacket.Slot[] slots = EntityEquipmentPacket.Slot.values();
 
-        List<ItemStack> itemStacks = new ArrayList<>(slots.length);
+        final EntityEquipmentPacket[] packets = new EntityEquipmentPacket[slots.length];
 
         // Fill items
-        for (EntityEquipmentPacket.Slot slot : slots) {
-            final ItemStack equipment = getEquipment(slot);
-            itemStacks.add(equipment);
+        for (int i = 0; i < slots.length; i++) {
+            final ItemStack equipment = getEquipment(slots[i]);
+
+            // Create equipment packet
+            EntityEquipmentPacket equipmentPacket = new EntityEquipmentPacket();
+            equipmentPacket.entityId = entity.getEntityId();
+            equipmentPacket.slot = slots[i];
+            equipmentPacket.itemStack = equipment;
+
+            packets[i] = equipmentPacket;
         }
 
-        // Create equipment packet
-        EntityEquipmentPacket equipmentPacket = new EntityEquipmentPacket();
-        equipmentPacket.entityId = entity.getEntityId();
-        equipmentPacket.slots = slots;
-        equipmentPacket.itemStacks = itemStacks.toArray(new ItemStack[0]);
-        return equipmentPacket;
+        return packets;
     }
 
 }

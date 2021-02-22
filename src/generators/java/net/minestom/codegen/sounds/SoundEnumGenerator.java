@@ -73,7 +73,7 @@ public class SoundEnumGenerator extends MinestomEnumGenerator<SoundEnumGenerator
         List<SoundContainer> sounds = new ArrayList<>();
 
         for (String soundName : soundsJson.keySet()) {
-            sounds.add(new SoundContainer(NamespaceID.from("minecraft", soundName)));
+            sounds.add(new SoundContainer(soundName));
         }
 
         return sounds;
@@ -148,11 +148,11 @@ public class SoundEnumGenerator extends MinestomEnumGenerator<SoundEnumGenerator
     protected void prepare(EnumGenerator generator) {
         generator.addClassAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "{$S}", "deprecation").build());
         ClassName registriesClass = ClassName.get(Registries.class);
-        generator.setParams(ParameterSpec.builder(ClassName.get(String.class), "namespaceID").build());
-        generator.addMethod("getNamespaceID", new ParameterSpec[0], ClassName.get(String.class), code -> code.addStatement("return $N", "namespaceID"));
+        generator.setParams(ParameterSpec.builder(ClassName.get(String.class), "id").build());
+        generator.addMethod("getId", new ParameterSpec[0], ClassName.get(String.class), code -> code.addStatement("return $N", "id"));
 
         generator.appendToConstructor(code -> {
-            code.addStatement("$T." + CodeGenerator.decapitalize(getClassName()) + "s.put($T.from($N), this)", registriesClass, NamespaceID.class, "namespaceID");
+            code.addStatement("$T." + CodeGenerator.decapitalize(getClassName()) + "s.put($T.from($S, $N), this)", registriesClass, NamespaceID.class, "minecraft", "id");
         });
     }
 
@@ -161,8 +161,8 @@ public class SoundEnumGenerator extends MinestomEnumGenerator<SoundEnumGenerator
         generator.addInstance(identifier(item.name), "\"" + item.name.toString() + "\"");
     }
 
-    private String identifier(NamespaceID id) {
-        return id.getPath().toUpperCase().replace(".", "_"); // block.ambient.cave will be replaced by "BLOCK_AMBIENT_CAVE"
+    private String identifier(String id) {
+        return id.toUpperCase().replace(".", "_"); // block.ambient.cave will be replaced by "BLOCK_AMBIENT_CAVE"
     }
 
     @Override
@@ -176,13 +176,13 @@ public class SoundEnumGenerator extends MinestomEnumGenerator<SoundEnumGenerator
     }
 
     static class SoundContainer implements Comparable<SoundContainer> {
-        private NamespaceID name;
+        private String name;
 
-        private SoundContainer(NamespaceID name) {
+        private SoundContainer(String name) {
             this.name = name;
         }
 
-        public NamespaceID getName() {
+        public String getName() {
             return name;
         }
 

@@ -3,7 +3,6 @@ package net.minestom.server.entity;
 import com.google.common.collect.Queues;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.Viewable;
-import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.collision.BoundingBox;
 import net.minestom.server.collision.CollisionUtils;
 import net.minestom.server.data.Data;
@@ -57,27 +56,6 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
     private static final Map<UUID, Entity> entityByUuid = new ConcurrentHashMap<>();
     private static final AtomicInteger lastEntityId = new AtomicInteger();
 
-    // Metadata
-    protected static final byte METADATA_BYTE = 0;
-    protected static final byte METADATA_VARINT = 1;
-    protected static final byte METADATA_FLOAT = 2;
-    protected static final byte METADATA_STRING = 3;
-    protected static final byte METADATA_CHAT = 4;
-    protected static final byte METADATA_OPTCHAT = 5;
-    protected static final byte METADATA_SLOT = 6;
-    protected static final byte METADATA_BOOLEAN = 7;
-    protected static final byte METADATA_ROTATION = 8;
-    protected static final byte METADATA_POSITION = 9;
-    protected static final byte METADATA_OPTPOSITION = 10;
-    protected static final byte METADATA_DIRECTION = 11;
-    protected static final byte METADATA_OPTUUID = 12;
-    protected static final byte METADATA_OPTBLOCKID = 13;
-    protected static final byte METADATA_NBT = 14;
-    protected static final byte METADATA_PARTICLE = 15;
-    protected static final byte METADATA_VILLAGERDATA = 16;
-    protected static final byte METADATA_OPTVARINT = 17;
-    protected static final byte METADATA_POSE = 18;
-
     protected Instance instance;
     protected final Position position;
     protected double lastX, lastY, lastZ;
@@ -111,7 +89,6 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
     private boolean shouldRemove;
     private long scheduledRemoveTime;
 
-    private final Set<Entity> passengers = new CopyOnWriteArraySet<>();
     protected EntityType entityType; // UNSAFE to change, modify at your own risk
 
     // Network synchronization, send the absolute position of the entity each X milliseconds
@@ -147,6 +124,9 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
 
         Entity.entityById.put(id, this);
         Entity.entityByUuid.put(uuid, this);
+
+        // Air, we need at least one attribute
+        metadata.setIndex((byte) 1, Metadata.Short((short) 300));
     }
 
     public Entity(@Nullable EntityType entityType, @NotNull Position spawnPosition) {
@@ -268,18 +248,18 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
     public void setView(float yaw, float pitch) {
         refreshView(yaw, pitch);
 
-        EntityRotationPacket entityRotationPacket = new EntityRotationPacket();
-        entityRotationPacket.entityId = getEntityId();
-        entityRotationPacket.yaw = yaw;
-        entityRotationPacket.pitch = pitch;
-        entityRotationPacket.onGround = onGround;
+        EntityLookPacket entityLookPacket = new EntityLookPacket();
+        entityLookPacket.entityId = getEntityId();
+        entityLookPacket.yaw = yaw;
+        entityLookPacket.pitch = pitch;
+        entityLookPacket.onGround = onGround;
 
         EntityHeadLookPacket entityHeadLookPacket = new EntityHeadLookPacket();
         entityHeadLookPacket.entityId = getEntityId();
         entityHeadLookPacket.yaw = yaw;
 
         sendPacketToViewersAndSelf(entityHeadLookPacket);
-        sendPacketToViewersAndSelf(entityRotationPacket);
+        sendPacketToViewersAndSelf(entityLookPacket);
     }
 
     /**
@@ -412,12 +392,12 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
                     cachePitch != position.getPitch();
             final double distance = positionChange ? position.getDistance(cacheX, cacheY, cacheZ) : 0;
 
-            if (distance >= 8 || (positionChange && isNettyClient)) {
+            if (distance >= 4 || (positionChange && isNettyClient)) {
                 // Teleport has the priority over everything else
                 teleport(position);
             } else if (positionChange && viewChange) {
-                EntityPositionAndRotationPacket positionAndRotationPacket =
-                        EntityPositionAndRotationPacket.getPacket(getEntityId(),
+                EntityLookAndRelativeMove positionAndRotationPacket =
+                        EntityLookAndRelativeMove.getPacket(getEntityId(),
                                 position, new Position(cacheX, cacheY, cacheZ), isOnGround());
 
                 sendPacketToViewersAndSelf(positionAndRotationPacket);
@@ -432,10 +412,10 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
                 sendPacketToViewersAndSelf(entityHeadLookPacket);
 
             } else if (positionChange) {
-                EntityPositionPacket entityPositionPacket = EntityPositionPacket.getPacket(getEntityId(),
+                EntityRelativeMovePacket entityRelativeMovePacket = EntityRelativeMovePacket.getPacket(getEntityId(),
                         position, new Position(cacheX, cacheY, cacheZ), isOnGround());
 
-                sendPacketToViewersAndSelf(entityPositionPacket);
+                sendPacketToViewersAndSelf(entityRelativeMovePacket);
 
                 refreshPosition(position.clone());
 
@@ -877,76 +857,6 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
     }
 
     /**
-     * Adds a new passenger to this entity.
-     *
-     * @param entity the new passenger
-     * @throws NullPointerException  if {@code entity} is null
-     * @throws IllegalStateException if {@link #getInstance()} returns null
-     */
-    public void addPassenger(@NotNull Entity entity) {
-        Check.stateCondition(instance == null, "You need to set an instance using Entity#setInstance");
-
-        if (entity.getVehicle() != null) {
-            entity.getVehicle().removePassenger(entity);
-        }
-
-        this.passengers.add(entity);
-        entity.vehicle = this;
-
-        sendPacketToViewersAndSelf(getPassengersPacket());
-    }
-
-    /**
-     * Removes a passenger to this entity.
-     *
-     * @param entity the passenger to remove
-     * @throws NullPointerException  if {@code entity} is null
-     * @throws IllegalStateException if {@link #getInstance()} returns null
-     */
-    public void removePassenger(@NotNull Entity entity) {
-        Check.stateCondition(instance == null, "You need to set an instance using Entity#setInstance");
-
-        if (!passengers.remove(entity))
-            return;
-        entity.vehicle = null;
-        sendPacketToViewersAndSelf(getPassengersPacket());
-    }
-
-    /**
-     * Gets if the entity has any passenger.
-     *
-     * @return true if the entity has any passenger, false otherwise
-     */
-    public boolean hasPassenger() {
-        return !passengers.isEmpty();
-    }
-
-    /**
-     * Gets the entity passengers.
-     *
-     * @return an unmodifiable list containing all the entity passengers
-     */
-    @NotNull
-    public Set<Entity> getPassengers() {
-        return Collections.unmodifiableSet(passengers);
-    }
-
-    @NotNull
-    protected SetPassengersPacket getPassengersPacket() {
-        SetPassengersPacket passengersPacket = new SetPassengersPacket();
-        passengersPacket.vehicleEntityId = getEntityId();
-
-        int[] passengers = new int[this.passengers.size()];
-        int counter = 0;
-        for (Entity passenger : this.passengers) {
-            passengers[counter++] = passenger.getEntityId();
-        }
-
-        passengersPacket.passengersId = passengers;
-        return passengersPacket;
-    }
-
-    /**
      * Entity statuses can be found <a href="https://wiki.vg/Entity_statuses">here</a>.
      *
      * @param status the status to trigger
@@ -1112,12 +1022,6 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
         this.cacheX = x;
         this.cacheY = y;
         this.cacheZ = z;
-
-        if (hasPassenger()) {
-            for (Entity passenger : getPassengers()) {
-                passenger.refreshPosition(x, y, z);
-            }
-        }
 
         final Instance instance = getInstance();
         if (instance != null) {

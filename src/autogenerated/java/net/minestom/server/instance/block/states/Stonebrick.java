@@ -19,9 +19,9 @@ public final class Stonebrick {
             forRemoval = false
     )
     public static void initStates() {
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 3));
+        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
+        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
+        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
+        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
     }
 }

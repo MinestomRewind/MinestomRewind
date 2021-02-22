@@ -19,12 +19,12 @@ public final class Stone {
             forRemoval = false
     )
     public static void initStates() {
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 0));
         Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 6));
+        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
     }
 }

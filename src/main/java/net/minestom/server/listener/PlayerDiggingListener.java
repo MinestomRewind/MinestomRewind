@@ -1,7 +1,6 @@
 package net.minestom.server.listener;
 
 import net.minestom.server.entity.Player;
-import net.minestom.server.event.item.ItemUpdateStateEvent;
 import net.minestom.server.event.player.PlayerStartDiggingEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
@@ -10,7 +9,6 @@ import net.minestom.server.inventory.PlayerInventory;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.StackingRule;
 import net.minestom.server.network.packet.client.play.ClientPlayerDiggingPacket;
-import net.minestom.server.network.packet.server.play.AcknowledgePlayerDiggingPacket;
 import net.minestom.server.network.packet.server.play.EntityEffectPacket;
 import net.minestom.server.network.packet.server.play.RemoveEntityEffectPacket;
 import net.minestom.server.potion.Potion;
@@ -217,13 +215,7 @@ public class PlayerDiggingListener {
      */
     private static void sendAcknowledgePacket(@NotNull Player player, @NotNull BlockPosition blockPosition, int blockStateId,
                                               @NotNull ClientPlayerDiggingPacket.Status status, boolean success) {
-        AcknowledgePlayerDiggingPacket acknowledgePlayerDiggingPacket = new AcknowledgePlayerDiggingPacket();
-        acknowledgePlayerDiggingPacket.blockPosition = blockPosition;
-        acknowledgePlayerDiggingPacket.blockStateId = blockStateId;
-        acknowledgePlayerDiggingPacket.status = status;
-        acknowledgePlayerDiggingPacket.successful = success;
-
-        player.getPlayerConnection().sendPacket(acknowledgePlayerDiggingPacket);
+        // TODO(koesie10): Look into all cases
     }
 
 }

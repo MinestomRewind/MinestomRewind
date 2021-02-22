@@ -5,17 +5,26 @@ import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class OpenWindowPacket implements ServerPacket {
 
-    public int windowId;
-    public int windowType;
+    public byte windowId;
+    public String windowType;
     public String title;
+    public byte numberOfSlots;
+    public int entityId;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeVarInt(windowId);
-        writer.writeVarInt(windowType);
+        writer.writeByte(windowId);
+        writer.writeSizedString(windowType);
         writer.writeSizedString("{\"text\": \"" + title + " \"}");
+        writer.writeByte(numberOfSlots);
+
+        if (Objects.equals(windowType, "EntityHorse")) {
+            writer.writeVarInt(entityId);
+        }
     }
 
     @Override

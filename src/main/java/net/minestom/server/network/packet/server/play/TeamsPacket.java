@@ -1,5 +1,6 @@
 package net.minestom.server.network.packet.server.play;
 
+import net.minestom.server.chat.ChatColor;
 import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
@@ -23,7 +24,7 @@ public class TeamsPacket implements ServerPacket {
     /**
      * The display name for the team
      */
-    public JsonMessage teamDisplayName;
+    public String teamDisplayName;
     /**
      * The friendly flags to
      */
@@ -33,21 +34,17 @@ public class TeamsPacket implements ServerPacket {
      */
     public NameTagVisibility nameTagVisibility;
     /**
-     * Rule for the collision
-     */
-    public CollisionRule collisionRule;
-    /**
      * The color of the team
      */
-    public int teamColor;
+    public ChatColor teamColor;
     /**
      * The prefix of the team
      */
-    public JsonMessage teamPrefix;
+    public String teamPrefix;
     /**
      * The suffix of the team
      */
-    public JsonMessage teamSuffix;
+    public String teamSuffix;
     /**
      * An array with all entities in the team
      */
@@ -66,13 +63,12 @@ public class TeamsPacket implements ServerPacket {
         switch (action) {
             case CREATE_TEAM:
             case UPDATE_TEAM_INFO:
-                writer.writeSizedString(this.teamDisplayName.toString());
+                writer.writeSizedString(this.teamDisplayName);
+                writer.writeSizedString(this.teamPrefix);
+                writer.writeSizedString(this.teamSuffix);
                 writer.writeByte(this.friendlyFlags);
                 writer.writeSizedString(this.nameTagVisibility.getIdentifier());
-                writer.writeSizedString(this.collisionRule.getIdentifier());
-                writer.writeVarInt(this.teamColor);
-                writer.writeSizedString(this.teamPrefix.toString());
-                writer.writeSizedString(this.teamSuffix.toString());
+                writer.writeByte((byte)this.teamColor.getCode());
                 break;
             case REMOVE_TEAM:
 
@@ -162,52 +158,6 @@ public class TeamsPacket implements ServerPacket {
 
         /**
          * Gets the client identifier
-         *
-         * @return the identifier
-         */
-        @NotNull
-        public String getIdentifier() {
-            return identifier;
-        }
-    }
-
-    /**
-     * An enumeration which representing all rules for the collision
-     */
-    public enum CollisionRule {
-        /**
-         * Can push all objects and can be pushed by all objects
-         */
-        ALWAYS("always"),
-        /**
-         * Can push objects of other teams, but teammates cannot
-         */
-        PUSH_OTHER_TEAMS("pushOtherTeams"),
-        /**
-         * Can only push objects of the same team
-         */
-        PUSH_OWN_TEAM("pushOwnTeam"),
-        /**
-         * Cannot push an object, but neither can they be pushed
-         */
-        NEVER("never");
-
-        /**
-         * The identifier for the client
-         */
-        private final String identifier;
-
-        /**
-         * Default constructor
-         *
-         * @param identifier The identifier for the client
-         */
-        CollisionRule(String identifier) {
-            this.identifier = identifier;
-        }
-
-        /**
-         * Gets the identifier of the rule
          *
          * @return the identifier
          */

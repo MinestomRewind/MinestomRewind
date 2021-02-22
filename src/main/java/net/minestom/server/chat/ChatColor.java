@@ -13,39 +13,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a color in a text. You can either use one of the pre-made colors
- * or make your own using RGB. {@link ChatColor#fromRGB(byte, byte, byte)}.
- * <p>
- * Immutable class.
+ * Represents a color in a text. You need to use one of the pre-made colors.
  */
-public final class ChatColor {
+public enum ChatColor {
+    BLACK("black", '0', 0),
+    DARK_BLUE("dark_blue", '1', 1),
+    DARK_GREEN("dark_green", '2', 2),
+    DARK_CYAN("dark_aqua", '3', 3),
+    DARK_RED("dark_red", '4', 4),
+    PURPLE("dark_purple", '5', 5),
+    GOLD("gold", '6', 6),
+    GRAY("gray", '7', 7),
+    DARK_GRAY("dark_gray", '8', 8),
+    BLUE("blue", '9', 9),
+    BRIGHT_GREEN("green", 'a', 10),
+    CYAN("aqua", 'b', 11),
+    RED("red", 'c', 12),
+    PINK("light_purple", 'd', 13),
+    YELLOW("yellow", 'e', 14),
+    WHITE("white", 'f', 15),
 
-    // Special
-    public static final ChatColor NO_COLOR = new ChatColor();
-    public static final ChatColor RESET = new ChatColor("reset");
-    public static final ChatColor BOLD = new ChatColor("bold");
-    public static final ChatColor ITALIC = new ChatColor("italic");
-    public static final ChatColor UNDERLINED = new ChatColor("underlined");
-    public static final ChatColor STRIKETHROUGH = new ChatColor("strikethrough");
-    public static final ChatColor OBFUSCATED = new ChatColor("obfuscated");
-
-    // Color
-    public static final ChatColor BLACK = fromRGB((byte) 0, (byte) 0, (byte) 0, 0, "black");
-    public static final ChatColor DARK_BLUE = fromRGB((byte) 0, (byte) 0, (byte) 170, 1, "dark_blue");
-    public static final ChatColor DARK_GREEN = fromRGB((byte) 0, (byte) 170, (byte) 0, 2, "dark_green");
-    public static final ChatColor DARK_CYAN = fromRGB((byte) 0, (byte) 170, (byte) 170, 3, "dark_aqua");
-    public static final ChatColor DARK_RED = fromRGB((byte) 170, (byte) 0, (byte) 0, 4, "dark_red");
-    public static final ChatColor PURPLE = fromRGB((byte) 170, (byte) 0, (byte) 170, 5, "dark_purple");
-    public static final ChatColor GOLD = fromRGB((byte) 255, (byte) 170, (byte) 0, 6, "gold");
-    public static final ChatColor GRAY = fromRGB((byte) 170, (byte) 170, (byte) 170, 7, "gray");
-    public static final ChatColor DARK_GRAY = fromRGB((byte) 85, (byte) 85, (byte) 85, 8, "dark_gray");
-    public static final ChatColor BLUE = fromRGB((byte) 85, (byte) 85, (byte) 255, 9, "blue");
-    public static final ChatColor BRIGHT_GREEN = fromRGB((byte) 85, (byte) 255, (byte) 85, 10, "green");
-    public static final ChatColor CYAN = fromRGB((byte) 85, (byte) 255, (byte) 255, 11, "aqua");
-    public static final ChatColor RED = fromRGB((byte) 255, (byte) 85, (byte) 85, 12, "red");
-    public static final ChatColor PINK = fromRGB((byte) 255, (byte) 85, (byte) 255, 13, "light_purple");
-    public static final ChatColor YELLOW = fromRGB((byte) 255, (byte) 255, (byte) 85, 14, "yellow");
-    public static final ChatColor WHITE = fromRGB((byte) 255, (byte) 255, (byte) 255, 15, "white");
+    OBFUSCATED("obfuscated", 'k', true),
+    BOLD("bold", 'l', true),
+    STRIKETHROUGH("strikethrough", 'm', true),
+    UNDERLINED("underline", 'n', true),
+    ITALIC("italic", 'o', true),
+    RESET("reset", 'r', true);
 
     private static final Int2ObjectMap<ChatColor> idColorMap = new Int2ObjectOpenHashMap<>();
     private static final Map<String, ChatColor> colorCode = new HashMap<>();
@@ -69,194 +62,82 @@ public final class ChatColor {
         idColorMap.put(14, YELLOW);
         idColorMap.put(15, WHITE);
 
-        colorCode.put("reset", RESET);
-        colorCode.put("bold", BOLD);
-        colorCode.put("italic", ITALIC);
-        colorCode.put("underlined", UNDERLINED);
-        colorCode.put("strikethrough", STRIKETHROUGH);
-        colorCode.put("obfuscated", OBFUSCATED);
-
-        colorCode.put("black", BLACK);
-        colorCode.put("dark_blue", DARK_BLUE);
-        colorCode.put("dark_green", DARK_GREEN);
-        colorCode.put("dark_aqua", DARK_CYAN);
-        colorCode.put("dark_red", DARK_RED);
-        colorCode.put("dark_purple", PURPLE);
-        colorCode.put("gold", GOLD);
-        colorCode.put("gray", GRAY);
-        colorCode.put("dark_gray", DARK_GRAY);
-        colorCode.put("blue", BLUE);
-        colorCode.put("green", BRIGHT_GREEN);
-        colorCode.put("aqua", CYAN);
-        colorCode.put("red", RED);
-        colorCode.put("light_purple", PINK);
-        colorCode.put("yellow", YELLOW);
-        colorCode.put("white", WHITE);
-
-        legacyColorCodesMap.put('k', OBFUSCATED);
-        legacyColorCodesMap.put('l', BOLD);
-        legacyColorCodesMap.put('m', STRIKETHROUGH);
-        legacyColorCodesMap.put('n', UNDERLINED);
-        legacyColorCodesMap.put('o', ITALIC);
-        legacyColorCodesMap.put('r', RESET);
-
-        legacyColorCodesMap.put('0', BLACK);
-        legacyColorCodesMap.put('1', DARK_BLUE);
-        legacyColorCodesMap.put('2', DARK_GREEN);
-        legacyColorCodesMap.put('3', DARK_CYAN);
-        legacyColorCodesMap.put('4', DARK_RED);
-        legacyColorCodesMap.put('5', PURPLE);
-        legacyColorCodesMap.put('6', GOLD);
-        legacyColorCodesMap.put('7', GRAY);
-        legacyColorCodesMap.put('8', DARK_GRAY);
-        legacyColorCodesMap.put('9', BLUE);
-        legacyColorCodesMap.put('a', BRIGHT_GREEN);
-        legacyColorCodesMap.put('b', CYAN);
-        legacyColorCodesMap.put('c', RED);
-        legacyColorCodesMap.put('d', PINK);
-        legacyColorCodesMap.put('e', YELLOW);
-        legacyColorCodesMap.put('f', WHITE);
+        for (ChatColor color : values()) {
+            colorCode.put(color.codeName, color);
+            legacyColorCodesMap.put(color.code, OBFUSCATED);
+        }
     }
 
-    private boolean empty;
-    private final byte red, green, blue;
-    private final int id;
-
     private final String codeName;
-
+    private final char code;
+    private final int id;
     private final boolean special;
 
-    private ChatColor(byte r, byte g, byte b, int id, @Nullable String codeName, boolean special) {
-        this.empty = false;
-        this.red = r;
-        this.green = g;
-        this.blue = b;
-        this.id = id;
+    private ChatColor(@NotNull String codeName, char code, int id, boolean special) {
         this.codeName = codeName;
+        this.code = code;
+        this.id = id;
         this.special = special;
     }
 
-    private ChatColor(byte r, byte g, byte b, int id, @Nullable String codeName) {
-        this(r, g, b, id, codeName, false);
+    private ChatColor(@NotNull String codeName, char code, int id) {
+        this(codeName, code, id, false);
     }
 
-    private ChatColor(String codeName) {
-        this((byte) 0, (byte) 0, (byte) 0, 0, codeName, true);
-    }
-
-    private ChatColor() {
-        this((byte) 0, (byte) 0, (byte) 0, 0, null, true);
-        this.empty = true;
-    }
-
-    /**
-     * Creates an RGB color.
-     *
-     * @param r the red component
-     * @param g the green component
-     * @param b the blue component
-     * @return a chat color with the specified RGB color
-     */
-    @NotNull
-    public static ChatColor fromRGB(byte r, byte g, byte b) {
-        return fromRGB(r, g, b, -1, null);
-    }
-
-    @NotNull
-    private static ChatColor fromRGB(byte r, byte g, byte b, int id, String codeName) {
-        return new ChatColor(r, g, b, id, codeName);
+    private ChatColor(@NotNull String codeName, char code, boolean special) {
+        this(codeName, code, -1, false);
     }
 
     /**
      * Gets a color based on its name (eg: white, black, aqua, etc...).
      *
      * @param name the color name
-     * @return the color associated with the name, {@link #NO_COLOR} if not found
+     * @return the color associated with the name, null if not found
      */
-    @NotNull
+    @Nullable
     public static ChatColor fromName(@NotNull String name) {
-        return colorCode.getOrDefault(name.toLowerCase(), NO_COLOR);
+        return colorCode.getOrDefault(name.toLowerCase(), null);
     }
 
     /**
      * Gets a color based on its numerical id (0;15).
      *
      * @param id the id of the color
-     * @return the color associated with the id, {@link #NO_COLOR} if not found
+     * @return the color associated with the id, null if not found
      */
-    @NotNull
+    @Nullable
     public static ChatColor fromId(int id) {
-        return idColorMap.getOrDefault(id, NO_COLOR);
+        return idColorMap.getOrDefault(id, null);
     }
 
     /**
      * Gets a color based on its legacy color code (eg: 1, 2, 3,... f).
      *
      * @param colorCode the color legacy code
-     * @return the color associated with the code, {@link #NO_COLOR} if not found
+     * @return the color associated with the code, null if not found
      */
-    @NotNull
+    @Nullable
     public static ChatColor fromLegacyColorCodes(char colorCode) {
-        return legacyColorCodesMap.getOrDefault(colorCode, NO_COLOR);
-    }
-
-    /**
-     * Gets a collection of all chat colors
-     * @return a collection of all chat colors
-     */
-    @NotNull
-    public static Collection<ChatColor> values() {
-        return colorCode.values();
-    }
-
-    public boolean isEmpty() {
-        return empty;
-    }
-
-    /**
-     * Gets the red component of the color.
-     *
-     * @return the red component of the color
-     */
-    public byte getRed() {
-        return red;
-    }
-
-    /**
-     * Gets the green component of the color.
-     *
-     * @return the green component of the color
-     */
-    public byte getGreen() {
-        return green;
-    }
-
-    /**
-     * Gets the blue component of the color.
-     *
-     * @return the blue component of the color
-     */
-    public byte getBlue() {
-        return blue;
-    }
-
-    /**
-     * Gets if the color is special (eg: no color, bold, reset, etc...).
-     *
-     * @return true if the color is special, false otherwise
-     */
-    public boolean isSpecial() {
-        return special;
+        return legacyColorCodesMap.getOrDefault(colorCode, null);
     }
 
     /**
      * Gets the code name.
      *
-     * @return the color code name, null if not any
+     * @return the color code name
      */
-    @Nullable
+    @NotNull
     public String getCodeName() {
         return codeName;
+    }
+
+    /**
+     * Gets the code.
+     *
+     * @return the color code
+     */
+    public char getCode() {
+        return code;
     }
 
     /**
@@ -272,27 +153,18 @@ public final class ChatColor {
         return id;
     }
 
+    /**
+     * Gets if the color is special (eg: no color, bold, reset, etc...).
+     *
+     * @return true if the color is special, false otherwise
+     */
+    public boolean isSpecial() {
+        return special;
+    }
+
     @NotNull
     @Override
     public String toString() {
-        if (empty)
-            return "";
-
-        final String header = "{#";
-        final String footer = "}";
-
-        String code;
-
-        if (codeName != null) {
-            // color or special code (white/red/reset/bold/etc...)
-            code = codeName;
-        } else {
-            // RGB color (special code not set)
-            final int color = (red & 0xFF) << 16 | (green & 0xFF) << 8 | blue & 0xFF;
-
-            code = Integer.toHexString(color);
-        }
-
-        return header + code + footer;
+        return "{#" + codeName + "}";
     }
 }

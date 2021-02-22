@@ -5,19 +5,17 @@ import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
 import org.jetbrains.annotations.NotNull;
 
-public class SetPassengersPacket implements ServerPacket {
+public class EntityPacket implements ServerPacket {
 
-    public int vehicleEntityId;
-    public int[] passengersId;
+    public int entityId;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeVarInt(vehicleEntityId);
-        writer.writeVarIntArray(passengersId);
+        writer.writeVarInt(entityId);
     }
 
     @Override
     public int getId() {
-        return ServerPacketIdentifier.SET_PASSENGERS;
+        return ServerPacketIdentifier.ENTITY;
     }
 }

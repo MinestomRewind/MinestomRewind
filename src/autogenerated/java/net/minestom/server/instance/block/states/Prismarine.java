@@ -19,8 +19,8 @@ public final class Prismarine {
             forRemoval = false
     )
     public static void initStates() {
-        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 2));
+        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 168));
+        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 168));
+        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 168));
     }
 }

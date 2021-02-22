@@ -2,13 +2,10 @@ package net.minestom.server.scoreboard;
 
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.chat.ChatColor;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.ConnectionManager;
 import net.minestom.server.network.packet.server.play.TeamsPacket;
-import net.minestom.server.network.packet.server.play.TeamsPacket.CollisionRule;
 import net.minestom.server.network.packet.server.play.TeamsPacket.NameTagVisibility;
 import net.minestom.server.utils.PacketUtils;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +33,7 @@ public class Team {
     /**
      * The display name of the team.
      */
-    private JsonMessage teamDisplayName;
+    private String teamDisplayName;
     /**
      * A BitMask.
      */
@@ -45,10 +42,6 @@ public class Team {
      * The visibility of the team.
      */
     private NameTagVisibility nameTagVisibility;
-    /**
-     * The collision rule of the team.
-     */
-    private CollisionRule collisionRule;
 
     /**
      * Used to color the name of players on the team <br>
@@ -59,11 +52,11 @@ public class Team {
     /**
      * Shown before the names of the players who belong to this team.
      */
-    private JsonMessage prefix;
+    private String prefix;
     /**
      * Shown after the names of the player who belong to this team.
      */
-    private JsonMessage suffix;
+    private String suffix;
 
     /**
      * Default constructor to creates a team.
@@ -73,14 +66,13 @@ public class Team {
     protected Team(@NotNull String teamName) {
         this.teamName = teamName;
 
-        this.teamDisplayName = ColoredText.of("");
+        this.teamDisplayName = "";
         this.friendlyFlags = 0x00;
         this.nameTagVisibility = NameTagVisibility.ALWAYS;
-        this.collisionRule = CollisionRule.ALWAYS;
 
         this.teamColor = ChatColor.WHITE;
-        this.prefix = ColoredText.of("");
-        this.suffix = ColoredText.of("");
+        this.prefix = "";
+        this.suffix = "";
 
         this.members = new CopyOnWriteArraySet<>();
     }
@@ -132,7 +124,7 @@ public class Team {
      *
      * @param teamDisplayName The new display name
      */
-    public void setTeamDisplayName(JsonMessage teamDisplayName) {
+    public void setTeamDisplayName(String teamDisplayName) {
         this.teamDisplayName = teamDisplayName;
     }
 
@@ -141,7 +133,7 @@ public class Team {
      *
      * @param teamDisplayName The new display name
      */
-    public void updateTeamDisplayName(JsonMessage teamDisplayName) {
+    public void updateTeamDisplayName(String teamDisplayName) {
         this.setTeamDisplayName(teamDisplayName);
         sendUpdatePacket();
     }
@@ -165,28 +157,6 @@ public class Team {
      */
     public void updateNameTagVisibility(@NotNull NameTagVisibility nameTagVisibility) {
         this.setNameTagVisibility(nameTagVisibility);
-        sendUpdatePacket();
-    }
-
-    /**
-     * Changes the {@link CollisionRule} of the team.
-     * <br><br>
-     * <b>Warning:</b> This is only changed on the <b>server side</b>.
-     *
-     * @param rule The new rule
-     * @see #updateCollisionRule(CollisionRule)
-     */
-    public void setCollisionRule(@NotNull CollisionRule rule) {
-        this.collisionRule = rule;
-    }
-
-    /**
-     * Changes the collision rule of the team and sends an update packet.
-     *
-     * @param collisionRule The new collision rule
-     */
-    public void updateCollisionRule(@NotNull CollisionRule collisionRule) {
-        this.setCollisionRule(collisionRule);
         sendUpdatePacket();
     }
 
@@ -219,7 +189,7 @@ public class Team {
      *
      * @param prefix The new prefix
      */
-    public void setPrefix(JsonMessage prefix) {
+    public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
@@ -228,7 +198,7 @@ public class Team {
      *
      * @param prefix The new prefix
      */
-    public void updatePrefix(JsonMessage prefix) {
+    public void updatePrefix(String prefix) {
         this.setPrefix(prefix);
         sendUpdatePacket();
     }
@@ -240,7 +210,7 @@ public class Team {
      *
      * @param suffix The new suffix
      */
-    public void setSuffix(JsonMessage suffix) {
+    public void setSuffix(String suffix) {
         this.suffix = suffix;
     }
 
@@ -249,7 +219,7 @@ public class Team {
      *
      * @param suffix The new suffix
      */
-    public void updateSuffix(JsonMessage suffix) {
+    public void updateSuffix(String suffix) {
         this.setSuffix(suffix);
         sendUpdatePacket();
     }
@@ -297,8 +267,7 @@ public class Team {
         teamsCreationPacket.teamDisplayName = this.teamDisplayName;
         teamsCreationPacket.friendlyFlags = this.friendlyFlags;
         teamsCreationPacket.nameTagVisibility = this.nameTagVisibility;
-        teamsCreationPacket.collisionRule = this.collisionRule;
-        teamsCreationPacket.teamColor = this.teamColor.getId();
+        teamsCreationPacket.teamColor = this.teamColor;
         teamsCreationPacket.teamPrefix = this.prefix;
         teamsCreationPacket.teamSuffix = this.suffix;
         teamsCreationPacket.entities = this.members.toArray(new String[0]);
@@ -334,7 +303,7 @@ public class Team {
      *
      * @return the display name
      */
-    public JsonMessage getTeamDisplayName() {
+    public String getTeamDisplayName() {
         return teamDisplayName;
     }
 
@@ -358,16 +327,6 @@ public class Team {
     }
 
     /**
-     * Gets the collision rule of the team.
-     *
-     * @return the collision rule
-     */
-    @NotNull
-    public CollisionRule getCollisionRule() {
-        return collisionRule;
-    }
-
-    /**
      * Gets the color of the team.
      *
      * @return the team color
@@ -382,7 +341,7 @@ public class Team {
      *
      * @return the team prefix
      */
-    public JsonMessage getPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
@@ -391,7 +350,7 @@ public class Team {
      *
      * @return the suffix team
      */
-    public JsonMessage getSuffix() {
+    public String getSuffix() {
         return suffix;
     }
 
@@ -405,8 +364,7 @@ public class Team {
         updatePacket.teamDisplayName = this.teamDisplayName;
         updatePacket.friendlyFlags = this.friendlyFlags;
         updatePacket.nameTagVisibility = this.nameTagVisibility;
-        updatePacket.collisionRule = this.collisionRule;
-        updatePacket.teamColor = this.teamColor.getId();
+        updatePacket.teamColor = this.teamColor;
         updatePacket.teamPrefix = this.prefix;
         updatePacket.teamSuffix = this.suffix;
 

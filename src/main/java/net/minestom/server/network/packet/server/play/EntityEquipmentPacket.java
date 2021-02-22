@@ -10,34 +10,17 @@ import org.jetbrains.annotations.NotNull;
 public class EntityEquipmentPacket implements ServerPacket {
 
     public int entityId;
-    public Slot[] slots;
-    public ItemStack[] itemStacks;
+    public Slot slot;
+    public ItemStack itemStack;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeVarInt(entityId);
 
-        if (slots == null || itemStacks == null) {
-            throw new IllegalArgumentException("You need to specify at least one slot and one item");
-        }
+        short slotEnum = (short) slot.ordinal();
 
-        if (slots.length != itemStacks.length) {
-            throw new IllegalArgumentException("You need the same amount of slots and items");
-        }
-
-        for (int i = 0; i < slots.length; i++) {
-            final Slot slot = slots[i];
-            final ItemStack itemStack = itemStacks[i];
-            final boolean last = i == slots.length - 1;
-
-            byte slotEnum = (byte) slot.ordinal();
-            if (!last) {
-                slotEnum |= 0x80;
-            }
-
-            writer.writeByte(slotEnum);
-            writer.writeItemStack(itemStack);
-        }
+        writer.writeShort(slotEnum);
+        writer.writeItemStack(itemStack);
     }
 
     @Override

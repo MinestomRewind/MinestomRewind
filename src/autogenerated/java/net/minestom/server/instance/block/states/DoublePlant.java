@@ -19,12 +19,12 @@ public final class DoublePlant {
             forRemoval = false
     )
     public static void initStates() {
-        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 8));
+        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 175));
+        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 175));
+        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 175));
+        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 175));
+        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 175));
+        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 175));
+        Block.DOUBLE_PLANT.addBlockAlternative(new BlockAlternative((short) 175));
     }
 }

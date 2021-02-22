@@ -11,16 +11,13 @@ import java.util.UUID;
 public class SpawnPaintingPacket implements ServerPacket {
 
     public int entityId;
-    public UUID entityUuid;
-    public int motive;
+    public String title;
     public BlockPosition position;
     public byte direction;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeVarInt(entityId);
-        writer.writeUuid(entityUuid);
-        writer.writeVarInt(motive);
         writer.writeBlockPosition(position);
         writer.writeByte(direction);
     }

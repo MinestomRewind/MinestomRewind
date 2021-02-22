@@ -25,13 +25,11 @@ public class StatisticsPacket implements ServerPacket {
 
     public static class Statistic {
 
-        public StatisticCategory category;
-        public int statisticId;
+        public String name;
         public int value;
 
         private void write(BinaryWriter writer) {
-            writer.writeVarInt(category.ordinal());
-            writer.writeVarInt(statisticId);
+            writer.writeSizedString(name);
             writer.writeVarInt(value);
         }
     }

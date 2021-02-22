@@ -19,14 +19,14 @@ public final class RedFlower {
             forRemoval = false
     )
     public static void initStates() {
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 8));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
+        Block.RED_FLOWER.addBlockAlternative(new BlockAlternative((short) 38));
     }
 }

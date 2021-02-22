@@ -29,11 +29,9 @@ public class ChangeGameStatePacket implements ServerPacket {
         WIN_GAME,
         DEMO_EVENT,
         ARROW_HIT_PLAYER,
-        RAIN_LEVEL_CHANGE,
-        THUNDER_LEVEL_CHANGE,
-        PLAY_PUFFERFISH_STING_SOUND,
-        PLAYER_ELDER_GUARDIAN_MOB_APPEARANCE,
-        ENABLE_RESPAWN_SCREEN
+        FADE_VALUE,
+        FADE_TIME,
+        PLAY_MOB_APPEARANCE
     }
 
 }

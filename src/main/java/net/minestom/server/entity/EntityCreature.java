@@ -130,10 +130,6 @@ public abstract class EntityCreature extends LivingEntity implements NavigableEn
             // Equipments synchronization
             syncEquipments(playerConnection);
 
-            if (hasPassenger()) {
-                playerConnection.sendPacket(getPassengersPacket());
-            }
-
             return result;
         }
     }

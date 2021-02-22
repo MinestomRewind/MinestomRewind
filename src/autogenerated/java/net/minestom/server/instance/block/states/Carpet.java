@@ -19,21 +19,21 @@ public final class Carpet {
             forRemoval = false
     )
     public static void initStates() {
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 10));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 11));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 13));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 14));
-        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 15));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
+        Block.CARPET.addBlockAlternative(new BlockAlternative((short) 171));
     }
 }

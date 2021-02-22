@@ -19,7 +19,7 @@ public final class StoneSlab2 {
             forRemoval = false
     )
     public static void initStates() {
-        Block.STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 8));
+        Block.STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 182));
+        Block.STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 182));
     }
 }

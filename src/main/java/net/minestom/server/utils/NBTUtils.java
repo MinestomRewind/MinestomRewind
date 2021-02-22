@@ -235,11 +235,11 @@ public final class NBTUtils {
 
     public static void writeItemStack(BinaryWriter packet, ItemStack itemStack) {
         if (itemStack == null || itemStack.isAir()) {
-            packet.writeBoolean(false);
+            packet.writeShort((short) -1);
         } else {
-            packet.writeBoolean(true);
-            packet.writeVarInt(itemStack.getMaterial().getId());
+            packet.writeShort(itemStack.getMaterial().getId());
             packet.writeByte(itemStack.getAmount());
+            packet.writeShort((short) itemStack.getDamage());
 
             if (!itemStack.hasNbtTag()) {
                 packet.writeByte((byte) NBTTypes.TAG_End); // No nbt

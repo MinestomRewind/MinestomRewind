@@ -19,8 +19,8 @@ public final class Tallgrass {
             forRemoval = false
     )
     public static void initStates() {
-        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 2));
+        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 31));
+        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 31));
+        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 31));
     }
 }

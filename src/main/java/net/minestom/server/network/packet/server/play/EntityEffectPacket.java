@@ -17,7 +17,8 @@ public class EntityEffectPacket implements ServerPacket {
         writer.writeByte((byte) potion.getEffect().getId());
         writer.writeByte(potion.getAmplifier());
         writer.writeVarInt(potion.getDuration());
-        writer.writeByte(potion.getFlags());
+        // TODO(koesie10): Not be hacky
+        writer.writeBoolean((potion.getFlags() & 0x02) != 0);
     }
 
     @Override

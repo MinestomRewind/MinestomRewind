@@ -19,21 +19,21 @@ public final class StoneSlab {
             forRemoval = false
     )
     public static void initStates() {
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 10));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 11));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 13));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 14));
-        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 15));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
+        Block.STONE_SLAB.addBlockAlternative(new BlockAlternative((short) 44));
     }
 }

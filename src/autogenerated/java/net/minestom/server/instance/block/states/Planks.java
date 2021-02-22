@@ -19,11 +19,11 @@ public final class Planks {
             forRemoval = false
     )
     public static void initStates() {
-        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 4));
+        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 5));
+        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 5));
+        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 5));
+        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 5));
+        Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 5));
         Block.PLANKS.addBlockAlternative(new BlockAlternative((short) 5));
     }
 }

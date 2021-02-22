@@ -10,24 +10,13 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerStatistic {
 
-    private final StatisticCategory category;
-    private final int statisticId;
+    private final String statisticName;
 
-    public PlayerStatistic(@NotNull StatisticCategory category, int statisticId) {
-        this.category = category;
-        this.statisticId = statisticId;
+    public PlayerStatistic(String statisticName) {
+        this.statisticName = statisticName;
     }
 
-    public PlayerStatistic(@NotNull StatisticType type) {
-        this(StatisticCategory.CUSTOM, type.getId());
-    }
-
-    @NotNull
-    public StatisticCategory getCategory() {
-        return category;
-    }
-
-    public int getStatisticId() {
-        return statisticId;
+    public String getStatisticName() {
+        return statisticName;
     }
 }

@@ -19,7 +19,7 @@ public final class Sponge {
             forRemoval = false
     )
     public static void initStates() {
-        Block.SPONGE.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.SPONGE.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.SPONGE.addBlockAlternative(new BlockAlternative((short) 19));
+        Block.SPONGE.addBlockAlternative(new BlockAlternative((short) 19));
     }
 }

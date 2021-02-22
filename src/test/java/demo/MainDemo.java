@@ -20,11 +20,11 @@ public class MainDemo {
         // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
 
-        MinecraftServer.getConnectionManager().onPacketReceive((players, controller, packet) -> {
-            System.out.println("received packet " + packet);
+        MinecraftServer.getConnectionManager().onPacketReceive((player, controller, packet) -> {
+//            System.out.println("received packet " + packet + " from " + player);
         });
         MinecraftServer.getConnectionManager().onPacketSend((players, controller, packet) -> {
-            System.out.println("sending packet " + packet);
+            System.out.println("sending packet " + packet + " to " + players);
         });
 
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();

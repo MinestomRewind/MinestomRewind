@@ -1,14 +1,11 @@
 package net.minestom.server.network.packet.server.play;
 
-import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 /**
  * Packet sent during combat to a {@link Player}.
@@ -19,8 +16,8 @@ public class CombatEventPacket implements ServerPacket {
     private EventType type;
     private int duration;
     private int opponent;
-    private int playerID;
-    private JsonMessage deathMessage; // Only text
+    private int playerId;
+    private String deathMessage; // Only text
 
     private CombatEventPacket() {
     }
@@ -39,10 +36,10 @@ public class CombatEventPacket implements ServerPacket {
         return packet;
     }
 
-    public static CombatEventPacket death(Player player, Entity killer, JsonMessage message) {
+    public static CombatEventPacket death(Player player, Entity killer, String message) {
         CombatEventPacket packet = new CombatEventPacket();
         packet.type = EventType.DEATH;
-        packet.playerID = player.getEntityId();
+        packet.playerId = player.getEntityId();
         packet.opponent = killer != null ? killer.getEntityId() : -1;
         packet.deathMessage = message;
         return packet;
@@ -62,9 +59,9 @@ public class CombatEventPacket implements ServerPacket {
                 break;
 
             case DEATH:
-                writer.writeVarInt(playerID);
+                writer.writeVarInt(playerId);
                 writer.writeInt(opponent);
-                writer.writeSizedString(deathMessage.toString());
+                writer.writeSizedString(deathMessage);
                 break;
         }
     }

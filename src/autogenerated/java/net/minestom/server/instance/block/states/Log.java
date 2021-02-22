@@ -19,21 +19,21 @@ public final class Log {
             forRemoval = false
     )
     public static void initStates() {
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 2));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 4));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 5));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 6));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 7));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 8));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 9));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 10));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 11));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 13));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 14));
-        Block.LOG.addBlockAlternative(new BlockAlternative((short) 15));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
+        Block.LOG.addBlockAlternative(new BlockAlternative((short) 17));
     }
 }

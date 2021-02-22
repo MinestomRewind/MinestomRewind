@@ -19,7 +19,7 @@ public final class Sand {
             forRemoval = false
     )
     public static void initStates() {
-        Block.SAND.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.SAND.addBlockAlternative(new BlockAlternative((short) 1));
+        Block.SAND.addBlockAlternative(new BlockAlternative((short) 12));
+        Block.SAND.addBlockAlternative(new BlockAlternative((short) 12));
     }
 }

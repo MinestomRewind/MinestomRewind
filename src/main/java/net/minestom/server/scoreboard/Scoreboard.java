@@ -68,7 +68,7 @@ public interface Scoreboard extends Viewable {
      */
     default void updateScore(Player player, int score) {
         final UpdateScorePacket packet = new UpdateScorePacket();
-        packet.entityName = player.getUsername();
+        packet.scoreName = player.getUsername();
         packet.action = 0; // Create/Update score
         packet.objectiveName = this.getObjectiveName();
         packet.value = score;

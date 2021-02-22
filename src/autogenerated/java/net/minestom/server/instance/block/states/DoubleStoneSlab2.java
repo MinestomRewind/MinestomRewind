@@ -19,7 +19,7 @@ public final class DoubleStoneSlab2 {
             forRemoval = false
     )
     public static void initStates() {
-        Block.DOUBLE_STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 0));
-        Block.DOUBLE_STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 8));
+        Block.DOUBLE_STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 181));
+        Block.DOUBLE_STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 181));
     }
 }
