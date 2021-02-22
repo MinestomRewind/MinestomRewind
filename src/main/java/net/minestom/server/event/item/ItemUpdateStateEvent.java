@@ -8,24 +8,17 @@ import org.jetbrains.annotations.NotNull;
 public class ItemUpdateStateEvent extends Event {
 
     private final Player player;
-    private final Player.Hand hand;
     private final ItemStack itemStack;
     private boolean handAnimation;
 
-    public ItemUpdateStateEvent(@NotNull Player player, @NotNull Player.Hand hand, @NotNull ItemStack itemStack) {
+    public ItemUpdateStateEvent(@NotNull Player player, @NotNull ItemStack itemStack) {
         this.player = player;
-        this.hand = hand;
         this.itemStack = itemStack;
     }
 
     @NotNull
     public Player getPlayer() {
         return player;
-    }
-
-    @NotNull
-    public Player.Hand getHand() {
-        return hand;
     }
 
     @NotNull

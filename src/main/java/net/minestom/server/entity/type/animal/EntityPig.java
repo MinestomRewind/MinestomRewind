@@ -19,7 +19,7 @@ public class EntityPig extends EntityCreature implements Animal {
      * @return true if the pig has a saddle, false otherwise
      */
     public boolean hasSaddle() {
-        return metadata.getIndex((byte) 16, false);
+        return metadata.getIndex((byte) 16, (byte) 0) == 1;
     }
 
     /**
@@ -28,6 +28,6 @@ public class EntityPig extends EntityCreature implements Animal {
      * @param saddle true to add a saddle, false to remove it
      */
     public void setSaddle(boolean saddle) {
-        this.metadata.setIndex((byte) 16, Metadata.Boolean(saddle));
+        this.metadata.setIndex((byte) 16, Metadata.Byte((byte) (saddle ? 1 : 0)));
     }
 }

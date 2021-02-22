@@ -1,7 +1,6 @@
 package net.minestom.server.recipe;
 
 import net.minestom.server.item.ItemStack;
-import net.minestom.server.network.packet.server.play.DeclareRecipesPacket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,13 +10,13 @@ import java.util.Objects;
 
 public abstract class ShapelessRecipe extends Recipe {
     private String group;
-    private final List<DeclareRecipesPacket.Ingredient> ingredients;
+    private final List<Ingredient> ingredients;
     private ItemStack result;
 
     protected ShapelessRecipe(
             @NotNull String recipeId,
             @NotNull String group,
-            @Nullable List<DeclareRecipesPacket.Ingredient> ingredients,
+            @Nullable List<Ingredient> ingredients,
             @NotNull ItemStack result
     ) {
         super(RecipeType.SHAPELESS, recipeId);
@@ -35,12 +34,12 @@ public abstract class ShapelessRecipe extends Recipe {
         this.group = group;
     }
 
-    public void addIngredient(DeclareRecipesPacket.Ingredient ingredient) {
+    public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
     }
 
     @NotNull
-    public List<DeclareRecipesPacket.Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 

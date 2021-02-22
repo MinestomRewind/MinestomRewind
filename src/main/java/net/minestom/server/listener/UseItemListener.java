@@ -8,16 +8,20 @@ import net.minestom.server.event.player.PlayerUseItemEvent;
 import net.minestom.server.inventory.PlayerInventory;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.network.packet.client.play.ClientUseItemPacket;
+import net.minestom.server.network.packet.client.play.ClientPlayerBlockPlacementPacket;
 
 public class UseItemListener {
 
-    public static void useItemListener(ClientUseItemPacket packet, Player player) {
+    public static boolean useItemListener(ClientPlayerBlockPlacementPacket packet, Player player) {
+        // TODO(koesie10): Verify
+        if (packet.blockPosition.getX() != -1 || packet.blockPosition.getY() != -1 || packet.blockPosition.getZ() != -1 || packet.blockFace != null) {
+            return false;
+        }
+
         final PlayerInventory inventory = player.getInventory();
-        final Player.Hand hand = packet.hand;
-        final ItemStack itemStack = hand == Player.Hand.MAIN ? inventory.getItemInMainHand() : inventory.getItemInOffHand();
-        itemStack.onRightClick(player, hand);
-        PlayerUseItemEvent useItemEvent = new PlayerUseItemEvent(player, hand, itemStack);
+        final ItemStack itemStack = inventory.getItemInHand();
+        itemStack.onRightClick(player);
+        PlayerUseItemEvent useItemEvent = new PlayerUseItemEvent(player, itemStack);
         player.callEvent(PlayerUseItemEvent.class, useItemEvent);
 
         final Material material = itemStack.getMaterial();
@@ -27,7 +31,7 @@ public class UseItemListener {
             final PlayerInventory playerInventory = player.getInventory();
             if (useItemEvent.isCancelled()) {
                 playerInventory.update();
-                return;
+                return true;
             }
 
             final ArmorEquipEvent.ArmorSlot armorSlot;
@@ -44,11 +48,7 @@ public class UseItemListener {
             player.callEvent(ArmorEquipEvent.class, armorEquipEvent);
             final ItemStack armorItem = armorEquipEvent.getArmorItem();
 
-            if (hand == Player.Hand.MAIN) {
-                playerInventory.setItemInMainHand(ItemStack.getAirItem());
-            } else {
-                playerInventory.setItemInOffHand(ItemStack.getAirItem());
-            }
+            playerInventory.setItemInHand(ItemStack.getAirItem());
 
             switch (armorSlot) {
                 case HELMET:
@@ -67,7 +67,6 @@ public class UseItemListener {
         }
 
         PlayerItemAnimationEvent.ItemAnimationType itemAnimationType = null;
-        final boolean offhand = hand == Player.Hand.OFF;
         boolean riptideSpinAttack = false;
 
         if (material == Material.BOW) {
@@ -83,10 +82,11 @@ public class UseItemListener {
         if (itemAnimationType != null) {
             PlayerItemAnimationEvent playerItemAnimationEvent = new PlayerItemAnimationEvent(player, itemAnimationType);
             player.callCancellableEvent(PlayerItemAnimationEvent.class, playerItemAnimationEvent, () -> {
-                player.refreshActiveHand(true, offhand, riptideSpinAttack);
                 player.sendPacketToViewers(player.getMetadataPacket());
             });
         }
+
+        return true;
     }
 
 }

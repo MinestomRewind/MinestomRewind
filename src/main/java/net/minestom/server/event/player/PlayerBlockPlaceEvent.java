@@ -24,18 +24,15 @@ public class PlayerBlockPlaceEvent extends PlayerEvent implements CancellableEve
     private short customBlockId;
     private Data blockData;
     private final BlockPosition blockPosition;
-    private final Player.Hand hand;
 
     private boolean consumeBlock;
 
     private boolean cancelled;
 
-    public PlayerBlockPlaceEvent(@NotNull Player player, @NotNull Block block,
-                                 @NotNull BlockPosition blockPosition, @NotNull Player.Hand hand) {
+    public PlayerBlockPlaceEvent(@NotNull Player player, @NotNull Block block, @NotNull BlockPosition blockPosition) {
         super(player);
         this.blockStateId = block.getBlockId();
         this.blockPosition = blockPosition;
-        this.hand = hand;
         this.consumeBlock = true;
     }
 
@@ -137,16 +134,6 @@ public class PlayerBlockPlaceEvent extends PlayerEvent implements CancellableEve
     @NotNull
     public BlockPosition getBlockPosition() {
         return blockPosition;
-    }
-
-    /**
-     * Gets the hand with which the player is trying to place.
-     *
-     * @return the hand used
-     */
-    @NotNull
-    public Player.Hand getHand() {
-        return hand;
     }
 
     /**

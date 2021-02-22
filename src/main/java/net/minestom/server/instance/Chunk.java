@@ -15,7 +15,6 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockManager;
 import net.minestom.server.instance.block.CustomBlock;
 import net.minestom.server.network.packet.server.play.ChunkDataPacket;
-import net.minestom.server.network.packet.server.play.UpdateLightPacket;
 import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.utils.MathUtils;
 import net.minestom.server.utils.PacketUtils;
@@ -69,6 +68,7 @@ public abstract class Chunk implements Viewable, DataContainer {
     @NotNull
     protected final Biome[] biomes;
     protected final int chunkX, chunkZ;
+    protected final boolean hasSky;
 
     // Options
     private final boolean shouldGenerate;
@@ -84,10 +84,11 @@ public abstract class Chunk implements Viewable, DataContainer {
     // Data
     protected Data data;
 
-    public Chunk(@Nullable Biome[] biomes, int chunkX, int chunkZ, boolean shouldGenerate) {
+    public Chunk(@Nullable Biome[] biomes, int chunkX, int chunkZ, boolean hasSky, boolean shouldGenerate) {
         this.identifier = UUID.randomUUID();
         this.chunkX = chunkX;
         this.chunkZ = chunkZ;
+        this.hasSky = hasSky;
         this.shouldGenerate = shouldGenerate;
 
         if (biomes != null && biomes.length == BIOME_COUNT) {
@@ -320,6 +321,10 @@ public abstract class Chunk implements Viewable, DataContainer {
         return chunkZ;
     }
 
+    public boolean getHasSky() {
+        return hasSky;
+    }
+
     /**
      * Creates a {@link Position} object based on this chunk.
      *
@@ -395,37 +400,6 @@ public abstract class Chunk implements Viewable, DataContainer {
         ChunkDataPacket fullDataPacket = createFreshPacket();
         fullDataPacket.fullChunk = false;
         return fullDataPacket;
-    }
-
-    /**
-     * Gets the light packet of this chunk.
-     *
-     * @return the light packet
-     */
-    @NotNull
-    public UpdateLightPacket getLightPacket() {
-        // TODO do not hardcode light
-        UpdateLightPacket updateLightPacket = new UpdateLightPacket(getIdentifier(), getLastChangeTime());
-        updateLightPacket.chunkX = getChunkX();
-        updateLightPacket.chunkZ = getChunkZ();
-        updateLightPacket.skyLightMask = 0x3FFF0;
-        updateLightPacket.blockLightMask = 0x3F;
-        updateLightPacket.emptySkyLightMask = 0x0F;
-        updateLightPacket.emptyBlockLightMask = 0x3FFC0;
-        byte[] bytes = new byte[2048];
-        Arrays.fill(bytes, (byte) 0xFF);
-        List<byte[]> temp = new ArrayList<>(14);
-        List<byte[]> temp2 = new ArrayList<>(6);
-        for (int i = 0; i < 14; ++i) {
-            temp.add(bytes);
-        }
-        for (int i = 0; i < 6; ++i) {
-            temp2.add(bytes);
-        }
-        updateLightPacket.skyLight = temp;
-        updateLightPacket.blockLight = temp2;
-
-        return updateLightPacket;
     }
 
     /**
@@ -520,8 +494,6 @@ public abstract class Chunk implements Viewable, DataContainer {
 
         // Retrieve & send the buffer to the connection
         playerConnection.sendPacket(getFreshFullDataPacket());
-
-        playerConnection.sendPacket(getLightPacket());
     }
 
     public synchronized void sendChunk() {
@@ -530,7 +502,6 @@ public abstract class Chunk implements Viewable, DataContainer {
         }
 
         sendPacketToViewers(getFreshFullDataPacket());
-        sendPacketToViewers(getLightPacket());
     }
 
     /**

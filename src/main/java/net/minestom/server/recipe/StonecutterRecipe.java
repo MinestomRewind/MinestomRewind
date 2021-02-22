@@ -1,18 +1,17 @@
 package net.minestom.server.recipe;
 
 import net.minestom.server.item.ItemStack;
-import net.minestom.server.network.packet.server.play.DeclareRecipesPacket;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class StonecutterRecipe extends Recipe {
     private String group;
-    private DeclareRecipesPacket.Ingredient ingredient;
+    private Ingredient ingredient;
     private ItemStack result;
 
     protected StonecutterRecipe(
             @NotNull String recipeId,
             @NotNull String group,
-            @NotNull DeclareRecipesPacket.Ingredient ingredient,
+            @NotNull Ingredient ingredient,
             @NotNull ItemStack result
     ) {
         super(RecipeType.STONECUTTING, recipeId);
@@ -31,11 +30,11 @@ public abstract class StonecutterRecipe extends Recipe {
     }
 
     @NotNull
-    public DeclareRecipesPacket.Ingredient getIngredient() {
+    public Ingredient getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(@NotNull DeclareRecipesPacket.Ingredient ingredient) {
+    public void setIngredient(@NotNull Ingredient ingredient) {
         this.ingredient = ingredient;
     }
 

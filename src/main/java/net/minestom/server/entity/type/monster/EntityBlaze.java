@@ -16,6 +16,6 @@ public class EntityBlaze extends EntityCreature implements Monster {
     @Override
     public void setOnFire(boolean fire) {
         super.setOnFire(fire);
-        this.metadata.setIndex((byte) 15, Metadata.Byte((byte) (fire ? 1 : 0)));
+        this.metadata.setIndex((byte) 16, Metadata.Byte((byte) (fire ? 1 : 0)));
     }
 }

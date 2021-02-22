@@ -2,7 +2,6 @@ package net.minestom.server.inventory;
 
 import net.minestom.server.Viewable;
 import net.minestom.server.entity.Entity;
-import net.minestom.server.entity.Player;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.network.packet.server.play.EntityEquipmentPacket;
 import net.minestom.server.network.player.PlayerConnection;
@@ -23,64 +22,14 @@ public interface EquipmentHandler {
      * @return the {@link ItemStack} in main hand
      */
     @NotNull
-    ItemStack getItemInMainHand();
+    ItemStack getItemInHand();
 
     /**
      * Changes the main hand {@link ItemStack}.
      *
      * @param itemStack the main hand {@link ItemStack}
      */
-    void setItemInMainHand(@NotNull ItemStack itemStack);
-
-    /**
-     * Gets the {@link ItemStack} in off hand.
-     *
-     * @return the item in off hand
-     */
-    @NotNull
-    ItemStack getItemInOffHand();
-
-    /**
-     * Changes the off hand {@link ItemStack}.
-     *
-     * @param itemStack the off hand {@link ItemStack}
-     */
-    void setItemInOffHand(@NotNull ItemStack itemStack);
-
-    /**
-     * Gets the {@link ItemStack} in the specific hand.
-     *
-     * @param hand the Hand to get the {@link ItemStack} from
-     * @return the {@link ItemStack} in {@code hand}
-     */
-    @NotNull
-    default ItemStack getItemInHand(@NotNull Player.Hand hand) {
-        switch (hand) {
-            case MAIN:
-                return getItemInMainHand();
-            case OFF:
-                return getItemInOffHand();
-        }
-        throw new IllegalStateException("Something weird happened");
-    }
-
-    /**
-     * Changes the {@link ItemStack} in the specific hand.
-     *
-     * @param hand  the hand to set the item to
-     * @param stack the {@link ItemStack} to set
-     */
-    default void setItemInHand(@NotNull Player.Hand hand, @NotNull ItemStack stack) {
-        switch (hand) {
-            case MAIN:
-                setItemInMainHand(stack);
-                break;
-
-            case OFF:
-                setItemInOffHand(stack);
-                break;
-        }
-    }
+    void setItemInHand(@NotNull ItemStack itemStack);
 
     /**
      * Gets the helmet.
@@ -151,10 +100,8 @@ public interface EquipmentHandler {
     @NotNull
     default ItemStack getEquipment(@NotNull EntityEquipmentPacket.Slot slot) {
         switch (slot) {
-            case MAIN_HAND:
-                return getItemInMainHand();
-            case OFF_HAND:
-                return getItemInOffHand();
+            case HAND:
+                return getItemInHand();
             case HELMET:
                 return getHelmet();
             case CHESTPLATE:

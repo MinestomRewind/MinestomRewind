@@ -132,9 +132,6 @@ public class PlayerInit {
         });
 
         globalEventHandler.addEventCallback(PlayerBlockPlaceEvent.class, event -> {
-            if (event.getHand() != Player.Hand.MAIN)
-                return;
-
             final Block block = Block.fromStateId(event.getBlockStateId());
 
             if (block == Block.STONE) {
@@ -148,8 +145,6 @@ public class PlayerInit {
         });
 
         globalEventHandler.addEventCallback(PlayerBlockInteractEvent.class, event -> {
-            if (event.getHand() != Player.Hand.MAIN)
-                return;
             final Player player = event.getPlayer();
 
             final short blockStateId = player.getInstance().getBlockStateId(event.getBlockPosition());
@@ -234,7 +229,7 @@ public class PlayerInit {
 
         globalEventHandler.addEventCallback(PlayerUseItemOnBlockEvent.class, useEvent -> {
             final Player player = useEvent.getPlayer();
-            player.sendMessage("Main item: " + player.getInventory().getItemInMainHand().getMaterial());
+            player.sendMessage("Main item: " + player.getInventory().getItemInHand().getMaterial());
             player.sendMessage("Using item on block: " + useEvent.getItemStack().getMaterial() + " at " + useEvent.getPosition() + " on face " + useEvent.getBlockFace());
         });
 

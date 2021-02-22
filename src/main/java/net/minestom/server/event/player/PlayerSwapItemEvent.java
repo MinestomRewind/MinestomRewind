@@ -11,15 +11,13 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerSwapItemEvent extends PlayerEvent implements CancellableEvent {
 
-    private ItemStack mainHandItem;
-    private ItemStack offHandItem;
+    private ItemStack handItem;
 
     private boolean cancelled;
 
-    public PlayerSwapItemEvent(@NotNull Player player, @NotNull ItemStack mainHandItem, @NotNull ItemStack offHandItem) {
+    public PlayerSwapItemEvent(@NotNull Player player, @NotNull ItemStack handItem) {
         super(player);
-        this.mainHandItem = mainHandItem;
-        this.offHandItem = offHandItem;
+        this.handItem = handItem;
     }
 
     /**
@@ -28,36 +26,17 @@ public class PlayerSwapItemEvent extends PlayerEvent implements CancellableEvent
      * @return the item in main hand
      */
     @NotNull
-    public ItemStack getMainHandItem() {
-        return mainHandItem;
+    public ItemStack getHandItem() {
+        return handItem;
     }
 
     /**
      * Changes the item which will be in the player main hand.
      *
-     * @param mainHandItem the main hand item
+     * @param handItem the main hand item
      */
-    public void setMainHandItem(@NotNull ItemStack mainHandItem) {
-        this.mainHandItem = mainHandItem;
-    }
-
-    /**
-     * Gets the item which will be in player off hand after the event.
-     *
-     * @return the item in off hand
-     */
-    @NotNull
-    public ItemStack getOffHandItem() {
-        return offHandItem;
-    }
-
-    /**
-     * Changes the item which will be in the player off hand.
-     *
-     * @param offHandItem the off hand item
-     */
-    public void setOffHandItem(@NotNull ItemStack offHandItem) {
-        this.offHandItem = offHandItem;
+    public void setHandItem(@NotNull ItemStack handItem) {
+        this.handItem = handItem;
     }
 
     @Override

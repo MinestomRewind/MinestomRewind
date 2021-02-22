@@ -146,24 +146,13 @@ public class PlayerInventory implements InventoryModifier, InventoryClickHandler
 
     @NotNull
     @Override
-    public ItemStack getItemInMainHand() {
+    public ItemStack getItemInHand() {
         return getItemStack(player.getHeldSlot());
     }
 
     @Override
-    public void setItemInMainHand(@NotNull ItemStack itemStack) {
+    public void setItemInHand(@NotNull ItemStack itemStack) {
         safeItemInsert(player.getHeldSlot(), itemStack);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getItemInOffHand() {
-        return getItemStack(OFFHAND_SLOT);
-    }
-
-    @Override
-    public void setItemInOffHand(@NotNull ItemStack itemStack) {
-        safeItemInsert(OFFHAND_SLOT, itemStack);
     }
 
     @NotNull
@@ -269,9 +258,7 @@ public class PlayerInventory implements InventoryModifier, InventoryClickHandler
         EntityEquipmentPacket.Slot equipmentSlot;
 
         if (slot == player.getHeldSlot()) {
-            equipmentSlot = EntityEquipmentPacket.Slot.MAIN_HAND;
-        } else if (slot == OFFHAND_SLOT) {
-            equipmentSlot = EntityEquipmentPacket.Slot.OFF_HAND;
+            equipmentSlot = EntityEquipmentPacket.Slot.HAND;
         } else {
             ArmorEquipEvent armorEquipEvent = null;
 

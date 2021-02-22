@@ -57,7 +57,7 @@ public class CustomBlockSample extends CustomBlock {
     }
 
     @Override
-    public boolean onInteract(@NotNull Player player, @NotNull Player.Hand hand, @NotNull BlockPosition blockPosition, Data data) {
+    public boolean onInteract(@NotNull Player player, @NotNull BlockPosition blockPosition, Data data) {
         return false;
     }
 

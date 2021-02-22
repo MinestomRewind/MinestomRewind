@@ -26,7 +26,7 @@ public class UseEntityListener {
             EntityAttackEvent entityAttackEvent = new EntityAttackEvent(player, entity);
             player.callEvent(EntityAttackEvent.class, entityAttackEvent);
         } else if (type == ClientInteractEntityPacket.Type.INTERACT) {
-            PlayerEntityInteractEvent playerEntityInteractEvent = new PlayerEntityInteractEvent(player, entity, packet.hand);
+            PlayerEntityInteractEvent playerEntityInteractEvent = new PlayerEntityInteractEvent(player, entity);
             player.callEvent(PlayerEntityInteractEvent.class, playerEntityInteractEvent);
         } else {
             // TODO find difference with INTERACT

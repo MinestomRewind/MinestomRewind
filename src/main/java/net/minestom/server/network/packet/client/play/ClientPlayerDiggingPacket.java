@@ -25,8 +25,7 @@ public class ClientPlayerDiggingPacket extends ClientPlayPacket {
         FINISHED_DIGGING,
         DROP_ITEM_STACK,
         DROP_ITEM,
-        UPDATE_ITEM_STATE,
-        SWAP_ITEM_HAND
+        UPDATE_ITEM_STATE
     }
 
 }

@@ -27,8 +27,12 @@ public class Metadata {
         return new Value<>(TYPE_BYTE, value, writer -> writer.writeByte(value));
     }
 
-    public static Value<Integer> VarInt(int value) {
-        return new Value<>(TYPE_VARINT, value, writer -> writer.writeVarInt(value));
+    public static Value<Short> Short(short value) {
+        return new Value<>(TYPE_SHORT, value, writer -> writer.writeShort(value));
+    }
+
+    public static Value<Integer> Int(int value) {
+        return new Value<>(TYPE_INT, value, writer -> writer.writeInt(value));
     }
 
     public static Value<Float> Float(float value) {
@@ -39,117 +43,34 @@ public class Metadata {
         return new Value<>(TYPE_STRING, value, writer -> writer.writeSizedString(value));
     }
 
-    public static Value<JsonMessage> Chat(@NotNull JsonMessage value) {
-        return new Value<>(TYPE_CHAT, value, writer -> writer.writeSizedString(value.toString()));
-    }
-
-    public static Value<JsonMessage> OptChat(@Nullable JsonMessage value) {
-        return new Value<>(TYPE_OPTCHAT, value, writer -> {
-            final boolean present = value != null;
-            writer.writeBoolean(present);
-            if (present) {
-                writer.writeSizedString(value.toString());
-            }
-        });
-    }
-
     public static Value<ItemStack> Slot(@NotNull ItemStack value) {
         return new Value<>(TYPE_SLOT, value, writer -> writer.writeItemStack(value));
     }
 
-    public static Value<Boolean> Boolean(boolean value) {
-        return new Value<>(TYPE_BOOLEAN, value, writer -> writer.writeBoolean(value));
+    public static Value<BlockPosition> Position(@NotNull BlockPosition value) {
+        return new Value<>(TYPE_POSITION, value, writer -> {
+            writer.writeInt(value.getX());
+            writer.writeInt(value.getY());
+            writer.writeInt(value.getZ());
+        });
     }
 
-    public static Value<Vector> Rotation(@NotNull Vector value) {
-        return new Value<>(TYPE_ROTATION, value, writer -> {
+    public static Value<Vector> Vector(@NotNull Vector value) {
+        return new Value<>(TYPE_VECTOR, value, writer -> {
             writer.writeFloat((float) value.getX());
             writer.writeFloat((float) value.getY());
             writer.writeFloat((float) value.getZ());
         });
     }
 
-    public static Value<BlockPosition> Position(@NotNull BlockPosition value) {
-        return new Value<>(TYPE_POSITION, value, writer -> writer.writeBlockPosition(value));
-    }
-
-    public static Value<BlockPosition> OptPosition(@Nullable BlockPosition value) {
-        return new Value<>(TYPE_OPTPOSITION, value, writer -> {
-            final boolean present = value != null;
-            writer.writeBoolean(present);
-            if (present) {
-                writer.writeBlockPosition(value);
-            }
-        });
-    }
-
-    public static Value<Direction> Direction(@NotNull Direction value) {
-        return new Value<>(TYPE_DIRECTION, value, writer -> writer.writeVarInt(value.ordinal()));
-    }
-
-    public static Value<UUID> OptUUID(@Nullable UUID value) {
-        return new Value<>(TYPE_OPTUUID, value, writer -> {
-            final boolean present = value != null;
-            writer.writeBoolean(present);
-            if (present) {
-                writer.writeUuid(value);
-            }
-        });
-    }
-
-    public static Value<Integer> OptBlockID(@Nullable Integer value) {
-        return new Value<>(TYPE_OPTBLOCKID, value, writer -> {
-            final boolean present = value != null;
-            writer.writeVarInt(present ? value : 0);
-        });
-    }
-
-    public static Value<NBT> NBT(@NotNull NBT nbt) {
-        return new Value<>(TYPE_NBT, nbt, writer -> {
-            writer.writeNBT("", nbt);
-        });
-    }
-
-    public static Value<int[]> VillagerData(int villagerType,
-                                            int villagerProfession,
-                                            int level) {
-        return new Value<>(TYPE_VILLAGERDATA, new int[]{villagerType, villagerProfession, level}, writer -> {
-            writer.writeVarInt(villagerType);
-            writer.writeVarInt(villagerProfession);
-            writer.writeVarInt(level);
-        });
-    }
-
-    public static Value<Integer> OptVarInt(@Nullable Integer value) {
-        return new Value<>(TYPE_OPTVARINT, value, writer -> {
-            final boolean present = value != null;
-            writer.writeVarInt(present ? value + 1 : 0);
-        });
-    }
-
-    public static Value<Entity.Pose> Pose(@NotNull Entity.Pose value) {
-        return new Value<>(TYPE_POSE, value, writer -> writer.writeVarInt(value.ordinal()));
-    }
-
     public static final byte TYPE_BYTE = 0;
-    public static final byte TYPE_VARINT = 1;
-    public static final byte TYPE_FLOAT = 2;
-    public static final byte TYPE_STRING = 3;
-    public static final byte TYPE_CHAT = 4;
-    public static final byte TYPE_OPTCHAT = 5;
-    public static final byte TYPE_SLOT = 6;
-    public static final byte TYPE_BOOLEAN = 7;
-    public static final byte TYPE_ROTATION = 8;
-    public static final byte TYPE_POSITION = 9;
-    public static final byte TYPE_OPTPOSITION = 10;
-    public static final byte TYPE_DIRECTION = 11;
-    public static final byte TYPE_OPTUUID = 12;
-    public static final byte TYPE_OPTBLOCKID = 13;
-    public static final byte TYPE_NBT = 14;
-    public static final byte TYPE_PARTICLE = 15;
-    public static final byte TYPE_VILLAGERDATA = 16;
-    public static final byte TYPE_OPTVARINT = 17;
-    public static final byte TYPE_POSE = 18;
+    public static final byte TYPE_SHORT = 1;
+    public static final byte TYPE_INT = 2;
+    public static final byte TYPE_FLOAT = 3;
+    public static final byte TYPE_STRING = 4;
+    public static final byte TYPE_SLOT = 5;
+    public static final byte TYPE_POSITION = 6;
+    public static final byte TYPE_VECTOR = 7;
 
     private final Entity entity;
 
@@ -195,8 +116,8 @@ public class Metadata {
 
         @Override
         public void write(@NotNull BinaryWriter writer) {
-            writer.writeByte(index);
-            this.value.write(writer);
+            writer.writeByte((byte) (((this.value.type << 5) | (index & 0x1F)) & 0xFF));
+            this.value.valueWriter.accept(writer);
         }
 
         public byte getIndex() {
@@ -209,7 +130,7 @@ public class Metadata {
         }
     }
 
-    public static class Value<T> implements Writeable {
+    public static class Value<T> {
 
         protected final int type;
         protected final T value;
@@ -219,12 +140,6 @@ public class Metadata {
             this.type = type;
             this.value = value;
             this.valueWriter = valueWriter;
-        }
-
-        @Override
-        public void write(@NotNull BinaryWriter writer) {
-            writer.writeVarInt(type);
-            this.valueWriter.accept(writer);
         }
 
         public int getType() {

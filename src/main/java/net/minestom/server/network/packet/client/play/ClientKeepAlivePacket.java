@@ -6,10 +6,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class ClientKeepAlivePacket extends ClientPlayPacket {
 
-    public long id;
+    public int id;
 
     @Override
     public void read(@NotNull BinaryReader reader) {
-        this.id = reader.readLong();
+        this.id = reader.readVarInt();
     }
 }

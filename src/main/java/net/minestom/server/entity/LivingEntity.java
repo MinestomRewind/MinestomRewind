@@ -69,7 +69,7 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
 
     private Team team;
 
-    public LivingEntity(@NotNull EntityType entityType, @NotNull Position spawnPosition) {
+    public LivingEntity(@Nullable EntityType entityType, @NotNull Position spawnPosition) {
         super(entityType, spawnPosition);
         setupAttributes();
         setGravity(0.02f, 0.08f, 3.92f);
@@ -78,20 +78,20 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
     /**
      * Constructor which allows to specify an UUID. Only use if you know what you are doing!
      */
-    public LivingEntity(@NotNull EntityType entityType, @NotNull UUID uuid, @NotNull Position spawnPosition) {
+    public LivingEntity(@Nullable EntityType entityType, @NotNull UUID uuid, @NotNull Position spawnPosition) {
         super(entityType, uuid, spawnPosition);
         setupAttributes();
         setGravity(0.02f, 0.08f, 3.92f);
     }
 
-    public LivingEntity(@NotNull EntityType entityType) {
+    public LivingEntity(@Nullable EntityType entityType) {
         this(entityType, new Position());
     }
 
     /**
      * Constructor which allows to specify an UUID. Only use if you know what you are doing!
      */
-    public LivingEntity(@NotNull EntityType entityType, @NotNull UUID uuid) {
+    public LivingEntity(@Nullable EntityType entityType, @NotNull UUID uuid) {
         this(entityType, uuid, new Position());
     }
 
@@ -150,8 +150,8 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
      *
      * @return the arrow count
      */
-    public int getArrowCount() {
-        return metadata.getIndex((byte) 11, 0);
+    public byte getArrowCount() {
+        return metadata.getIndex((byte) 9, (byte) 0);
     }
 
     /**
@@ -159,8 +159,8 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
      *
      * @param arrowCount the arrow count
      */
-    public void setArrowCount(int arrowCount) {
-        this.metadata.setIndex((byte) 11, Metadata.VarInt(arrowCount));
+    public void setArrowCount(byte arrowCount) {
+        this.metadata.setIndex((byte) 9, Metadata.Byte(arrowCount));
     }
 
     /**
@@ -314,7 +314,7 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
      * @return the entity health
      */
     public float getHealth() {
-        return metadata.getIndex((byte) 8, 1f);
+        return metadata.getIndex((byte) 6, 1f);
     }
 
     /**
@@ -328,7 +328,7 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
             kill();
         }
 
-        this.metadata.setIndex((byte) 8, Metadata.Float(health));
+        this.metadata.setIndex((byte) 6, Metadata.Float(health));
     }
 
     /**
@@ -443,18 +443,6 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
         animationPacket.entityId = getEntityId();
         animationPacket.animation = EntityAnimationPacket.Animation.SWING_OFF_HAND;
         sendPacketToViewers(animationPacket);
-    }
-
-    public void refreshActiveHand(boolean isHandActive, boolean offHand, boolean riptideSpinAttack) {
-        byte handState = 0;
-        if (isHandActive)
-            handState |= 0x01;
-        if (offHand)
-            handState |= 0x02;
-        if (riptideSpinAttack)
-            handState |= 0x04;
-
-        this.metadata.setIndex((byte) 7, Metadata.Byte(handState));
     }
 
     /**

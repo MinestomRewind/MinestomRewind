@@ -4,7 +4,7 @@ import net.minestom.server.network.packet.client.ClientPlayPacket;
 import net.minestom.server.utils.binary.BinaryReader;
 import org.jetbrains.annotations.NotNull;
 
-public class ClientPlayerPositionAndRotationPacket extends ClientPlayPacket {
+public class ClientPlayerPositionAndLookPacket extends ClientPlayPacket {
 
     public double x, y, z;
     public float yaw, pitch;

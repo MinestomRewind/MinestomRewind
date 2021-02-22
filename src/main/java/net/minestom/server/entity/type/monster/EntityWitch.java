@@ -13,11 +13,11 @@ public class EntityWitch extends EntityCreature implements Monster {
         setBoundingBox(0.6f, 1.95f, 0.6f);
     }
 
-    public boolean isDrinkingPotion() {
-        return metadata.getIndex((byte) 16, false);
+    public boolean isAggressive() {
+        return metadata.getIndex((byte) 21, (byte) 0) == 1;
     }
 
-    public void setDrinkingPotion(boolean drinkingPotion) {
-        this.metadata.setIndex((byte) 16, Metadata.Boolean(drinkingPotion));
+    public void setAggressive(boolean aggressive) {
+        this.metadata.setIndex((byte) 21, Metadata.Byte((byte) (aggressive ? 1 : 0)));
     }
 }

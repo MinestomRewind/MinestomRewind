@@ -1,7 +1,6 @@
 package net.minestom.codegen.stats;
 
 import net.minestom.codegen.BasicEnumGenerator;
-import net.minestom.server.registry.ResourceGatherer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,12 +20,6 @@ public class StatsEnumGenerator extends BasicEnumGenerator {
         }
 
         targetVersion = args[0];
-
-        try {
-            ResourceGatherer.ensureResourcesArePresent(targetVersion); // TODO
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         String targetPart = DEFAULT_TARGET_PATH;
         if(args.length >= 2) {

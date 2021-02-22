@@ -11,12 +11,10 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerEntityInteractEvent extends PlayerEvent {
 
     private final Entity entityTarget;
-    private final Player.Hand hand;
 
-    public PlayerEntityInteractEvent(@NotNull Player player, @NotNull Entity entityTarget, @NotNull Player.Hand hand) {
+    public PlayerEntityInteractEvent(@NotNull Player player, @NotNull Entity entityTarget) {
         super(player);
         this.entityTarget = entityTarget;
-        this.hand = hand;
     }
 
     /**
@@ -27,15 +25,5 @@ public class PlayerEntityInteractEvent extends PlayerEvent {
     @NotNull
     public Entity getTarget() {
         return entityTarget;
-    }
-
-    /**
-     * Gets with which hand the player interacted with the entity.
-     *
-     * @return the hand
-     */
-    @NotNull
-    public Player.Hand getHand() {
-        return hand;
     }
 }

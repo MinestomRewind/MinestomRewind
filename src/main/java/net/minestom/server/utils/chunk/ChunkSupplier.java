@@ -17,8 +17,9 @@ public interface ChunkSupplier {
      * @param biomes the biomes of the chunk, can be null
      * @param chunkX the chunk X
      * @param chunkZ the chunk Z
+     * @param hasSky whether the instance this chunk is a part of has a sky
      * @return a newly {@link Chunk} object, cannot be null
      */
     @NotNull
-    Chunk createChunk(@Nullable Biome[] biomes, int chunkX, int chunkZ);
+    Chunk createChunk(@Nullable Biome[] biomes, int chunkX, int chunkZ, boolean hasSky);
 }

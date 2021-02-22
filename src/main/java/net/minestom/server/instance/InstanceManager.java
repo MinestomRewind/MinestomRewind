@@ -4,6 +4,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.storage.StorageLocation;
 import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.DimensionType;
+import net.minestom.server.world.LevelType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,12 +40,13 @@ public final class InstanceManager {
      * with the specified {@link DimensionType} and {@link StorageLocation}.
      *
      * @param dimensionType   the {@link DimensionType} of the instance
+     * @param levelType       the {@link LevelType} of the instance
      * @param storageLocation the {@link StorageLocation} of the instance, can be null
      * @return the created {@link InstanceContainer}
      */
     @NotNull
-    public InstanceContainer createInstanceContainer(@NotNull DimensionType dimensionType, @Nullable StorageLocation storageLocation) {
-        final InstanceContainer instanceContainer = new InstanceContainer(UUID.randomUUID(), dimensionType, storageLocation);
+    public InstanceContainer createInstanceContainer(@NotNull DimensionType dimensionType, @NotNull LevelType levelType, @Nullable StorageLocation storageLocation) {
+        final InstanceContainer instanceContainer = new InstanceContainer(UUID.randomUUID(), dimensionType, levelType, storageLocation);
         registerInstance(instanceContainer);
         return instanceContainer;
     }
@@ -57,7 +59,7 @@ public final class InstanceManager {
      */
     @NotNull
     public InstanceContainer createInstanceContainer(@Nullable StorageLocation storageLocation) {
-        return createInstanceContainer(DimensionType.OVERWORLD, storageLocation);
+        return createInstanceContainer(DimensionType.OVERWORLD, LevelType.FLAT, storageLocation);
     }
 
     /**
@@ -68,7 +70,7 @@ public final class InstanceManager {
      */
     @NotNull
     public InstanceContainer createInstanceContainer(@NotNull DimensionType dimensionType) {
-        return createInstanceContainer(dimensionType, null);
+        return createInstanceContainer(dimensionType, LevelType.FLAT, null);
     }
 
     /**

@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class PlayerInfoPacket implements ServerPacket {
+public class PlayerListItemPacket implements ServerPacket {
 
     public Action action;
     public List<PlayerInfo> playerInfos;
 
-    public PlayerInfoPacket(Action action) {
+    public PlayerListItemPacket(Action action) {
         this.action = action;
         this.playerInfos = new ArrayList<>();
     }
@@ -35,7 +35,7 @@ public class PlayerInfoPacket implements ServerPacket {
 
     @Override
     public int getId() {
-        return ServerPacketIdentifier.PLAYER_INFO;
+        return ServerPacketIdentifier.PLAYER_LIST_ITEM;
     }
 
     public enum Action {

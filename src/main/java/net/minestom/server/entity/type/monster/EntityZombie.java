@@ -14,19 +14,27 @@ public class EntityZombie extends EntityCreature implements Monster {
     }
 
     public boolean isBaby() {
-        return metadata.getIndex((byte) 15, false);
+        return metadata.getIndex((byte) 12, (byte) 0) == 1;
     }
 
     public void setBaby(boolean baby) {
-        this.metadata.setIndex((byte) 15, Metadata.Boolean(baby));
+        this.metadata.setIndex((byte) 12, Metadata.Byte((byte) (baby ? 1 : 0)));
     }
 
-    public boolean isBecomingDrowned() {
-        return metadata.getIndex((byte) 17, false);
+    public boolean isVillager() {
+        return metadata.getIndex((byte) 13, (byte) 0) == 1;
     }
 
-    public void setBecomingDrowned(boolean becomingDrowned) {
-        this.metadata.setIndex((byte) 17, Metadata.Boolean(becomingDrowned));
+    public void setVillager(boolean villager) {
+        this.metadata.setIndex((byte) 13, Metadata.Byte((byte) (villager ? 1 : 0)));
+    }
+
+    public boolean isConverting() {
+        return metadata.getIndex((byte) 14, (byte) 0) == 1;
+    }
+
+    public void setConverting(boolean converting) {
+        this.metadata.setIndex((byte) 14, Metadata.Byte((byte) (converting ? 1 : 0)));
     }
 
     @Override

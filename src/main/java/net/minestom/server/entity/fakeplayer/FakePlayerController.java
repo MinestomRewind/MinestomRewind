@@ -140,25 +140,11 @@ public class FakePlayerController {
     }
 
     /**
-     * Sends an animation packet that animates the specified arm.
-     *
-     * @param hand The hand of the arm to be animated.
+     * Sends an animation packet that animates the player's arm.
      */
-    public void sendArmAnimation(Player.Hand hand) {
+    public void sendArmAnimation() {
         ClientAnimationPacket animationPacket = new ClientAnimationPacket();
-        animationPacket.hand = hand;
         addToQueue(animationPacket);
-    }
-
-    /**
-     * Uses the item in the given {@code hand}.
-     *
-     * @param hand The hand in which an ite mshould be.
-     */
-    public void useItem(Player.Hand hand) {
-        ClientUseItemPacket useItemPacket = new ClientUseItemPacket();
-        useItemPacket.hand = hand;
-        addToQueue(useItemPacket);
     }
 
     /**
@@ -168,7 +154,7 @@ public class FakePlayerController {
      * @param pitch The new pitch for the fake player.
      */
     public void rotate(float yaw, float pitch) {
-        ClientPlayerRotationPacket playerRotationPacket = new ClientPlayerRotationPacket();
+        ClientPlayerLookPacket playerRotationPacket = new ClientPlayerLookPacket();
         playerRotationPacket.yaw = yaw;
         playerRotationPacket.pitch = pitch;
         playerRotationPacket.onGround = fakePlayer.isOnGround();
@@ -226,9 +212,16 @@ public class FakePlayerController {
      */
     public void consumePacket(ServerPacket serverPacket) {
         if (serverPacket instanceof PlayerPositionAndLookPacket) {
-            ClientTeleportConfirmPacket teleportConfirmPacket = new ClientTeleportConfirmPacket();
-            teleportConfirmPacket.teleportId = ((PlayerPositionAndLookPacket) serverPacket).teleportId;
-            addToQueue(teleportConfirmPacket);
+            PlayerPositionAndLookPacket inboundPacket = (PlayerPositionAndLookPacket) serverPacket;
+
+            ClientPlayerPositionAndLookPacket positionAndLookPacket = new ClientPlayerPositionAndLookPacket();
+            positionAndLookPacket.x = inboundPacket.position.getX();
+            positionAndLookPacket.y = inboundPacket.position.getY();
+            positionAndLookPacket.z = inboundPacket.position.getZ();
+            positionAndLookPacket.yaw = inboundPacket.position.getYaw();
+            positionAndLookPacket.pitch = inboundPacket.position.getPitch();
+            positionAndLookPacket.onGround = true; // TODO(koesie10): Make this configurable?
+            addToQueue(positionAndLookPacket);
         } else if (serverPacket instanceof KeepAlivePacket) {
             ClientKeepAlivePacket keepAlivePacket = new ClientKeepAlivePacket();
             keepAlivePacket.id = ((KeepAlivePacket) serverPacket).id;

@@ -22,22 +22,20 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jglrxavpok.hephaistos.nbt.NBTCompound;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public class ChunkDataPacket implements ServerPacket, CacheablePacket {
 
-    private static final BlockManager BLOCK_MANAGER = MinecraftServer.getBlockManager();
     private static final TemporaryPacketCache CACHE = new TemporaryPacketCache(10000L);
 
     public boolean fullChunk;
+    public boolean unloadChunk;
     public Biome[] biomes;
     public int chunkX, chunkZ;
 
     public PaletteStorage paletteStorage;
-    public PaletteStorage customBlockPaletteStorage;
-
-    public IntSet blockEntities;
-    public Int2ObjectMap<Data> blocksData;
+    public boolean skylight;
 
     public int[] sections;
 
@@ -60,14 +58,23 @@ public class ChunkDataPacket implements ServerPacket, CacheablePacket {
         writer.writeInt(chunkZ);
         writer.writeBoolean(fullChunk);
 
-        int mask = 0;
-        ByteBuf blocks = Unpooled.buffer(MAX_BUFFER_SIZE);
+        short mask = 0;
+
+        if (unloadChunk) {
+            writer.writeShort(mask);
+            writer.writeVarInt(0);
+            return;
+        }
+
+        short[][] includedSections = new short[CHUNK_SECTION_COUNT][0];
+        int includedCount = 0;
+
         for (byte i = 0; i < CHUNK_SECTION_COUNT; i++) {
             if (fullChunk || (sections.length == CHUNK_SECTION_COUNT && sections[i] != 0)) {
-                final long[] section = paletteStorage.getSectionBlocks()[i];
+                final short[] section = paletteStorage.getSectionBlocks()[i];
                 if (section.length > 0) { // section contains at least one block
                     mask |= 1 << i;
-                    Utils.writeBlocks(blocks, paletteStorage.getPalette(i), section, paletteStorage.getBitsPerEntry());
+                    includedSections[includedCount++] = section;
                 } else {
                     mask |= 0;
                 }
@@ -76,60 +83,43 @@ public class ChunkDataPacket implements ServerPacket, CacheablePacket {
             }
         }
 
-        writer.writeVarInt(mask);
+        writer.writeShort(mask);
 
-        // Heightmap
-        int[] motionBlocking = new int[16 * 16];
-        int[] worldSurface = new int[16 * 16];
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                motionBlocking[x + z * 16] = 4;
-                worldSurface[x + z * 16] = 5;
+        ByteBuf data = Unpooled.buffer(MAX_BUFFER_SIZE);
+
+        for (int i = 0; i < includedCount; i++) {
+            short[] section = includedSections[i];
+
+            for (long datum : section) {
+                data.writeByte((byte) datum << 4);
+                data.writeByte(0);
             }
         }
 
-        {
-            writer.writeNBT("",
-                    new NBTCompound()
-                            .setLongArray("MOTION_BLOCKING", Utils.encodeBlocks(motionBlocking, 9))
-                            .setLongArray("WORLD_SURFACE", Utils.encodeBlocks(worldSurface, 9))
-            );
+        byte[] lightBytes = new byte[2048];
+        Arrays.fill(lightBytes, (byte) 0xFF);
+
+        for (int i = 0; i < includedCount; i++) {
+            data.writeBytes(lightBytes);
+        }
+
+        if (skylight) {
+            for (int i = 0; i < includedCount; i++) {
+                data.writeBytes(lightBytes);
+            }
         }
 
         // Biome data
         if (fullChunk) {
-            writer.writeVarInt(biomes.length);
-            for (Biome biome : biomes) {
-                writer.writeVarInt(biome.getId());
+            for (int i = 0; i < 256; i++) {
+                data.writeByte(0);
             }
         }
 
         // Data
-        writer.writeVarInt(blocks.writerIndex());
-        writer.getBuffer().writeBytes(blocks);
-        blocks.release();
-
-        // Block entities
-        writer.writeVarInt(blockEntities.size());
-
-        for (int index : blockEntities) {
-            final BlockPosition blockPosition = ChunkUtils.getBlockPosition(index, chunkX, chunkZ);
-
-            NBTCompound nbt = new NBTCompound()
-                    .setInt("x", blockPosition.getX())
-                    .setInt("y", blockPosition.getY())
-                    .setInt("z", blockPosition.getZ());
-
-            if (customBlockPaletteStorage != null) {
-                final short customBlockId = customBlockPaletteStorage.getBlockAt(blockPosition.getX(), blockPosition.getY(), blockPosition.getZ());
-                final CustomBlock customBlock = BLOCK_MANAGER.getCustomBlock(customBlockId);
-                if (customBlock != null) {
-                    final Data data = blocksData.get(index);
-                    customBlock.writeBlockEntity(blockPosition, data, nbt);
-                }
-            }
-            writer.writeNBT("", nbt);
-        }
+        writer.writeVarInt(data.writerIndex());
+        writer.getBuffer().writeBytes(data);
+        data.release();
     }
 
     @Override

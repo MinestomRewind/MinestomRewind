@@ -92,28 +92,10 @@ public final class Utils {
         return new UUID(uuidMost, uuidLeast);
     }
 
-    public static void writeBlocks(ByteBuf buffer, short[] palette, long[] blocksId, int bitsPerEntry) {
-        /*short count = 0;
-        for (short id : blocksId)
-            if (id != 0)
-                count++;*/
-
-        //buffer.writeShort(count);
-        buffer.writeShort(200);
-        buffer.writeByte((byte) bitsPerEntry);
-
-        // Palette
-        if (bitsPerEntry < 9) {
-            // Palette has to exist
-            writeVarIntBuf(buffer, palette.length);
-            for (short paletteValue : palette) {
-                writeVarIntBuf(buffer, paletteValue);
-            }
-        }
-
-        writeVarIntBuf(buffer, blocksId.length);
+    public static void writeBlocks(ByteBuf buffer, long[] blocksId) {
         for (long datum : blocksId) {
-            buffer.writeLong(datum);
+            buffer.writeByte((byte) datum << 4);
+            buffer.writeByte(0);
         }
     }
 

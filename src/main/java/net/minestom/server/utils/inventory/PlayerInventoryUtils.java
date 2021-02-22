@@ -14,7 +14,6 @@ public final class PlayerInventoryUtils {
     public static final int CHESTPLATE_SLOT = 42;
     public static final int LEGGINGS_SLOT = 43;
     public static final int BOOTS_SLOT = 44;
-    public static final int OFFHAND_SLOT = 45;
 
     private PlayerInventoryUtils() {
 
@@ -80,8 +79,6 @@ public final class PlayerInventoryUtils {
             slot = slot - 36;
         } else if (slot >= HELMET_SLOT && slot <= BOOTS_SLOT) { // Armor 41-44
             slot = slot - 36;
-        } else if (slot == OFFHAND_SLOT) { // Off hand
-            slot = 45;
         }
         return slot;
     }

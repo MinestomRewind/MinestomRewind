@@ -19,7 +19,7 @@ public class LoginSuccessPacket implements ServerPacket {
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeUuid(uuid);
+        writer.writeSizedString(uuid.toString());
         writer.writeSizedString(username);
     }
 

@@ -159,7 +159,7 @@ public final class PacketUtils {
     @NotNull
     private static ByteBuf getPacketBuffer(@NotNull ServerPacket packet) {
         BinaryWriter writer;
-        if (packet.getId() == ServerPacketIdentifier.CHUNK_DATA || packet.getId() == ServerPacketIdentifier.UPDATE_LIGHT) {
+        if (packet.getId() == ServerPacketIdentifier.CHUNK_DATA) {
             writer = new BinaryWriter(BufUtils.getBuffer(true, 40_000));
         } else {
             writer = new BinaryWriter(BufUtils.getBuffer(true));

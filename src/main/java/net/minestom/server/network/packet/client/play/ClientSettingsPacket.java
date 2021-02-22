@@ -12,7 +12,6 @@ public class ClientSettingsPacket extends ClientPlayPacket {
     public Player.ChatMode chatMode;
     public boolean chatColors;
     public byte displayedSkinParts;
-    public Player.MainHand mainHand;
 
     @Override
     public void read(@NotNull BinaryReader reader) {
@@ -21,6 +20,5 @@ public class ClientSettingsPacket extends ClientPlayPacket {
         this.chatMode = Player.ChatMode.values()[reader.readVarInt()];
         this.chatColors = reader.readBoolean();
         this.displayedSkinParts = reader.readByte();
-        this.mainHand = Player.MainHand.values()[reader.readVarInt()];
     }
 }

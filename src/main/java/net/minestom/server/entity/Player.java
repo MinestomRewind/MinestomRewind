@@ -11,7 +11,6 @@ import net.minestom.server.chat.ColoredText;
 import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.chat.RichMessage;
 import net.minestom.server.collision.BoundingBox;
-import net.minestom.server.command.CommandManager;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.effects.Effects;
 import net.minestom.server.entity.damage.DamageType;
@@ -41,8 +40,6 @@ import net.minestom.server.network.packet.server.login.LoginDisconnectPacket;
 import net.minestom.server.network.packet.server.play.*;
 import net.minestom.server.network.player.NettyPlayerConnection;
 import net.minestom.server.network.player.PlayerConnection;
-import net.minestom.server.recipe.Recipe;
-import net.minestom.server.recipe.RecipeManager;
 import net.minestom.server.resourcepack.ResourcePack;
 import net.minestom.server.scoreboard.BelowNameTag;
 import net.minestom.server.scoreboard.Team;
@@ -60,13 +57,13 @@ import net.minestom.server.utils.time.TimeUnit;
 import net.minestom.server.utils.time.UpdateOption;
 import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.DimensionType;
+import net.minestom.server.world.LevelType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Those are the major actors of the server,
@@ -114,7 +111,8 @@ public class Player extends LivingEntity implements CommandSender {
         return viewersCount / playerSynchronizationGroup + 1;
     }
 
-    private long lastKeepAlive;
+    private long lastKeepAliveTime;
+    private int lastKeepAlive;
     private boolean answerKeepAlive;
 
     private String username;
@@ -127,12 +125,11 @@ public class Player extends LivingEntity implements CommandSender {
     private PlayerSkin skin;
 
     private DimensionType dimensionType;
+    private LevelType levelType;
     private GameMode gameMode;
     protected final Set<Chunk> viewableChunks = new CopyOnWriteArraySet<>();
-    private final AtomicInteger teleportId = new AtomicInteger();
 
     private final Queue<ClientPlayPacket> packets = Queues.newConcurrentLinkedQueue();
-    private final boolean levelFlat;
     private final PlayerSettings settings;
     private float exp;
     private int level;
@@ -214,7 +211,7 @@ public class Player extends LivingEntity implements CommandSender {
 
         this.gameMode = GameMode.SURVIVAL;
         this.dimensionType = DimensionType.OVERWORLD; // Default dimension
-        this.levelFlat = true;
+        this.levelType = LevelType.DEFAULT; // Default level type
         getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.1f);
 
         // FakePlayer init its connection there
@@ -232,15 +229,16 @@ public class Player extends LivingEntity implements CommandSender {
      */
     public void UNSAFE_init(@NotNull Instance spawnInstance) {
         this.dimensionType = spawnInstance.getDimensionType();
+        this.levelType = spawnInstance.getLevelType();
 
         JoinGamePacket joinGamePacket = new JoinGamePacket();
         joinGamePacket.entityId = getEntityId();
         joinGamePacket.gameMode = gameMode;
         joinGamePacket.dimensionType = dimensionType;
+        joinGamePacket.levelType = levelType;
+        joinGamePacket.difficulty = MinecraftServer.getDifficulty();
         joinGamePacket.maxPlayers = 0; // Unused
-        joinGamePacket.viewDistance = MinecraftServer.getChunkViewDistance();
         joinGamePacket.reducedDebugInfo = false;
-        joinGamePacket.isFlat = levelFlat;
         playerConnection.sendPacket(joinGamePacket);
 
         // Server brand name
@@ -250,7 +248,6 @@ public class Player extends LivingEntity implements CommandSender {
 
         ServerDifficultyPacket serverDifficultyPacket = new ServerDifficultyPacket();
         serverDifficultyPacket.difficulty = MinecraftServer.getDifficulty();
-        serverDifficultyPacket.locked = true;
         playerConnection.sendPacket(serverDifficultyPacket);
 
         SpawnPositionPacket spawnPositionPacket = new SpawnPositionPacket();
@@ -259,6 +256,8 @@ public class Player extends LivingEntity implements CommandSender {
         spawnPositionPacket.z = (int) respawnPoint.getZ();
         playerConnection.sendPacket(spawnPositionPacket);
 
+        refreshAbilities(); // Send abilities packet
+
         // Add player to list with spawning skin
         PlayerSkinInitEvent skinInitEvent = new PlayerSkinInitEvent(this, skin);
         callEvent(PlayerSkinInitEvent.class, skinInitEvent);
@@ -266,58 +265,11 @@ public class Player extends LivingEntity implements CommandSender {
         // FIXME: when using Geyser, this line remove the skin of the client
         playerConnection.sendPacket(getAddPlayerToList());
 
-        // Commands start
-        {
-            CommandManager commandManager = MinecraftServer.getCommandManager();
-            DeclareCommandsPacket declareCommandsPacket = commandManager.createDeclareCommandsPacket(this);
-
-            playerConnection.sendPacket(declareCommandsPacket);
-        }
-        // Commands end
-
-
-        // Recipes start
-        {
-            RecipeManager recipeManager = MinecraftServer.getRecipeManager();
-            DeclareRecipesPacket declareRecipesPacket = recipeManager.getDeclareRecipesPacket();
-            if (declareRecipesPacket.recipes != null) {
-                playerConnection.sendPacket(declareRecipesPacket);
-            }
-
-            List<String> recipesIdentifier = new ArrayList<>();
-            for (Recipe recipe : recipeManager.getRecipes()) {
-                if (!recipe.shouldShow(this))
-                    continue;
-
-                recipesIdentifier.add(recipe.getRecipeId());
-            }
-            if (!recipesIdentifier.isEmpty()) {
-                final String[] identifiers = recipesIdentifier.toArray(new String[0]);
-                UnlockRecipesPacket unlockRecipesPacket = new UnlockRecipesPacket();
-                unlockRecipesPacket.mode = 0;
-                unlockRecipesPacket.recipesId = identifiers;
-                unlockRecipesPacket.initRecipesId = identifiers;
-                playerConnection.sendPacket(unlockRecipesPacket);
-            }
-        }
-        // Recipes end
-
-        // Tags start
-        {
-            TagsPacket tags = TagsPacket.getRequiredTagsPacket();
-
-            UpdateTagListEvent event = new UpdateTagListEvent(tags);
-            callEvent(UpdateTagListEvent.class, event);
-
-            this.playerConnection.sendPacket(tags);
-        }
-        // Tags end
-
         // Some client update
-        this.playerConnection.sendPacket(getPropertiesPacket()); // Send default properties
-        refreshHealth(); // Heal and send health packet
-        refreshAbilities(); // Send abilities packet
-        getInventory().update();
+        // TODO(koesie10): Send packets?
+        // this.playerConnection.sendPacket(getPropertiesPacket()); // Send default properties
+        // refreshHealth(); // Heal and send health packet
+        // getInventory().update();
     }
 
     /**
@@ -418,10 +370,6 @@ public class Player extends LivingEntity implements CommandSender {
                 ItemUpdateStateEvent itemUpdateStateEvent = callItemUpdateStateEvent(true);
 
                 Check.notNull(itemUpdateStateEvent, "#callItemUpdateStateEvent returned null.");
-
-                // Refresh hand
-                final boolean isOffHand = itemUpdateStateEvent.getHand() == Player.Hand.OFF;
-                refreshActiveHand(false, isOffHand, false);
 
                 final ItemStack foodItem = itemUpdateStateEvent.getItemStack();
                 final boolean isFood = foodItem.getMaterial().isFood();
@@ -556,8 +504,9 @@ public class Player extends LivingEntity implements CommandSender {
         refreshHealth();
         RespawnPacket respawnPacket = new RespawnPacket();
         respawnPacket.dimensionType = getDimensionType();
+        respawnPacket.difficulty = MinecraftServer.getDifficulty();
+        respawnPacket.levelType = getLevelType();
         respawnPacket.gameMode = getGameMode();
-        respawnPacket.isFlat = levelFlat;
         getPlayerConnection().sendPacket(respawnPacket);
         PlayerRespawnEvent respawnEvent = new PlayerRespawnEvent(this);
         callEvent(PlayerRespawnEvent.class, respawnEvent);
@@ -677,23 +626,12 @@ public class Player extends LivingEntity implements CommandSender {
             {
                 final DimensionType instanceDimensionType = instance.getDimensionType();
                 if (dimensionType != instanceDimensionType) {
-                    sendDimension(instanceDimensionType);
+                    sendDimension(instanceDimensionType, instance.getLevelType());
                 }
             }
 
             // Load all the required chunks
             final long[] visibleChunks = ChunkUtils.getChunksInRange(spawnPosition, getChunkRange());
-
-            final ChunkCallback eachCallback = chunk -> {
-                if (chunk != null) {
-                    final int chunkX = ChunkUtils.getChunkCoordinate((int) spawnPosition.getX());
-                    final int chunkZ = ChunkUtils.getChunkCoordinate((int) spawnPosition.getZ());
-                    if (chunk.getChunkX() == chunkX &&
-                            chunk.getChunkZ() == chunkZ) {
-                        updateViewPosition(chunkX, chunkZ);
-                    }
-                }
-            };
 
             final ChunkCallback endCallback = chunk -> {
                 // This is the last chunk to be loaded , spawn player
@@ -703,7 +641,7 @@ public class Player extends LivingEntity implements CommandSender {
             // Chunk 0;0 always needs to be loaded
             instance.loadChunk(0, 0, chunk ->
                     // Load all the required chunks
-                    ChunkUtils.optionalLoadAll(instance, visibleChunks, eachCallback, endCallback));
+                    ChunkUtils.optionalLoadAll(instance, visibleChunks, null, endCallback));
 
         } else {
             // The player already has the good version of all the chunks.
@@ -1063,9 +1001,10 @@ public class Player extends LivingEntity implements CommandSender {
         this.playerConnection.sendPacket(setSlotPacket);
 
         // Open the book
-        final OpenBookPacket openBookPacket = new OpenBookPacket();
-        openBookPacket.hand = Hand.OFF;
-        this.playerConnection.sendPacket(openBookPacket);
+        // TODO(koesie10): Send correct packet
+        // final OpenBookPacket openBookPacket = new OpenBookPacket();
+        // openBookPacket.hand = Hand.OFF;
+        // this.playerConnection.sendPacket(openBookPacket);
 
         // Update inventory to remove book (which the actual inventory does not have)
         this.inventory.update();
@@ -1196,8 +1135,8 @@ public class Player extends LivingEntity implements CommandSender {
     public void setDisplayName(@Nullable JsonMessage displayName) {
         this.displayName = displayName;
 
-        PlayerInfoPacket infoPacket = new PlayerInfoPacket(PlayerInfoPacket.Action.UPDATE_DISPLAY_NAME);
-        infoPacket.playerInfos.add(new PlayerInfoPacket.UpdateDisplayName(getUuid(), displayName));
+        PlayerListItemPacket infoPacket = new PlayerListItemPacket(PlayerListItemPacket.Action.UPDATE_DISPLAY_NAME);
+        infoPacket.playerInfos.add(new PlayerListItemPacket.UpdateDisplayName(getUuid(), displayName));
         sendPacketToViewersAndSelf(infoPacket);
     }
 
@@ -1229,13 +1168,12 @@ public class Player extends LivingEntity implements CommandSender {
         DestroyEntitiesPacket destroyEntitiesPacket = new DestroyEntitiesPacket();
         destroyEntitiesPacket.entityIds = new int[]{getEntityId()};
 
-        final PlayerInfoPacket removePlayerPacket = getRemovePlayerToList();
-        final PlayerInfoPacket addPlayerPacket = getAddPlayerToList();
+        final PlayerListItemPacket removePlayerPacket = getRemovePlayerToList();
+        final PlayerListItemPacket addPlayerPacket = getAddPlayerToList();
 
         RespawnPacket respawnPacket = new RespawnPacket();
         respawnPacket.dimensionType = getDimensionType();
         respawnPacket.gameMode = getGameMode();
-        respawnPacket.isFlat = levelFlat;
 
         playerConnection.sendPacket(removePlayerPacket);
         playerConnection.sendPacket(destroyEntitiesPacket);
@@ -1540,18 +1478,18 @@ public class Player extends LivingEntity implements CommandSender {
             final int chunkX = ChunkUtils.getChunkCoordX(chunkIndex);
             final int chunkZ = ChunkUtils.getChunkCoordZ(chunkIndex);
 
-            UnloadChunkPacket unloadChunkPacket = new UnloadChunkPacket();
-            unloadChunkPacket.chunkX = chunkX;
-            unloadChunkPacket.chunkZ = chunkZ;
-            playerConnection.sendPacket(unloadChunkPacket);
+            ChunkDataPacket chunkDataPacket = new ChunkDataPacket(null, 0);
+            chunkDataPacket.chunkX = chunkX;
+            chunkDataPacket.chunkZ = chunkZ;
+            chunkDataPacket.fullChunk = false;
+            chunkDataPacket.unloadChunk = true;
+            chunkDataPacket.skylight = newChunk.getHasSky();
+            playerConnection.sendPacket(chunkDataPacket);
 
             final Chunk chunk = instance.getChunk(chunkX, chunkZ);
             if (chunk != null)
                 chunk.removeViewer(this);
         }
-
-        // Update client render distance
-        updateViewPosition(newChunk.getChunkX(), newChunk.getChunkZ());
 
         // Load new chunks
         for (int index : newChunks) {
@@ -1667,6 +1605,15 @@ public class Player extends LivingEntity implements CommandSender {
         return dimensionType;
     }
 
+    /**
+     * Gets the player level type.
+     *
+     * @return the player current level type
+     */
+    public LevelType getLevelType() {
+        return levelType;
+    }
+
     @NotNull
     public PlayerInventory getInventory() {
         return inventory;
@@ -1703,8 +1650,8 @@ public class Player extends LivingEntity implements CommandSender {
         if (isActive()) {
             sendChangeGameStatePacket(ChangeGameStatePacket.Reason.CHANGE_GAMEMODE, gameMode.getId());
 
-            PlayerInfoPacket infoPacket = new PlayerInfoPacket(PlayerInfoPacket.Action.UPDATE_GAMEMODE);
-            infoPacket.playerInfos.add(new PlayerInfoPacket.UpdateGamemode(getUuid(), gameMode));
+            PlayerListItemPacket infoPacket = new PlayerListItemPacket(PlayerListItemPacket.Action.UPDATE_GAMEMODE);
+            infoPacket.playerInfos.add(new PlayerListItemPacket.UpdateGamemode(getUuid(), gameMode));
             sendPacketToViewersAndSelf(infoPacket);
         }
     }
@@ -1724,14 +1671,15 @@ public class Player extends LivingEntity implements CommandSender {
      *
      * @param dimensionType the new player dimension
      */
-    protected void sendDimension(@NotNull DimensionType dimensionType) {
+    protected void sendDimension(@NotNull DimensionType dimensionType, @NotNull LevelType levelType) {
         Check.argCondition(dimensionType.equals(getDimensionType()), "The dimension needs to be different than the current one!");
 
         this.dimensionType = dimensionType;
         RespawnPacket respawnPacket = new RespawnPacket();
         respawnPacket.dimensionType = dimensionType;
+        respawnPacket.difficulty = MinecraftServer.getDifficulty();
         respawnPacket.gameMode = gameMode;
-        respawnPacket.isFlat = levelFlat;
+        respawnPacket.levelType = levelType;
         playerConnection.sendPacket(respawnPacket);
     }
 
@@ -1937,26 +1885,12 @@ public class Player extends LivingEntity implements CommandSender {
     }
 
     /**
-     * Sends a {@link UpdateViewPositionPacket}  to the player.
-     *
-     * @param chunkX the chunk X
-     * @param chunkZ the chunk Z
-     */
-    public void updateViewPosition(int chunkX, int chunkZ) {
-        UpdateViewPositionPacket updateViewPositionPacket = new UpdateViewPositionPacket();
-        updateViewPositionPacket.chunkX = chunkX;
-        updateViewPositionPacket.chunkZ = chunkZ;
-        playerConnection.sendPacket(updateViewPositionPacket);
-    }
-
-    /**
      * Used for synchronization purpose, mainly for teleportation
      */
     protected void updatePlayerPosition() {
         PlayerPositionAndLookPacket positionAndLookPacket = new PlayerPositionAndLookPacket();
         positionAndLookPacket.position = position.clone(); // clone needed to prevent synchronization issue
         positionAndLookPacket.flags = 0x00;
-        positionAndLookPacket.teleportId = teleportId.incrementAndGet();
         playerConnection.sendPacket(positionAndLookPacket);
     }
 
@@ -2178,9 +2112,9 @@ public class Player extends LivingEntity implements CommandSender {
      */
     public void refreshLatency(int latency) {
         this.latency = latency;
-        PlayerInfoPacket playerInfoPacket = new PlayerInfoPacket(PlayerInfoPacket.Action.UPDATE_LATENCY);
-        playerInfoPacket.playerInfos.add(new PlayerInfoPacket.UpdateLatency(getUuid(), latency));
-        sendPacketToViewersAndSelf(playerInfoPacket);
+        PlayerListItemPacket playerListItemPacket = new PlayerListItemPacket(PlayerListItemPacket.Action.UPDATE_LATENCY);
+        playerListItemPacket.playerInfos.add(new PlayerListItemPacket.UpdateLatency(getUuid(), latency));
+        sendPacketToViewersAndSelf(playerListItemPacket);
     }
 
     public void refreshOnGround(boolean onGround) {
@@ -2194,7 +2128,8 @@ public class Player extends LivingEntity implements CommandSender {
      *
      * @param lastKeepAlive the new lastKeepAlive id
      */
-    public void refreshKeepAlive(long lastKeepAlive) {
+    public void refreshKeepAlive(long lastKeepAliveTime, int lastKeepAlive) {
+        this.lastKeepAliveTime = lastKeepAliveTime;
         this.lastKeepAlive = lastKeepAlive;
         this.answerKeepAlive = false;
     }
@@ -2218,7 +2153,7 @@ public class Player extends LivingEntity implements CommandSender {
      */
     public void refreshHeldSlot(byte slot) {
         this.heldSlot = slot;
-        syncEquipment(EntityEquipmentPacket.Slot.MAIN_HAND);
+        syncEquipment(EntityEquipmentPacket.Slot.HAND);
 
         refreshEating(false);
     }
@@ -2247,12 +2182,9 @@ public class Player extends LivingEntity implements CommandSender {
      */
     @Nullable
     public ItemUpdateStateEvent callItemUpdateStateEvent(boolean allowFood) {
-        final Material mainHandMat = getItemInMainHand().getMaterial();
-        final Material offHandMat = getItemInOffHand().getMaterial();
-        final boolean isOffhand = offHandMat.hasState();
+        final Material handMat = getItemInHand().getMaterial();
 
-        final ItemStack updatedItem = isOffhand ? getItemInOffHand() :
-                mainHandMat.hasState() ? getItemInMainHand() : null;
+        final ItemStack updatedItem = handMat.hasState() ? getItemInHand() : null;
         if (updatedItem == null) // No item with state, cancel
             return null;
 
@@ -2261,8 +2193,7 @@ public class Player extends LivingEntity implements CommandSender {
         if (isFood && !allowFood)
             return null;
 
-        final Hand hand = isOffhand ? Hand.OFF : Hand.MAIN;
-        ItemUpdateStateEvent itemUpdateStateEvent = new ItemUpdateStateEvent(this, hand, updatedItem);
+        ItemUpdateStateEvent itemUpdateStateEvent = new ItemUpdateStateEvent(this, updatedItem);
         callEvent(ItemUpdateStateEvent.class, itemUpdateStateEvent);
 
         return itemUpdateStateEvent;
@@ -2344,21 +2275,30 @@ public class Player extends LivingEntity implements CommandSender {
      *
      * @return the last keep alive id sent to the player
      */
-    public long getLastKeepAlive() {
+    public int getLastKeepAlive() {
         return lastKeepAlive;
+    }
+
+    /**
+     * Gets the last time at which a keep alive was sent.
+     *
+     * @return the last keep alive time a keep alive was sent to the player
+     */
+    public long getLastKeepAliveTime() {
+        return lastKeepAliveTime;
     }
 
     /**
      * Gets the packet to add the player from the tab-list.
      *
-     * @return a {@link PlayerInfoPacket} to add the player
+     * @return a {@link PlayerListItemPacket} to add the player
      */
     @NotNull
-    protected PlayerInfoPacket getAddPlayerToList() {
-        PlayerInfoPacket playerInfoPacket = new PlayerInfoPacket(PlayerInfoPacket.Action.ADD_PLAYER);
+    protected PlayerListItemPacket getAddPlayerToList() {
+        PlayerListItemPacket playerListItemPacket = new PlayerListItemPacket(PlayerListItemPacket.Action.ADD_PLAYER);
 
-        PlayerInfoPacket.AddPlayer addPlayer =
-                new PlayerInfoPacket.AddPlayer(getUuid(), getUsername(), getGameMode(), getLatency());
+        PlayerListItemPacket.AddPlayer addPlayer =
+                new PlayerListItemPacket.AddPlayer(getUuid(), getUsername(), getGameMode(), getLatency());
         addPlayer.displayName = displayName;
 
         // Skin support
@@ -2366,29 +2306,29 @@ public class Player extends LivingEntity implements CommandSender {
             final String textures = skin.getTextures();
             final String signature = skin.getSignature();
 
-            PlayerInfoPacket.AddPlayer.Property prop =
-                    new PlayerInfoPacket.AddPlayer.Property("textures", textures, signature);
+            PlayerListItemPacket.AddPlayer.Property prop =
+                    new PlayerListItemPacket.AddPlayer.Property("textures", textures, signature);
             addPlayer.properties.add(prop);
         }
 
-        playerInfoPacket.playerInfos.add(addPlayer);
-        return playerInfoPacket;
+        playerListItemPacket.playerInfos.add(addPlayer);
+        return playerListItemPacket;
     }
 
     /**
      * Gets the packet to remove the player from the tab-list.
      *
-     * @return a {@link PlayerInfoPacket} to remove the player
+     * @return a {@link PlayerListItemPacket} to remove the player
      */
     @NotNull
-    protected PlayerInfoPacket getRemovePlayerToList() {
-        PlayerInfoPacket playerInfoPacket = new PlayerInfoPacket(PlayerInfoPacket.Action.REMOVE_PLAYER);
+    protected PlayerListItemPacket getRemovePlayerToList() {
+        PlayerListItemPacket playerListItemPacket = new PlayerListItemPacket(PlayerListItemPacket.Action.REMOVE_PLAYER);
 
-        PlayerInfoPacket.RemovePlayer removePlayer =
-                new PlayerInfoPacket.RemovePlayer(getUuid());
+        PlayerListItemPacket.RemovePlayer removePlayer =
+                new PlayerListItemPacket.RemovePlayer(getUuid());
 
-        playerInfoPacket.playerInfos.add(removePlayer);
-        return playerInfoPacket;
+        playerListItemPacket.playerInfos.add(removePlayer);
+        return playerListItemPacket;
     }
 
     /**
@@ -2430,24 +2370,13 @@ public class Player extends LivingEntity implements CommandSender {
 
     @NotNull
     @Override
-    public ItemStack getItemInMainHand() {
-        return inventory.getItemInMainHand();
+    public ItemStack getItemInHand() {
+        return inventory.getItemInHand();
     }
 
     @Override
-    public void setItemInMainHand(@NotNull ItemStack itemStack) {
-        inventory.setItemInMainHand(itemStack);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getItemInOffHand() {
-        return inventory.getItemInOffHand();
-    }
-
-    @Override
-    public void setItemInOffHand(@NotNull ItemStack itemStack) {
-        inventory.setItemInOffHand(itemStack);
+    public void setItemInHand(@NotNull ItemStack itemStack) {
+        inventory.setItemInHand(itemStack);
     }
 
     @NotNull
@@ -2494,28 +2423,12 @@ public class Player extends LivingEntity implements CommandSender {
         inventory.setBoots(itemStack);
     }
 
-    /**
-     * Represents the main or off hand of the player.
-     */
-    public enum Hand {
-        MAIN,
-        OFF
-    }
-
     public enum FacePoint {
         FEET,
         EYE
     }
 
     // Settings enum
-
-    /**
-     * Represents where is located the main hand of the player (can be changed in Minecraft option).
-     */
-    public enum MainHand {
-        LEFT,
-        RIGHT
-    }
 
     public enum ChatMode {
         ENABLED,
@@ -2530,7 +2443,6 @@ public class Player extends LivingEntity implements CommandSender {
         private ChatMode chatMode;
         private boolean chatColors;
         private byte displayedSkinParts;
-        private MainHand mainHand;
 
         private boolean firstRefresh = true;
 
@@ -2575,15 +2487,6 @@ public class Player extends LivingEntity implements CommandSender {
         }
 
         /**
-         * Gets the player main hand.
-         *
-         * @return the player main hand
-         */
-        public MainHand getMainHand() {
-            return mainHand;
-        }
-
-        /**
          * Changes the player settings internally.
          * <p>
          * WARNING: the player will not be noticed by this change, probably unsafe.
@@ -2596,7 +2499,7 @@ public class Player extends LivingEntity implements CommandSender {
          * @param mainHand           the player main hand
          */
         public void refresh(String locale, byte viewDistance, ChatMode chatMode, boolean chatColors,
-                            byte displayedSkinParts, MainHand mainHand) {
+                            byte displayedSkinParts) {
 
             final boolean viewDistanceChanged = !firstRefresh && this.viewDistance != viewDistance;
 
@@ -2605,7 +2508,6 @@ public class Player extends LivingEntity implements CommandSender {
             this.chatMode = chatMode;
             this.chatColors = chatColors;
             this.displayedSkinParts = displayedSkinParts;
-            this.mainHand = mainHand;
 
             metadata.setIndex((byte) 16, Metadata.Byte(displayedSkinParts));
 

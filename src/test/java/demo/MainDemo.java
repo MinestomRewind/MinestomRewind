@@ -20,6 +20,13 @@ public class MainDemo {
         // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
 
+        MinecraftServer.getConnectionManager().onPacketReceive((players, controller, packet) -> {
+            System.out.println("received packet " + packet);
+        });
+        MinecraftServer.getConnectionManager().onPacketSend((players, controller, packet) -> {
+            System.out.println("sending packet " + packet);
+        });
+
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         // Create the instance
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
@@ -37,7 +44,7 @@ public class MainDemo {
         });
 
         // Start the server on port 25565
-        minecraftServer.start("localhost", 25565);
+        minecraftServer.start("localhost", 55555);
     }
 
     private static class GeneratorDemo implements ChunkGenerator {

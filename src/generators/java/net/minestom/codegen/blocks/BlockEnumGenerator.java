@@ -204,7 +204,7 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
 
         generator.setParams(
                 ParameterSpec.builder(String.class, "namespaceID").addAnnotation(NotNull.class).build(),
-                ParameterSpec.builder(TypeName.SHORT, "defaultID").build(),
+                ParameterSpec.builder(TypeName.SHORT, "id").build(),
                 ParameterSpec.builder(TypeName.DOUBLE, "hardness").build(),
                 ParameterSpec.builder(TypeName.DOUBLE, "resistance").build(),
                 ParameterSpec.builder(TypeName.BOOLEAN, "isAir").build(),
@@ -215,7 +215,7 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
 
         generator.addHardcodedField(ParameterizedTypeName.get(List.class, BlockAlternative.class), "alternatives", "new java.util.ArrayList<>()");
 
-        generator.addMethod("getBlockId", new ParameterSpec[0], TypeName.SHORT, code -> code.addStatement("return defaultID"));
+        generator.addMethod("getBlockId", new ParameterSpec[0], TypeName.SHORT, code -> code.addStatement("return id"));
         generator.addMethod("getName", new ParameterSpec[0], ClassName.get(String.class), code -> code.addStatement("return namespaceID"));
         generator.addMethod("isAir", new ParameterSpec[0], TypeName.BOOLEAN, code -> code.addStatement("return isAir"));
         generator.addMethod("hasBlockEntity", new ParameterSpec[0], TypeName.BOOLEAN, code -> code.addStatement("return blockEntity != null"));
@@ -245,12 +245,12 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
                     .addStatement("return alt.getId()")
                     .endControlFlow()
                     .endControlFlow()
-                    .addStatement("return defaultID");
+                    .addStatement("return id");
         });
         generator.addStaticMethod("fromStateId", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockStateId").build()}, className, code -> code.addStatement("return $T.blocks[blockStateId]", ClassName.get("net.minestom.server.instance.block", "BlockArray")));
         generator.appendToConstructor(code -> {
             code.beginControlFlow("if(singleState)")
-                    .addStatement("addBlockAlternative(new BlockAlternative(defaultID))")
+                    .addStatement("addBlockAlternative(new BlockAlternative(id))")
                     .endControlFlow()
                     .addStatement("$T.blocks.put($T.from(namespaceID), this)", Registries.class, NamespaceID.class);
         });
@@ -261,7 +261,7 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         String instanceName = block.getId().getPath().toUpperCase();
         generator.addInstance(instanceName,
                 "\"" + block.getId().toString() + "\"",
-                "(short) " + block.getDefaultVariation().getMetadata(),
+                "(short) " + block.getOrdinal(),
                 block.getHardness(),
                 block.getResistance(),
                 block.isAir(),

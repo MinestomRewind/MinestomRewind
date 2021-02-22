@@ -16,8 +16,8 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.CustomBlock;
 import net.minestom.server.instance.block.rule.BlockPlacementRule;
 import net.minestom.server.network.packet.server.play.BlockChangePacket;
+import net.minestom.server.network.packet.server.play.ChunkDataPacket;
 import net.minestom.server.network.packet.server.play.EffectPacket;
-import net.minestom.server.network.packet.server.play.UnloadChunkPacket;
 import net.minestom.server.storage.StorageLocation;
 import net.minestom.server.utils.BlockPosition;
 import net.minestom.server.utils.PacketUtils;
@@ -30,6 +30,7 @@ import net.minestom.server.utils.chunk.ChunkUtils;
 import net.minestom.server.utils.time.TimeUnit;
 import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.DimensionType;
+import net.minestom.server.world.LevelType;
 import net.minestom.server.world.biomes.Biome;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -82,11 +83,12 @@ public class InstanceContainer extends Instance {
      *
      * @param uniqueId        the unique id of the instance
      * @param dimensionType   the dimension type of the instance
+     * @param levelType       the level type of the instance
      * @param storageLocation the {@link StorageLocation} of the instance,
      *                        can be null if you do not wish to save the instance later on
      */
-    public InstanceContainer(@NotNull UUID uniqueId, @NotNull DimensionType dimensionType, @Nullable StorageLocation storageLocation) {
-        super(uniqueId, dimensionType);
+    public InstanceContainer(@NotNull UUID uniqueId, @NotNull DimensionType dimensionType, @NotNull LevelType levelType, @Nullable StorageLocation storageLocation) {
+        super(uniqueId, dimensionType, levelType);
 
         this.storageLocation = storageLocation;
 
@@ -540,7 +542,7 @@ public class InstanceContainer extends Instance {
             chunkGenerator.fillBiomes(biomes, chunkX, chunkZ);
         }
 
-        final Chunk chunk = chunkSupplier.createChunk(biomes, chunkX, chunkZ);
+        final Chunk chunk = chunkSupplier.createChunk(biomes, chunkX, chunkZ, getDimensionType().getHasSky());
         Check.notNull(chunk, "Chunks supplied by a ChunkSupplier cannot be null.");
 
         cacheChunk(chunk);
@@ -641,7 +643,7 @@ public class InstanceContainer extends Instance {
      * @see #getSrcInstance() to retrieve the "creation source" of the copied instance
      */
     public synchronized InstanceContainer copy() {
-        InstanceContainer copiedInstance = new InstanceContainer(UUID.randomUUID(), getDimensionType(), null);
+        InstanceContainer copiedInstance = new InstanceContainer(UUID.randomUUID(), getDimensionType(), getLevelType(), null);
         copiedInstance.srcInstance = this;
         copiedInstance.lastBlockChangeTime = lastBlockChangeTime;
 
@@ -811,10 +813,13 @@ public class InstanceContainer extends Instance {
 
                 final long index = ChunkUtils.getChunkIndex(chunkX, chunkZ);
 
-                UnloadChunkPacket unloadChunkPacket = new UnloadChunkPacket();
-                unloadChunkPacket.chunkX = chunkX;
-                unloadChunkPacket.chunkZ = chunkZ;
-                chunk.sendPacketToViewers(unloadChunkPacket);
+                ChunkDataPacket chunkDataPacket = new ChunkDataPacket(null, 0);
+                chunkDataPacket.chunkX = chunkX;
+                chunkDataPacket.chunkZ = chunkZ;
+                chunkDataPacket.fullChunk = false;
+                chunkDataPacket.unloadChunk = true;
+                chunkDataPacket.skylight = chunk.getHasSky();
+                chunk.sendPacketToViewers(chunkDataPacket);
 
                 for (Player viewer : chunk.getViewers()) {
                     chunk.removeViewer(viewer);

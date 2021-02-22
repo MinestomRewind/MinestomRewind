@@ -11,25 +11,13 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerUseItemEvent extends PlayerEvent implements CancellableEvent {
 
-    private final Player.Hand hand;
     private final ItemStack itemStack;
 
     private boolean cancelled;
 
-    public PlayerUseItemEvent(@NotNull Player player, @NotNull Player.Hand hand, @NotNull ItemStack itemStack) {
+    public PlayerUseItemEvent(@NotNull Player player, @NotNull ItemStack itemStack) {
         super(player);
-        this.hand = hand;
         this.itemStack = itemStack;
-    }
-
-    /**
-     * Gets which hand the player used.
-     *
-     * @return the hand used
-     */
-    @NotNull
-    public Player.Hand getHand() {
-        return hand;
     }
 
     /**

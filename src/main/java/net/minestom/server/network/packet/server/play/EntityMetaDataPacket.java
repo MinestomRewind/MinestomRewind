@@ -22,7 +22,7 @@ public class EntityMetaDataPacket implements ServerPacket {
             entry.write(writer);
         }
 
-        writer.writeByte((byte) 0xFF); // End
+        writer.writeByte((byte) 0x7F); // End
     }
 
     @Override

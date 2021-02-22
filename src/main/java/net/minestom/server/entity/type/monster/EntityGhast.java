@@ -14,10 +14,10 @@ public class EntityGhast extends EntityCreature implements Monster {
     }
 
     public boolean isAttacking() {
-        return metadata.getIndex((byte) 15, false);
+        return metadata.getIndex((byte) 16, (byte) 0) == 1;
     }
 
     public void setAttacking(boolean attacking) {
-        this.metadata.setIndex((byte) 15, Metadata.Boolean(attacking));
+        this.metadata.setIndex((byte) 16, Metadata.Byte((byte) (attacking ? 1 : 0)));
     }
 }

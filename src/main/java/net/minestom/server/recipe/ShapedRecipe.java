@@ -1,7 +1,6 @@
 package net.minestom.server.recipe;
 
 import net.minestom.server.item.ItemStack;
-import net.minestom.server.network.packet.server.play.DeclareRecipesPacket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,14 +12,14 @@ public abstract class ShapedRecipe extends Recipe {
     private final int width;
     private final int height;
     private String group;
-    private final List<DeclareRecipesPacket.Ingredient> ingredients;
+    private final List<Ingredient> ingredients;
     private ItemStack result;
 
     protected ShapedRecipe(@NotNull String recipeId,
                         int width,
                         int height,
                         @NotNull String group,
-                        @Nullable List<DeclareRecipesPacket.Ingredient> ingredients,
+                        @Nullable List<Ingredient> ingredients,
                         @NotNull ItemStack result) {
         super(RecipeType.SHAPED, recipeId);
         this.width = width;
@@ -47,7 +46,7 @@ public abstract class ShapedRecipe extends Recipe {
         this.group = group;
     }
 
-    public void addIngredient(DeclareRecipesPacket.Ingredient ingredient) {
+    public void addIngredient(Ingredient ingredient) {
         if (ingredients.size() + 1 > width * height) {
             throw new IndexOutOfBoundsException("You cannot add more ingredients than width*height");
         }
@@ -56,7 +55,7 @@ public abstract class ShapedRecipe extends Recipe {
     }
 
     @NotNull
-    public List<DeclareRecipesPacket.Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 

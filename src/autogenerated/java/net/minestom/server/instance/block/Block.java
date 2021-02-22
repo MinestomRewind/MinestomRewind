@@ -54,399 +54,399 @@ import org.jetbrains.annotations.Nullable;
 public enum Block {
     AIR("minecraft:air", (short) 0, 0.0, 0.0, true, false, null, true),
 
-    STONE("minecraft:stone", (short) 0, 1.5, 6.0, false, true, null, false),
+    STONE("minecraft:stone", (short) 1, 1.5, 6.0, false, true, null, false),
 
-    GRASS("minecraft:grass", (short) 0, 0.6, 0.6, false, true, null, true),
+    GRASS("minecraft:grass", (short) 2, 0.6, 0.6, false, true, null, true),
 
-    DIRT("minecraft:dirt", (short) 0, 0.5, 0.5, false, true, null, false),
+    DIRT("minecraft:dirt", (short) 3, 0.5, 0.5, false, true, null, false),
 
-    COBBLESTONE("minecraft:cobblestone", (short) 0, 2.0, 6.0, false, true, null, true),
+    COBBLESTONE("minecraft:cobblestone", (short) 4, 2.0, 6.0, false, true, null, true),
 
-    PLANKS("minecraft:planks", (short) 0, 2.0, 3.0, false, true, null, false),
+    PLANKS("minecraft:planks", (short) 5, 2.0, 3.0, false, true, null, false),
 
-    SAPLING("minecraft:sapling", (short) 0, 0.0, 0.0, false, false, null, true),
+    SAPLING("minecraft:sapling", (short) 6, 0.0, 0.0, false, false, null, true),
 
-    BEDROCK("minecraft:bedrock", (short) 0, 0.0, 3600000.0, false, true, null, true),
+    BEDROCK("minecraft:bedrock", (short) 7, 0.0, 3600000.0, false, true, null, true),
 
-    FLOWING_WATER("minecraft:flowing_water", (short) 0, 100.0, 100.0, false, false, null, true),
+    FLOWING_WATER("minecraft:flowing_water", (short) 8, 100.0, 100.0, false, false, null, true),
 
-    WATER("minecraft:water", (short) 0, 100.0, 100.0, false, false, null, true),
+    WATER("minecraft:water", (short) 9, 100.0, 100.0, false, false, null, true),
 
-    FLOWING_LAVA("minecraft:flowing_lava", (short) 0, 100.0, 100.0, false, false, null, true),
+    FLOWING_LAVA("minecraft:flowing_lava", (short) 10, 100.0, 100.0, false, false, null, true),
 
-    LAVA("minecraft:lava", (short) 0, 100.0, 100.0, false, false, null, true),
+    LAVA("minecraft:lava", (short) 11, 100.0, 100.0, false, false, null, true),
 
-    SAND("minecraft:sand", (short) 0, 0.5, 0.5, false, true, null, false),
+    SAND("minecraft:sand", (short) 12, 0.5, 0.5, false, true, null, false),
 
-    GRAVEL("minecraft:gravel", (short) 0, 0.6, 0.6, false, true, null, true),
+    GRAVEL("minecraft:gravel", (short) 13, 0.6, 0.6, false, true, null, true),
 
-    GOLD_ORE("minecraft:gold_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    GOLD_ORE("minecraft:gold_ore", (short) 14, 3.0, 3.0, false, true, null, true),
 
-    IRON_ORE("minecraft:iron_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    IRON_ORE("minecraft:iron_ore", (short) 15, 3.0, 3.0, false, true, null, true),
 
-    COAL_ORE("minecraft:coal_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    COAL_ORE("minecraft:coal_ore", (short) 16, 3.0, 3.0, false, true, null, true),
 
-    LOG("minecraft:log", (short) 0, 2.0, 0.0, false, true, null, false),
+    LOG("minecraft:log", (short) 17, 2.0, 0.0, false, true, null, false),
 
-    LEAVES("minecraft:leaves", (short) 0, 0.2, 0.0, false, true, null, false),
+    LEAVES("minecraft:leaves", (short) 18, 0.2, 0.0, false, true, null, false),
 
-    SPONGE("minecraft:sponge", (short) 0, 0.6, 0.6, false, true, null, false),
+    SPONGE("minecraft:sponge", (short) 19, 0.6, 0.6, false, true, null, false),
 
-    GLASS("minecraft:glass", (short) 0, 0.3, 0.3, false, true, null, true),
+    GLASS("minecraft:glass", (short) 20, 0.3, 0.3, false, true, null, true),
 
-    LAPIS_ORE("minecraft:lapis_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    LAPIS_ORE("minecraft:lapis_ore", (short) 21, 3.0, 3.0, false, true, null, true),
 
-    LAPIS_BLOCK("minecraft:lapis_block", (short) 0, 3.0, 3.0, false, true, null, true),
+    LAPIS_BLOCK("minecraft:lapis_block", (short) 22, 3.0, 3.0, false, true, null, true),
 
-    DISPENSER("minecraft:dispenser", (short) 0, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Trap"), true),
+    DISPENSER("minecraft:dispenser", (short) 23, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Trap"), true),
 
-    SANDSTONE("minecraft:sandstone", (short) 0, 0.8, 0.8, false, true, null, false),
+    SANDSTONE("minecraft:sandstone", (short) 24, 0.8, 0.8, false, true, null, false),
 
-    NOTEBLOCK("minecraft:noteblock", (short) 0, 0.8, 0.8, false, true, NamespaceID.from("minecraft:Music"), true),
+    NOTEBLOCK("minecraft:noteblock", (short) 25, 0.8, 0.8, false, true, NamespaceID.from("minecraft:Music"), true),
 
-    BED("minecraft:bed", (short) 0, 0.2, 0.2, false, true, null, true),
+    BED("minecraft:bed", (short) 26, 0.2, 0.2, false, true, null, true),
 
-    GOLDEN_RAIL("minecraft:golden_rail", (short) 0, 0.7, 0.7, false, false, null, true),
+    GOLDEN_RAIL("minecraft:golden_rail", (short) 27, 0.7, 0.7, false, false, null, true),
 
-    DETECTOR_RAIL("minecraft:detector_rail", (short) 0, 0.7, 0.7, false, false, null, true),
+    DETECTOR_RAIL("minecraft:detector_rail", (short) 28, 0.7, 0.7, false, false, null, true),
 
-    STICKY_PISTON("minecraft:sticky_piston", (short) 0, 0.5, 0.0, false, true, null, true),
+    STICKY_PISTON("minecraft:sticky_piston", (short) 29, 0.5, 0.0, false, true, null, true),
 
-    WEB("minecraft:web", (short) 0, 4.0, 4.0, false, false, null, true),
+    WEB("minecraft:web", (short) 30, 4.0, 4.0, false, false, null, true),
 
-    TALLGRASS("minecraft:tallgrass", (short) 0, 0.0, 0.0, false, false, null, false),
+    TALLGRASS("minecraft:tallgrass", (short) 31, 0.0, 0.0, false, false, null, false),
 
-    DEADBUSH("minecraft:deadbush", (short) 0, 0.0, 0.0, false, false, null, true),
+    DEADBUSH("minecraft:deadbush", (short) 32, 0.0, 0.0, false, false, null, true),
 
-    PISTON("minecraft:piston", (short) 0, 0.5, 0.0, false, true, null, true),
+    PISTON("minecraft:piston", (short) 33, 0.5, 0.0, false, true, null, true),
 
-    PISTON_HEAD("minecraft:piston_head", (short) 0, 0.5, 0.0, false, true, null, true),
+    PISTON_HEAD("minecraft:piston_head", (short) 34, 0.5, 0.0, false, true, null, true),
 
-    WOOL("minecraft:wool", (short) 0, 0.8, 0.8, false, true, null, false),
+    WOOL("minecraft:wool", (short) 35, 0.8, 0.8, false, true, null, false),
 
-    PISTON_EXTENSION("minecraft:piston_extension", (short) 0, 0.0, 0.0, false, false, null, true),
+    PISTON_EXTENSION("minecraft:piston_extension", (short) 36, 0.0, 0.0, false, false, null, true),
 
-    YELLOW_FLOWER("minecraft:yellow_flower", (short) 0, 0.0, 0.0, false, false, null, true),
+    YELLOW_FLOWER("minecraft:yellow_flower", (short) 37, 0.0, 0.0, false, false, null, true),
 
-    RED_FLOWER("minecraft:red_flower", (short) 0, 0.0, 0.0, false, false, null, false),
+    RED_FLOWER("minecraft:red_flower", (short) 38, 0.0, 0.0, false, false, null, false),
 
-    BROWN_MUSHROOM("minecraft:brown_mushroom", (short) 0, 0.0, 0.0, false, false, null, true),
+    BROWN_MUSHROOM("minecraft:brown_mushroom", (short) 39, 0.0, 0.0, false, false, null, true),
 
-    RED_MUSHROOM("minecraft:red_mushroom", (short) 0, 0.0, 0.0, false, false, null, true),
+    RED_MUSHROOM("minecraft:red_mushroom", (short) 40, 0.0, 0.0, false, false, null, true),
 
-    GOLD_BLOCK("minecraft:gold_block", (short) 0, 3.0, 6.0, false, true, null, true),
+    GOLD_BLOCK("minecraft:gold_block", (short) 41, 3.0, 6.0, false, true, null, true),
 
-    IRON_BLOCK("minecraft:iron_block", (short) 0, 5.0, 6.0, false, true, null, true),
+    IRON_BLOCK("minecraft:iron_block", (short) 42, 5.0, 6.0, false, true, null, true),
 
-    DOUBLE_STONE_SLAB("minecraft:double_stone_slab", (short) 0, 2.0, 6.0, false, true, null, false),
+    DOUBLE_STONE_SLAB("minecraft:double_stone_slab", (short) 43, 2.0, 6.0, false, true, null, false),
 
-    STONE_SLAB("minecraft:stone_slab", (short) 0, 2.0, 6.0, false, true, null, false),
+    STONE_SLAB("minecraft:stone_slab", (short) 44, 2.0, 6.0, false, true, null, false),
 
-    BRICK_BLOCK("minecraft:brick_block", (short) 0, 2.0, 6.0, false, true, null, true),
+    BRICK_BLOCK("minecraft:brick_block", (short) 45, 2.0, 6.0, false, true, null, true),
 
-    TNT("minecraft:tnt", (short) 0, 0.0, 0.0, false, true, null, false),
+    TNT("minecraft:tnt", (short) 46, 0.0, 0.0, false, true, null, false),
 
-    BOOKSHELF("minecraft:bookshelf", (short) 0, 1.5, 1.5, false, true, null, true),
+    BOOKSHELF("minecraft:bookshelf", (short) 47, 1.5, 1.5, false, true, null, true),
 
-    MOSSY_COBBLESTONE("minecraft:mossy_cobblestone", (short) 0, 2.0, 6.0, false, true, null, true),
+    MOSSY_COBBLESTONE("minecraft:mossy_cobblestone", (short) 48, 2.0, 6.0, false, true, null, true),
 
-    OBSIDIAN("minecraft:obsidian", (short) 0, 50.0, 1200.0, false, true, null, true),
+    OBSIDIAN("minecraft:obsidian", (short) 49, 50.0, 1200.0, false, true, null, true),
 
-    TORCH("minecraft:torch", (short) 0, 0.0, 0.0, false, false, null, false),
+    TORCH("minecraft:torch", (short) 50, 0.0, 0.0, false, false, null, false),
 
-    FIRE("minecraft:fire", (short) 0, 0.0, 0.0, false, false, null, true),
+    FIRE("minecraft:fire", (short) 51, 0.0, 0.0, false, false, null, true),
 
-    MOB_SPAWNER("minecraft:mob_spawner", (short) 0, 5.0, 5.0, false, true, NamespaceID.from("minecraft:MobSpawner"), true),
+    MOB_SPAWNER("minecraft:mob_spawner", (short) 52, 5.0, 5.0, false, true, NamespaceID.from("minecraft:MobSpawner"), true),
 
-    OAK_STAIRS("minecraft:oak_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    OAK_STAIRS("minecraft:oak_stairs", (short) 53, 2.0, 0.0, false, true, null, true),
 
-    CHEST("minecraft:chest", (short) 0, 2.5, 2.5, false, true, NamespaceID.from("minecraft:Chest"), true),
+    CHEST("minecraft:chest", (short) 54, 2.5, 2.5, false, true, NamespaceID.from("minecraft:Chest"), true),
 
-    REDSTONE_WIRE("minecraft:redstone_wire", (short) 0, 0.0, 0.0, false, false, null, true),
+    REDSTONE_WIRE("minecraft:redstone_wire", (short) 55, 0.0, 0.0, false, false, null, true),
 
-    DIAMOND_ORE("minecraft:diamond_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    DIAMOND_ORE("minecraft:diamond_ore", (short) 56, 3.0, 3.0, false, true, null, true),
 
-    DIAMOND_BLOCK("minecraft:diamond_block", (short) 0, 5.0, 6.0, false, true, null, true),
+    DIAMOND_BLOCK("minecraft:diamond_block", (short) 57, 5.0, 6.0, false, true, null, true),
 
-    CRAFTING_TABLE("minecraft:crafting_table", (short) 0, 2.5, 2.5, false, true, null, true),
+    CRAFTING_TABLE("minecraft:crafting_table", (short) 58, 2.5, 2.5, false, true, null, true),
 
-    WHEAT("minecraft:wheat", (short) 0, 0.0, 0.0, false, false, null, true),
+    WHEAT("minecraft:wheat", (short) 59, 0.0, 0.0, false, false, null, true),
 
-    FARMLAND("minecraft:farmland", (short) 0, 0.6, 0.6, false, true, null, true),
+    FARMLAND("minecraft:farmland", (short) 60, 0.6, 0.6, false, true, null, true),
 
-    FURNACE("minecraft:furnace", (short) 0, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Furnace"), true),
+    FURNACE("minecraft:furnace", (short) 61, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Furnace"), true),
 
-    LIT_FURNACE("minecraft:lit_furnace", (short) 0, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Furnace"), true),
+    LIT_FURNACE("minecraft:lit_furnace", (short) 62, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Furnace"), true),
 
-    STANDING_SIGN("minecraft:standing_sign", (short) 0, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Sign"), true),
+    STANDING_SIGN("minecraft:standing_sign", (short) 63, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Sign"), true),
 
-    WOODEN_DOOR("minecraft:wooden_door", (short) 0, 3.0, 3.0, false, true, null, true),
+    WOODEN_DOOR("minecraft:wooden_door", (short) 64, 3.0, 3.0, false, true, null, true),
 
-    LADDER("minecraft:ladder", (short) 0, 0.4, 0.4, false, true, null, true),
+    LADDER("minecraft:ladder", (short) 65, 0.4, 0.4, false, true, null, true),
 
-    RAIL("minecraft:rail", (short) 0, 0.7, 0.7, false, false, null, true),
+    RAIL("minecraft:rail", (short) 66, 0.7, 0.7, false, false, null, true),
 
-    STONE_STAIRS("minecraft:stone_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    STONE_STAIRS("minecraft:stone_stairs", (short) 67, 2.0, 0.0, false, true, null, true),
 
-    WALL_SIGN("minecraft:wall_sign", (short) 0, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Sign"), true),
+    WALL_SIGN("minecraft:wall_sign", (short) 68, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Sign"), true),
 
-    LEVER("minecraft:lever", (short) 0, 0.5, 0.5, false, false, null, true),
+    LEVER("minecraft:lever", (short) 69, 0.5, 0.5, false, false, null, true),
 
-    STONE_PRESSURE_PLATE("minecraft:stone_pressure_plate", (short) 0, 0.5, 0.5, false, false, null, true),
+    STONE_PRESSURE_PLATE("minecraft:stone_pressure_plate", (short) 70, 0.5, 0.5, false, false, null, true),
 
-    IRON_DOOR("minecraft:iron_door", (short) 0, 5.0, 5.0, false, true, null, true),
+    IRON_DOOR("minecraft:iron_door", (short) 71, 5.0, 5.0, false, true, null, true),
 
-    WOODEN_PRESSURE_PLATE("minecraft:wooden_pressure_plate", (short) 0, 0.5, 0.5, false, false, null, true),
+    WOODEN_PRESSURE_PLATE("minecraft:wooden_pressure_plate", (short) 72, 0.5, 0.5, false, false, null, true),
 
-    REDSTONE_ORE("minecraft:redstone_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    REDSTONE_ORE("minecraft:redstone_ore", (short) 73, 3.0, 3.0, false, true, null, true),
 
-    LIT_REDSTONE_ORE("minecraft:lit_redstone_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    LIT_REDSTONE_ORE("minecraft:lit_redstone_ore", (short) 74, 3.0, 3.0, false, true, null, true),
 
-    UNLIT_REDSTONE_TORCH("minecraft:unlit_redstone_torch", (short) 0, 0.0, 0.0, false, false, null, false),
+    UNLIT_REDSTONE_TORCH("minecraft:unlit_redstone_torch", (short) 75, 0.0, 0.0, false, false, null, false),
 
-    REDSTONE_TORCH("minecraft:redstone_torch", (short) 0, 0.0, 0.0, false, false, null, false),
+    REDSTONE_TORCH("minecraft:redstone_torch", (short) 76, 0.0, 0.0, false, false, null, false),
 
-    STONE_BUTTON("minecraft:stone_button", (short) 0, 0.5, 0.5, false, false, null, true),
+    STONE_BUTTON("minecraft:stone_button", (short) 77, 0.5, 0.5, false, false, null, true),
 
-    SNOW_LAYER("minecraft:snow_layer", (short) 0, 0.2, 0.1, false, true, null, false),
+    SNOW_LAYER("minecraft:snow_layer", (short) 78, 0.2, 0.1, false, true, null, false),
 
-    ICE("minecraft:ice", (short) 0, 0.5, 0.5, false, true, null, true),
+    ICE("minecraft:ice", (short) 79, 0.5, 0.5, false, true, null, true),
 
-    SNOW("minecraft:snow", (short) 0, 0.2, 0.2, false, true, null, true),
+    SNOW("minecraft:snow", (short) 80, 0.2, 0.2, false, true, null, true),
 
-    CACTUS("minecraft:cactus", (short) 0, 0.4, 0.4, false, true, null, true),
+    CACTUS("minecraft:cactus", (short) 81, 0.4, 0.4, false, true, null, true),
 
-    CLAY("minecraft:clay", (short) 0, 0.6, 0.6, false, true, null, true),
+    CLAY("minecraft:clay", (short) 82, 0.6, 0.6, false, true, null, true),
 
-    REEDS("minecraft:reeds", (short) 0, 0.0, 0.0, false, false, null, true),
+    REEDS("minecraft:reeds", (short) 83, 0.0, 0.0, false, false, null, true),
 
-    JUKEBOX("minecraft:jukebox", (short) 0, 2.0, 6.0, false, true, NamespaceID.from("minecraft:RecordPlayer"), false),
+    JUKEBOX("minecraft:jukebox", (short) 84, 2.0, 6.0, false, true, NamespaceID.from("minecraft:RecordPlayer"), false),
 
-    FENCE("minecraft:fence", (short) 0, 2.0, 3.0, false, true, null, true),
+    FENCE("minecraft:fence", (short) 85, 2.0, 3.0, false, true, null, true),
 
-    PUMPKIN("minecraft:pumpkin", (short) 0, 1.0, 1.0, false, true, null, true),
+    PUMPKIN("minecraft:pumpkin", (short) 86, 1.0, 1.0, false, true, null, true),
 
-    NETHERRACK("minecraft:netherrack", (short) 0, 0.4, 0.4, false, true, null, true),
+    NETHERRACK("minecraft:netherrack", (short) 87, 0.4, 0.4, false, true, null, true),
 
-    SOUL_SAND("minecraft:soul_sand", (short) 0, 0.5, 0.5, false, true, null, true),
+    SOUL_SAND("minecraft:soul_sand", (short) 88, 0.5, 0.5, false, true, null, true),
 
-    GLOWSTONE("minecraft:glowstone", (short) 0, 0.3, 0.3, false, true, null, true),
+    GLOWSTONE("minecraft:glowstone", (short) 89, 0.3, 0.3, false, true, null, true),
 
-    PORTAL("minecraft:portal", (short) 0, 0.0, -1.0, false, false, null, true),
+    PORTAL("minecraft:portal", (short) 90, 0.0, -1.0, false, false, null, true),
 
-    LIT_PUMPKIN("minecraft:lit_pumpkin", (short) 0, 1.0, 1.0, false, true, null, true),
+    LIT_PUMPKIN("minecraft:lit_pumpkin", (short) 91, 1.0, 1.0, false, true, null, true),
 
-    CAKE("minecraft:cake", (short) 0, 0.5, 0.5, false, true, null, true),
+    CAKE("minecraft:cake", (short) 92, 0.5, 0.5, false, true, null, true),
 
-    UNPOWERED_REPEATER("minecraft:unpowered_repeater", (short) 0, 0.0, 0.0, false, true, null, true),
+    UNPOWERED_REPEATER("minecraft:unpowered_repeater", (short) 93, 0.0, 0.0, false, true, null, true),
 
-    POWERED_REPEATER("minecraft:powered_repeater", (short) 0, 0.0, 0.0, false, true, null, true),
+    POWERED_REPEATER("minecraft:powered_repeater", (short) 94, 0.0, 0.0, false, true, null, true),
 
-    STAINED_GLASS("minecraft:stained_glass", (short) 0, 0.3, 0.3, false, true, null, true),
+    STAINED_GLASS("minecraft:stained_glass", (short) 95, 0.3, 0.3, false, true, null, true),
 
-    TRAPDOOR("minecraft:trapdoor", (short) 0, 3.0, 3.0, false, true, null, true),
+    TRAPDOOR("minecraft:trapdoor", (short) 96, 3.0, 3.0, false, true, null, true),
 
-    MONSTER_EGG("minecraft:monster_egg", (short) 0, 0.75, 0.75, false, true, null, false),
+    MONSTER_EGG("minecraft:monster_egg", (short) 97, 0.75, 0.75, false, true, null, false),
 
-    STONEBRICK("minecraft:stonebrick", (short) 0, 1.5, 6.0, false, true, null, false),
+    STONEBRICK("minecraft:stonebrick", (short) 98, 1.5, 6.0, false, true, null, false),
 
-    BROWN_MUSHROOM_BLOCK("minecraft:brown_mushroom_block", (short) 0, 0.0, 0.2, false, true, null, false),
+    BROWN_MUSHROOM_BLOCK("minecraft:brown_mushroom_block", (short) 99, 0.0, 0.2, false, true, null, false),
 
-    RED_MUSHROOM_BLOCK("minecraft:red_mushroom_block", (short) 0, 0.0, 0.2, false, true, null, false),
+    RED_MUSHROOM_BLOCK("minecraft:red_mushroom_block", (short) 100, 0.0, 0.2, false, true, null, false),
 
-    IRON_BARS("minecraft:iron_bars", (short) 0, 5.0, 6.0, false, true, null, true),
+    IRON_BARS("minecraft:iron_bars", (short) 101, 5.0, 6.0, false, true, null, true),
 
-    GLASS_PANE("minecraft:glass_pane", (short) 0, 0.3, 0.3, false, true, null, true),
+    GLASS_PANE("minecraft:glass_pane", (short) 102, 0.3, 0.3, false, true, null, true),
 
-    MELON_BLOCK("minecraft:melon_block", (short) 0, 1.0, 1.0, false, true, null, true),
+    MELON_BLOCK("minecraft:melon_block", (short) 103, 1.0, 1.0, false, true, null, true),
 
-    PUMPKIN_STEM("minecraft:pumpkin_stem", (short) 0, 0.0, 0.0, false, false, null, true),
+    PUMPKIN_STEM("minecraft:pumpkin_stem", (short) 104, 0.0, 0.0, false, false, null, true),
 
-    MELON_STEM("minecraft:melon_stem", (short) 0, 0.0, 0.0, false, false, null, true),
+    MELON_STEM("minecraft:melon_stem", (short) 105, 0.0, 0.0, false, false, null, true),
 
-    VINE("minecraft:vine", (short) 0, 0.2, 0.2, false, false, null, true),
+    VINE("minecraft:vine", (short) 106, 0.2, 0.2, false, false, null, true),
 
-    FENCE_GATE("minecraft:fence_gate", (short) 0, 2.0, 3.0, false, true, null, true),
+    FENCE_GATE("minecraft:fence_gate", (short) 107, 2.0, 3.0, false, true, null, true),
 
-    BRICK_STAIRS("minecraft:brick_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    BRICK_STAIRS("minecraft:brick_stairs", (short) 108, 2.0, 0.0, false, true, null, true),
 
-    STONE_BRICK_STAIRS("minecraft:stone_brick_stairs", (short) 0, 1.5, 0.0, false, true, null, true),
+    STONE_BRICK_STAIRS("minecraft:stone_brick_stairs", (short) 109, 1.5, 0.0, false, true, null, true),
 
-    MYCELIUM("minecraft:mycelium", (short) 0, 0.6, 0.6, false, true, null, true),
+    MYCELIUM("minecraft:mycelium", (short) 110, 0.6, 0.6, false, true, null, true),
 
-    WATERLILY("minecraft:waterlily", (short) 0, 0.6, 0.0, false, true, null, true),
+    WATERLILY("minecraft:waterlily", (short) 111, 0.6, 0.0, false, true, null, true),
 
-    NETHER_BRICK("minecraft:nether_brick", (short) 0, 2.0, 6.0, false, true, null, true),
+    NETHER_BRICK("minecraft:nether_brick", (short) 112, 2.0, 6.0, false, true, null, true),
 
-    NETHER_BRICK_FENCE("minecraft:nether_brick_fence", (short) 0, 2.0, 6.0, false, true, null, true),
+    NETHER_BRICK_FENCE("minecraft:nether_brick_fence", (short) 113, 2.0, 6.0, false, true, null, true),
 
-    NETHER_BRICK_STAIRS("minecraft:nether_brick_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    NETHER_BRICK_STAIRS("minecraft:nether_brick_stairs", (short) 114, 2.0, 0.0, false, true, null, true),
 
-    NETHER_WART("minecraft:nether_wart", (short) 0, 0.0, 0.0, false, false, null, true),
+    NETHER_WART("minecraft:nether_wart", (short) 115, 0.0, 0.0, false, false, null, true),
 
-    ENCHANTING_TABLE("minecraft:enchanting_table", (short) 0, 5.0, 1200.0, false, true, NamespaceID.from("minecraft:EnchantTable"), true),
+    ENCHANTING_TABLE("minecraft:enchanting_table", (short) 116, 5.0, 1200.0, false, true, NamespaceID.from("minecraft:EnchantTable"), true),
 
-    BREWING_STAND("minecraft:brewing_stand", (short) 0, 0.5, 0.5, false, true, NamespaceID.from("minecraft:Cauldron"), true),
+    BREWING_STAND("minecraft:brewing_stand", (short) 117, 0.5, 0.5, false, true, NamespaceID.from("minecraft:Cauldron"), true),
 
-    CAULDRON("minecraft:cauldron", (short) 0, 2.0, 2.0, false, true, null, true),
+    CAULDRON("minecraft:cauldron", (short) 118, 2.0, 2.0, false, true, null, true),
 
-    END_PORTAL("minecraft:end_portal", (short) 0, 0.0, 3600000.0, false, false, NamespaceID.from("minecraft:Airportal"), true),
+    END_PORTAL("minecraft:end_portal", (short) 119, 0.0, 3600000.0, false, false, NamespaceID.from("minecraft:Airportal"), true),
 
-    END_PORTAL_FRAME("minecraft:end_portal_frame", (short) 0, 0.0, 3600000.0, false, true, null, true),
+    END_PORTAL_FRAME("minecraft:end_portal_frame", (short) 120, 0.0, 3600000.0, false, true, null, true),
 
-    END_STONE("minecraft:end_stone", (short) 0, 3.0, 9.0, false, true, null, true),
+    END_STONE("minecraft:end_stone", (short) 121, 3.0, 9.0, false, true, null, true),
 
-    DRAGON_EGG("minecraft:dragon_egg", (short) 0, 3.0, 9.0, false, true, null, true),
+    DRAGON_EGG("minecraft:dragon_egg", (short) 122, 3.0, 9.0, false, true, null, true),
 
-    REDSTONE_LAMP("minecraft:redstone_lamp", (short) 0, 0.3, 0.3, false, true, null, true),
+    REDSTONE_LAMP("minecraft:redstone_lamp", (short) 123, 0.3, 0.3, false, true, null, true),
 
-    LIT_REDSTONE_LAMP("minecraft:lit_redstone_lamp", (short) 0, 0.3, 0.3, false, true, null, true),
+    LIT_REDSTONE_LAMP("minecraft:lit_redstone_lamp", (short) 124, 0.3, 0.3, false, true, null, true),
 
-    DOUBLE_WOODEN_SLAB("minecraft:double_wooden_slab", (short) 0, 2.0, 3.0, false, true, null, false),
+    DOUBLE_WOODEN_SLAB("minecraft:double_wooden_slab", (short) 125, 2.0, 3.0, false, true, null, false),
 
-    WOODEN_SLAB("minecraft:wooden_slab", (short) 0, 2.0, 3.0, false, true, null, false),
+    WOODEN_SLAB("minecraft:wooden_slab", (short) 126, 2.0, 3.0, false, true, null, false),
 
-    COCOA("minecraft:cocoa", (short) 0, 0.2, 3.0, false, true, null, true),
+    COCOA("minecraft:cocoa", (short) 127, 0.2, 3.0, false, true, null, true),
 
-    SANDSTONE_STAIRS("minecraft:sandstone_stairs", (short) 0, 0.8, 0.0, false, true, null, true),
+    SANDSTONE_STAIRS("minecraft:sandstone_stairs", (short) 128, 0.8, 0.0, false, true, null, true),
 
-    EMERALD_ORE("minecraft:emerald_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    EMERALD_ORE("minecraft:emerald_ore", (short) 129, 3.0, 3.0, false, true, null, true),
 
-    ENDER_CHEST("minecraft:ender_chest", (short) 0, 22.5, 600.0, false, true, NamespaceID.from("minecraft:EnderChest"), true),
+    ENDER_CHEST("minecraft:ender_chest", (short) 130, 22.5, 600.0, false, true, NamespaceID.from("minecraft:EnderChest"), true),
 
-    TRIPWIRE_HOOK("minecraft:tripwire_hook", (short) 0, 0.0, 0.0, false, false, null, true),
+    TRIPWIRE_HOOK("minecraft:tripwire_hook", (short) 131, 0.0, 0.0, false, false, null, true),
 
-    TRIPWIRE("minecraft:tripwire", (short) 0, 0.0, 0.0, false, false, null, true),
+    TRIPWIRE("minecraft:tripwire", (short) 132, 0.0, 0.0, false, false, null, true),
 
-    EMERALD_BLOCK("minecraft:emerald_block", (short) 0, 5.0, 6.0, false, true, null, true),
+    EMERALD_BLOCK("minecraft:emerald_block", (short) 133, 5.0, 6.0, false, true, null, true),
 
-    SPRUCE_STAIRS("minecraft:spruce_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    SPRUCE_STAIRS("minecraft:spruce_stairs", (short) 134, 2.0, 0.0, false, true, null, true),
 
-    BIRCH_STAIRS("minecraft:birch_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    BIRCH_STAIRS("minecraft:birch_stairs", (short) 135, 2.0, 0.0, false, true, null, true),
 
-    JUNGLE_STAIRS("minecraft:jungle_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    JUNGLE_STAIRS("minecraft:jungle_stairs", (short) 136, 2.0, 0.0, false, true, null, true),
 
-    COMMAND_BLOCK("minecraft:command_block", (short) 0, 0.0, 3600000.0, false, true, NamespaceID.from("minecraft:Control"), true),
+    COMMAND_BLOCK("minecraft:command_block", (short) 137, 0.0, 3600000.0, false, true, NamespaceID.from("minecraft:Control"), true),
 
-    BEACON("minecraft:beacon", (short) 0, 3.0, 0.0, false, true, NamespaceID.from("minecraft:Beacon"), true),
+    BEACON("minecraft:beacon", (short) 138, 3.0, 0.0, false, true, NamespaceID.from("minecraft:Beacon"), true),
 
-    COBBLESTONE_WALL("minecraft:cobblestone_wall", (short) 0, 2.0, 0.0, false, true, null, false),
+    COBBLESTONE_WALL("minecraft:cobblestone_wall", (short) 139, 2.0, 0.0, false, true, null, false),
 
-    FLOWER_POT("minecraft:flower_pot", (short) 0, 0.0, 0.0, false, true, NamespaceID.from("minecraft:FlowerPot"), false),
+    FLOWER_POT("minecraft:flower_pot", (short) 140, 0.0, 0.0, false, true, NamespaceID.from("minecraft:FlowerPot"), false),
 
-    CARROTS("minecraft:carrots", (short) 0, 0.0, 0.0, false, false, null, true),
+    CARROTS("minecraft:carrots", (short) 141, 0.0, 0.0, false, false, null, true),
 
-    POTATOES("minecraft:potatoes", (short) 0, 0.0, 0.0, false, false, null, true),
+    POTATOES("minecraft:potatoes", (short) 142, 0.0, 0.0, false, false, null, true),
 
-    WOODEN_BUTTON("minecraft:wooden_button", (short) 0, 0.5, 0.5, false, false, null, true),
+    WOODEN_BUTTON("minecraft:wooden_button", (short) 143, 0.5, 0.5, false, false, null, true),
 
-    SKULL("minecraft:skull", (short) 0, 1.0, 1.0, false, true, NamespaceID.from("minecraft:Skull"), false),
+    SKULL("minecraft:skull", (short) 144, 1.0, 1.0, false, true, NamespaceID.from("minecraft:Skull"), false),
 
-    ANVIL("minecraft:anvil", (short) 0, 5.0, 1200.0, false, true, null, false),
+    ANVIL("minecraft:anvil", (short) 145, 5.0, 1200.0, false, true, null, false),
 
-    TRAPPED_CHEST("minecraft:trapped_chest", (short) 0, 2.5, 2.5, false, true, NamespaceID.from("minecraft:Chest"), true),
+    TRAPPED_CHEST("minecraft:trapped_chest", (short) 146, 2.5, 2.5, false, true, NamespaceID.from("minecraft:Chest"), true),
 
-    LIGHT_WEIGHTED_PRESSURE_PLATE("minecraft:light_weighted_pressure_plate", (short) 0, 0.5, 0.5, false, false, null, true),
+    LIGHT_WEIGHTED_PRESSURE_PLATE("minecraft:light_weighted_pressure_plate", (short) 147, 0.5, 0.5, false, false, null, true),
 
-    HEAVY_WEIGHTED_PRESSURE_PLATE("minecraft:heavy_weighted_pressure_plate", (short) 0, 0.5, 0.5, false, false, null, true),
+    HEAVY_WEIGHTED_PRESSURE_PLATE("minecraft:heavy_weighted_pressure_plate", (short) 148, 0.5, 0.5, false, false, null, true),
 
-    UNPOWERED_COMPARATOR("minecraft:unpowered_comparator", (short) 0, 0.0, 0.0, false, true, NamespaceID.from("minecraft:Comparator"), true),
+    UNPOWERED_COMPARATOR("minecraft:unpowered_comparator", (short) 149, 0.0, 0.0, false, true, NamespaceID.from("minecraft:Comparator"), true),
 
-    POWERED_COMPARATOR("minecraft:powered_comparator", (short) 0, 0.0, 0.0, false, true, NamespaceID.from("minecraft:Comparator"), true),
+    POWERED_COMPARATOR("minecraft:powered_comparator", (short) 150, 0.0, 0.0, false, true, NamespaceID.from("minecraft:Comparator"), true),
 
-    DAYLIGHT_DETECTOR("minecraft:daylight_detector", (short) 0, 0.2, 0.0, false, true, NamespaceID.from("minecraft:DLDetector"), true),
+    DAYLIGHT_DETECTOR("minecraft:daylight_detector", (short) 151, 0.2, 0.0, false, true, NamespaceID.from("minecraft:DLDetector"), true),
 
-    REDSTONE_BLOCK("minecraft:redstone_block", (short) 0, 5.0, 6.0, false, true, null, true),
+    REDSTONE_BLOCK("minecraft:redstone_block", (short) 152, 5.0, 6.0, false, true, null, true),
 
-    QUARTZ_ORE("minecraft:quartz_ore", (short) 0, 3.0, 3.0, false, true, null, true),
+    QUARTZ_ORE("minecraft:quartz_ore", (short) 153, 3.0, 3.0, false, true, null, true),
 
-    HOPPER("minecraft:hopper", (short) 0, 3.0, 4.8, false, true, NamespaceID.from("minecraft:Hopper"), true),
+    HOPPER("minecraft:hopper", (short) 154, 3.0, 4.8, false, true, NamespaceID.from("minecraft:Hopper"), true),
 
-    QUARTZ_BLOCK("minecraft:quartz_block", (short) 0, 0.8, 0.8, false, true, null, false),
+    QUARTZ_BLOCK("minecraft:quartz_block", (short) 155, 0.8, 0.8, false, true, null, false),
 
-    QUARTZ_STAIRS("minecraft:quartz_stairs", (short) 0, 0.8, 0.0, false, true, null, true),
+    QUARTZ_STAIRS("minecraft:quartz_stairs", (short) 156, 0.8, 0.0, false, true, null, true),
 
-    ACTIVATOR_RAIL("minecraft:activator_rail", (short) 0, 0.7, 0.7, false, false, null, true),
+    ACTIVATOR_RAIL("minecraft:activator_rail", (short) 157, 0.7, 0.7, false, false, null, true),
 
-    DROPPER("minecraft:dropper", (short) 0, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Dropper"), true),
+    DROPPER("minecraft:dropper", (short) 158, 3.5, 3.5, false, true, NamespaceID.from("minecraft:Dropper"), true),
 
-    STAINED_HARDENED_CLAY("minecraft:stained_hardened_clay", (short) 0, 1.25, 4.2, false, true, null, true),
+    STAINED_HARDENED_CLAY("minecraft:stained_hardened_clay", (short) 159, 1.25, 4.2, false, true, null, true),
 
-    STAINED_GLASS_PANE("minecraft:stained_glass_pane", (short) 0, 0.3, 0.3, false, true, null, true),
+    STAINED_GLASS_PANE("minecraft:stained_glass_pane", (short) 160, 0.3, 0.3, false, true, null, true),
 
-    LEAVES2("minecraft:leaves2", (short) 0, 0.2, 0.0, false, true, null, false),
+    LEAVES2("minecraft:leaves2", (short) 161, 0.2, 0.0, false, true, null, false),
 
-    LOG2("minecraft:log2", (short) 0, 2.0, 0.0, false, true, null, false),
+    LOG2("minecraft:log2", (short) 162, 2.0, 0.0, false, true, null, false),
 
-    ACACIA_STAIRS("minecraft:acacia_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    ACACIA_STAIRS("minecraft:acacia_stairs", (short) 163, 2.0, 0.0, false, true, null, true),
 
-    DARK_OAK_STAIRS("minecraft:dark_oak_stairs", (short) 0, 2.0, 0.0, false, true, null, true),
+    DARK_OAK_STAIRS("minecraft:dark_oak_stairs", (short) 164, 2.0, 0.0, false, true, null, true),
 
-    SLIME("minecraft:slime", (short) 0, 0.0, 0.0, false, true, null, true),
+    SLIME("minecraft:slime", (short) 165, 0.0, 0.0, false, true, null, true),
 
-    BARRIER("minecraft:barrier", (short) 0, 0.0, 0.0, false, true, null, true),
+    BARRIER("minecraft:barrier", (short) 166, 0.0, 0.0, false, true, null, true),
 
-    IRON_TRAPDOOR("minecraft:iron_trapdoor", (short) 0, 5.0, 5.0, false, true, null, true),
+    IRON_TRAPDOOR("minecraft:iron_trapdoor", (short) 167, 5.0, 5.0, false, true, null, true),
 
-    PRISMARINE("minecraft:prismarine", (short) 0, 1.5, 6.0, false, true, null, false),
+    PRISMARINE("minecraft:prismarine", (short) 168, 1.5, 6.0, false, true, null, false),
 
-    SEA_LANTERN("minecraft:sea_lantern", (short) 0, 0.3, 0.3, false, true, null, true),
+    SEA_LANTERN("minecraft:sea_lantern", (short) 169, 0.3, 0.3, false, true, null, true),
 
-    HAY_BLOCK("minecraft:hay_block", (short) 0, 0.5, 0.5, false, true, null, true),
+    HAY_BLOCK("minecraft:hay_block", (short) 170, 0.5, 0.5, false, true, null, true),
 
-    CARPET("minecraft:carpet", (short) 0, 0.1, 0.1, false, true, null, false),
+    CARPET("minecraft:carpet", (short) 171, 0.1, 0.1, false, true, null, false),
 
-    HARDENED_CLAY("minecraft:hardened_clay", (short) 0, 1.25, 4.2, false, true, null, true),
+    HARDENED_CLAY("minecraft:hardened_clay", (short) 172, 1.25, 4.2, false, true, null, true),
 
-    COAL_BLOCK("minecraft:coal_block", (short) 0, 5.0, 6.0, false, true, null, true),
+    COAL_BLOCK("minecraft:coal_block", (short) 173, 5.0, 6.0, false, true, null, true),
 
-    PACKED_ICE("minecraft:packed_ice", (short) 0, 0.5, 0.5, false, true, null, true),
+    PACKED_ICE("minecraft:packed_ice", (short) 174, 0.5, 0.5, false, true, null, true),
 
-    DOUBLE_PLANT("minecraft:double_plant", (short) 0, 0.0, 0.0, false, false, null, false),
+    DOUBLE_PLANT("minecraft:double_plant", (short) 175, 0.0, 0.0, false, false, null, false),
 
-    STANDING_BANNER("minecraft:standing_banner", (short) 0, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Banner"), true),
+    STANDING_BANNER("minecraft:standing_banner", (short) 176, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Banner"), true),
 
-    WALL_BANNER("minecraft:wall_banner", (short) 0, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Banner"), true),
+    WALL_BANNER("minecraft:wall_banner", (short) 177, 1.0, 1.0, false, false, NamespaceID.from("minecraft:Banner"), true),
 
-    DAYLIGHT_DETECTOR_INVERTED("minecraft:daylight_detector_inverted", (short) 0, 0.2, 0.0, false, true, NamespaceID.from("minecraft:DLDetector"), true),
+    DAYLIGHT_DETECTOR_INVERTED("minecraft:daylight_detector_inverted", (short) 178, 0.2, 0.0, false, true, NamespaceID.from("minecraft:DLDetector"), true),
 
-    RED_SANDSTONE("minecraft:red_sandstone", (short) 0, 0.8, 0.8, false, true, null, false),
+    RED_SANDSTONE("minecraft:red_sandstone", (short) 179, 0.8, 0.8, false, true, null, false),
 
-    RED_SANDSTONE_STAIRS("minecraft:red_sandstone_stairs", (short) 0, 0.8, 0.0, false, true, null, true),
+    RED_SANDSTONE_STAIRS("minecraft:red_sandstone_stairs", (short) 180, 0.8, 0.0, false, true, null, true),
 
-    DOUBLE_STONE_SLAB2("minecraft:double_stone_slab2", (short) 0, 2.0, 6.0, false, true, null, false),
+    DOUBLE_STONE_SLAB2("minecraft:double_stone_slab2", (short) 181, 2.0, 6.0, false, true, null, false),
 
-    STONE_SLAB2("minecraft:stone_slab2", (short) 0, 2.0, 6.0, false, true, null, false),
+    STONE_SLAB2("minecraft:stone_slab2", (short) 182, 2.0, 6.0, false, true, null, false),
 
-    SPRUCE_FENCE_GATE("minecraft:spruce_fence_gate", (short) 0, 2.0, 3.0, false, true, null, true),
+    SPRUCE_FENCE_GATE("minecraft:spruce_fence_gate", (short) 183, 2.0, 3.0, false, true, null, true),
 
-    BIRCH_FENCE_GATE("minecraft:birch_fence_gate", (short) 0, 2.0, 3.0, false, true, null, true),
+    BIRCH_FENCE_GATE("minecraft:birch_fence_gate", (short) 184, 2.0, 3.0, false, true, null, true),
 
-    JUNGLE_FENCE_GATE("minecraft:jungle_fence_gate", (short) 0, 2.0, 3.0, false, true, null, true),
+    JUNGLE_FENCE_GATE("minecraft:jungle_fence_gate", (short) 185, 2.0, 3.0, false, true, null, true),
 
-    DARK_OAK_FENCE_GATE("minecraft:dark_oak_fence_gate", (short) 0, 2.0, 3.0, false, true, null, true),
+    DARK_OAK_FENCE_GATE("minecraft:dark_oak_fence_gate", (short) 186, 2.0, 3.0, false, true, null, true),
 
-    ACACIA_FENCE_GATE("minecraft:acacia_fence_gate", (short) 0, 2.0, 3.0, false, true, null, true),
+    ACACIA_FENCE_GATE("minecraft:acacia_fence_gate", (short) 187, 2.0, 3.0, false, true, null, true),
 
-    SPRUCE_FENCE("minecraft:spruce_fence", (short) 0, 2.0, 3.0, false, true, null, true),
+    SPRUCE_FENCE("minecraft:spruce_fence", (short) 188, 2.0, 3.0, false, true, null, true),
 
-    BIRCH_FENCE("minecraft:birch_fence", (short) 0, 2.0, 3.0, false, true, null, true),
+    BIRCH_FENCE("minecraft:birch_fence", (short) 189, 2.0, 3.0, false, true, null, true),
 
-    JUNGLE_FENCE("minecraft:jungle_fence", (short) 0, 2.0, 3.0, false, true, null, true),
+    JUNGLE_FENCE("minecraft:jungle_fence", (short) 190, 2.0, 3.0, false, true, null, true),
 
-    DARK_OAK_FENCE("minecraft:dark_oak_fence", (short) 0, 2.0, 3.0, false, true, null, true),
+    DARK_OAK_FENCE("minecraft:dark_oak_fence", (short) 191, 2.0, 3.0, false, true, null, true),
 
-    ACACIA_FENCE("minecraft:acacia_fence", (short) 0, 2.0, 3.0, false, true, null, true),
+    ACACIA_FENCE("minecraft:acacia_fence", (short) 192, 2.0, 3.0, false, true, null, true),
 
-    SPRUCE_DOOR("minecraft:spruce_door", (short) 0, 3.0, 3.0, false, true, null, true),
+    SPRUCE_DOOR("minecraft:spruce_door", (short) 193, 3.0, 3.0, false, true, null, true),
 
-    BIRCH_DOOR("minecraft:birch_door", (short) 0, 3.0, 3.0, false, true, null, true),
+    BIRCH_DOOR("minecraft:birch_door", (short) 194, 3.0, 3.0, false, true, null, true),
 
-    JUNGLE_DOOR("minecraft:jungle_door", (short) 0, 3.0, 3.0, false, true, null, true),
+    JUNGLE_DOOR("minecraft:jungle_door", (short) 195, 3.0, 3.0, false, true, null, true),
 
-    ACACIA_DOOR("minecraft:acacia_door", (short) 0, 3.0, 3.0, false, true, null, true),
+    ACACIA_DOOR("minecraft:acacia_door", (short) 196, 3.0, 3.0, false, true, null, true),
 
-    DARK_OAK_DOOR("minecraft:dark_oak_door", (short) 0, 3.0, 3.0, false, true, null, true);
+    DARK_OAK_DOOR("minecraft:dark_oak_door", (short) 197, 3.0, 3.0, false, true, null, true);
 
     static {
         Stone.initStates();
@@ -492,7 +492,7 @@ public enum Block {
     @NotNull
     private String namespaceID;
 
-    private short defaultID;
+    private short id;
 
     private double hardness;
 
@@ -509,11 +509,10 @@ public enum Block {
 
     private List<BlockAlternative> alternatives = new java.util.ArrayList<>();
 
-    Block(@NotNull String namespaceID, short defaultID, double hardness, double resistance,
-            boolean isAir, boolean isSolid, @Nullable NamespaceID blockEntity,
-            boolean singleState) {
+    Block(@NotNull String namespaceID, short id, double hardness, double resistance, boolean isAir,
+            boolean isSolid, @Nullable NamespaceID blockEntity, boolean singleState) {
         this.namespaceID = namespaceID;
-        this.defaultID = defaultID;
+        this.id = id;
         this.hardness = hardness;
         this.resistance = resistance;
         this.isAir = isAir;
@@ -521,13 +520,13 @@ public enum Block {
         this.blockEntity = blockEntity;
         this.singleState = singleState;
         if(singleState) {
-            addBlockAlternative(new BlockAlternative(defaultID));
+            addBlockAlternative(new BlockAlternative(id));
         }
         Registries.blocks.put(NamespaceID.from(namespaceID), this);
     }
 
     public short getBlockId() {
-        return defaultID;
+        return id;
     }
 
     public String getName() {
@@ -590,7 +589,7 @@ public enum Block {
                 return alt.getId();
             }
         }
-        return defaultID;
+        return id;
     }
 
     public static Block fromStateId(short blockStateId) {

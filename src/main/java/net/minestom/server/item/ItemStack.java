@@ -750,28 +750,26 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      * @param player the player who used the item
      * @param hand   the hand used
      */
-    public void onRightClick(@NotNull Player player, @NotNull Player.Hand hand) {
+    public void onRightClick(@NotNull Player player) {
     }
 
     /**
      * Called when the player left clicks with this item.
      *
      * @param player the player who used the item
-     * @param hand   the hand used
      */
-    public void onLeftClick(@NotNull Player player, @NotNull Player.Hand hand) {
+    public void onLeftClick(@NotNull Player player) {
     }
 
     /**
      * Called when the player right clicks with this item on a block.
      *
      * @param player    the player who used the item
-     * @param hand      the hand used
      * @param position  the position of the interacted block
      * @param blockFace the block face
      * @return true if it prevents normal item use (placing blocks for instance)
      */
-    public boolean onUseOnBlock(@NotNull Player player, @NotNull Player.Hand hand, @NotNull BlockPosition position, @NotNull Direction blockFace) {
+    public boolean onUseOnBlock(@NotNull Player player, @NotNull BlockPosition position, @NotNull Direction blockFace) {
         return false;
     }
 

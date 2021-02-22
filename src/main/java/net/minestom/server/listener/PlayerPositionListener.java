@@ -5,9 +5,9 @@ import net.minestom.server.event.player.PlayerMoveEvent;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.network.packet.client.play.ClientPlayerPacket;
-import net.minestom.server.network.packet.client.play.ClientPlayerPositionAndRotationPacket;
+import net.minestom.server.network.packet.client.play.ClientPlayerPositionAndLookPacket;
 import net.minestom.server.network.packet.client.play.ClientPlayerPositionPacket;
-import net.minestom.server.network.packet.client.play.ClientPlayerRotationPacket;
+import net.minestom.server.network.packet.client.play.ClientPlayerLookPacket;
 import net.minestom.server.utils.Position;
 import net.minestom.server.utils.chunk.ChunkUtils;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +18,7 @@ public class PlayerPositionListener {
         player.refreshOnGround(packet.onGround);
     }
 
-    public static void playerLookListener(ClientPlayerRotationPacket packet, Player player) {
+    public static void playerLookListener(ClientPlayerLookPacket packet, Player player) {
         final Position playerPosition = player.getPosition();
         final double x = playerPosition.getX();
         final double y = playerPosition.getY();
@@ -39,7 +39,7 @@ public class PlayerPositionListener {
                 yaw, pitch, onGround);
     }
 
-    public static void playerPositionAndLookListener(ClientPlayerPositionAndRotationPacket packet, Player player) {
+    public static void playerPositionAndLookListener(ClientPlayerPositionAndLookPacket packet, Player player) {
         final float yaw = packet.yaw;
         final float pitch = packet.pitch;
         final boolean onGround = packet.onGround;

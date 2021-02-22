@@ -1,8 +1,6 @@
 package net.minestom.server.command.builder.arguments.minecraft;
 
-import net.minestom.server.command.builder.NodeMaker;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
-import net.minestom.server.network.packet.server.play.DeclareCommandsPacket;
 import net.minestom.server.utils.math.FloatRange;
 import org.jetbrains.annotations.NotNull;
 
@@ -55,11 +53,4 @@ public class ArgumentFloatRange extends ArgumentRange<FloatRange> {
         }
     }
 
-    @Override
-    public void processNodes(@NotNull NodeMaker nodeMaker, boolean executable) {
-        DeclareCommandsPacket.Node argumentNode = simpleArgumentNode(this, executable, false, false);
-        argumentNode.parser = "minecraft:float_range";
-
-        nodeMaker.addNodes(new DeclareCommandsPacket.Node[]{argumentNode});
-    }
 }

@@ -10,7 +10,6 @@ public class PlayerPositionAndLookPacket implements ServerPacket {
 
     public Position position;
     public byte flags;
-    public int teleportId;
 
 
     @Override
@@ -23,7 +22,6 @@ public class PlayerPositionAndLookPacket implements ServerPacket {
         writer.writeFloat(position.getPitch());
 
         writer.writeByte(flags);
-        writer.writeVarInt(teleportId);
     }
 
     @Override

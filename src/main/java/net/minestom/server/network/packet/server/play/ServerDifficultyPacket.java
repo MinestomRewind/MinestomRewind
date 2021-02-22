@@ -9,12 +9,10 @@ import org.jetbrains.annotations.NotNull;
 public class ServerDifficultyPacket implements ServerPacket {
 
     public Difficulty difficulty;
-    public boolean locked;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeByte((byte) difficulty.ordinal());
-        writer.writeBoolean(locked);
+        writer.writeByte(difficulty.getId());
     }
 
     @Override

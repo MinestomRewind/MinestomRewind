@@ -10,23 +10,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerHandAnimationEvent extends PlayerEvent implements CancellableEvent {
 
-    private final Player.Hand hand;
-
     private boolean cancelled;
 
-    public PlayerHandAnimationEvent(@NotNull Player player, @NotNull Player.Hand hand) {
+    public PlayerHandAnimationEvent(@NotNull Player player) {
         super(player);
-        this.hand = hand;
-    }
-
-    /**
-     * Gets the hand used.
-     *
-     * @return the hand
-     */
-    @NotNull
-    public Player.Hand getHand() {
-        return hand;
     }
 
     @Override

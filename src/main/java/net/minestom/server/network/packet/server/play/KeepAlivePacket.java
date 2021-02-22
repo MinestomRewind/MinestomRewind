@@ -7,15 +7,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class KeepAlivePacket implements ServerPacket {
 
-    public long id;
+    public int id;
 
-    public KeepAlivePacket(long id) {
+    public KeepAlivePacket(int id) {
         this.id = id;
     }
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeLong(id);
+        writer.writeVarInt(id);
     }
 
     @Override

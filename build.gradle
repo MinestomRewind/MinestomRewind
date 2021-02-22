@@ -9,8 +9,8 @@ plugins {
     id 'checkstyle'
 }
 
-group 'net.minestom.server'
-version '1.0'
+group 'net.minestomrewind.server'
+version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.11
 project.ext.lwjglVersion = "3.2.3"
@@ -184,6 +184,7 @@ dependencies {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            artifactId = 'minestomrewind'
             from components.java
         }
     }

@@ -4,14 +4,15 @@ import net.minestom.server.network.packet.client.ClientPlayPacket;
 import net.minestom.server.utils.binary.BinaryReader;
 import org.jetbrains.annotations.NotNull;
 
-public class ClientSetBeaconEffectPacket extends ClientPlayPacket {
+public class ClientPlayerLookPacket extends ClientPlayPacket {
 
-    public int primaryEffect;
-    public int secondaryEffect;
+    public float yaw, pitch;
+    public boolean onGround;
 
     @Override
     public void read(@NotNull BinaryReader reader) {
-        this.primaryEffect = reader.readVarInt();
-        this.secondaryEffect = reader.readVarInt();
+        this.yaw = reader.readFloat();
+        this.pitch = reader.readFloat();
+        this.onGround = reader.readBoolean();
     }
 }

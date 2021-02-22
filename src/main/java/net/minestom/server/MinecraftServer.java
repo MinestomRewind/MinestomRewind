@@ -13,8 +13,6 @@ import net.minestom.server.exception.ExceptionManager;
 import net.minestom.server.extensions.Extension;
 import net.minestom.server.extensions.ExtensionManager;
 import net.minestom.server.fluids.Fluid;
-import net.minestom.server.gamedata.loottables.LootTableManager;
-import net.minestom.server.gamedata.tags.TagManager;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
@@ -35,7 +33,6 @@ import net.minestom.server.ping.ResponseDataConsumer;
 import net.minestom.server.potion.PotionEffect;
 import net.minestom.server.potion.PotionType;
 import net.minestom.server.recipe.RecipeManager;
-import net.minestom.server.registry.ResourceGatherer;
 import net.minestom.server.scoreboard.TeamManager;
 import net.minestom.server.sound.Sound;
 import net.minestom.server.stat.StatisticType;
@@ -48,14 +45,11 @@ import net.minestom.server.utils.cache.TemporaryCache;
 import net.minestom.server.utils.thread.MinestomThread;
 import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.Difficulty;
-import net.minestom.server.world.DimensionTypeManager;
 import net.minestom.server.world.biomes.BiomeManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * The main server class used to start the server and retrieve all the managers.
@@ -67,8 +61,8 @@ public final class MinecraftServer {
 
     public final static Logger LOGGER = LoggerFactory.getLogger(MinecraftServer.class);
 
-    public static final String VERSION_NAME = "1.16.5";
-    public static final int PROTOCOL_VERSION = 754;
+    public static final String VERSION_NAME = "1.8.9";
+    public static final int PROTOCOL_VERSION = 47;
 
     // Threads
     public static final String THREAD_NAME_BENCHMARK = "Ms-Benchmark";
@@ -113,7 +107,6 @@ public final class MinecraftServer {
     private static TeamManager teamManager;
     private static SchedulerManager schedulerManager;
     private static BenchmarkManager benchmarkManager;
-    private static DimensionTypeManager dimensionTypeManager;
     private static BiomeManager biomeManager;
     private static AdvancementManager advancementManager;
 
@@ -137,8 +130,6 @@ public final class MinecraftServer {
     private static ResponseDataConsumer responseDataConsumer;
     private static String brandName = "Minestom";
     private static Difficulty difficulty = Difficulty.NORMAL;
-    private static LootTableManager lootTableManager;
-    private static TagManager tagManager;
 
     public static MinecraftServer init() {
         if (minecraftServer != null) // don't init twice
@@ -178,23 +169,12 @@ public final class MinecraftServer {
         teamManager = new TeamManager();
         schedulerManager = new SchedulerManager();
         benchmarkManager = new BenchmarkManager();
-        dimensionTypeManager = new DimensionTypeManager();
         biomeManager = new BiomeManager();
         advancementManager = new AdvancementManager();
 
         updateManager = new UpdateManager();
 
-        lootTableManager = new LootTableManager();
-        tagManager = new TagManager();
-
         nettyServer = new NettyServer(packetProcessor);
-
-        // Registry
-        try {
-            ResourceGatherer.ensureResourcesArePresent(VERSION_NAME);
-        } catch (IOException e) {
-            LOGGER.error("An error happened during resource gathering. Minestom will attempt to load anyway, but things may not work, and crashes can happen.", e);
-        }
 
         initialized = true;
 
@@ -282,7 +262,6 @@ public final class MinecraftServer {
         // Send the packet to all online players
         ServerDifficultyPacket serverDifficultyPacket = new ServerDifficultyPacket();
         serverDifficultyPacket.difficulty = difficulty;
-        serverDifficultyPacket.locked = true; // Can only be modified on single-player
         PacketUtils.sendGroupedPacket(connectionManager.getOnlinePlayers(), serverDifficultyPacket);
     }
 
@@ -611,26 +590,6 @@ public final class MinecraftServer {
     }
 
     /**
-     * Gets the manager handling loot tables.
-     *
-     * @return the loot table manager
-     */
-    public static LootTableManager getLootTableManager() {
-        checkInitStatus(lootTableManager);
-        return lootTableManager;
-    }
-
-    /**
-     * Gets the manager handling dimensions.
-     *
-     * @return the dimension manager
-     */
-    public static DimensionTypeManager getDimensionTypeManager() {
-        checkInitStatus(dimensionTypeManager);
-        return dimensionTypeManager;
-    }
-
-    /**
      * Gets the manager handling biomes.
      *
      * @return the biome manager
@@ -658,16 +617,6 @@ public final class MinecraftServer {
     public static ExtensionManager getExtensionManager() {
         checkInitStatus(extensionManager);
         return extensionManager;
-    }
-
-    /**
-     * Gets the manager handling tags.
-     *
-     * @return the tag manager
-     */
-    public static TagManager getTagManager() {
-        checkInitStatus(tagManager);
-        return tagManager;
     }
 
     /**

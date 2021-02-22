@@ -32,7 +32,7 @@ public class PluginMessagePacket implements ServerPacket {
     @NotNull
     public static PluginMessagePacket getBrandPacket() {
         PluginMessagePacket brandMessage = new PluginMessagePacket();
-        brandMessage.channel = "minecraft:brand";
+        brandMessage.channel = "MC|Brand";
 
         final String brandName = MinecraftServer.getBrandName();
         BinaryWriter writer = new BinaryWriter(4 + brandName.length());

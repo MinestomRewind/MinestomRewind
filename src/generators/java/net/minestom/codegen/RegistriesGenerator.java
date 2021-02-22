@@ -9,7 +9,6 @@ import net.minestom.server.item.Material;
 import net.minestom.server.particle.Particle;
 import net.minestom.server.potion.PotionEffect;
 import net.minestom.server.potion.PotionType;
-import net.minestom.server.registry.ResourceGatherer;
 import net.minestom.server.sound.Sound;
 import net.minestom.server.stat.StatisticType;
 import net.minestom.server.utils.NamespaceID;

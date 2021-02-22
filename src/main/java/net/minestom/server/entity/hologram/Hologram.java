@@ -22,7 +22,7 @@ public class Hologram implements Viewable {
     private final HologramEntity entity;
 
     private Position position;
-    private JsonMessage text;
+    private String text;
 
     private boolean removed;
 
@@ -34,7 +34,7 @@ public class Hologram implements Viewable {
      * @param text          The text of this hologram.
      * @param autoViewable  {@code true}if the hologram should be visible automatically, otherwise {@code false}.
      */
-    public Hologram(Instance instance, Position spawnPosition, JsonMessage text, boolean autoViewable) {
+    public Hologram(Instance instance, Position spawnPosition, String text, boolean autoViewable) {
         this.entity = new HologramEntity(spawnPosition.clone().add(0, OFFSET_Y, 0));
         this.entity.setInstance(instance);
         this.entity.setAutoViewable(autoViewable);
@@ -50,7 +50,7 @@ public class Hologram implements Viewable {
      * @param spawnPosition The spawn position of this hologram.
      * @param text          The text of this hologram.
      */
-    public Hologram(Instance instance, Position spawnPosition, JsonMessage text) {
+    public Hologram(Instance instance, Position spawnPosition, String text) {
         this(instance, spawnPosition, text, true);
     }
 
@@ -80,7 +80,7 @@ public class Hologram implements Viewable {
      *
      * @return the hologram text
      */
-    public JsonMessage getText() {
+    public String getText() {
         return text;
     }
 
@@ -89,7 +89,7 @@ public class Hologram implements Viewable {
      *
      * @param text the new hologram text
      */
-    public void setText(JsonMessage text) {
+    public void setText(String text) {
         checkRemoved();
         this.text = text;
         this.entity.setCustomName(text);
@@ -166,7 +166,7 @@ public class Hologram implements Viewable {
             setSmall(true);
 
             setNoGravity(true);
-            setCustomName(ColoredText.of(""));
+            setCustomName("");
             setCustomNameVisible(true);
             setInvisible(true);
         }

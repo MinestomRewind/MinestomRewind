@@ -25,19 +25,17 @@ public class TabCompleteListener {
         // Tab complete for CommandProcessor
         final CommandProcessor commandProcessor = COMMAND_MANAGER.getCommandProcessor(commandName);
         if (commandProcessor != null) {
-            final int start = findStart(text, split);
             final String[] matches = commandProcessor.onWrite(player, text);
             if (matches != null && matches.length > 0) {
-                sendTabCompletePacket(packet.transactionId, start, matches, player);
+                sendTabCompletePacket(matches, player);
             }
         } else {
             // Tab complete for Command
             final Command command = COMMAND_MANAGER.getCommand(commandName);
             if (command != null) {
-                final int start = findStart(text, split);
                 final String[] matches = command.onDynamicWrite(player, text);
                 if (matches != null && matches.length > 0) {
-                    sendTabCompletePacket(packet.transactionId, start, matches, player);
+                    sendTabCompletePacket(matches, player);
                 }
             }
         }
@@ -57,20 +55,10 @@ public class TabCompleteListener {
         return start;
     }
 
-    private static void sendTabCompletePacket(int transactionId, int start, String[] matches, Player player) {
+    private static void sendTabCompletePacket(String[] matches, Player player) {
         TabCompletePacket tabCompletePacket = new TabCompletePacket();
-        tabCompletePacket.transactionId = transactionId;
-        tabCompletePacket.start = start;
-        tabCompletePacket.length = 20;
-
-        TabCompletePacket.Match[] matchesArray = new TabCompletePacket.Match[matches.length];
-        for (int i = 0; i < matchesArray.length; i++) {
-            TabCompletePacket.Match match = new TabCompletePacket.Match();
-            match.match = matches[i];
-            matchesArray[i] = match;
-        }
-
-        tabCompletePacket.matches = matchesArray;
+        tabCompletePacket.length = matches.length;
+        tabCompletePacket.matches = matches;
 
         player.getPlayerConnection().sendPacket(tabCompletePacket);
     }

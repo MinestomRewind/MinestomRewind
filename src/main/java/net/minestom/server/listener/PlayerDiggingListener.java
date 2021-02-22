@@ -3,7 +3,6 @@ package net.minestom.server.listener;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.item.ItemUpdateStateEvent;
 import net.minestom.server.event.player.PlayerStartDiggingEvent;
-import net.minestom.server.event.player.PlayerSwapItemEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.CustomBlock;
@@ -94,14 +93,14 @@ public class PlayerDiggingListener {
 
         } else if (status == ClientPlayerDiggingPacket.Status.DROP_ITEM_STACK) {
 
-            final ItemStack droppedItemStack = player.getInventory().getItemInMainHand();
+            final ItemStack droppedItemStack = player.getInventory().getItemInHand();
             dropItem(player, droppedItemStack, ItemStack.getAirItem());
 
         } else if (status == ClientPlayerDiggingPacket.Status.DROP_ITEM) {
 
             final int dropAmount = 1;
 
-            ItemStack handItem = player.getInventory().getItemInMainHand();
+            ItemStack handItem = player.getInventory().getItemInHand();
             final StackingRule stackingRule = handItem.getStackingRule();
             final int handAmount = stackingRule.getAmount(handItem);
 
@@ -123,27 +122,7 @@ public class PlayerDiggingListener {
         } else if (status == ClientPlayerDiggingPacket.Status.UPDATE_ITEM_STATE) {
 
             player.refreshEating(false);
-            ItemUpdateStateEvent itemUpdateStateEvent = player.callItemUpdateStateEvent(false);
-
-            if (itemUpdateStateEvent == null) {
-                player.refreshActiveHand(true, false, false);
-            } else {
-                final boolean isOffHand = itemUpdateStateEvent.getHand() == Player.Hand.OFF;
-                player.refreshActiveHand(itemUpdateStateEvent.hasHandAnimation(), isOffHand, false);
-            }
-
-        } else if (status == ClientPlayerDiggingPacket.Status.SWAP_ITEM_HAND) {
-
-            final PlayerInventory playerInventory = player.getInventory();
-            final ItemStack mainHand = playerInventory.getItemInMainHand();
-            final ItemStack offHand = playerInventory.getItemInOffHand();
-
-            PlayerSwapItemEvent swapItemEvent = new PlayerSwapItemEvent(player, offHand, mainHand);
-            player.callCancellableEvent(PlayerSwapItemEvent.class, swapItemEvent, () -> {
-                playerInventory.setItemInMainHand(swapItemEvent.getMainHandItem());
-                playerInventory.setItemInOffHand(swapItemEvent.getOffHandItem());
-            });
-
+            player.callItemUpdateStateEvent(false);
         }
     }
 
@@ -179,7 +158,7 @@ public class PlayerDiggingListener {
                                  @NotNull ItemStack droppedItem, @NotNull ItemStack handItem) {
         final PlayerInventory playerInventory = player.getInventory();
         if (player.dropItem(droppedItem)) {
-            playerInventory.setItemInMainHand(handItem);
+            playerInventory.setItemInHand(handItem);
         } else {
             playerInventory.update();
         }

@@ -7,8 +7,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minestom.server.data.Data;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
-import net.minestom.server.gamedata.loottables.LootTable;
-import net.minestom.server.gamedata.loottables.LootTableManager;
 import net.minestom.server.instance.BlockModifier;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.Instance;
@@ -116,13 +114,11 @@ public abstract class CustomBlock {
      * menu, this prevents the player from placing a block when opening it for instance).
      *
      * @param player        the player interacting
-     * @param hand          the hand used to interact
      * @param blockPosition the position of this block
      * @param data          the data at this position
      * @return true if this block blocks normal item use, false otherwise
      */
-    public abstract boolean onInteract(@NotNull Player player, @NotNull Player.Hand hand,
-                                       @NotNull BlockPosition blockPosition, @Nullable Data data);
+    public abstract boolean onInteract(@NotNull Player player, @NotNull BlockPosition blockPosition, @Nullable Data data);
 
     /**
      * This id can be serialized in chunk file, meaning no duplicate should exist
@@ -267,18 +263,6 @@ public abstract class CustomBlock {
     }
 
     /**
-     * Allows custom block to write block entity data to a given NBT compound.
-     * Used to send block entity data to the client over the network.
-     * Can also be used to save block entity data on disk for compatible chunk savers.
-     *
-     * @param position  position of the block
-     * @param blockData equivalent to <pre>instance.getBlockData(position)</pre>
-     * @param nbt       the nbt to write in the {@link net.minestom.server.network.packet.server.play.ChunkDataPacket}
-     */
-    public void writeBlockEntity(@NotNull BlockPosition position, @Nullable Data blockData, @NotNull NBTCompound nbt) {
-    }
-
-    /**
      * Called when an explosion wants to destroy this block.
      *
      * @param instance           the instance
@@ -288,17 +272,6 @@ public abstract class CustomBlock {
      */
     public boolean onExplode(@NotNull Instance instance, @NotNull BlockPosition position, Data lootTableArguments) {
         return true;
-    }
-
-    /**
-     * Returns the loot table associated to this block. Return null to use vanilla behavior.
-     *
-     * @param tableManager the loot table manager
-     * @return the loot table associated to this block
-     */
-    @Nullable
-    public LootTable getLootTable(@NotNull LootTableManager tableManager) {
-        return null;
     }
 
     // BLOCK BREAK METHODS

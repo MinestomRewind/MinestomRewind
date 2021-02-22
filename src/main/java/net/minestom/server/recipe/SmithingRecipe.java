@@ -1,18 +1,17 @@
 package net.minestom.server.recipe;
 
 import net.minestom.server.item.ItemStack;
-import net.minestom.server.network.packet.server.play.DeclareRecipesPacket;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class SmithingRecipe extends Recipe {
-    private DeclareRecipesPacket.Ingredient baseIngredient;
-    private DeclareRecipesPacket.Ingredient additionIngredient;
+    private Ingredient baseIngredient;
+    private Ingredient additionIngredient;
     private ItemStack result;
 
     protected SmithingRecipe(
             @NotNull String recipeId,
-            @NotNull DeclareRecipesPacket.Ingredient baseIngredient,
-            @NotNull DeclareRecipesPacket.Ingredient additionIngredient,
+            @NotNull Ingredient baseIngredient,
+            @NotNull Ingredient additionIngredient,
             @NotNull ItemStack result
     ) {
         super(RecipeType.SMITHING, recipeId);
@@ -22,20 +21,20 @@ public abstract class SmithingRecipe extends Recipe {
     }
 
     @NotNull
-    public DeclareRecipesPacket.Ingredient getBaseIngredient() {
+    public Ingredient getBaseIngredient() {
         return baseIngredient;
     }
 
-    public void setBaseIngredient(@NotNull DeclareRecipesPacket.Ingredient baseIngredient) {
+    public void setBaseIngredient(@NotNull Ingredient baseIngredient) {
         this.baseIngredient = baseIngredient;
     }
 
     @NotNull
-    public DeclareRecipesPacket.Ingredient getAdditionIngredient() {
+    public Ingredient getAdditionIngredient() {
         return additionIngredient;
     }
 
-    public void setAdditionIngredient(@NotNull DeclareRecipesPacket.Ingredient additionIngredient) {
+    public void setAdditionIngredient(@NotNull Ingredient additionIngredient) {
         this.additionIngredient = additionIngredient;
     }
 

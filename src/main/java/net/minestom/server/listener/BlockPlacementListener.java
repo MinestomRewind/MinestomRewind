@@ -31,8 +31,11 @@ public class BlockPlacementListener {
     private static final BlockManager BLOCK_MANAGER = MinecraftServer.getBlockManager();
 
     public static void listener(ClientPlayerBlockPlacementPacket packet, Player player) {
+        if (UseItemListener.useItemListener(packet, player)) {
+            return;
+        }
+
         final PlayerInventory playerInventory = player.getInventory();
-        final Player.Hand hand = packet.hand;
         final BlockFace blockFace = packet.blockFace;
         final BlockPosition blockPosition = packet.blockPosition;
         final Direction direction = blockFace.toDirection();
@@ -47,18 +50,18 @@ public class BlockPlacementListener {
             return;
         }
 
-        final ItemStack usedItem = player.getItemInHand(hand);
+        final ItemStack usedItem = player.getItemInHand();
 
         // Interact at block
-        final boolean cancel = usedItem.onUseOnBlock(player, hand, blockPosition, direction);
-        PlayerBlockInteractEvent playerBlockInteractEvent = new PlayerBlockInteractEvent(player, blockPosition, hand, blockFace);
+        final boolean cancel = usedItem.onUseOnBlock(player, blockPosition, direction);
+        PlayerBlockInteractEvent playerBlockInteractEvent = new PlayerBlockInteractEvent(player, blockPosition, blockFace);
         playerBlockInteractEvent.setCancelled(cancel);
         playerBlockInteractEvent.setBlockingItemUse(cancel);
         player.callCancellableEvent(PlayerBlockInteractEvent.class, playerBlockInteractEvent, () -> {
             final CustomBlock customBlock = instance.getCustomBlock(blockPosition);
             if (customBlock != null) {
                 final Data data = instance.getBlockData(blockPosition);
-                final boolean blocksItem = customBlock.onInteract(player, hand, blockPosition, data);
+                final boolean blocksItem = customBlock.onInteract(player, blockPosition, data);
                 if (blocksItem) {
                     playerBlockInteractEvent.setBlockingItemUse(true);
                 }
@@ -120,7 +123,7 @@ public class BlockPlacementListener {
                 if (!intersect) {
 
                     // BlockPlaceEvent check
-                    PlayerBlockPlaceEvent playerBlockPlaceEvent = new PlayerBlockPlaceEvent(player, block, blockPosition, packet.hand);
+                    PlayerBlockPlaceEvent playerBlockPlaceEvent = new PlayerBlockPlaceEvent(player, block, blockPosition);
                     playerBlockPlaceEvent.consumeBlock(player.getGameMode() != GameMode.CREATIVE);
 
                     player.callEvent(PlayerBlockPlaceEvent.class, playerBlockPlaceEvent);
@@ -147,7 +150,7 @@ public class BlockPlacementListener {
                                 final ItemStack newUsedItem = usedItem.consume(1);
 
                                 if (newUsedItem != null) {
-                                    playerInventory.setItemInHand(hand, newUsedItem);
+                                    playerInventory.setItemInHand(newUsedItem);
                                 }
                             }
                         } else {
@@ -164,7 +167,7 @@ public class BlockPlacementListener {
             }
         } else {
             // Player didn't try to place a block but interacted with one
-            PlayerUseItemOnBlockEvent event = new PlayerUseItemOnBlockEvent(player, hand, usedItem, blockPosition, direction);
+            PlayerUseItemOnBlockEvent event = new PlayerUseItemOnBlockEvent(player, usedItem, blockPosition, direction);
             player.callEvent(PlayerUseItemOnBlockEvent.class, event);
             refreshChunk = true;
         }

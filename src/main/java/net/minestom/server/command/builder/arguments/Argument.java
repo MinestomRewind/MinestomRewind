@@ -3,9 +3,7 @@ package net.minestom.server.command.builder.arguments;
 import net.minestom.server.command.builder.ArgumentCallback;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandExecutor;
-import net.minestom.server.command.builder.NodeMaker;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
-import net.minestom.server.network.packet.server.play.DeclareCommandsPacket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,32 +68,6 @@ public abstract class Argument<T> {
      */
     @NotNull
     public abstract T parse(@NotNull String input) throws ArgumentSyntaxException;
-
-    /**
-     * Turns the argument into a list of nodes for command dispatching. Make sure to set the Node's parser.
-     *
-     * @param nodeMaker  helper object used to create and modify nodes
-     * @param executable true if this will be the last argument, false otherwise
-     */
-    public abstract void processNodes(@NotNull NodeMaker nodeMaker, boolean executable);
-
-    /**
-     * Builds an argument node.
-     *
-     * @param argument   the argument
-     * @param executable true if this will be the last argument, false otherwise
-     * @return the created {@link DeclareCommandsPacket.Node}
-     */
-    @NotNull
-    protected static DeclareCommandsPacket.Node simpleArgumentNode(@NotNull Argument<?> argument,
-                                                                   boolean executable, boolean redirect, boolean suggestion) {
-        DeclareCommandsPacket.Node argumentNode = new DeclareCommandsPacket.Node();
-
-        argumentNode.flags = DeclareCommandsPacket.getFlag(DeclareCommandsPacket.NodeType.ARGUMENT, executable, redirect, suggestion);
-        argumentNode.name = argument.getId();
-
-        return argumentNode;
-    }
 
     /**
      * Gets the ID of the argument, showed in-game above the chat bar

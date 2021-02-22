@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerBlockInteractEvent extends PlayerEvent implements CancellableEvent {
 
     private final BlockPosition blockPosition;
-    private final Player.Hand hand;
     private final BlockFace blockFace;
 
     /**
@@ -26,10 +25,9 @@ public class PlayerBlockInteractEvent extends PlayerEvent implements Cancellable
     private boolean cancelled;
 
     public PlayerBlockInteractEvent(@NotNull Player player,
-                                    @NotNull BlockPosition blockPosition, @NotNull Player.Hand hand, @NotNull BlockFace blockFace) {
+                                    @NotNull BlockPosition blockPosition, @NotNull BlockFace blockFace) {
         super(player);
         this.blockPosition = blockPosition;
-        this.hand = hand;
         this.blockFace = blockFace;
     }
 
@@ -54,16 +52,6 @@ public class PlayerBlockInteractEvent extends PlayerEvent implements Cancellable
     @NotNull
     public BlockPosition getBlockPosition() {
         return blockPosition;
-    }
-
-    /**
-     * Gets the hand used for the interaction.
-     *
-     * @return the hand used
-     */
-    @NotNull
-    public Player.Hand getHand() {
-        return hand;
     }
 
     /**

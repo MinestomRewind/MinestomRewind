@@ -33,26 +33,20 @@ public final class PacketListenerManager {
         setListener(ClientHeldItemChangePacket.class, PlayerHeldListener::heldListener);
         setListener(ClientPlayerBlockPlacementPacket.class, BlockPlacementListener::listener);
         setListener(ClientSteerVehiclePacket.class, PlayerVehicleListener::steerVehicleListener);
-        setListener(ClientVehicleMovePacket.class, PlayerVehicleListener::vehicleMoveListener);
-        setListener(ClientSteerBoatPacket.class, PlayerVehicleListener::boatSteerListener);
         setListener(ClientPlayerPacket.class, PlayerPositionListener::playerPacketListener);
-        setListener(ClientPlayerRotationPacket.class, PlayerPositionListener::playerLookListener);
+        setListener(ClientPlayerLookPacket.class, PlayerPositionListener::playerLookListener);
         setListener(ClientPlayerPositionPacket.class, PlayerPositionListener::playerPositionListener);
-        setListener(ClientPlayerPositionAndRotationPacket.class, PlayerPositionListener::playerPositionAndLookListener);
+        setListener(ClientPlayerPositionAndLookPacket.class, PlayerPositionListener::playerPositionAndLookListener);
         setListener(ClientPlayerDiggingPacket.class, PlayerDiggingListener::playerDiggingListener);
         setListener(ClientAnimationPacket.class, AnimationListener::animationListener);
         setListener(ClientInteractEntityPacket.class, UseEntityListener::useEntityListener);
-        setListener(ClientUseItemPacket.class, UseItemListener::useItemListener);
         setListener(ClientStatusPacket.class, StatusListener::listener);
         setListener(ClientSettingsPacket.class, SettingsListener::listener);
         setListener(ClientCreativeInventoryActionPacket.class, CreativeInventoryActionListener::listener);
-        setListener(ClientCraftRecipeRequest.class, RecipeListener::listener);
         setListener(ClientTabCompletePacket.class, TabCompleteListener::listener);
         setListener(ClientPluginMessagePacket.class, PluginMessageListener::listener);
         setListener(ClientPlayerAbilitiesPacket.class, AbilitiesListener::listener);
-        setListener(ClientTeleportConfirmPacket.class, TeleportListener::listener);
         setListener(ClientResourcePackStatusPacket.class, ResourcePackListener::listener);
-        setListener(ClientAdvancementTabPacket.class, AdvancementTabListener::listener);
         setListener(ClientSpectatePacket.class, SpectateListener::listener);
     }
 

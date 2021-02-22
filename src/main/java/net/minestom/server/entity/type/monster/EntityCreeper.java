@@ -16,41 +16,33 @@ public class EntityCreeper extends EntityCreature implements Monster {
 
     @NotNull
     public CreeperState getCreeperState() {
-        final int state = metadata.getIndex((byte) 15, -1);
+        final byte state = metadata.getIndex((byte) 16, (byte) -1);
         return CreeperState.fromState(state);
     }
 
     public void setCreeperState(@NotNull CreeperState creeperState) {
-        this.metadata.setIndex((byte) 15, Metadata.VarInt(creeperState.getState()));
+        this.metadata.setIndex((byte) 16, Metadata.Byte(creeperState.getState()));
     }
 
-    public boolean isCharged() {
-        return metadata.getIndex((byte) 16, false);
+    public boolean isPowered() {
+        return metadata.getIndex((byte) 17, (byte) 0) == 1;
     }
 
-    public void setCharged(boolean charged) {
-        this.metadata.setIndex((byte) 16, Metadata.Boolean(charged));
-    }
-
-    public boolean isIgnited() {
-        return metadata.getIndex((byte) 17, false);
-    }
-
-    public void setIgnited(boolean ignited) {
-        this.metadata.setIndex((byte) 17, Metadata.Boolean(ignited));
+    public void setPowered(boolean powered) {
+        this.metadata.setIndex((byte) 17, Metadata.Byte((byte) (powered ? 1 : 0)));
     }
 
     public enum CreeperState {
-        IDLE(-1),
-        FUSE(1);
+        IDLE((byte) -1),
+        FUSE((byte) 1);
 
-        private final int state;
+        private final byte state;
 
-        CreeperState(int state) {
+        CreeperState(byte state) {
             this.state = state;
         }
 
-        private int getState() {
+        private byte getState() {
             return state;
         }
 

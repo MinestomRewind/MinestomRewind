@@ -23,10 +23,8 @@ public class ClientEntityActionPacket extends ClientPlayPacket {
         LEAVE_BED,
         START_SPRINTING,
         STOP_SPRINTING,
-        START_JUMP_HORSE,
-        STOP_JUMP_HORSE,
-        OPEN_HORSE_INVENTORY,
-        START_FLYING_ELYTRA
+        JUMP_WITH_HORSE,
+        OPEN_HORSE_INVENTORY
     }
 
 }

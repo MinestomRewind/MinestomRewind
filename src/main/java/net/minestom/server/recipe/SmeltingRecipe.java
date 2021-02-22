@@ -1,12 +1,11 @@
 package net.minestom.server.recipe;
 
 import net.minestom.server.item.ItemStack;
-import net.minestom.server.network.packet.server.play.DeclareRecipesPacket;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class SmeltingRecipe extends Recipe {
     private String group;
-    private DeclareRecipesPacket.Ingredient ingredient;
+    private Ingredient ingredient;
     private ItemStack result;
     private float experience;
     private int cookingTime;
@@ -35,11 +34,11 @@ public abstract class SmeltingRecipe extends Recipe {
     }
 
     @NotNull
-    public DeclareRecipesPacket.Ingredient getIngredient() {
+    public Ingredient getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(@NotNull DeclareRecipesPacket.Ingredient ingredient) {
+    public void setIngredient(@NotNull Ingredient ingredient) {
         this.ingredient = ingredient;
     }
 

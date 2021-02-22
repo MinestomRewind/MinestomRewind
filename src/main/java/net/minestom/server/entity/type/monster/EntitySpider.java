@@ -19,7 +19,7 @@ public class EntitySpider extends EntityCreature implements Monster {
      * @return true if the spider is climbing, false otherwise
      */
     public boolean isClimbing() {
-        return metadata.getIndex((byte) 15, false);
+        return metadata.getIndex((byte) 16, (byte) 0) == 1;
     }
 
     /**
@@ -28,6 +28,6 @@ public class EntitySpider extends EntityCreature implements Monster {
      * @param climbing true to make the spider climbs, false otherwise
      */
     public void setClimbing(boolean climbing) {
-        this.metadata.setIndex((byte) 15, Metadata.Boolean(climbing));
+        this.metadata.setIndex((byte) 16, Metadata.Byte((byte) (climbing ? 1 : 0)));
     }
 }

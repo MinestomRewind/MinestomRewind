@@ -24,7 +24,7 @@ public class SharedInstance extends Instance {
     private final InstanceContainer instanceContainer;
 
     public SharedInstance(@NotNull UUID uniqueId, @NotNull InstanceContainer instanceContainer) {
-        super(uniqueId, instanceContainer.getDimensionType());
+        super(uniqueId, instanceContainer.getDimensionType(), instanceContainer.getLevelType());
         this.instanceContainer = instanceContainer;
     }
 

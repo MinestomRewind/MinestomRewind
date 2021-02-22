@@ -231,26 +231,14 @@ public abstract class EntityCreature extends LivingEntity implements NavigableEn
 
     @NotNull
     @Override
-    public ItemStack getItemInMainHand() {
+    public ItemStack getItemInHand() {
         return mainHandItem;
     }
 
     @Override
-    public void setItemInMainHand(@NotNull ItemStack itemStack) {
+    public void setItemInHand(@NotNull ItemStack itemStack) {
         this.mainHandItem = itemStack;
-        syncEquipment(EntityEquipmentPacket.Slot.MAIN_HAND);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getItemInOffHand() {
-        return offHandItem;
-    }
-
-    @Override
-    public void setItemInOffHand(@NotNull ItemStack itemStack) {
-        this.offHandItem = itemStack;
-        syncEquipment(EntityEquipmentPacket.Slot.OFF_HAND);
+        syncEquipment(EntityEquipmentPacket.Slot.HAND);
     }
 
     @NotNull

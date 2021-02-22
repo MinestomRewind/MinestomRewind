@@ -476,12 +476,14 @@ public final class ConnectionManager {
      * @param tickStart the time of the update in milliseconds, forwarded to the packet
      */
     public void handleKeepAlive(long tickStart) {
-        final KeepAlivePacket keepAlivePacket = new KeepAlivePacket(tickStart);
+        int keepaliveId = (int) (tickStart % (long) Integer.MAX_VALUE);
+
+        final KeepAlivePacket keepAlivePacket = new KeepAlivePacket(keepaliveId);
         for (Player player : getOnlinePlayers()) {
-            final long lastKeepAlive = tickStart - player.getLastKeepAlive();
+            final long lastKeepAlive = tickStart - player.getLastKeepAliveTime();
             if (lastKeepAlive > KEEP_ALIVE_DELAY && player.didAnswerKeepAlive()) {
                 final PlayerConnection playerConnection = player.getPlayerConnection();
-                player.refreshKeepAlive(tickStart);
+                player.refreshKeepAlive(tickStart, keepaliveId);
                 playerConnection.sendPacket(keepAlivePacket);
             } else if (lastKeepAlive >= KEEP_ALIVE_KICK) {
                 player.kick(TIMEOUT_TEXT);

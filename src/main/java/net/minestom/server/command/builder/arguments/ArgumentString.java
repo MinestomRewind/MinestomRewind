@@ -1,9 +1,7 @@
 package net.minestom.server.command.builder.arguments;
 
 import io.netty.util.internal.StringUtil;
-import net.minestom.server.command.builder.NodeMaker;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
-import net.minestom.server.network.packet.server.play.DeclareCommandsPacket;
 import org.apache.commons.text.StringEscapeUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,18 +24,6 @@ public class ArgumentString extends Argument<String> {
     @Override
     public String parse(@NotNull String input) throws ArgumentSyntaxException {
         return staticParse(input);
-    }
-
-    @Override
-    public void processNodes(@NotNull NodeMaker nodeMaker, boolean executable) {
-        DeclareCommandsPacket.Node argumentNode = simpleArgumentNode(this, executable, false, false);
-
-        argumentNode.parser = "brigadier:string";
-        argumentNode.properties = packetWriter -> {
-            packetWriter.writeVarInt(1); // Quotable phrase
-        };
-
-        nodeMaker.addNodes(new DeclareCommandsPacket.Node[]{argumentNode});
     }
 
     @NotNull

@@ -17,7 +17,6 @@ public class EntityItemFrame extends ObjectEntity {
     public EntityItemFrame(@NotNull Position spawnPosition, @NotNull ItemFrameOrientation orientation) {
         super(EntityType.ITEM_FRAME, spawnPosition);
         this.orientation = orientation;
-        setNoGravity(true);
         setGravity(0f, 0f, 0f);
     }
 
@@ -33,7 +32,7 @@ public class EntityItemFrame extends ObjectEntity {
      */
     @NotNull
     public ItemStack getItemStack() {
-        return metadata.getIndex((byte) 7, ItemStack.getAirItem());
+        return metadata.getIndex((byte) 8, ItemStack.getAirItem());
     }
 
     /**
@@ -42,7 +41,7 @@ public class EntityItemFrame extends ObjectEntity {
      * @param itemStack the new item stack in the frame
      */
     public void setItemStack(@NotNull ItemStack itemStack) {
-        this.metadata.setIndex((byte) 7, Metadata.Slot(itemStack));
+        this.metadata.setIndex((byte) 8, Metadata.Slot(itemStack));
     }
 
     /**
@@ -52,7 +51,7 @@ public class EntityItemFrame extends ObjectEntity {
      */
     @NotNull
     public Rotation getRotation() {
-        final int ordinal = metadata.getIndex((byte) 8, 0);
+        final byte ordinal = metadata.getIndex((byte) 9, (byte) 0);
         return Rotation.values()[ordinal];
     }
 
@@ -62,7 +61,7 @@ public class EntityItemFrame extends ObjectEntity {
      * @param rotation the new item rotation
      */
     public void setRotation(@NotNull Rotation rotation) {
-        this.metadata.setIndex((byte) 8, Metadata.VarInt(rotation.ordinal()));
+        this.metadata.setIndex((byte) 9, Metadata.Byte((byte) rotation.ordinal()));
     }
 
     /**

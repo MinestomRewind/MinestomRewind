@@ -19,7 +19,7 @@ public class EntityBat extends EntityCreature implements Animal {
      * @return true if the bat is hanging, false otherwise
      */
     public boolean isHanging() {
-        return metadata.getIndex((byte) 15, 0) == 1;
+        return metadata.getIndex((byte) 16, 0) == 1;
     }
 
     /**
@@ -28,6 +28,6 @@ public class EntityBat extends EntityCreature implements Animal {
      * @param hanging true to make the bat hanging, false otherwise
      */
     public void setHanging(boolean hanging) {
-        this.metadata.setIndex((byte) 15, Metadata.Byte((byte) (hanging ? 1 : 0)));
+        this.metadata.setIndex((byte) 16, Metadata.Byte((byte) (hanging ? 1 : 0)));
     }
 }

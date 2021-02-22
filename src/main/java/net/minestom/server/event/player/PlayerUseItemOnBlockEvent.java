@@ -12,16 +12,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerUseItemOnBlockEvent extends PlayerEvent {
 
-    private final Player.Hand hand;
     private final ItemStack itemStack;
     private final BlockPosition position;
     private final Direction blockFace;
 
-    public PlayerUseItemOnBlockEvent(@NotNull Player player, @NotNull Player.Hand hand,
+    public PlayerUseItemOnBlockEvent(@NotNull Player player,
                                      @NotNull ItemStack itemStack,
                                      @NotNull BlockPosition position, @NotNull Direction blockFace) {
         super(player);
-        this.hand = hand;
         this.itemStack = itemStack;
         this.position = position;
         this.blockFace = blockFace;
@@ -45,16 +43,6 @@ public class PlayerUseItemOnBlockEvent extends PlayerEvent {
     @NotNull
     public Direction getBlockFace() {
         return blockFace;
-    }
-
-    /**
-     * Gets which hand the player used to interact with the block.
-     *
-     * @return the hand
-     */
-    @NotNull
-    public Player.Hand getHand() {
-        return hand;
     }
 
     /**

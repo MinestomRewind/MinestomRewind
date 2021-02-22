@@ -60,17 +60,17 @@ public class DynamicChunk extends Chunk {
 
     private long lastChangeTime;
 
-    public DynamicChunk(@Nullable Biome[] biomes, int chunkX, int chunkZ,
+    public DynamicChunk(@Nullable Biome[] biomes, int chunkX, int chunkZ, boolean hasSky,
                         @NotNull PaletteStorage blockPalette, @NotNull PaletteStorage customBlockPalette) {
-        super(biomes, chunkX, chunkZ, true);
+        super(biomes, chunkX, chunkZ, hasSky, true);
         this.blockPalette = blockPalette;
         this.customBlockPalette = customBlockPalette;
     }
 
-    public DynamicChunk(@Nullable Biome[] biomes, int chunkX, int chunkZ) {
-        this(biomes, chunkX, chunkZ,
-                new PaletteStorage(15, 2),
-                new PaletteStorage(15, 2));
+    public DynamicChunk(@Nullable Biome[] biomes, int chunkX, int chunkZ, boolean hasSky) {
+        this(biomes, chunkX, chunkZ, hasSky,
+                new PaletteStorage(),
+                new PaletteStorage());
     }
 
     @Override
@@ -389,16 +389,14 @@ public class DynamicChunk extends Chunk {
         fullDataPacket.chunkX = chunkX;
         fullDataPacket.chunkZ = chunkZ;
         fullDataPacket.paletteStorage = blockPalette.clone();
-        fullDataPacket.customBlockPaletteStorage = customBlockPalette.clone();
-        fullDataPacket.blockEntities = new IntOpenHashSet(blockEntities);
-        fullDataPacket.blocksData = new Int2ObjectOpenHashMap<>(blocksData);
+        fullDataPacket.skylight = hasSky;
         return fullDataPacket;
     }
 
     @NotNull
     @Override
     public Chunk copy(int chunkX, int chunkZ) {
-        DynamicChunk dynamicChunk = new DynamicChunk(biomes.clone(), chunkX, chunkZ);
+        DynamicChunk dynamicChunk = new DynamicChunk(biomes.clone(), chunkX, chunkZ, hasSky);
         dynamicChunk.blockPalette = blockPalette.clone();
         dynamicChunk.customBlockPalette = customBlockPalette.clone();
         dynamicChunk.blocksData.putAll(blocksData);

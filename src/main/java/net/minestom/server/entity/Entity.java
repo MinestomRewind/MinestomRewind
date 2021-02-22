@@ -838,6 +838,10 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
         return gravityTickCount;
     }
 
+    public boolean hasNoGravity() {
+        return false;
+    }
+
     /**
      * Changes the gravity of the entity.
      *
@@ -995,7 +999,6 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
      * @param sneaking true to make the entity sneak
      */
     public void setSneaking(boolean sneaking) {
-        setPose(sneaking ? Pose.SNEAKING : Pose.STANDING);
         // update the crouched metadata
         final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x02, (byte) (sneaking ? 1 : 0), (byte) 1);
         this.metadata.setIndex((byte) 0, Metadata.Byte(state));
@@ -1045,54 +1048,12 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
     }
 
     /**
-     * Gets if the entity is glowing or not.
-     *
-     * @return true if the entity is glowing, false otherwise
-     */
-    public boolean isGlowing() {
-        return (getStateMeta() & 0x40) != 0;
-    }
-
-    /**
-     * Sets or remove the entity glowing effect.
-     *
-     * @param glowing true to make the entity glows, false otherwise
-     */
-    public void setGlowing(boolean glowing) {
-        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x40, (byte) (glowing ? 1 : 0), (byte) 6);
-        this.metadata.setIndex((byte) 0, Metadata.Byte(state));
-    }
-
-    /**
-     * Gets the current entity pose.
-     *
-     * @return the entity pose
-     */
-    @NotNull
-    public Pose getPose() {
-        return metadata.getIndex((byte) 6, Pose.STANDING);
-    }
-
-    /**
-     * Changes the entity pose.
-     * <p>
-     * The internal {@code crouched} and {@code swimming} field will be
-     * updated accordingly.
-     *
-     * @param pose the new entity pose
-     */
-    @NotNull
-    public void setPose(@NotNull Pose pose) {
-        this.metadata.setIndex((byte) 6, Metadata.Pose(pose));
-    }
-
-    /**
      * Gets the entity custom name.
      *
      * @return the custom name of the entity, null if there is not
      */
     @Nullable
-    public JsonMessage getCustomName() {
+    public String getCustomName() {
         return metadata.getIndex((byte) 2, null);
     }
 
@@ -1101,8 +1062,8 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
      *
      * @param customName the custom name of the entity, null to remove it
      */
-    public void setCustomName(@Nullable JsonMessage customName) {
-        this.metadata.setIndex((byte) 2, Metadata.OptChat(customName));
+    public void setCustomName(@Nullable String customName) {
+        this.metadata.setIndex((byte) 2, Metadata.String(customName == null ? "" : customName));
     }
 
     /**
@@ -1111,7 +1072,7 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
      * @return true if the custom name is visible, false otherwise
      */
     public boolean isCustomNameVisible() {
-        return metadata.getIndex((byte) 3, false);
+        return metadata.getIndex((byte) 3, (byte) 0) == 1;
     }
 
     /**
@@ -1121,33 +1082,15 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
      * @param customNameVisible true to make the custom name visible, false otherwise
      */
     public void setCustomNameVisible(boolean customNameVisible) {
-        this.metadata.setIndex((byte) 3, Metadata.Boolean(customNameVisible));
+        this.metadata.setIndex((byte) 3, Metadata.Byte((byte) (customNameVisible ? 1 : 0)));
     }
 
     public boolean isSilent() {
-        return metadata.getIndex((byte) 4, false);
+        return metadata.getIndex((byte) 4, (byte) 0) == 1;
     }
 
     public void setSilent(boolean silent) {
-        this.metadata.setIndex((byte) 4, Metadata.Boolean(silent));
-    }
-
-    /**
-     * Gets the noGravity metadata field.
-     *
-     * @return true if the entity ignore gravity, false otherwise
-     */
-    public boolean hasNoGravity() {
-        return metadata.getIndex((byte) 5, false);
-    }
-
-    /**
-     * Changes the noGravity metadata field and change the gravity behaviour accordingly.
-     *
-     * @param noGravity should the entity ignore gravity
-     */
-    public void setNoGravity(boolean noGravity) {
-        this.metadata.setIndex((byte) 5, Metadata.Boolean(noGravity));
+        this.metadata.setIndex((byte) 4, Metadata.Byte((byte) (silent ? 1 : 0)));
     }
 
     /**
@@ -1380,16 +1323,6 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
      */
     public void askSynchronization() {
         this.lastAbsoluteSynchronizationTime = 0;
-    }
-
-    public enum Pose {
-        STANDING,
-        FALL_FLYING,
-        SLEEPING,
-        SWIMMING,
-        SPIN_ATTACK,
-        SNEAKING,
-        DYING
     }
 
     protected boolean shouldRemove() {

@@ -17,7 +17,6 @@ public class EntityArmorStand extends ObjectEntity implements EquipmentHandler {
 
     // Equipments
     private ItemStack mainHandItem;
-    private ItemStack offHandItem;
 
     private ItemStack helmet;
     private ItemStack chestplate;
@@ -38,7 +37,6 @@ public class EntityArmorStand extends ObjectEntity implements EquipmentHandler {
         setRightLegRotation(new Vector(1, 0, 1));
 
         this.mainHandItem = ItemStack.getAirItem();
-        this.offHandItem = ItemStack.getAirItem();
 
         this.helmet = ItemStack.getAirItem();
         this.chestplate = ItemStack.getAirItem();
@@ -61,26 +59,14 @@ public class EntityArmorStand extends ObjectEntity implements EquipmentHandler {
 
     @NotNull
     @Override
-    public ItemStack getItemInMainHand() {
+    public ItemStack getItemInHand() {
         return mainHandItem;
     }
 
     @Override
-    public void setItemInMainHand(@NotNull ItemStack itemStack) {
+    public void setItemInHand(@NotNull ItemStack itemStack) {
         this.mainHandItem = itemStack;
-        syncEquipment(EntityEquipmentPacket.Slot.MAIN_HAND);
-    }
-
-    @NotNull
-    @Override
-    public ItemStack getItemInOffHand() {
-        return offHandItem;
-    }
-
-    @Override
-    public void setItemInOffHand(@NotNull ItemStack itemStack) {
-        this.offHandItem = itemStack;
-        syncEquipment(EntityEquipmentPacket.Slot.OFF_HAND);
+        syncEquipment(EntityEquipmentPacket.Slot.HAND);
     }
 
     @NotNull
@@ -137,7 +123,7 @@ public class EntityArmorStand extends ObjectEntity implements EquipmentHandler {
 
     public void setSmall(boolean small) {
         final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x01, (byte) (small ? 1 : 0), (byte) 0);
-        this.metadata.setIndex((byte) 14, Metadata.Byte(state));
+        this.metadata.setIndex((byte) 10, Metadata.Byte(state));
 
         if (small) {
             setBoundingBox(0.25f, 0.9875f, 0.25f);
@@ -146,13 +132,31 @@ public class EntityArmorStand extends ObjectEntity implements EquipmentHandler {
         }
     }
 
+    public boolean hasGravity() {
+        return (getStateMeta() & 0x02) != 0;
+    }
+
+    public void setHasGravity(boolean hasGravity) {
+        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x02, (byte) (hasGravity ? 1 : 0), (byte) 2);
+        this.metadata.setIndex((byte) 10, Metadata.Byte(state));
+    }
+
+    @Override
+    public boolean hasNoGravity() {
+        return !hasGravity();
+    }
+
+    public void setNoGravity(boolean hasNoGravity) {
+        setHasGravity(!hasNoGravity);
+    }
+
     public boolean hasArms() {
         return (getStateMeta() & 0x04) != 0;
     }
 
     public void setHasArms(boolean hasArms) {
-        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x08, (byte) (hasArms ? 1 : 0), (byte) 2);
-        this.metadata.setIndex((byte) 14, Metadata.Byte(state));
+        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x04, (byte) (hasArms ? 1 : 0), (byte) 2);
+        this.metadata.setIndex((byte) 10, Metadata.Byte(state));
     }
 
     public boolean hasNoBasePlate() {
@@ -160,8 +164,8 @@ public class EntityArmorStand extends ObjectEntity implements EquipmentHandler {
     }
 
     public void setNoBasePlate(boolean noBasePlate) {
-        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x10, (byte) (noBasePlate ? 1 : 0), (byte) 3);
-        this.metadata.setIndex((byte) 14, Metadata.Byte(state));
+        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x08, (byte) (noBasePlate ? 1 : 0), (byte) 3);
+        this.metadata.setIndex((byte) 10, Metadata.Byte(state));
     }
 
     public boolean hasMarker() {
@@ -169,66 +173,66 @@ public class EntityArmorStand extends ObjectEntity implements EquipmentHandler {
     }
 
     public void setMarker(boolean setMarker) {
-        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x20, (byte) (setMarker ? 1 : 0), (byte) 4);
-        this.metadata.setIndex((byte) 14, Metadata.Byte(state));
+        final byte state = BitmaskUtil.changeBit(getStateMeta(), (byte) 0x10, (byte) (setMarker ? 1 : 0), (byte) 4);
+        this.metadata.setIndex((byte) 10, Metadata.Byte(state));
     }
 
     @NotNull
     public Vector getHeadRotation() {
-        return metadata.getIndex((byte) 15, new Vector(0, 0, 0));
+        return metadata.getIndex((byte) 11, new Vector(0, 0, 0));
     }
 
     public void setHeadRotation(@NotNull Vector headRotation) {
-        this.metadata.setIndex((byte) 15, Metadata.Rotation(headRotation));
+        this.metadata.setIndex((byte) 11, Metadata.Vector(headRotation));
     }
 
     @NotNull
     public Vector getBodyRotation() {
-        return metadata.getIndex((byte) 16, new Vector(0, 0, 0));
+        return metadata.getIndex((byte) 12, new Vector(0, 0, 0));
     }
 
     public void setBodyRotation(@NotNull Vector bodyRotation) {
-        this.metadata.setIndex((byte) 16, Metadata.Rotation(bodyRotation));
+        this.metadata.setIndex((byte) 12, Metadata.Vector(bodyRotation));
     }
 
     @NotNull
     public Vector getLeftArmRotation() {
-        return metadata.getIndex((byte) 17, new Vector(-10, 0, -10));
+        return metadata.getIndex((byte) 13, new Vector(-10, 0, -10));
     }
 
     public void setLeftArmRotation(@NotNull Vector leftArmRotation) {
-        this.metadata.setIndex((byte) 17, Metadata.Rotation(leftArmRotation));
+        this.metadata.setIndex((byte) 13, Metadata.Vector(leftArmRotation));
     }
 
     @NotNull
     public Vector getRightArmRotation() {
-        return metadata.getIndex((byte) 18, new Vector(-15, 0, 10));
+        return metadata.getIndex((byte) 14, new Vector(-15, 0, 10));
     }
 
     public void setRightArmRotation(@NotNull Vector rightArmRotation) {
-        this.metadata.setIndex((byte) 18, Metadata.Rotation(rightArmRotation));
+        this.metadata.setIndex((byte) 14, Metadata.Vector(rightArmRotation));
     }
 
     @NotNull
     public Vector getLeftLegRotation() {
-        return metadata.getIndex((byte) 19, new Vector(-1, 0, -1));
+        return metadata.getIndex((byte) 15, new Vector(-1, 0, -1));
     }
 
     public void setLeftLegRotation(@NotNull Vector leftLegRotation) {
-        this.metadata.setIndex((byte) 19, Metadata.Rotation(leftLegRotation));
+        this.metadata.setIndex((byte) 15, Metadata.Vector(leftLegRotation));
     }
 
     @NotNull
     public Vector getRightLegRotation() {
-        return metadata.getIndex((byte) 20, new Vector(1, 0, 1));
+        return metadata.getIndex((byte) 16, new Vector(1, 0, 1));
     }
 
     public void setRightLegRotation(@NotNull Vector rightLegRotation) {
-        this.metadata.setIndex((byte) 20, Metadata.Rotation(rightLegRotation));
+        this.metadata.setIndex((byte) 16, Metadata.Vector(rightLegRotation));
     }
 
     private byte getStateMeta() {
-        return metadata.getIndex((byte) 14, (byte) 0);
+        return metadata.getIndex((byte) 10, (byte) 0);
     }
 
     // Equipments

@@ -18,7 +18,7 @@ public class ExperienceOrb extends Entity {
 
 
     public ExperienceOrb(short experienceCount, @NotNull Position spawnPosition) {
-        super(null, spawnPosition);
+        super(null, spawnPosition); // TODO(koesie10): Implement experience orb spawning
         setGravity(0.02f, 0.04f, 1.96f);
         setBoundingBox(0.5f, 0.5f, 0.5f);
         //todo vanilla sets random velocity here?
@@ -39,9 +39,7 @@ public class ExperienceOrb extends Entity {
         // TODO slide toward nearest player
 
         //todo water movement
-        if (hasNoGravity()) {
-            setVelocity(getVelocity().add(0, -0.3f, 0));
-        }
+        setVelocity(getVelocity().add(0, -0.3f, 0));
 
         //todo lava
 

@@ -14,10 +14,10 @@ public class EntityIronGolem extends EntityCreature implements Constructable {
     }
 
     public boolean isPlayerCreated() {
-        return metadata.getIndex((byte) 15, 0) == 0x01;
+        return metadata.getIndex((byte) 16, (byte) 0) == 1;
     }
 
     public void setPlayerCreated(boolean playerCreated) {
-        this.metadata.setIndex((byte) 15, Metadata.Byte((byte) (playerCreated ? 0x01 : 0x00)));
+        this.metadata.setIndex((byte) 16, Metadata.Byte((byte) (playerCreated ? 1 : 0)));
     }
 }

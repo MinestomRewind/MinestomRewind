@@ -1,13 +1,11 @@
 package net.minestom.server.command.builder.arguments.minecraft;
 
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.command.builder.NodeMaker;
 import net.minestom.server.command.builder.arguments.Argument;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
-import net.minestom.server.network.packet.server.play.DeclareCommandsPacket;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.utils.entity.EntityFinder;
 import net.minestom.server.utils.math.IntRange;
@@ -69,24 +67,6 @@ public class ArgumentEntity extends Argument<EntityFinder> {
     @Override
     public EntityFinder parse(@NotNull String input) throws ArgumentSyntaxException {
         return staticParse(input, onlySingleEntity, onlyPlayers);
-    }
-
-    @Override
-    public void processNodes(@NotNull NodeMaker nodeMaker, boolean executable) {
-        DeclareCommandsPacket.Node argumentNode = simpleArgumentNode(this, executable, false, false);
-        argumentNode.parser = "minecraft:entity";
-        argumentNode.properties = packetWriter -> {
-            byte mask = 0;
-            if (this.isOnlySingleEntity()) {
-                mask += 1;
-            }
-            if (this.isOnlyPlayers()) {
-                mask += 2;
-            }
-            packetWriter.writeByte(mask);
-        };
-
-        nodeMaker.addNodes(new DeclareCommandsPacket.Node[]{argumentNode});
     }
 
     @NotNull

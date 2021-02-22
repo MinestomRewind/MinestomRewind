@@ -36,6 +36,7 @@ import net.minestom.server.utils.time.TimeUnit;
 import net.minestom.server.utils.time.UpdateOption;
 import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.DimensionType;
+import net.minestom.server.world.LevelType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,6 +64,7 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
     private boolean registered;
 
     private final DimensionType dimensionType;
+    private final LevelType levelType;
 
     private final WorldBorder worldBorder;
 
@@ -110,12 +112,12 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      *
      * @param uniqueId      the {@link UUID} of the instance
      * @param dimensionType the {@link DimensionType} of the instance
+     * @param levelType     the {@link LevelType} of the instance
      */
-    public Instance(@NotNull UUID uniqueId, @NotNull DimensionType dimensionType) {
-        Check.argCondition(!dimensionType.isRegistered(),
-                "The dimension " + dimensionType.getName() + " is not registered! Please use DimensionTypeManager#addDimension");
+    public Instance(@NotNull UUID uniqueId, @NotNull DimensionType dimensionType, @NotNull LevelType levelType) {
         this.uniqueId = uniqueId;
         this.dimensionType = dimensionType;
+        this.levelType = levelType;
 
         this.worldBorder = new WorldBorder(this);
     }
@@ -345,6 +347,15 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      */
     public DimensionType getDimensionType() {
         return dimensionType;
+    }
+
+    /**
+     * Gets the instance {@link LevelType}.
+     *
+     * @return the level type of the instance
+     */
+    public LevelType getLevelType() {
+        return levelType;
     }
 
     /**

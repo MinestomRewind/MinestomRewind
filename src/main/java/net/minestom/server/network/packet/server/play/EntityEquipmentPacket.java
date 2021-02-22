@@ -46,8 +46,7 @@ public class EntityEquipmentPacket implements ServerPacket {
     }
 
     public enum Slot {
-        MAIN_HAND,
-        OFF_HAND,
+        HAND,
         BOOTS,
         LEGGINGS,
         CHESTPLATE,

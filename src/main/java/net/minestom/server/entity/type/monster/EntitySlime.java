@@ -10,16 +10,16 @@ public class EntitySlime extends EntityCreature implements Monster {
 
     public EntitySlime(Position spawnPosition) {
         super(EntityType.SLIME, spawnPosition);
-        setSize(1);
+        setSize((byte) 1);
     }
 
-    public int getSize() {
-        return metadata.getIndex((byte) 15, 1);
+    public byte getSize() {
+        return metadata.getIndex((byte) 16, (byte) 1);
     }
 
-    public void setSize(int size) {
+    public void setSize(byte size) {
         final float boxSize = 0.51000005f * size;
         setBoundingBox(boxSize, boxSize, boxSize);
-        this.metadata.setIndex((byte) 15, Metadata.VarInt(size));
+        this.metadata.setIndex((byte) 16, Metadata.Byte(size));
     }
 }

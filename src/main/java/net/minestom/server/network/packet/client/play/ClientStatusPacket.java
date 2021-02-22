@@ -15,7 +15,8 @@ public class ClientStatusPacket extends ClientPlayPacket {
 
     public enum Action {
         PERFORM_RESPAWN,
-        REQUEST_STATS
+        REQUEST_STATS,
+        TAKING_INVENTORY_ACHIEVEMENT
     }
 
 }

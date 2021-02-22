@@ -13,11 +13,11 @@ public class EntityRabbit extends EntityCreature implements Animal {
         setBoundingBox(0.4f, 0.5f, 0.4f);
     }
 
-    public int getType() {
-        return metadata.getIndex((byte) 16, 0);
+    public byte getType() {
+        return metadata.getIndex((byte) 18, (byte) 0);
     }
 
-    public void setType(int type) {
-        this.metadata.setIndex((byte) 16, Metadata.VarInt(type));
+    public void setType(byte type) {
+        this.metadata.setIndex((byte) 18, Metadata.Byte(type));
     }
 }

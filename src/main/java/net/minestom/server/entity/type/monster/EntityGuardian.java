@@ -6,6 +6,7 @@ import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Metadata;
 import net.minestom.server.entity.type.Monster;
 import net.minestom.server.utils.Position;
+import net.minestom.server.utils.binary.BitmaskUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityGuardian extends EntityCreature implements Monster {
@@ -17,12 +18,22 @@ public class EntityGuardian extends EntityCreature implements Monster {
         setBoundingBox(0.85f, 0.85f, 0.85f);
     }
 
+    public boolean isElderly() {
+        return (metadata.getIndex((byte) 16, (byte) 0) & 0x02) != 0;
+    }
+
+    public void setElderly(boolean elderly) {
+        final byte state = BitmaskUtil.changeBit(metadata.getIndex((byte) 16, (byte) 0), (byte) 0x02, (byte) (elderly ? 1 : 0), (byte) 1);
+        this.metadata.setIndex((byte) 16, Metadata.Byte(state));
+    }
+
     public boolean isRetractingSpikes() {
-        return metadata.getIndex((byte) 15, false);
+        return (metadata.getIndex((byte) 16, (byte) 0) & 0x04) != 0;
     }
 
     public void setRetractingSpikes(boolean retractingSpikes) {
-        this.metadata.setIndex((byte) 15, Metadata.Boolean(retractingSpikes));
+        final byte state = BitmaskUtil.changeBit(metadata.getIndex((byte) 16, (byte) 0), (byte) 0x04, (byte) (retractingSpikes ? 1 : 0), (byte) 2);
+        this.metadata.setIndex((byte) 16, Metadata.Byte(state));
     }
 
     public Entity getTarget() {
@@ -31,6 +42,6 @@ public class EntityGuardian extends EntityCreature implements Monster {
 
     public void setTarget(@NotNull Entity target) {
         this.target = target;
-        this.metadata.setIndex((byte) 16, Metadata.VarInt(target.getEntityId()));
+        this.metadata.setIndex((byte) 17, Metadata.Int(target.getEntityId()));
     }
 }
