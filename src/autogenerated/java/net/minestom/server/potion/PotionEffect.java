@@ -20,11 +20,11 @@ public enum PotionEffect {
 
     STRENGTH("minecraft:Strength"),
 
-    INSTANTHEALTH("minecraft:InstantHealth"),
+    INSTANT_HEALTH("minecraft:InstantHealth"),
 
-    INSTANTDAMAGE("minecraft:InstantDamage"),
+    INSTANT_DAMAGE("minecraft:InstantDamage"),
 
-    JUMPBOOST("minecraft:JumpBoost"),
+    JUMP_BOOST("minecraft:JumpBoost"),
 
     NAUSEA("minecraft:Nausea"),
 
@@ -32,15 +32,15 @@ public enum PotionEffect {
 
     RESISTANCE("minecraft:Resistance"),
 
-    FIRERESISTANCE("minecraft:FireResistance"),
+    FIRE_RESISTANCE("minecraft:FireResistance"),
 
-    WATERBREATHING("minecraft:WaterBreathing"),
+    WATER_BREATHING("minecraft:WaterBreathing"),
 
     INVISIBILITY("minecraft:Invisibility"),
 
     BLINDNESS("minecraft:Blindness"),
 
-    NIGHTVISION("minecraft:NightVision"),
+    NIGHT_VISION("minecraft:NightVision"),
 
     HUNGER("minecraft:Hunger"),
 
@@ -50,7 +50,7 @@ public enum PotionEffect {
 
     WITHER("minecraft:Wither"),
 
-    HEALTHBOOST("minecraft:HealthBoost"),
+    HEALTH_BOOST("minecraft:HealthBoost"),
 
     ABSORPTION("minecraft:Absorption"),
 

@@ -10,108 +10,135 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum EntityType {
-    BOAT("minecraft:Boat", 1),
+    FISHING_FLOAT("minecraft:Fishing Float", 0, 90),
 
-    ITEM("minecraft:Item", 2),
+    ITEM("minecraft:Item", 1, 2),
 
-    MINECART_RIDEABLE("minecraft:MinecartRideable", 12),
+    THROWN_EGG("minecraft:ThrownEgg", 7, 62),
 
-    MOB("minecraft:Mob", 48),
+    LEASH_KNOT("minecraft:LeashKnot", 8, 77),
 
-    MONSTER("minecraft:Monster", 49),
+    ARROW("minecraft:Arrow", 10, 60),
 
-    CREEPER("minecraft:Creeper", 50),
+    SNOWBALL("minecraft:Snowball", 11, 61),
 
-    SKELETON("minecraft:Skeleton", 51),
+    FIREBALL("minecraft:Fireball", 12, 63),
 
-    SPIDER("minecraft:Spider", 52),
+    SMALL_FIREBALL("minecraft:SmallFireball", 13, 64),
 
-    GIANT("minecraft:Giant", 53),
+    THROWN_ENDERPEARL("minecraft:ThrownEnderpearl", 14, 65),
 
-    ZOMBIE("minecraft:Zombie", 54),
+    EYE_OF_ENDER_SIGNAL("minecraft:EyeOfEnderSignal", 15, 72),
 
-    SLIME("minecraft:Slime", 55),
+    THROWN_POTION("minecraft:ThrownPotion", 16, 73),
 
-    GHAST("minecraft:Ghast", 56),
+    THROWN_EXP_BOTTLE("minecraft:ThrownExpBottle", 17, 75),
 
-    PIG_ZOMBIE("minecraft:PigZombie", 57),
+    ITEM_FRAME("minecraft:ItemFrame", 18, 71),
 
-    ENDERMAN("minecraft:Enderman", 58),
+    WITHER_SKULL("minecraft:WitherSkull", 19, 66),
 
-    CAVE_SPIDER("minecraft:CaveSpider", 59),
+    PRIMED_TNT("minecraft:PrimedTnt", 20, 50),
 
-    SILVERFISH("minecraft:Silverfish", 60),
+    FALLING_SAND("minecraft:FallingSand", 21, 70),
 
-    BLAZE("minecraft:Blaze", 61),
+    FIREWORKS_ROCKET_ENTITY("minecraft:FireworksRocketEntity", 22, 76),
 
-    LAVA_SLIME("minecraft:LavaSlime", 62),
+    ARMOR_STAND("minecraft:ArmorStand", 30, 78),
 
-    ENDER_DRAGON("minecraft:EnderDragon", 63),
+    BOAT("minecraft:Boat", 41, 1),
 
-    WITHER_BOSS("minecraft:WitherBoss", 64),
+    MINECART_RIDEABLE("minecraft:MinecartRideable", 42, 10),
 
-    BAT("minecraft:Bat", 65),
+    MOB("minecraft:Mob", 48, 48),
 
-    WITCH("minecraft:Witch", 66),
+    MONSTER("minecraft:Monster", 49, 49),
 
-    ENDERMITE("minecraft:Endermite", 67),
+    CREEPER("minecraft:Creeper", 50, 50),
 
-    GUARDIAN("minecraft:Guardian", 68),
+    SKELETON("minecraft:Skeleton", 51, 51),
 
-    FALLING_SAND("minecraft:FallingSand", 74),
+    SPIDER("minecraft:Spider", 52, 52),
 
-    ITEM_FRAME("minecraft:ItemFrame", 71),
+    GIANT("minecraft:Giant", 53, 53),
 
-    EYE_OF_ENDER_SIGNAL("minecraft:EyeOfEnderSignal", 72),
+    ZOMBIE("minecraft:Zombie", 54, 54),
 
-    THROWN_POTION("minecraft:ThrownPotion", 73),
+    SLIME("minecraft:Slime", 55, 55),
 
-    THROWN_EXP_BOTTLE("minecraft:ThrownExpBottle", 75),
+    GHAST("minecraft:Ghast", 56, 56),
 
-    FIREWORKS_ROCKET_ENTITY("minecraft:FireworksRocketEntity", 76),
+    PIG_ZOMBIE("minecraft:PigZombie", 57, 57),
 
-    LEASH_KNOT("minecraft:LeashKnot", 77),
+    ENDERMAN("minecraft:Enderman", 58, 58),
 
-    ARMOR_STAND("minecraft:ArmorStand", 78),
+    CAVE_SPIDER("minecraft:CaveSpider", 59, 59),
 
-    PIG("minecraft:Pig", 90),
+    SILVERFISH("minecraft:Silverfish", 60, 60),
 
-    SHEEP("minecraft:Sheep", 91),
+    BLAZE("minecraft:Blaze", 61, 61),
 
-    COW("minecraft:Cow", 92),
+    LAVA_SLIME("minecraft:LavaSlime", 62, 62),
 
-    CHICKEN("minecraft:Chicken", 93),
+    ENDER_DRAGON("minecraft:EnderDragon", 63, 63),
 
-    SQUID("minecraft:Squid", 94),
+    WITHER_BOSS("minecraft:WitherBoss", 64, 64),
 
-    WOLF("minecraft:Wolf", 95),
+    BAT("minecraft:Bat", 65, 65),
 
-    MUSHROOM_COW("minecraft:MushroomCow", 96),
+    WITCH("minecraft:Witch", 66, 66),
 
-    SNOW_MAN("minecraft:SnowMan", 97),
+    ENDERMITE("minecraft:Endermite", 67, 67),
 
-    OZELOT("minecraft:Ozelot", 98),
+    GUARDIAN("minecraft:Guardian", 68, 68),
 
-    VILLAGER_GOLEM("minecraft:VillagerGolem", 99),
+    PIG("minecraft:Pig", 90, 90),
 
-    ENTITY_HORSE("minecraft:EntityHorse", 100),
+    SHEEP("minecraft:Sheep", 91, 91),
 
-    RABBIT("minecraft:Rabbit", 101),
+    COW("minecraft:Cow", 92, 92),
 
-    VILLAGER("minecraft:Villager", 120);
+    CHICKEN("minecraft:Chicken", 93, 93),
+
+    SQUID("minecraft:Squid", 94, 94),
+
+    WOLF("minecraft:Wolf", 95, 95),
+
+    MUSHROOM_COW("minecraft:MushroomCow", 96, 96),
+
+    SNOW_MAN("minecraft:SnowMan", 97, 97),
+
+    OZELOT("minecraft:Ozelot", 98, 98),
+
+    VILLAGER_GOLEM("minecraft:VillagerGolem", 99, 99),
+
+    ENTITY_HORSE("minecraft:EntityHorse", 100, 100),
+
+    RABBIT("minecraft:Rabbit", 101, 101),
+
+    VILLAGER("minecraft:Villager", 120, 120),
+
+    ENDER_CRYSTAL("minecraft:EnderCrystal", 200, 51);
 
     private String namespaceID;
 
     private int id;
 
-    EntityType(String namespaceID, int id) {
+    private int protocolId;
+
+    EntityType(String namespaceID, int id, int protocolId) {
         this.namespaceID = namespaceID;
         this.id = id;
+        this.protocolId = protocolId;
         Registries.entityTypes.put(NamespaceID.from(namespaceID), this);
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getProtocolId() {
+        return protocolId;
     }
 
     public String getNamespaceID() {

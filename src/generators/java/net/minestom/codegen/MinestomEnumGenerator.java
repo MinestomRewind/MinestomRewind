@@ -33,6 +33,7 @@ public abstract class MinestomEnumGenerator<Container> implements CodeGenerator 
         prepare(generator);
         Collection<Container> items = compile();
         for(Container c : items) {
+            System.out.println(c);
             writeSingle(generator, c);
         }
 

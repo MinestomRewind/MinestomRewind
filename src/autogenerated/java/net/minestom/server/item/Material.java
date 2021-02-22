@@ -23,9 +23,9 @@ public enum Material {
 
     COBBLESTONE("minecraft:cobblestone", 64, Block.COBBLESTONE),
 
-    PLANKS("minecraft:planks", 64, null),
+    PLANKS("minecraft:planks", 64, Block.PLANKS),
 
-    SAPLING("minecraft:sapling", 64, null),
+    SAPLING("minecraft:sapling", 64, Block.SAPLING),
 
     BEDROCK("minecraft:bedrock", 64, Block.BEDROCK),
 
@@ -39,9 +39,9 @@ public enum Material {
 
     COAL_ORE("minecraft:coal_ore", 64, Block.COAL_ORE),
 
-    LOG("minecraft:log", 64, null),
+    LOG("minecraft:log", 64, Block.LOG),
 
-    LEAVES("minecraft:leaves", 64, null),
+    LEAVES("minecraft:leaves", 64, Block.LEAVES),
 
     SPONGE("minecraft:sponge", 64, Block.SPONGE),
 
@@ -55,27 +55,27 @@ public enum Material {
 
     SANDSTONE("minecraft:sandstone", 64, Block.SANDSTONE),
 
-    NOTEBLOCK("minecraft:noteblock", 64, null),
+    NOTEBLOCK("minecraft:noteblock", 64, Block.NOTEBLOCK),
 
-    GOLDEN_RAIL("minecraft:golden_rail", 64, null),
+    GOLDEN_RAIL("minecraft:golden_rail", 64, Block.GOLDEN_RAIL),
 
     DETECTOR_RAIL("minecraft:detector_rail", 64, Block.DETECTOR_RAIL),
 
     STICKY_PISTON("minecraft:sticky_piston", 64, Block.STICKY_PISTON),
 
-    WEB("minecraft:web", 64, null),
+    WEB("minecraft:web", 64, Block.WEB),
 
-    TALLGRASS("minecraft:tallgrass", 64, null),
+    TALLGRASS("minecraft:tallgrass", 64, Block.TALLGRASS),
 
-    DEADBUSH("minecraft:deadbush", 64, null),
+    DEADBUSH("minecraft:deadbush", 64, Block.DEADBUSH),
 
     PISTON("minecraft:piston", 64, Block.PISTON),
 
-    WOOL("minecraft:wool", 64, null),
+    WOOL("minecraft:wool", 64, Block.WOOL),
 
-    YELLOW_FLOWER("minecraft:yellow_flower", 64, null),
+    YELLOW_FLOWER("minecraft:yellow_flower", 64, Block.YELLOW_FLOWER),
 
-    RED_FLOWER("minecraft:red_flower", 64, null),
+    RED_FLOWER("minecraft:red_flower", 64, Block.RED_FLOWER),
 
     BROWN_MUSHROOM("minecraft:brown_mushroom", 64, Block.BROWN_MUSHROOM),
 
@@ -87,7 +87,7 @@ public enum Material {
 
     STONE_SLAB("minecraft:stone_slab", 64, Block.STONE_SLAB),
 
-    BRICK_BLOCK("minecraft:brick_block", 64, null),
+    BRICK_BLOCK("minecraft:brick_block", 64, Block.BRICK_BLOCK),
 
     TNT("minecraft:tnt", 64, Block.TNT),
 
@@ -99,7 +99,7 @@ public enum Material {
 
     TORCH("minecraft:torch", 64, Block.TORCH),
 
-    MOB_SPAWNER("minecraft:mob_spawner", 64, null),
+    MOB_SPAWNER("minecraft:mob_spawner", 64, Block.MOB_SPAWNER),
 
     OAK_STAIRS("minecraft:oak_stairs", 64, Block.OAK_STAIRS),
 
@@ -115,7 +115,7 @@ public enum Material {
 
     FURNACE("minecraft:furnace", 64, Block.FURNACE),
 
-    LIT_FURNACE("minecraft:lit_furnace", 64, null),
+    LIT_FURNACE("minecraft:lit_furnace", 64, Block.LIT_FURNACE),
 
     LADDER("minecraft:ladder", 64, Block.LADDER),
 
@@ -127,7 +127,7 @@ public enum Material {
 
     STONE_PRESSURE_PLATE("minecraft:stone_pressure_plate", 64, Block.STONE_PRESSURE_PLATE),
 
-    WOODEN_PRESSURE_PLATE("minecraft:wooden_pressure_plate", 64, null),
+    WOODEN_PRESSURE_PLATE("minecraft:wooden_pressure_plate", 64, Block.WOODEN_PRESSURE_PLATE),
 
     REDSTONE_ORE("minecraft:redstone_ore", 64, Block.REDSTONE_ORE),
 
@@ -135,7 +135,7 @@ public enum Material {
 
     STONE_BUTTON("minecraft:stone_button", 64, Block.STONE_BUTTON),
 
-    SNOW_LAYER("minecraft:snow_layer", 64, null),
+    SNOW_LAYER("minecraft:snow_layer", 64, Block.SNOW_LAYER),
 
     ICE("minecraft:ice", 64, Block.ICE),
 
@@ -147,7 +147,7 @@ public enum Material {
 
     JUKEBOX("minecraft:jukebox", 64, Block.JUKEBOX),
 
-    FENCE("minecraft:fence", 64, null),
+    FENCE("minecraft:fence", 64, Block.FENCE),
 
     PUMPKIN("minecraft:pumpkin", 64, Block.PUMPKIN),
 
@@ -157,15 +157,15 @@ public enum Material {
 
     GLOWSTONE("minecraft:glowstone", 64, Block.GLOWSTONE),
 
-    LIT_PUMPKIN("minecraft:lit_pumpkin", 64, null),
+    LIT_PUMPKIN("minecraft:lit_pumpkin", 64, Block.LIT_PUMPKIN),
 
-    STAINED_GLASS("minecraft:stained_glass", 64, null),
+    STAINED_GLASS("minecraft:stained_glass", 64, Block.STAINED_GLASS),
 
-    TRAPDOOR("minecraft:trapdoor", 64, null),
+    TRAPDOOR("minecraft:trapdoor", 64, Block.TRAPDOOR),
 
-    MONSTER_EGG("minecraft:monster_egg", 64, null),
+    MONSTER_EGG("minecraft:monster_egg", 64, Block.MONSTER_EGG),
 
-    STONEBRICK("minecraft:stonebrick", 64, null),
+    STONEBRICK("minecraft:stonebrick", 64, Block.STONEBRICK),
 
     BROWN_MUSHROOM_BLOCK("minecraft:brown_mushroom_block", 64, Block.BROWN_MUSHROOM_BLOCK),
 
@@ -175,11 +175,11 @@ public enum Material {
 
     GLASS_PANE("minecraft:glass_pane", 64, Block.GLASS_PANE),
 
-    MELON_BLOCK("minecraft:melon_block", 64, null),
+    MELON_BLOCK("minecraft:melon_block", 64, Block.MELON_BLOCK),
 
     VINE("minecraft:vine", 64, Block.VINE),
 
-    FENCE_GATE("minecraft:fence_gate", 64, null),
+    FENCE_GATE("minecraft:fence_gate", 64, Block.FENCE_GATE),
 
     BRICK_STAIRS("minecraft:brick_stairs", 64, Block.BRICK_STAIRS),
 
@@ -187,9 +187,9 @@ public enum Material {
 
     MYCELIUM("minecraft:mycelium", 64, Block.MYCELIUM),
 
-    WATERLILY("minecraft:waterlily", 64, null),
+    WATERLILY("minecraft:waterlily", 64, Block.WATERLILY),
 
-    NETHER_BRICK("minecraft:nether_brick", 64, null),
+    NETHER_BRICK("minecraft:nether_brick", 64, Block.NETHER_BRICK),
 
     NETHER_BRICK_FENCE("minecraft:nether_brick_fence", 64, Block.NETHER_BRICK_FENCE),
 
@@ -205,7 +205,7 @@ public enum Material {
 
     REDSTONE_LAMP("minecraft:redstone_lamp", 64, Block.REDSTONE_LAMP),
 
-    WOODEN_SLAB("minecraft:wooden_slab", 64, null),
+    WOODEN_SLAB("minecraft:wooden_slab", 64, Block.WOODEN_SLAB),
 
     SANDSTONE_STAIRS("minecraft:sandstone_stairs", 64, Block.SANDSTONE_STAIRS),
 
@@ -229,7 +229,7 @@ public enum Material {
 
     COBBLESTONE_WALL("minecraft:cobblestone_wall", 64, Block.COBBLESTONE_WALL),
 
-    WOODEN_BUTTON("minecraft:wooden_button", 64, null),
+    WOODEN_BUTTON("minecraft:wooden_button", 64, Block.WOODEN_BUTTON),
 
     ANVIL("minecraft:anvil", 64, Block.ANVIL),
 
@@ -243,7 +243,7 @@ public enum Material {
 
     REDSTONE_BLOCK("minecraft:redstone_block", 64, Block.REDSTONE_BLOCK),
 
-    QUARTZ_ORE("minecraft:quartz_ore", 64, null),
+    QUARTZ_ORE("minecraft:quartz_ore", 64, Block.QUARTZ_ORE),
 
     HOPPER("minecraft:hopper", 64, Block.HOPPER),
 
@@ -255,19 +255,19 @@ public enum Material {
 
     DROPPER("minecraft:dropper", 64, Block.DROPPER),
 
-    STAINED_HARDENED_CLAY("minecraft:stained_hardened_clay", 64, null),
+    STAINED_HARDENED_CLAY("minecraft:stained_hardened_clay", 64, Block.STAINED_HARDENED_CLAY),
 
-    STAINED_GLASS_PANE("minecraft:stained_glass_pane", 64, null),
+    STAINED_GLASS_PANE("minecraft:stained_glass_pane", 64, Block.STAINED_GLASS_PANE),
 
-    LEAVES2("minecraft:leaves2", 64, null),
+    LEAVES2("minecraft:leaves2", 64, Block.LEAVES2),
 
-    LOG2("minecraft:log2", 64, null),
+    LOG2("minecraft:log2", 64, Block.LOG2),
 
     ACACIA_STAIRS("minecraft:acacia_stairs", 64, Block.ACACIA_STAIRS),
 
     DARK_OAK_STAIRS("minecraft:dark_oak_stairs", 64, Block.DARK_OAK_STAIRS),
 
-    SLIME("minecraft:slime", 64, null),
+    SLIME("minecraft:slime", 64, Block.SLIME),
 
     BARRIER("minecraft:barrier", 64, Block.BARRIER),
 
@@ -279,21 +279,21 @@ public enum Material {
 
     HAY_BLOCK("minecraft:hay_block", 64, Block.HAY_BLOCK),
 
-    CARPET("minecraft:carpet", 64, null),
+    CARPET("minecraft:carpet", 64, Block.CARPET),
 
-    HARDENED_CLAY("minecraft:hardened_clay", 64, null),
+    HARDENED_CLAY("minecraft:hardened_clay", 64, Block.HARDENED_CLAY),
 
     COAL_BLOCK("minecraft:coal_block", 64, Block.COAL_BLOCK),
 
     PACKED_ICE("minecraft:packed_ice", 64, Block.PACKED_ICE),
 
-    DOUBLE_PLANT("minecraft:double_plant", 64, null),
+    DOUBLE_PLANT("minecraft:double_plant", 64, Block.DOUBLE_PLANT),
 
     RED_SANDSTONE("minecraft:red_sandstone", 64, Block.RED_SANDSTONE),
 
     RED_SANDSTONE_STAIRS("minecraft:red_sandstone_stairs", 64, Block.RED_SANDSTONE_STAIRS),
 
-    STONE_SLAB2("minecraft:stone_slab2", 64, null),
+    STONE_SLAB2("minecraft:stone_slab2", 64, Block.STONE_SLAB2),
 
     SPRUCE_FENCE_GATE("minecraft:spruce_fence_gate", 64, Block.SPRUCE_FENCE_GATE),
 
@@ -451,7 +451,7 @@ public enum Material {
 
     SIGN("minecraft:sign", 64, null),
 
-    WOODEN_DOOR("minecraft:wooden_door", 64, null),
+    WOODEN_DOOR("minecraft:wooden_door", 64, Block.WOODEN_DOOR),
 
     BUCKET("minecraft:bucket", 16, null),
 
@@ -479,7 +479,7 @@ public enum Material {
 
     CLAY_BALL("minecraft:clay_ball", 64, null),
 
-    REEDS("minecraft:reeds", 64, null),
+    REEDS("minecraft:reeds", 64, Block.REEDS),
 
     PAPER("minecraft:paper", 64, null),
 
@@ -513,7 +513,7 @@ public enum Material {
 
     CAKE("minecraft:cake", 1, Block.CAKE),
 
-    BED("minecraft:bed", 1, null),
+    BED("minecraft:bed", 1, Block.BED),
 
     REPEATER("minecraft:repeater", 64, Block.UNPOWERED_REPEATER),
 
@@ -597,7 +597,7 @@ public enum Material {
 
     GOLDEN_CARROT("minecraft:golden_carrot", 64, null),
 
-    SKULL("minecraft:skull", 64, null),
+    SKULL("minecraft:skull", 64, Block.SKULL),
 
     CARROT_ON_A_STICK("minecraft:carrot_on_a_stick", 64, null),
 

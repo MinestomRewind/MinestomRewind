@@ -156,6 +156,14 @@ public abstract class BasicPrismarineEnumGenerator extends MinestomEnumGenerator
         public int compareTo(Container o) {
             return Integer.compare(id, o.id);
         }
+
+        @Override
+        public String toString() {
+            return "Container{" +
+                    "id=" + id +
+                    ", name=" + name +
+                    '}';
+        }
     }
 
     static class DataItem {

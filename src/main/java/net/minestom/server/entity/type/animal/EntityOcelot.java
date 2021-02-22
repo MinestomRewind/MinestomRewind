@@ -7,8 +7,7 @@ import net.minestom.server.utils.Position;
 
 public class EntityOcelot extends EntityCreature implements Animal {
     public EntityOcelot(Position spawnPosition) {
-        // super(EntityType.OCELOT, spawnPosition); TODO(koesie10): Fix OCELOT Not appearing in entity types
-        super(null, spawnPosition);
+        super(EntityType.OZELOT, spawnPosition);
         setBoundingBox(0.6f, 0.7f, 0.6f);
     }
 }
