@@ -32,7 +32,9 @@ public class AxisPlacementRule extends BlockPlacementRule {
         } else if (blockFace == BlockFace.SOUTH || blockFace == BlockFace.NORTH) {
             axis = "z";
         }
-        return block.withProperties("axis=" + axis);
+        // TODO(koesie10): Fix placement rules
+        return 0;
+//        return block.withProperties("axis=" + axis);
     }
 
 }

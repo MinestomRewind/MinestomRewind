@@ -194,10 +194,6 @@ public class InstanceContainer extends Instance {
 
             final CustomBlock previousBlock = chunk.getCustomBlock(index);
             final Data previousBlockData = previousBlock != null ? chunk.getBlockData(index) : null;
-            if (previousBlock != null) {
-                // Remove digging information for the previous custom block
-                previousBlock.removeDiggingInformation(this, blockPosition);
-            }
 
             // Change id based on neighbors
             blockStateId = executeBlockPlacementRule(blockStateId, blockPosition);
@@ -360,8 +356,6 @@ public class InstanceContainer extends Instance {
 
     @Override
     public boolean breakBlock(@NotNull Player player, @NotNull BlockPosition blockPosition) {
-        player.resetTargetBlock();
-
         final Chunk chunk = getChunkAt(blockPosition);
         Check.notNull(chunk, "You cannot break blocks in a null chunk!");
 
@@ -406,7 +400,7 @@ public class InstanceContainer extends Instance {
                 PacketUtils.sendGroupedPacket(chunk.getViewers(), effectPacket,
                         (viewer) -> {
                             // Prevent the block breaker to play the particles and sound two times
-                            return (customBlock != null && customBlock.enableCustomBreakDelay()) || !viewer.equals(player);
+                            return !viewer.equals(player);
                         });
             }
 

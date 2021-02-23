@@ -2,7 +2,6 @@ package net.minestom.codegen.blocks;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.squareup.javapoet.*;
 import net.minestom.codegen.EnumGenerator;
@@ -10,6 +9,7 @@ import net.minestom.codegen.MinestomEnumGenerator;
 import net.minestom.codegen.PrismarinePaths;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockAlternative;
+import net.minestom.server.instance.block.BlockVariation;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.utils.NamespaceID;
 import org.jetbrains.annotations.NotNull;
@@ -19,8 +19,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.lang.model.element.Modifier;
 import java.io.*;
-import java.net.URL;
+import java.text.Normalizer;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Generates a Block enum containing all data about blocks
@@ -31,8 +32,6 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
 
     private final String targetVersion;
     private final File targetFolder;
-
-    private final CodeBlock.Builder staticBlock = CodeBlock.builder();
 
 
     public static void main(String[] args) throws IOException {
@@ -84,20 +83,17 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
             PrismarineJSBlock prismarine = prismarineJSBlocks.get(i);
             BurgerBlock burger = burgerBlocks.get(i);
 
-            BlockContainer.BlockVariation defaultVariation = new BlockContainer.BlockVariation((short) 0);
-
-            List<BlockContainer.BlockVariation> variations = new LinkedList<>();
-            if (prismarine.variations == null) {
-                variations.add(defaultVariation);
-            } else {
+            List<BlockContainer.BlockVariation> variations = null;
+            if (prismarine.variations != null) {
+                variations = new LinkedList<>();
                 for (PrismarineJSBlock.Variation s : prismarine.variations) {
-                    variations.add(new BlockContainer.BlockVariation(s.metadata));
+                    variations.add(new BlockContainer.BlockVariation(s.metadata, s.displayName));
                 }
             }
 
             NamespaceID name = NamespaceID.from("minecraft", prismarine.name);
 
-            BlockContainer block = new BlockContainer(prismarine.id, name, prismarine.hardness, burger.resistance, burger.blockEntity == null ? null : NamespaceID.from(burger.blockEntity.name), defaultVariation, variations);
+            BlockContainer block = new BlockContainer(prismarine.id, name, prismarine.hardness, burger.resistance, burger.blockEntity == null ? null : NamespaceID.from(burger.blockEntity.name), variations);
             if (!"empty".equals(prismarine.boundingBox)) {
                 block.setSolid();
             }
@@ -167,6 +163,16 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         }
     }
 
+    private static final Pattern NONLATIN = Pattern.compile("[^\\w_]");
+    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
+
+    public static String toSlug(String input) {
+        String nowhitespace = WHITESPACE.matcher(input).replaceAll("_");
+        String normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD);
+        String slug = NONLATIN.matcher(normalized).replaceAll("");
+        return slug.toUpperCase(Locale.ENGLISH);
+    }
+
     @Override
     public String getPackageName() {
         return "net.minestom.server.instance.block";
@@ -210,10 +216,9 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
                 ParameterSpec.builder(TypeName.BOOLEAN, "isAir").build(),
                 ParameterSpec.builder(TypeName.BOOLEAN, "isSolid").build(),
                 ParameterSpec.builder(NamespaceID.class, "blockEntity").addAnnotation(Nullable.class).build(),
-                ParameterSpec.builder(TypeName.BOOLEAN, "singleState").build()
+                ParameterSpec.builder(ParameterizedTypeName.get(List.class, BlockVariation.class), "variations").addAnnotation(Nullable.class).build(),
+                ParameterSpec.builder(BlockVariation[].class, "variationsArray").addAnnotation(Nullable.class).build()
         );
-
-        generator.addHardcodedField(ParameterizedTypeName.get(List.class, BlockAlternative.class), "alternatives", "new java.util.ArrayList<>()");
 
         generator.addMethod("getBlockId", new ParameterSpec[0], TypeName.SHORT, code -> code.addStatement("return id"));
         generator.addMethod("getName", new ParameterSpec[0], ClassName.get(String.class), code -> code.addStatement("return namespaceID"));
@@ -225,56 +230,56 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         generator.addMethod("getHardness", new ParameterSpec[0], TypeName.DOUBLE, code -> code.addStatement("return hardness"));
         generator.addMethod("getResistance", new ParameterSpec[0], TypeName.DOUBLE, code -> code.addStatement("return resistance"));
         generator.addMethod("breaksInstantaneously", new ParameterSpec[0], TypeName.BOOLEAN, code -> code.addStatement("return hardness == 0"));
-        generator.addMethod("addBlockAlternative", new ParameterSpec[]{ParameterSpec.builder(BlockAlternative.class, "alternative").build()}, TypeName.VOID, code -> {
-            code.addStatement("alternatives.add(alternative)")
-                    .addStatement("$T.blocks[alternative.getId()] = this", ClassName.get("net.minestom.server.instance.block", "BlockArray"));
-        });
 
-        generator.addMethod("getAlternative", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockId").build()}, ClassName.get(BlockAlternative.class), code -> {
-            code.beginControlFlow("for($T alt : alternatives)", BlockAlternative.class)
-                    .beginControlFlow("if(alt.getId() == blockId)")
-                    .addStatement("return alt")
+        generator.addMethod("getVariation", new ParameterSpec[]{ParameterSpec.builder(TypeName.BYTE, "metadata").build()}, ClassName.get(BlockVariation.class), code -> {
+            code.beginControlFlow("if(metadata < 0 || metadata > 15 || variations == null)")
+                    .addStatement("return null")
                     .endControlFlow()
-                    .endControlFlow()
-                    .addStatement("return null");
+                    .addStatement("return $N[$N]", "variationsArray", "metadata");
         });
-        generator.addMethod("getAlternatives", new ParameterSpec[0], ParameterizedTypeName.get(List.class, BlockAlternative.class), code -> code.addStatement("return alternatives"));
-        generator.addVarargMethod("withProperties", new ParameterSpec[]{ParameterSpec.builder(String[].class, "properties").build()}, TypeName.SHORT, code -> {
-            code.beginControlFlow("for($T alt : alternatives)", BlockAlternative.class)
-                    .beginControlFlow("if($T.equals(alt.getProperties(), properties))", Arrays.class)
-                    .addStatement("return alt.getId()")
-                    .endControlFlow()
-                    .endControlFlow()
-                    .addStatement("return id");
-        });
-        generator.addStaticMethod("fromStateId", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockStateId").build()}, className, code -> code.addStatement("return $T.blocks[blockStateId]", ClassName.get("net.minestom.server.instance.block", "BlockArray")));
+        generator.addMethod("getVariations", new ParameterSpec[0], ParameterizedTypeName.get(List.class, BlockVariation.class), code -> code.addStatement("return variations"));
+        generator.addMethod("toStateId", new ParameterSpec[]{ParameterSpec.builder(TypeName.BYTE, "metadata").build()}, TypeName.SHORT, code -> code.addStatement("return (short) ((id << 4) | (metadata & 15))"));
+        generator.addStaticMethod("fromStateId", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockStateId").build()}, className, code -> code.addStatement("return $T.blocks[blockStateId >> 4]", ClassName.get("net.minestom.server.instance.block", "BlockArray")));
         generator.appendToConstructor(code -> {
-            code.beginControlFlow("if(singleState)")
-                    .addStatement("addBlockAlternative(new BlockAlternative(id))")
-                    .endControlFlow()
+            code
+                    .addStatement("$T.blocks[id] = this", ClassName.get("net.minestom.server.instance.block", "BlockArray"))
                     .addStatement("$T.blocks.put($T.from(namespaceID), this)", Registries.class, NamespaceID.class);
         });
     }
 
     @Override
     protected void writeSingle(EnumGenerator generator, BlockContainer block) {
+        String blockName = snakeCaseToCapitalizedCamelCase(block.getId().getPath());
+        blockName = blockName.replace("_", "");
+        ClassName blockClass = ClassName.get(getPackageName() + ".states", blockName);
+
         String instanceName = block.getId().getPath().toUpperCase();
-        generator.addInstance(instanceName,
+
+        StringBuilder format = new StringBuilder("$L, $L, $L, $L, $L, $L, $L");
+
+        List<Object> arguments = new ArrayList<>(Arrays.asList(
                 "\"" + block.getId().toString() + "\"",
                 "(short) " + block.getOrdinal(),
                 block.getHardness(),
                 block.getResistance(),
                 block.isAir(),
                 block.isSolid(),
-                block.getBlockEntityName() != null ? "NamespaceID.from(\"" + block.getBlockEntityName() + "\")" : "null",
-                block.getVariations().size() == 1 // used to avoid duplicates inside the 'alternatives' field due to both constructor addition and subclasses initStates()
-        );
+                block.getBlockEntityName() != null ? "NamespaceID.from(\"" + block.getBlockEntityName() + "\")" : "null"
+        ));
 
-        if (block.getVariations().size() > 1) {
-            String blockName = snakeCaseToCapitalizedCamelCase(block.getId().getPath());
-            blockName = blockName.replace("_", "");
-            staticBlock.addStatement("$T.initStates()", ClassName.get(getPackageName() + ".states", blockName));
+        if (block.getVariations() != null) {
+            format.append(", $T.$N, $T.$N");
+            arguments.add(blockClass);
+            arguments.add("variations");
+            arguments.add(blockClass);
+            arguments.add("variationsArray");
+        } else {
+            format.append(", $L, $L");
+            arguments.add(null);
+            arguments.add(null);
         }
+
+        generator.addInstance(instanceName, TypeSpec.anonymousClassBuilder(format.toString(), arguments.toArray()).build());
     }
 
     @Override
@@ -289,40 +294,49 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
 
         LOGGER.debug("Writing subclasses for block alternatives...");
 
-        final String warningComment = "Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.";
-        final AnnotationSpec internalUseAnnotation = AnnotationSpec.builder(Deprecated.class).addMember("since", "$S", "forever").addMember("forRemoval", "$L", false).build();
         for (BlockContainer block : items) {
-            // do not add alternative for default states. This will be added by default inside the constructor
-            if (block.getVariations().size() > 1) {
-                String blockName = snakeCaseToCapitalizedCamelCase(block.getId().getPath());
-                blockName = blockName.replace("_", "");
-                TypeSpec.Builder subclass = TypeSpec.classBuilder(blockName)
-                        .addAnnotation(internalUseAnnotation)
-                        .addJavadoc(warningComment)
-                        .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
-
-                MethodSpec.Builder initStatesMethod = MethodSpec.methodBuilder("initStates")
-                        .returns(TypeName.VOID)
-                        .addModifiers(Modifier.STATIC, Modifier.PUBLIC)
-                        .addAnnotation(internalUseAnnotation)
-                        .addJavadoc(warningComment);
-
-                for (BlockContainer.BlockVariation state : block.getVariations()) {
-                    if (state == block.getDefaultVariation())
-                        continue;
-                    // generate BlockAlternative instance that will be used to lookup block alternatives
-                    StringBuilder propertyList = new StringBuilder();
-                    // TODO(koesie10): Fix block states
-                    initStatesMethod.addStatement("$T.$N.addBlockAlternative(new $T((short) $L" + propertyList + "))", Block.class, block.getId().getPath().toUpperCase(), BlockAlternative.class, block.getOrdinal());
-                }
-                subclass.addMethod(initStatesMethod.build());
-                staticBlock.addStatement("$T.initStates()", ClassName.get(getPackageName() + ".states", blockName));
-
-                additionalFiles.add(JavaFile.builder(getPackageName() + ".states", subclass.build())
-                        .indent("    ")
-                        .skipJavaLangImports(true)
-                        .build());
+            if (block.getVariations() == null) {
+                continue;
             }
+
+            String blockName = snakeCaseToCapitalizedCamelCase(block.getId().getPath());
+            blockName = blockName.replace("_", "");
+            TypeSpec.Builder subclass = TypeSpec.classBuilder(blockName)
+                    .addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+
+            ParameterizedTypeName blockVariationListType = ParameterizedTypeName.get(List.class, BlockVariation.class);
+            FieldSpec.Builder variationsField = FieldSpec.builder(blockVariationListType, "variations")
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC);
+
+            FieldSpec.Builder variationsArrayField = FieldSpec.builder(BlockVariation[].class, "variationsArray")
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                    .initializer("new $T[16]", BlockVariation.class);
+
+            CodeBlock.Builder staticBlock = CodeBlock.builder()
+                    .addStatement("$T list = new $T($L)", blockVariationListType, ParameterizedTypeName.get(ArrayList.class, BlockVariation.class), block.getVariations().size());
+
+            for (BlockContainer.BlockVariation variation : block.getVariations()) {
+                String fieldName = toSlug(variation.getDisplayName());
+                FieldSpec.Builder field = FieldSpec.builder(BlockVariation.class, fieldName)
+                        .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                        .initializer("new $T($L, $S)", BlockVariation.class, "(byte) " + variation.getMetadata(), variation.getDisplayName());
+
+                staticBlock.addStatement("$N.add($N)", "list", fieldName);
+                staticBlock.addStatement("$N[$L]= $N", "variationsArray", variation.getMetadata(), fieldName);
+
+                subclass.addField(field.build());
+            }
+
+            staticBlock.addStatement("$N = $T.$N($N)", "variations", Collections.class, "unmodifiableList", "list");
+
+            subclass.addField(variationsField.build());
+            subclass.addField(variationsArrayField.build());
+            subclass.addStaticBlock(staticBlock.build());
+
+            additionalFiles.add(JavaFile.builder(getPackageName() + ".states", subclass.build())
+                    .indent("    ")
+                    .skipJavaLangImports(true)
+                    .build());
         }
 
         return additionalFiles;
@@ -330,7 +344,6 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
 
     @Override
     protected void postWrite(EnumGenerator generator) {
-        generator.setStaticInitBlock(staticBlock.build());
     }
 
     @Override

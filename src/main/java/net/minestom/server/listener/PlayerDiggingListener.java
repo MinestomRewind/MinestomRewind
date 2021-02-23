@@ -53,41 +53,16 @@ public class PlayerDiggingListener {
                     addEffect(player);
 
                     // Unsuccessful digging
-                    sendAcknowledgePacket(player, blockPosition, blockStateId,
-                            ClientPlayerDiggingPacket.Status.STARTED_DIGGING, false);
-                } else if (customBlock != null) {
-                    // Start digging the custom block
-                    if (customBlock.enableCustomBreakDelay()) {
-                        customBlock.startDigging(instance, blockPosition, player);
-                        addEffect(player);
-                    }
-
-                    sendAcknowledgePacket(player, blockPosition, blockStateId,
-                            ClientPlayerDiggingPacket.Status.STARTED_DIGGING, true);
+                    // TODO(koesie10): Send back packet to make sure the block is not removed
                 }
             }
 
         } else if (status == ClientPlayerDiggingPacket.Status.CANCELLED_DIGGING) {
-
-            final short blockStateId = instance.getBlockStateId(blockPosition);
-            // Remove custom block target
-            player.resetTargetBlock();
-
-            sendAcknowledgePacket(player, blockPosition, blockStateId,
-                    ClientPlayerDiggingPacket.Status.CANCELLED_DIGGING, true);
-
+            // Do nothing
         } else if (status == ClientPlayerDiggingPacket.Status.FINISHED_DIGGING) {
 
             final short blockStateId = instance.getBlockStateId(blockPosition);
-            final CustomBlock customBlock = instance.getCustomBlock(blockPosition);
-            if (customBlock != null && customBlock.enableCustomBreakDelay()) {
-                // Is not supposed to happen, probably a bug
-                sendAcknowledgePacket(player, blockPosition, blockStateId,
-                        ClientPlayerDiggingPacket.Status.FINISHED_DIGGING, false);
-            } else {
-                // Vanilla block
-                breakBlock(instance, player, blockPosition, blockStateId);
-            }
+            breakBlock(instance, player, blockPosition, blockStateId);
 
         } else if (status == ClientPlayerDiggingPacket.Status.DROP_ITEM_STACK) {
 
@@ -125,9 +100,6 @@ public class PlayerDiggingListener {
     }
 
     private static void breakBlock(Instance instance, Player player, BlockPosition blockPosition, int blockStateId) {
-        // Finished digging, remove effect if any
-        player.resetTargetBlock();
-
         // Unverified block break, client is fully responsible
         final boolean result = instance.breakBlock(player, blockPosition);
 
@@ -135,10 +107,6 @@ public class PlayerDiggingListener {
         final ClientPlayerDiggingPacket.Status status = result ?
                 ClientPlayerDiggingPacket.Status.FINISHED_DIGGING :
                 ClientPlayerDiggingPacket.Status.CANCELLED_DIGGING;
-
-        // Send acknowledge packet to allow or cancel the digging process
-        sendAcknowledgePacket(player, blockPosition, updatedBlockId,
-                status, result);
 
         if (!result) {
             final boolean solid = Block.fromStateId((short) blockStateId).isSolid();
@@ -202,20 +170,6 @@ public class PlayerDiggingListener {
             removeEntityEffectPacket.effect = PotionEffect.MINING_FATIGUE;
             player.getPlayerConnection().sendPacket(removeEntityEffectPacket);
         }
-    }
-
-    /**
-     * Sends an {@link AcknowledgePlayerDiggingPacket} to a connection.
-     *
-     * @param player        the player
-     * @param blockPosition the block position
-     * @param blockStateId  the block state id
-     * @param status        the status of the digging
-     * @param success       true to notify of a success, false otherwise
-     */
-    private static void sendAcknowledgePacket(@NotNull Player player, @NotNull BlockPosition blockPosition, int blockStateId,
-                                              @NotNull ClientPlayerDiggingPacket.Status status, boolean success) {
-        // TODO(koesie10): Look into all cases
     }
 
 }

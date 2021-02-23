@@ -94,7 +94,9 @@ public class RedstonePlacementRule extends BlockPlacementRule {
                 "south=" + south,
                 "west=" + west};
 
-        return Block.REDSTONE_WIRE.withProperties(properties);
+        // TODO(koesie10: Fix placement rules
+        return 0;
+//        return Block.REDSTONE_WIRE.withProperties(properties);
     }
 
     @Override

@@ -46,16 +46,6 @@ public class UpdatableBlockDemo extends CustomBlock {
     }
 
     @Override
-    public int getBreakDelay(@NotNull Player player, @NotNull BlockPosition position, byte stage, Set<Player> breakers) {
-        return 1;
-    }
-
-    @Override
-    public boolean enableCustomBreakDelay() {
-        return true;
-    }
-
-    @Override
     public short getCustomBlockId() {
         return 1;
     }

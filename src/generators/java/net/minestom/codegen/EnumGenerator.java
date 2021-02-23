@@ -54,6 +54,10 @@ public class EnumGenerator implements CodeGenerator {
         instances.add(new Instance(name, parameters));
     }
 
+    public void addInstance(String name, TypeSpec arguments) {
+        instances.add(new Instance(name, arguments));
+    }
+
     public List<JavaFile> generate() {
         TypeSpec.Builder enumClass = TypeSpec.enumBuilder(ClassName.get(enumPackage, enumName)).addModifiers(Modifier.PUBLIC);
 
@@ -63,16 +67,22 @@ public class EnumGenerator implements CodeGenerator {
         }
 
         for(Instance instance : instances) {
-            StringBuilder format = new StringBuilder();
-            for (int i = 0; i < instance.parameters.length; i++) {
-                if (i != 0) {
-                    format.append(", ");
+            TypeSpec arguments;
+            if (instance.arguments != null) {
+                arguments = instance.arguments;
+            } else {
+                StringBuilder format = new StringBuilder();
+                for (int i = 0; i < instance.parameters.length; i++) {
+                    if (i != 0) {
+                        format.append(", ");
+                    }
+                    format.append("$L");
                 }
-                format.append("$L");
+
+                // generate instances
+                arguments = TypeSpec.anonymousClassBuilder(format.toString(), instance.parameters).build();
             }
 
-            // generate instances
-            TypeSpec arguments = TypeSpec.anonymousClassBuilder(format.toString(), instance.parameters).build();
             enumClass.addEnumConstant(instance.name, arguments);
         }
 
@@ -204,10 +214,16 @@ public class EnumGenerator implements CodeGenerator {
     private static class Instance {
         private String name;
         private Object[] parameters;
+        private TypeSpec arguments;
 
         private Instance(String name, Object[] parameters) {
             this.name = name;
             this.parameters = parameters;
+        }
+
+        public Instance(String name, TypeSpec arguments) {
+            this.name = name;
+            this.arguments = arguments;
         }
     }
 }

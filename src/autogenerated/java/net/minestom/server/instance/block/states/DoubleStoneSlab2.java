@@ -1,25 +1,25 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class DoubleStoneSlab2 {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.DOUBLE_STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 181));
-        Block.DOUBLE_STONE_SLAB2.addBlockAlternative(new BlockAlternative((short) 181));
+    public static BlockVariation DOUBLE_RED_SANDSTONE_SLAB = new BlockVariation((byte) 0, "Double Red Sandstone Slab");
+
+    public static BlockVariation SMOOTH_DOUBLE_RED_SANDSTONE_SLAB = new BlockVariation((byte) 8, "Smooth Double Red Sandstone Slab");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(2);
+        list.add(DOUBLE_RED_SANDSTONE_SLAB);
+        variationsArray[0]= DOUBLE_RED_SANDSTONE_SLAB;
+        list.add(SMOOTH_DOUBLE_RED_SANDSTONE_SLAB);
+        variationsArray[8]= SMOOTH_DOUBLE_RED_SANDSTONE_SLAB;
+        variations = Collections.unmodifiableList(list);
     }
 }

@@ -40,7 +40,7 @@ public abstract class ObjectEntity extends Entity {
 
         SpawnObjectPacket spawnObjectPacket = new SpawnObjectPacket();
         spawnObjectPacket.entityId = getEntityId();
-        spawnObjectPacket.type = (byte) getEntityType().getProtocolId();
+        spawnObjectPacket.type = getEntityType().getProtocolId();
         spawnObjectPacket.position = getPosition();
         spawnObjectPacket.data = getObjectData();
         playerConnection.sendPacket(spawnObjectPacket);

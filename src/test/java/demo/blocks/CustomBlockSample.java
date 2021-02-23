@@ -62,21 +62,6 @@ public class CustomBlockSample extends CustomBlock {
     }
 
     @Override
-    public int getBreakDelay(@NotNull Player player, @NotNull BlockPosition position, byte stage, Set<Player> breakers) {
-        return 2;
-    }
-
-    @Override
-    public boolean enableCustomBreakDelay() {
-        return true;
-    }
-
-    @Override
-    public boolean enableMultiPlayerBreaking() {
-        return true;
-    }
-
-    @Override
     public short getCustomBlockId() {
         return 2;
     }

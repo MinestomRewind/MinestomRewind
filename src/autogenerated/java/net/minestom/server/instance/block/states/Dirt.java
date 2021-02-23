@@ -1,26 +1,29 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Dirt {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 3));
-        Block.DIRT.addBlockAlternative(new BlockAlternative((short) 3));
+    public static BlockVariation DIRT = new BlockVariation((byte) 0, "Dirt");
+
+    public static BlockVariation COARSE_DIRT = new BlockVariation((byte) 1, "Coarse Dirt");
+
+    public static BlockVariation PODZOL = new BlockVariation((byte) 2, "Podzol");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(3);
+        list.add(DIRT);
+        variationsArray[0]= DIRT;
+        list.add(COARSE_DIRT);
+        variationsArray[1]= COARSE_DIRT;
+        list.add(PODZOL);
+        variationsArray[2]= PODZOL;
+        variations = Collections.unmodifiableList(list);
     }
 }

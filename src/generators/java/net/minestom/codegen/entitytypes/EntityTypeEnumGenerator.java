@@ -103,10 +103,10 @@ public class EntityTypeEnumGenerator extends MinestomEnumGenerator<EntityTypeEnu
         generator.setParams(
                 ParameterSpec.builder(ClassName.get(String.class), "namespaceID").build(),
                 ParameterSpec.builder(TypeName.INT, "id").build(),
-                ParameterSpec.builder(TypeName.INT, "protocolId").build()
+                ParameterSpec.builder(TypeName.BYTE, "protocolId").build()
         );
         generator.addMethod("getId", new ParameterSpec[0], TypeName.INT, code -> code.addStatement("return $N", "id"));
-        generator.addMethod("getProtocolId", new ParameterSpec[0], TypeName.INT, code -> code.addStatement("return $N", "protocolId"));
+        generator.addMethod("getProtocolId", new ParameterSpec[0], TypeName.BYTE, code -> code.addStatement("return $N", "protocolId"));
         generator.addMethod("getNamespaceID", new ParameterSpec[0], ClassName.get(String.class), code -> code.addStatement("return $N", "namespaceID"));
 
         generator.appendToConstructor(code -> {
@@ -116,7 +116,7 @@ public class EntityTypeEnumGenerator extends MinestomEnumGenerator<EntityTypeEnu
 
     @Override
     protected void writeSingle(EnumGenerator generator, EntityTypeContainer item) {
-        generator.addInstance(identifier(item.name), "\"" + item.name.toString() + "\"", item.id, item.protocolId);
+        generator.addInstance(identifier(item.name), "\"" + item.name.toString() + "\"", item.id, "(byte) " + item.protocolId);
     }
 
     protected String identifier(NamespaceID id) {

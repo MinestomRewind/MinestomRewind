@@ -1,27 +1,33 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Stonebrick {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
-        Block.STONEBRICK.addBlockAlternative(new BlockAlternative((short) 98));
+    public static BlockVariation STONE_BRICK = new BlockVariation((byte) 0, "Stone brick");
+
+    public static BlockVariation MOSSY_STONE_BRICK = new BlockVariation((byte) 1, "Mossy stone brick");
+
+    public static BlockVariation CRACKED_STONE_BRICK = new BlockVariation((byte) 2, "Cracked stone brick");
+
+    public static BlockVariation CHISELED_STONE_BRICK = new BlockVariation((byte) 3, "Chiseled stone brick");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(4);
+        list.add(STONE_BRICK);
+        variationsArray[0]= STONE_BRICK;
+        list.add(MOSSY_STONE_BRICK);
+        variationsArray[1]= MOSSY_STONE_BRICK;
+        list.add(CRACKED_STONE_BRICK);
+        variationsArray[2]= CRACKED_STONE_BRICK;
+        list.add(CHISELED_STONE_BRICK);
+        variationsArray[3]= CHISELED_STONE_BRICK;
+        variations = Collections.unmodifiableList(list);
     }
 }

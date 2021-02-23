@@ -1,26 +1,29 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Prismarine {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 168));
-        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 168));
-        Block.PRISMARINE.addBlockAlternative(new BlockAlternative((short) 168));
+    public static BlockVariation PRISMARINE = new BlockVariation((byte) 0, "Prismarine");
+
+    public static BlockVariation PRISMARINE_BRICKS = new BlockVariation((byte) 1, "Prismarine Bricks");
+
+    public static BlockVariation DARK_PRISMARINE = new BlockVariation((byte) 2, "Dark Prismarine");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(3);
+        list.add(PRISMARINE);
+        variationsArray[0]= PRISMARINE;
+        list.add(PRISMARINE_BRICKS);
+        variationsArray[1]= PRISMARINE_BRICKS;
+        list.add(DARK_PRISMARINE);
+        variationsArray[2]= DARK_PRISMARINE;
+        variations = Collections.unmodifiableList(list);
     }
 }

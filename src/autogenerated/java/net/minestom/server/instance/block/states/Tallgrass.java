@@ -1,26 +1,29 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Tallgrass {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 31));
-        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 31));
-        Block.TALLGRASS.addBlockAlternative(new BlockAlternative((short) 31));
+    public static BlockVariation SHRUB = new BlockVariation((byte) 0, "Shrub");
+
+    public static BlockVariation TALL_GRASS = new BlockVariation((byte) 1, "Tall Grass");
+
+    public static BlockVariation FERN = new BlockVariation((byte) 2, "Fern");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(3);
+        list.add(SHRUB);
+        variationsArray[0]= SHRUB;
+        list.add(TALL_GRASS);
+        variationsArray[1]= TALL_GRASS;
+        list.add(FERN);
+        variationsArray[2]= FERN;
+        variations = Collections.unmodifiableList(list);
     }
 }

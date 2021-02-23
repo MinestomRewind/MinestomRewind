@@ -1,25 +1,25 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class CobblestoneWall {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.COBBLESTONE_WALL.addBlockAlternative(new BlockAlternative((short) 139));
-        Block.COBBLESTONE_WALL.addBlockAlternative(new BlockAlternative((short) 139));
+    public static BlockVariation COBBLESTONE_WALL = new BlockVariation((byte) 0, "Cobblestone Wall");
+
+    public static BlockVariation MOSSY_COBBLESTONE_WALL = new BlockVariation((byte) 1, "Mossy Cobblestone Wall");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(2);
+        list.add(COBBLESTONE_WALL);
+        variationsArray[0]= COBBLESTONE_WALL;
+        list.add(MOSSY_COBBLESTONE_WALL);
+        variationsArray[1]= MOSSY_COBBLESTONE_WALL;
+        variations = Collections.unmodifiableList(list);
     }
 }

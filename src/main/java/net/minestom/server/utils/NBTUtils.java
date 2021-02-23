@@ -1,6 +1,7 @@
 package net.minestom.server.utils;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.attribute.Attribute;
 import net.minestom.server.attribute.AttributeOperation;
@@ -273,7 +274,7 @@ public final class NBTUtils {
         if (hasDisplayName || hasLore) {
             NBTCompound displayNBT = new NBTCompound();
             if (hasDisplayName) {
-                final String name = itemStack.getDisplayName().toString();
+                final String name = LegacyComponentSerializer.legacySection().serialize(itemStack.getDisplayName());
                 displayNBT.setString("Name", name);
             }
 

@@ -2,25 +2,15 @@ package net.minestom.server.network.packet.server.play;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.IntSet;
-import net.minestom.server.MinecraftServer;
-import net.minestom.server.data.Data;
-import net.minestom.server.instance.block.BlockManager;
-import net.minestom.server.instance.block.CustomBlock;
 import net.minestom.server.instance.palette.PaletteStorage;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
-import net.minestom.server.utils.BlockPosition;
-import net.minestom.server.utils.Utils;
 import net.minestom.server.utils.binary.BinaryWriter;
 import net.minestom.server.utils.cache.CacheablePacket;
 import net.minestom.server.utils.cache.TemporaryPacketCache;
-import net.minestom.server.utils.chunk.ChunkUtils;
 import net.minestom.server.world.biomes.Biome;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jglrxavpok.hephaistos.nbt.NBTCompound;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -90,9 +80,8 @@ public class ChunkDataPacket implements ServerPacket, CacheablePacket {
         for (int i = 0; i < includedCount; i++) {
             short[] section = includedSections[i];
 
-            for (long datum : section) {
-                data.writeByte((byte) datum << 4);
-                data.writeByte(0);
+            for (short datum : section) {
+                data.writeShortLE(datum);
             }
         }
 

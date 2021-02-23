@@ -1,25 +1,25 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Jukebox {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.JUKEBOX.addBlockAlternative(new BlockAlternative((short) 84));
-        Block.JUKEBOX.addBlockAlternative(new BlockAlternative((short) 84));
+    public static BlockVariation NO_DISC_INSERTED = new BlockVariation((byte) 0, "No disc inserted");
+
+    public static BlockVariation CONTAINS_A_DISC = new BlockVariation((byte) 1, "Contains a disc");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(2);
+        list.add(NO_DISC_INSERTED);
+        variationsArray[0]= NO_DISC_INSERTED;
+        list.add(CONTAINS_A_DISC);
+        variationsArray[1]= CONTAINS_A_DISC;
+        variations = Collections.unmodifiableList(list);
     }
 }

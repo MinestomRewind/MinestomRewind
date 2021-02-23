@@ -1,26 +1,29 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Sandstone {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.SANDSTONE.addBlockAlternative(new BlockAlternative((short) 24));
-        Block.SANDSTONE.addBlockAlternative(new BlockAlternative((short) 24));
-        Block.SANDSTONE.addBlockAlternative(new BlockAlternative((short) 24));
+    public static BlockVariation SANDSTONE = new BlockVariation((byte) 0, "Sandstone");
+
+    public static BlockVariation CHISELED_SANDSTONE = new BlockVariation((byte) 1, "Chiseled sandstone");
+
+    public static BlockVariation SMOOTH_SANDSTONE = new BlockVariation((byte) 2, "Smooth sandstone");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(3);
+        list.add(SANDSTONE);
+        variationsArray[0]= SANDSTONE;
+        list.add(CHISELED_SANDSTONE);
+        variationsArray[1]= CHISELED_SANDSTONE;
+        list.add(SMOOTH_SANDSTONE);
+        variationsArray[2]= SMOOTH_SANDSTONE;
+        variations = Collections.unmodifiableList(list);
     }
 }

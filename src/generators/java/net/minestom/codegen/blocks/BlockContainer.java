@@ -10,34 +10,25 @@ public class BlockContainer implements Comparable<BlockContainer> {
     private NamespaceID id;
     private double hardness;
     private double resistance;
-    private BlockVariation defaultVariation;
     private boolean isSolid;
     private boolean isAir;
     private List<BlockVariation> variations;
 
     private boolean isMushroom;
     private boolean isLiquid;
-    private boolean isFlower;
-    private boolean isFlowerPot;
-    private boolean isCoral;
     private NamespaceID blockEntity;
 
-    public BlockContainer(int ordinal, NamespaceID id, double hardness, double resistance, NamespaceID blockEntity, BlockVariation defaultVariation, List<BlockVariation> variations) {
+    public BlockContainer(int ordinal, NamespaceID id, double hardness, double resistance, NamespaceID blockEntity, List<BlockVariation> variations) {
         this.ordinal = ordinal;
         this.id = id;
         this.hardness = hardness;
         this.resistance = resistance;
         this.blockEntity = blockEntity;
-        this.defaultVariation = defaultVariation;
         this.variations = variations;
     }
 
     public int getOrdinal() {
         return ordinal;
-    }
-
-    public BlockVariation getDefaultVariation() {
-        return defaultVariation;
     }
 
     public List<BlockVariation> getVariations() {
@@ -99,18 +90,15 @@ public class BlockContainer implements Comparable<BlockContainer> {
     @Override
     public String toString() {
         return "blocks.BlockContainer{" +
-                "id=" + id +
+                "ordinal=" + ordinal +
+                ", id=" + id +
                 ", hardness=" + hardness +
                 ", resistance=" + resistance +
-                ", defaultState=" + defaultVariation +
                 ", isSolid=" + isSolid +
                 ", isAir=" + isAir +
-                ", states=" + variations +
+                ", variations=" + variations +
                 ", isMushroom=" + isMushroom +
                 ", isLiquid=" + isLiquid +
-                ", isFlower=" + isFlower +
-                ", isFlowerPot=" + isFlowerPot +
-                ", isCoral=" + isCoral +
                 ", blockEntity=" + blockEntity +
                 '}';
     }
@@ -122,19 +110,26 @@ public class BlockContainer implements Comparable<BlockContainer> {
 
     public static class BlockVariation {
         private short metadata;
+        private String displayName;
 
-        public BlockVariation(short metadata) {
+        public BlockVariation(short metadata, String displayName) {
             this.metadata = metadata;
+            this.displayName = displayName;
         }
 
         public short getMetadata() {
             return metadata;
         }
 
+        public String getDisplayName() {
+            return displayName;
+        }
+
         @Override
         public String toString() {
             return "BlockVariation{" +
-                    "id=" + metadata +
+                    "metadata=" + metadata +
+                    ", displayName='" + displayName + '\'' +
                     '}';
         }
     }

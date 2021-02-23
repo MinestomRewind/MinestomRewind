@@ -12,16 +12,16 @@ public class ClientPlayerBlockPlacementPacket extends ClientPlayPacket {
     public BlockPosition blockPosition;
     public BlockFace blockFace;
     public ItemStack item;
-    public float cursorPositionX, cursorPositionY, cursorPositionZ;
+    public byte cursorPositionX, cursorPositionY, cursorPositionZ;
 
     @Override
     public void read(@NotNull BinaryReader reader) {
         this.blockPosition = reader.readBlockPosition();
-        this.blockFace = BlockFace.values()[reader.readVarInt()];
+        this.blockFace = BlockFace.values()[reader.readByte()];
         this.item = reader.readSlot();
-        this.cursorPositionX = reader.readFloat();
-        this.cursorPositionY = reader.readFloat();
-        this.cursorPositionZ = reader.readFloat();
+        this.cursorPositionX = reader.readByte();
+        this.cursorPositionY = reader.readByte();
+        this.cursorPositionZ = reader.readByte();
     }
 
 }

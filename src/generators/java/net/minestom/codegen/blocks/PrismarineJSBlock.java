@@ -34,11 +34,13 @@ public class PrismarineJSBlock {
 
     public static class Variation {
         short metadata;
+        String displayName;
 
         @Override
         public String toString() {
             return "blocks.PrismarineJSBlock.Variation{" +
                     "metadata=" + metadata +
+                    ", displayName='" + displayName + '\'' +
                     '}';
         }
     }

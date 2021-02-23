@@ -7,6 +7,7 @@ import com.squareup.javapoet.*;
 import net.minestom.codegen.EnumGenerator;
 import net.minestom.codegen.MinestomEnumGenerator;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.item.Material;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.utils.NamespaceID;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +15,10 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -137,21 +141,29 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
     protected void prepare(EnumGenerator generator) {
         ClassName className = ClassName.get(getPackageName(), getClassName());
         generator.addClassAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "{$S}", "deprecation").build());
-        generator.setParams(ParameterSpec.builder(String.class, "namespaceID").addAnnotation(NotNull.class).build(), ParameterSpec.builder(TypeName.INT, "maxDefaultStackSize").build(),
-                ParameterSpec.builder(Block.class, "correspondingBlock").addAnnotation(Nullable.class).build());
+        generator.setParams(
+                ParameterSpec.builder(String.class, "namespaceID").addAnnotation(NotNull.class).build(),
+                ParameterSpec.builder(TypeName.SHORT, "id").build(),
+                ParameterSpec.builder(TypeName.INT, "maxDefaultStackSize").build(),
+                ParameterSpec.builder(Block.class, "correspondingBlock").addAnnotation(Nullable.class).build()
+        );
         generator.appendToConstructor(code -> {
-            code.addStatement("$T.$N.put($T.from(namespaceID), this)", Registries.class, "materials", NamespaceID.class);
+            code
+                    .addStatement("$T.materials[id] = this", ClassName.get("net.minestom.server.item", "MaterialArray"))
+                    .addStatement("$T.$N.put($T.from(namespaceID), this)", Registries.class, "materials", NamespaceID.class);
         });
 
-        generator.addMethod("getId", new ParameterSpec[0], TypeName.SHORT, code -> { code.addStatement("return (short)ordinal()");});
+        generator.addMethod("getId", new ParameterSpec[0], TypeName.SHORT, code -> { code.addStatement("return id");});
         generator.addMethod("getName", new ParameterSpec[0], ClassName.get(String.class), code -> { code.addStatement("return namespaceID");});
         generator.addMethod("getMaxDefaultStackSize", new ParameterSpec[0], TypeName.INT, code -> { code.addStatement("return maxDefaultStackSize");});
         generator.addMethod("isBlock", new ParameterSpec[0], TypeName.BOOLEAN, code -> { code.addStatement("return correspondingBlock != null && this != AIR");});
         generator.addMethod("getBlock", new ParameterSpec[0], ClassName.get(Block.class), code -> { code.addStatement("return correspondingBlock");});
 
         generator.addStaticMethod("fromId", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "id").build()}, className, code -> {
-            code.beginControlFlow("if(id >= 0 && id < values().length)")
-                    .addStatement("return values()[id]")
+            code
+                    .addStatement("$T material = $T.materials[id]", Material.class, ClassName.get("net.minestom.server.item", "MaterialArray"))
+                    .beginControlFlow("if(material != null)")
+                    .addStatement("return material")
                 .endControlFlow()
                 .addStatement("return AIR");
         });
@@ -209,6 +221,7 @@ public class ItemEnumGenerator extends MinestomEnumGenerator<ItemContainer> {
         String instanceName = item.getName().getPath().toUpperCase();
         generator.addInstance(instanceName,
                 "\"" + item.getName().toString() + "\"",
+                "(short) " + item.getId(),
                 item.getStackSize(),
                 item.getBlockName() == null ? "null" : ("Block." + item.getBlockName())
         );

@@ -1,30 +1,45 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Stone {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
-        Block.STONE.addBlockAlternative(new BlockAlternative((short) 1));
+    public static BlockVariation STONE = new BlockVariation((byte) 0, "Stone");
+
+    public static BlockVariation GRANITE = new BlockVariation((byte) 1, "Granite");
+
+    public static BlockVariation POLISHED_GRANITE = new BlockVariation((byte) 2, "Polished Granite");
+
+    public static BlockVariation DIORITE = new BlockVariation((byte) 3, "Diorite");
+
+    public static BlockVariation POLISHED_DIORITE = new BlockVariation((byte) 4, "Polished Diorite");
+
+    public static BlockVariation ANDESITE = new BlockVariation((byte) 5, "Andesite");
+
+    public static BlockVariation POLISHED_ANDESITE = new BlockVariation((byte) 6, "Polished Andesite");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(7);
+        list.add(STONE);
+        variationsArray[0]= STONE;
+        list.add(GRANITE);
+        variationsArray[1]= GRANITE;
+        list.add(POLISHED_GRANITE);
+        variationsArray[2]= POLISHED_GRANITE;
+        list.add(DIORITE);
+        variationsArray[3]= DIORITE;
+        list.add(POLISHED_DIORITE);
+        variationsArray[4]= POLISHED_DIORITE;
+        list.add(ANDESITE);
+        variationsArray[5]= ANDESITE;
+        list.add(POLISHED_ANDESITE);
+        variationsArray[6]= POLISHED_ANDESITE;
+        variations = Collections.unmodifiableList(list);
     }
 }

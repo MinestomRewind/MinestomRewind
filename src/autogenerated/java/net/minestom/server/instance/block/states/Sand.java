@@ -1,25 +1,25 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Sand {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.SAND.addBlockAlternative(new BlockAlternative((short) 12));
-        Block.SAND.addBlockAlternative(new BlockAlternative((short) 12));
+    public static BlockVariation SAND = new BlockVariation((byte) 0, "Sand");
+
+    public static BlockVariation RED_SAND = new BlockVariation((byte) 1, "Red sand");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(2);
+        list.add(SAND);
+        variationsArray[0]= SAND;
+        list.add(RED_SAND);
+        variationsArray[1]= RED_SAND;
+        variations = Collections.unmodifiableList(list);
     }
 }

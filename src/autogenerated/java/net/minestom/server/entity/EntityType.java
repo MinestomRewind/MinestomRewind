@@ -10,123 +10,123 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum EntityType {
-    FISHING_FLOAT("minecraft:Fishing Float", 0, 90),
+    FISHING_FLOAT("minecraft:Fishing Float", 0, (byte) 90),
 
-    ITEM("minecraft:Item", 1, 2),
+    ITEM("minecraft:Item", 1, (byte) 2),
 
-    THROWN_EGG("minecraft:ThrownEgg", 7, 62),
+    THROWN_EGG("minecraft:ThrownEgg", 7, (byte) 62),
 
-    LEASH_KNOT("minecraft:LeashKnot", 8, 77),
+    LEASH_KNOT("minecraft:LeashKnot", 8, (byte) 77),
 
-    ARROW("minecraft:Arrow", 10, 60),
+    ARROW("minecraft:Arrow", 10, (byte) 60),
 
-    SNOWBALL("minecraft:Snowball", 11, 61),
+    SNOWBALL("minecraft:Snowball", 11, (byte) 61),
 
-    FIREBALL("minecraft:Fireball", 12, 63),
+    FIREBALL("minecraft:Fireball", 12, (byte) 63),
 
-    SMALL_FIREBALL("minecraft:SmallFireball", 13, 64),
+    SMALL_FIREBALL("minecraft:SmallFireball", 13, (byte) 64),
 
-    THROWN_ENDERPEARL("minecraft:ThrownEnderpearl", 14, 65),
+    THROWN_ENDERPEARL("minecraft:ThrownEnderpearl", 14, (byte) 65),
 
-    EYE_OF_ENDER_SIGNAL("minecraft:EyeOfEnderSignal", 15, 72),
+    EYE_OF_ENDER_SIGNAL("minecraft:EyeOfEnderSignal", 15, (byte) 72),
 
-    THROWN_POTION("minecraft:ThrownPotion", 16, 73),
+    THROWN_POTION("minecraft:ThrownPotion", 16, (byte) 73),
 
-    THROWN_EXP_BOTTLE("minecraft:ThrownExpBottle", 17, 75),
+    THROWN_EXP_BOTTLE("minecraft:ThrownExpBottle", 17, (byte) 75),
 
-    ITEM_FRAME("minecraft:ItemFrame", 18, 71),
+    ITEM_FRAME("minecraft:ItemFrame", 18, (byte) 71),
 
-    WITHER_SKULL("minecraft:WitherSkull", 19, 66),
+    WITHER_SKULL("minecraft:WitherSkull", 19, (byte) 66),
 
-    PRIMED_TNT("minecraft:PrimedTnt", 20, 50),
+    PRIMED_TNT("minecraft:PrimedTnt", 20, (byte) 50),
 
-    FALLING_SAND("minecraft:FallingSand", 21, 70),
+    FALLING_SAND("minecraft:FallingSand", 21, (byte) 70),
 
-    FIREWORKS_ROCKET_ENTITY("minecraft:FireworksRocketEntity", 22, 76),
+    FIREWORKS_ROCKET_ENTITY("minecraft:FireworksRocketEntity", 22, (byte) 76),
 
-    ARMOR_STAND("minecraft:ArmorStand", 30, 78),
+    ARMOR_STAND("minecraft:ArmorStand", 30, (byte) 78),
 
-    BOAT("minecraft:Boat", 41, 1),
+    BOAT("minecraft:Boat", 41, (byte) 1),
 
-    MINECART_RIDEABLE("minecraft:MinecartRideable", 42, 10),
+    MINECART_RIDEABLE("minecraft:MinecartRideable", 42, (byte) 10),
 
-    MOB("minecraft:Mob", 48, 48),
+    MOB("minecraft:Mob", 48, (byte) 48),
 
-    MONSTER("minecraft:Monster", 49, 49),
+    MONSTER("minecraft:Monster", 49, (byte) 49),
 
-    CREEPER("minecraft:Creeper", 50, 50),
+    CREEPER("minecraft:Creeper", 50, (byte) 50),
 
-    SKELETON("minecraft:Skeleton", 51, 51),
+    SKELETON("minecraft:Skeleton", 51, (byte) 51),
 
-    SPIDER("minecraft:Spider", 52, 52),
+    SPIDER("minecraft:Spider", 52, (byte) 52),
 
-    GIANT("minecraft:Giant", 53, 53),
+    GIANT("minecraft:Giant", 53, (byte) 53),
 
-    ZOMBIE("minecraft:Zombie", 54, 54),
+    ZOMBIE("minecraft:Zombie", 54, (byte) 54),
 
-    SLIME("minecraft:Slime", 55, 55),
+    SLIME("minecraft:Slime", 55, (byte) 55),
 
-    GHAST("minecraft:Ghast", 56, 56),
+    GHAST("minecraft:Ghast", 56, (byte) 56),
 
-    PIG_ZOMBIE("minecraft:PigZombie", 57, 57),
+    PIG_ZOMBIE("minecraft:PigZombie", 57, (byte) 57),
 
-    ENDERMAN("minecraft:Enderman", 58, 58),
+    ENDERMAN("minecraft:Enderman", 58, (byte) 58),
 
-    CAVE_SPIDER("minecraft:CaveSpider", 59, 59),
+    CAVE_SPIDER("minecraft:CaveSpider", 59, (byte) 59),
 
-    SILVERFISH("minecraft:Silverfish", 60, 60),
+    SILVERFISH("minecraft:Silverfish", 60, (byte) 60),
 
-    BLAZE("minecraft:Blaze", 61, 61),
+    BLAZE("minecraft:Blaze", 61, (byte) 61),
 
-    LAVA_SLIME("minecraft:LavaSlime", 62, 62),
+    LAVA_SLIME("minecraft:LavaSlime", 62, (byte) 62),
 
-    ENDER_DRAGON("minecraft:EnderDragon", 63, 63),
+    ENDER_DRAGON("minecraft:EnderDragon", 63, (byte) 63),
 
-    WITHER_BOSS("minecraft:WitherBoss", 64, 64),
+    WITHER_BOSS("minecraft:WitherBoss", 64, (byte) 64),
 
-    BAT("minecraft:Bat", 65, 65),
+    BAT("minecraft:Bat", 65, (byte) 65),
 
-    WITCH("minecraft:Witch", 66, 66),
+    WITCH("minecraft:Witch", 66, (byte) 66),
 
-    ENDERMITE("minecraft:Endermite", 67, 67),
+    ENDERMITE("minecraft:Endermite", 67, (byte) 67),
 
-    GUARDIAN("minecraft:Guardian", 68, 68),
+    GUARDIAN("minecraft:Guardian", 68, (byte) 68),
 
-    PIG("minecraft:Pig", 90, 90),
+    PIG("minecraft:Pig", 90, (byte) 90),
 
-    SHEEP("minecraft:Sheep", 91, 91),
+    SHEEP("minecraft:Sheep", 91, (byte) 91),
 
-    COW("minecraft:Cow", 92, 92),
+    COW("minecraft:Cow", 92, (byte) 92),
 
-    CHICKEN("minecraft:Chicken", 93, 93),
+    CHICKEN("minecraft:Chicken", 93, (byte) 93),
 
-    SQUID("minecraft:Squid", 94, 94),
+    SQUID("minecraft:Squid", 94, (byte) 94),
 
-    WOLF("minecraft:Wolf", 95, 95),
+    WOLF("minecraft:Wolf", 95, (byte) 95),
 
-    MUSHROOM_COW("minecraft:MushroomCow", 96, 96),
+    MUSHROOM_COW("minecraft:MushroomCow", 96, (byte) 96),
 
-    SNOW_MAN("minecraft:SnowMan", 97, 97),
+    SNOW_MAN("minecraft:SnowMan", 97, (byte) 97),
 
-    OZELOT("minecraft:Ozelot", 98, 98),
+    OZELOT("minecraft:Ozelot", 98, (byte) 98),
 
-    VILLAGER_GOLEM("minecraft:VillagerGolem", 99, 99),
+    VILLAGER_GOLEM("minecraft:VillagerGolem", 99, (byte) 99),
 
-    ENTITY_HORSE("minecraft:EntityHorse", 100, 100),
+    ENTITY_HORSE("minecraft:EntityHorse", 100, (byte) 100),
 
-    RABBIT("minecraft:Rabbit", 101, 101),
+    RABBIT("minecraft:Rabbit", 101, (byte) 101),
 
-    VILLAGER("minecraft:Villager", 120, 120),
+    VILLAGER("minecraft:Villager", 120, (byte) 120),
 
-    ENDER_CRYSTAL("minecraft:EnderCrystal", 200, 51);
+    ENDER_CRYSTAL("minecraft:EnderCrystal", 200, (byte) 51);
 
     private String namespaceID;
 
     private int id;
 
-    private int protocolId;
+    private byte protocolId;
 
-    EntityType(String namespaceID, int id, int protocolId) {
+    EntityType(String namespaceID, int id, byte protocolId) {
         this.namespaceID = namespaceID;
         this.id = id;
         this.protocolId = protocolId;
@@ -137,7 +137,7 @@ public enum EntityType {
         return id;
     }
 
-    public int getProtocolId() {
+    public byte getProtocolId() {
         return protocolId;
     }
 

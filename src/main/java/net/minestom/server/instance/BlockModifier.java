@@ -6,6 +6,7 @@ import net.minestom.server.instance.batch.BlockBatch;
 import net.minestom.server.instance.batch.ChunkBatch;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockManager;
+import net.minestom.server.instance.block.BlockVariation;
 import net.minestom.server.instance.block.CustomBlock;
 import net.minestom.server.utils.BlockPosition;
 import net.minestom.server.utils.validate.Check;
@@ -67,11 +68,27 @@ public interface BlockModifier {
     }
 
     default void setBlock(int x, int y, int z, @NotNull Block block) {
-        setBlockStateId(x, y, z, block.getBlockId(), null);
+        setBlockStateId(x, y, z, block.toStateId((byte) 0), null);
+    }
+
+    default void setBlock(int x, int y, int z, @NotNull Block block, byte metadata) {
+        setBlockStateId(x, y, z, block.toStateId(metadata), null);
+    }
+
+    default void setBlock(int x, int y, int z, @NotNull Block block, BlockVariation variation) {
+        setBlockStateId(x, y, z, block.toStateId(variation.getMetadata()), null);
     }
 
     default void setBlock(@NotNull BlockPosition blockPosition, @NotNull Block block) {
         setBlock(blockPosition.getX(), blockPosition.getY(), blockPosition.getZ(), block);
+    }
+
+    default void setBlock(@NotNull BlockPosition blockPosition, @NotNull Block block, byte metadata) {
+        setBlock(blockPosition.getX(), blockPosition.getY(), blockPosition.getZ(), block, metadata);
+    }
+
+    default void setBlock(@NotNull BlockPosition blockPosition, @NotNull Block block, BlockVariation variation) {
+        setBlock(blockPosition.getX(), blockPosition.getY(), blockPosition.getZ(), block, variation);
     }
 
     default void setBlockStateId(@NotNull BlockPosition blockPosition, short blockStateId) {

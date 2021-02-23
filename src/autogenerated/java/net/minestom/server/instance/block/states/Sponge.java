@@ -1,25 +1,25 @@
 package net.minestom.server.instance.block.states;
 
-import net.minestom.server.instance.block.Block;
-import net.minestom.server.instance.block.BlockAlternative;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import net.minestom.server.instance.block.BlockVariation;
 
-/**
- * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
- */
-@Deprecated(
-        since = "forever",
-        forRemoval = false
-)
 public final class Sponge {
-    /**
-     * Completely internal. DO NOT USE. IF YOU ARE A USER AND FACE A PROBLEM WHILE USING THIS CODE, THAT'S ON YOU.
-     */
-    @Deprecated(
-            since = "forever",
-            forRemoval = false
-    )
-    public static void initStates() {
-        Block.SPONGE.addBlockAlternative(new BlockAlternative((short) 19));
-        Block.SPONGE.addBlockAlternative(new BlockAlternative((short) 19));
+    public static BlockVariation SPONGE = new BlockVariation((byte) 0, "Sponge");
+
+    public static BlockVariation WET_SPONGE = new BlockVariation((byte) 1, "Wet Sponge");
+
+    public static List<BlockVariation> variations;
+
+    public static BlockVariation[] variationsArray = new BlockVariation[16];
+
+    static {
+        List<BlockVariation> list = new ArrayList<BlockVariation>(2);
+        list.add(SPONGE);
+        variationsArray[0]= SPONGE;
+        list.add(WET_SPONGE);
+        variationsArray[1]= WET_SPONGE;
+        variations = Collections.unmodifiableList(list);
     }
 }
