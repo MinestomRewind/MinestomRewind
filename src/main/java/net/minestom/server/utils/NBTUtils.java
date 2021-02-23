@@ -1,11 +1,11 @@
 package net.minestom.server.utils;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.attribute.Attribute;
 import net.minestom.server.attribute.AttributeOperation;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.chat.ChatParser;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.data.Data;
 import net.minestom.server.data.DataType;
 import net.minestom.server.inventory.Inventory;
@@ -95,21 +95,16 @@ public final class NBTUtils {
 
     @Nullable
     public static ItemStack readItemStack(@NotNull BinaryReader reader) {
-        final boolean present = reader.readBoolean();
+        final short id = reader.readShort();
 
-        if (!present) {
-            return ItemStack.getAirItem();
-        }
-
-        final int id = reader.readVarInt();
         if (id == -1) {
-            // Drop mode
             return ItemStack.getAirItem();
         }
 
-        final Material material = Material.fromId((short) id);
+        final Material material = Material.fromId(id);
         final byte count = reader.readByte();
-        ItemStack item = new ItemStack(material, count);
+        final short damage = reader.readShort();
+        ItemStack item = new ItemStack(material, count, damage);
 
         try {
             final NBT itemNBT = reader.readTag();
@@ -132,14 +127,14 @@ public final class NBTUtils {
             final NBTCompound display = nbt.getCompound("display");
             if (display.containsKey("Name")) {
                 final String rawName = display.getString("Name");
-                final ColoredText displayName = ChatParser.toColoredText(rawName);
+                final Component displayName = ChatParser.toComponent(rawName);
                 item.setDisplayName(displayName);
             }
             if (display.containsKey("Lore")) {
                 NBTList<NBTString> loreList = display.getList("Lore");
-                List<JsonMessage> lore = new ArrayList<>();
+                List<Component> lore = new ArrayList<>();
                 for (NBTString s : loreList) {
-                    lore.add(ChatParser.toColoredText(s.getValue()));
+                    lore.add(ChatParser.toComponent(s.getValue()));
                 }
                 item.setLore(lore);
             }
@@ -283,11 +278,11 @@ public final class NBTUtils {
             }
 
             if (hasLore) {
-                final List<JsonMessage> lore = itemStack.getLore();
+                final List<Component> lore = itemStack.getLore();
 
                 final NBTList<NBTString> loreNBT = new NBTList<>(NBTTypes.TAG_String);
-                for (JsonMessage line : lore) {
-                    loreNBT.add(new NBTString(line.toString()));
+                for (Component line : lore) {
+                    loreNBT.add(new NBTString(Adventure.COMPONENT_SERIALIZER.serialize(line)));
                 }
                 displayNBT.set("Lore", loreNBT);
             }

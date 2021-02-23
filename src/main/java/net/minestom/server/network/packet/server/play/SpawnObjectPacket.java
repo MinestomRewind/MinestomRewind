@@ -8,37 +8,37 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class SpawnLivingEntityPacket implements ServerPacket {
+public class SpawnObjectPacket implements ServerPacket {
 
     public int entityId;
-    public UUID entityUuid;
-    public int entityType;
+    public byte type;
     public Position position;
-    public float headPitch;
+    public int data;
     public short velocityX, velocityY, velocityZ;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeVarInt(entityId);
-        writer.writeUuid(entityUuid);
-        writer.writeVarInt(entityType);
+        writer.writeByte(type);
 
-        writer.writeDouble(position.getX());
-        writer.writeDouble(position.getY());
-        writer.writeDouble(position.getZ());
+        writer.writeInt((int) (position.getX() * 32.0));
+        writer.writeInt((int) (position.getY() * 32.0));
+        writer.writeInt((int) (position.getZ() * 32.0));
 
-        writer.writeByte((byte) (position.getYaw() * 256 / 360));
         writer.writeByte((byte) (position.getPitch() * 256 / 360));
-        writer.writeByte((byte) (headPitch * 256 / 360));
+        writer.writeByte((byte) (position.getYaw() * 256 / 360));
 
-        writer.writeShort(velocityX);
-        writer.writeShort(velocityY);
-        writer.writeShort(velocityZ);
+        writer.writeInt(data);
 
+        if (data > 0) {
+            writer.writeShort(velocityX);
+            writer.writeShort(velocityY);
+            writer.writeShort(velocityZ);
+        }
     }
 
     @Override
     public int getId() {
-        return ServerPacketIdentifier.SPAWN_LIVING_ENTITY;
+        return ServerPacketIdentifier.SPAWN_OBJECT;
     }
 }

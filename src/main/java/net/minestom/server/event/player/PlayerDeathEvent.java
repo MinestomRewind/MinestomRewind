@@ -1,7 +1,6 @@
 package net.minestom.server.event.player;
 
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
@@ -13,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
 public class PlayerDeathEvent extends PlayerEvent {
 
     private String deathText;
-    private JsonMessage chatMessage;
+    private Component chatMessage;
 
-    public PlayerDeathEvent(@NotNull Player player, String deathText, JsonMessage chatMessage) {
+    public PlayerDeathEvent(@NotNull Player player, String deathText, Component chatMessage) {
         super(player);
         this.deathText = deathText;
         this.chatMessage = chatMessage;
@@ -46,7 +45,7 @@ public class PlayerDeathEvent extends PlayerEvent {
      * @return the death chat message
      */
     @Nullable
-    public JsonMessage getChatMessage() {
+    public Component getChatMessage() {
         return chatMessage;
     }
 
@@ -55,7 +54,7 @@ public class PlayerDeathEvent extends PlayerEvent {
      *
      * @param chatMessage the death message to send, null to remove
      */
-    public void setChatMessage(@Nullable JsonMessage chatMessage) {
+    public void setChatMessage(@Nullable Component chatMessage) {
         this.chatMessage = chatMessage;
     }
 }

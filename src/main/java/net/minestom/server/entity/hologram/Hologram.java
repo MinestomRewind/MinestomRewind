@@ -1,8 +1,7 @@
 package net.minestom.server.entity.hologram;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.Viewable;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.type.decoration.EntityArmorStand;
 import net.minestom.server.instance.Instance;
@@ -22,7 +21,7 @@ public class Hologram implements Viewable {
     private final HologramEntity entity;
 
     private Position position;
-    private String text;
+    private Component text;
 
     private boolean removed;
 
@@ -34,7 +33,7 @@ public class Hologram implements Viewable {
      * @param text          The text of this hologram.
      * @param autoViewable  {@code true}if the hologram should be visible automatically, otherwise {@code false}.
      */
-    public Hologram(Instance instance, Position spawnPosition, String text, boolean autoViewable) {
+    public Hologram(Instance instance, Position spawnPosition, Component text, boolean autoViewable) {
         this.entity = new HologramEntity(spawnPosition.clone().add(0, OFFSET_Y, 0));
         this.entity.setInstance(instance);
         this.entity.setAutoViewable(autoViewable);
@@ -50,7 +49,7 @@ public class Hologram implements Viewable {
      * @param spawnPosition The spawn position of this hologram.
      * @param text          The text of this hologram.
      */
-    public Hologram(Instance instance, Position spawnPosition, String text) {
+    public Hologram(Instance instance, Position spawnPosition, Component text) {
         this(instance, spawnPosition, text, true);
     }
 
@@ -80,7 +79,7 @@ public class Hologram implements Viewable {
      *
      * @return the hologram text
      */
-    public String getText() {
+    public Component getText() {
         return text;
     }
 
@@ -89,7 +88,7 @@ public class Hologram implements Viewable {
      *
      * @param text the new hologram text
      */
-    public void setText(String text) {
+    public void setText(Component text) {
         checkRemoved();
         this.text = text;
         this.entity.setCustomName(text);
@@ -166,7 +165,7 @@ public class Hologram implements Viewable {
             setSmall(true);
 
             setNoGravity(true);
-            setCustomName("");
+            setCustomName(Component.text(""));
             setCustomNameVisible(true);
             setInvisible(true);
         }

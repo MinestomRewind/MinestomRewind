@@ -1,8 +1,6 @@
 package net.minestom.server.entity.damage;
 
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
-import net.minestom.server.chat.RichMessage;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.data.Data;
 import net.minestom.server.data.DataContainer;
 import net.minestom.server.entity.Entity;
@@ -60,8 +58,8 @@ public class DamageType implements DataContainer {
      * Can be for instance, of type {@link ColoredText} or {@link RichMessage}.
      */
     @Nullable
-    public JsonMessage buildDeathMessage(@NotNull Player killed) {
-        return ColoredText.of("{@death." + identifier + "," + killed.getUsername() + "}");
+    public Component buildDeathMessage(@NotNull Player killed) {
+        return Component.text("{@death." + identifier + "," + killed.getUsername() + "}");
     }
 
     /**

@@ -1,7 +1,8 @@
 package net.minestom.server.network.packet.server.play;
 
-import net.minestom.server.chat.ChatColor;
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
@@ -24,7 +25,7 @@ public class TeamsPacket implements ServerPacket {
     /**
      * The display name for the team
      */
-    public String teamDisplayName;
+    public Component teamDisplayName;
     /**
      * The friendly flags to
      */
@@ -36,15 +37,15 @@ public class TeamsPacket implements ServerPacket {
     /**
      * The color of the team
      */
-    public ChatColor teamColor;
+    public NamedTextColor teamColor;
     /**
      * The prefix of the team
      */
-    public String teamPrefix;
+    public Component teamPrefix;
     /**
      * The suffix of the team
      */
-    public String teamSuffix;
+    public Component teamSuffix;
     /**
      * An array with all entities in the team
      */
@@ -63,12 +64,12 @@ public class TeamsPacket implements ServerPacket {
         switch (action) {
             case CREATE_TEAM:
             case UPDATE_TEAM_INFO:
-                writer.writeSizedString(this.teamDisplayName);
-                writer.writeSizedString(this.teamPrefix);
-                writer.writeSizedString(this.teamSuffix);
+                writer.writeSizedString(LegacyComponentSerializer.legacySection().serialize(this.teamDisplayName));
+                writer.writeSizedString(LegacyComponentSerializer.legacySection().serialize(this.teamPrefix));
+                writer.writeSizedString(LegacyComponentSerializer.legacySection().serialize(this.teamSuffix));
                 writer.writeByte(this.friendlyFlags);
                 writer.writeSizedString(this.nameTagVisibility.getIdentifier());
-                writer.writeByte((byte)this.teamColor.getCode());
+                writer.writeByte((byte)this.teamColor.value());
                 break;
             case REMOVE_TEAM:
 

@@ -1,7 +1,6 @@
 package net.minestom.server.scoreboard;
 
 import net.minestom.server.Viewable;
-import net.minestom.server.chat.ColoredText;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.packet.server.play.DisplayScoreboardPacket;
 import net.minestom.server.network.packet.server.play.ScoreboardObjectivePacket;
@@ -25,7 +24,7 @@ public interface Scoreboard extends Viewable {
         final ScoreboardObjectivePacket packet = new ScoreboardObjectivePacket();
         packet.objectiveName = this.getObjectiveName();
         packet.mode = 0; // Create Scoreboard
-        packet.objectiveValue = ColoredText.of(value);
+        packet.objectiveValue = value;
         packet.type = type;
 
         return packet;

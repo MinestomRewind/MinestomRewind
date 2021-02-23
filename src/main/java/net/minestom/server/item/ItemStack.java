@@ -2,8 +2,8 @@ package net.minestom.server.item;
 
 import it.unimi.dsi.fastutil.objects.Object2ShortMap;
 import it.unimi.dsi.fastutil.objects.Object2ShortOpenHashMap;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.data.Data;
 import net.minestom.server.data.DataContainer;
 import net.minestom.server.entity.ItemEntity;
@@ -54,9 +54,9 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
     private byte amount;
     private int damage;
 
-    private JsonMessage displayName;
+    private Component displayName;
     private boolean unbreakable;
-    private List<JsonMessage> lore;
+    private List<Component> lore;
 
     private Object2ShortMap<Enchantment> enchantmentMap;
     private List<ItemAttribute> attributes;
@@ -166,7 +166,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
                 return true;
             }
 
-            final JsonMessage itemDisplayName = itemStack.getDisplayName();
+            final Component itemDisplayName = itemStack.getDisplayName();
             final boolean displayNameCheck = (displayName == null && itemDisplayName == null) ||
                     (displayName != null && displayName.equals(itemDisplayName));
 
@@ -267,7 +267,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      * @return the item display name, can be null if not present
      */
     @Nullable
-    public JsonMessage getDisplayName() {
+    public Component getDisplayName() {
         return displayName;
     }
 
@@ -276,7 +276,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      *
      * @param displayName the item display name
      */
-    public void setDisplayName(@Nullable JsonMessage displayName) {
+    public void setDisplayName(@Nullable Component displayName) {
         this.displayName = displayName;
     }
 
@@ -295,7 +295,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      * @return a modifiable list containing the item lore, can be empty if not present
      */
     @NotNull
-    public List<JsonMessage> getLore() {
+    public List<Component> getLore() {
         return lore;
     }
 
@@ -304,7 +304,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      *
      * @param lore the item lore, can be empty to remove
      */
-    public void setLore(@NotNull List<JsonMessage> lore) {
+    public void setLore(@NotNull List<Component> lore) {
         this.lore = lore;
     }
 
@@ -748,7 +748,6 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      * Called when the player right clicks with this item.
      *
      * @param player the player who used the item
-     * @param hand   the hand used
      */
     public void onRightClick(@NotNull Player player) {
     }

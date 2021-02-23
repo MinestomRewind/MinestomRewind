@@ -1,6 +1,7 @@
 package net.minestom.server.network.packet.server.login;
 
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
@@ -14,8 +15,8 @@ public class LoginDisconnectPacket implements ServerPacket {
         this.kickMessage = kickMessage;
     }
 
-    public LoginDisconnectPacket(@NotNull JsonMessage jsonKickMessage) {
-        this(jsonKickMessage.toString());
+    public LoginDisconnectPacket(@NotNull Component jsonKickMessage) {
+        this(Adventure.COMPONENT_SERIALIZER.serialize(jsonKickMessage));
     }
 
     @Override

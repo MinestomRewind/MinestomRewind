@@ -1,6 +1,6 @@
 package net.minestom.server.entity;
 
-import net.minestom.server.network.packet.server.play.SpawnEntityPacket;
+import net.minestom.server.network.packet.server.play.SpawnObjectPacket;
 import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.utils.Position;
 import org.jetbrains.annotations.NotNull;
@@ -38,13 +38,12 @@ public abstract class ObjectEntity extends Entity {
 
         final PlayerConnection playerConnection = player.getPlayerConnection();
 
-        SpawnEntityPacket spawnEntityPacket = new SpawnEntityPacket();
-        spawnEntityPacket.entityId = getEntityId();
-        spawnEntityPacket.uuid = getUuid();
-        spawnEntityPacket.type = getEntityType().getId();
-        spawnEntityPacket.position = getPosition();
-        spawnEntityPacket.data = getObjectData();
-        playerConnection.sendPacket(spawnEntityPacket);
+        SpawnObjectPacket spawnObjectPacket = new SpawnObjectPacket();
+        spawnObjectPacket.entityId = getEntityId();
+        spawnObjectPacket.type = (byte) getEntityType().getProtocolId();
+        spawnObjectPacket.position = getPosition();
+        spawnObjectPacket.data = getObjectData();
+        playerConnection.sendPacket(spawnObjectPacket);
         playerConnection.sendPacket(getVelocityPacket());
         playerConnection.sendPacket(getMetadataPacket());
 

@@ -1,48 +1,32 @@
 package net.minestom.server.command;
 
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.identity.Identified;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentLike;
 import net.minestom.server.entity.Player;
 import net.minestom.server.permission.PermissionHandler;
-import org.jetbrains.annotations.NotNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Represents something which can send commands to the server.
  * <p>
  * Main implementations are {@link Player} and {@link ConsoleSender}.
  */
-public interface CommandSender extends PermissionHandler {
-
+public interface CommandSender extends PermissionHandler, Audience {
     /**
-     * Sends a raw string message.
+     * Sends a chat message with a {@link Identity#nil() nil} identity to this {@link Audience}.
      *
-     * @param message the message to send
+     * @param message a message
+     * @see Component#text(String)
+     * @see #sendMessage(Identified, Component)
+     * @see #sendMessage(Identity, ComponentLike)
      */
-    void sendMessage(@NotNull String message);
-
-    /**
-     * Sends multiple raw string messages.
-     *
-     * @param messages the messages to send
-     */
-    default void sendMessage(@NotNull String[] messages) {
-        for (String message : messages) {
-            sendMessage(message);
-        }
+    default void sendMessage(final @NonNull String message) {
+        this.sendMessage(Identity.nil(), Component.text(message));
     }
 
-    /**
-     * Sends a {@link JsonMessage} message.
-     * If this is not a {@link Player}, only the content of the message will be sent as a string.
-     *
-     * @param text The {@link JsonMessage} to send.
-     * */
-    default void sendMessage(@NotNull JsonMessage text) {
-        if (this instanceof Player) {
-            this.sendMessage(text);
-        } else {
-            sendMessage(text.getRawMessage());
-        }
-    }
 
     /**
      * Gets if the sender is a {@link Player}.

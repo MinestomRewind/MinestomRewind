@@ -1,6 +1,7 @@
 package net.minestom.server.network.packet.server.play;
 
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
@@ -75,7 +76,7 @@ public class PlayerListItemPacket implements ServerPacket {
         public List<Property> properties;
         public GameMode gameMode;
         public int ping;
-        public JsonMessage displayName; // Only text
+        public Component displayName; // Only text
 
         public AddPlayer(UUID uuid, String name, GameMode gameMode, int ping) {
             super(uuid);
@@ -98,7 +99,7 @@ public class PlayerListItemPacket implements ServerPacket {
             final boolean hasDisplayName = displayName != null;
             writer.writeBoolean(hasDisplayName);
             if (hasDisplayName)
-                writer.writeSizedString(displayName.toString());
+                writer.writeSizedString(Adventure.COMPONENT_SERIALIZER.serialize(displayName));
         }
 
         public static class Property {
@@ -161,9 +162,9 @@ public class PlayerListItemPacket implements ServerPacket {
 
     public static class UpdateDisplayName extends PlayerInfo {
 
-        public JsonMessage displayName; // Only text
+        public Component displayName; // Only text
 
-        public UpdateDisplayName(UUID uuid, JsonMessage displayName) {
+        public UpdateDisplayName(UUID uuid, Component displayName) {
             super(uuid);
             this.displayName = displayName;
         }
@@ -173,7 +174,7 @@ public class PlayerListItemPacket implements ServerPacket {
             final boolean hasDisplayName = displayName != null;
             writer.writeBoolean(hasDisplayName);
             if (hasDisplayName)
-                writer.writeSizedString(displayName.toString());
+                writer.writeSizedString(Adventure.COMPONENT_SERIALIZER.serialize(displayName));
         }
     }
 

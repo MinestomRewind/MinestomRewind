@@ -1,10 +1,10 @@
 package demo.commands;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
+import net.minestom.server.MinecraftServer;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Arguments;
 import net.minestom.server.command.builder.Command;
@@ -12,16 +12,18 @@ import net.minestom.server.command.builder.arguments.Argument;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.entity.Player;
 
+import java.time.Duration;
+
 public class TitleCommand extends Command {
+    private final Argument<String> contentArgument = ArgumentType.String("content");
+
     public TitleCommand() {
         super("title");
         setDefaultExecutor((source, args) -> {
             source.sendMessage("Unknown syntax (note: title must be quoted)");
         });
 
-        Argument content = ArgumentType.String("content");
-
-        addSyntax(this::handleTitle, content);
+        addSyntax(this::handleTitle, contentArgument);
     }
 
     private void handleTitle(CommandSender source, Arguments args) {
@@ -31,15 +33,16 @@ public class TitleCommand extends Command {
         }
 
         Player player = source.asPlayer();
-        String titleContent = args.getString("content");
+        String titleContent = args.get(contentArgument);
 
-        player.sendTitleTime(10, 100, 10);
+        Component title;
         try {
-            JsonElement parsed = JsonParser.parseString(titleContent);
-            JsonMessage message = new JsonMessage.RawJsonMessage(parsed.getAsJsonObject());
-            player.sendTitleMessage(message);
+            title = Adventure.COMPONENT_SERIALIZER.deserialize(titleContent);
         } catch (JsonParseException | IllegalStateException ignored) {
-            player.sendTitleMessage(ColoredText.of(titleContent));
+            title = Component.text(titleContent);
         }
+
+        Title.Times times = Title.Times.of(Duration.ofMillis(10 * MinecraftServer.TICK_MS), Duration.ofMillis(10 * MinecraftServer.TICK_MS), Duration.ofMillis(10 * MinecraftServer.TICK_MS));
+        player.showTitle(Title.title(title, Component.text(""), times));
     }
 }

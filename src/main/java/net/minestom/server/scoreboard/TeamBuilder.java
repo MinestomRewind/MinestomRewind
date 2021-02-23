@@ -1,8 +1,7 @@
 package net.minestom.server.scoreboard;
 
-import net.minestom.server.chat.ChatColor;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.network.packet.server.play.TeamsPacket.NameTagVisibility;
 
 /**
@@ -51,7 +50,7 @@ public class TeamBuilder {
      * @param prefix The new prefix
      * @return this builder, for chaining
      */
-    public TeamBuilder updatePrefix(String prefix) {
+    public TeamBuilder updatePrefix(Component prefix) {
         this.team.updatePrefix(prefix);
         return this;
     }
@@ -62,7 +61,7 @@ public class TeamBuilder {
      * @param color The new color
      * @return this builder, for chaining
      */
-    public TeamBuilder updateTeamColor(ChatColor color) {
+    public TeamBuilder updateTeamColor(NamedTextColor color) {
         this.team.updateTeamColor(color);
         return this;
     }
@@ -73,7 +72,7 @@ public class TeamBuilder {
      * @param suffix The new suffix
      * @return this builder, for chaining
      */
-    public TeamBuilder updateSuffix(String suffix) {
+    public TeamBuilder updateSuffix(Component suffix) {
         this.team.updateSuffix(suffix);
         return this;
     }
@@ -84,7 +83,7 @@ public class TeamBuilder {
      * @param displayName The new display name
      * @return this builder, for chaining
      */
-    public TeamBuilder updateTeamDisplayName(String displayName) {
+    public TeamBuilder updateTeamDisplayName(Component displayName) {
         this.team.updateTeamDisplayName(displayName);
         return this;
     }
@@ -137,7 +136,7 @@ public class TeamBuilder {
      * @param prefix The new prefix
      * @return this builder, for chaining
      */
-    public TeamBuilder prefix(String prefix) {
+    public TeamBuilder prefix(Component prefix) {
         this.team.setPrefix(prefix);
         return this;
     }
@@ -150,7 +149,7 @@ public class TeamBuilder {
      * @param suffix The new suffix
      * @return this builder, for chaining
      */
-    public TeamBuilder suffix(String suffix) {
+    public TeamBuilder suffix(Component suffix) {
         this.team.setSuffix(suffix);
         return this;
     }
@@ -163,7 +162,7 @@ public class TeamBuilder {
      * @param color The new team color
      * @return this builder, for chaining
      */
-    public TeamBuilder teamColor(ChatColor color) {
+    public TeamBuilder teamColor(NamedTextColor color) {
         this.team.setTeamColor(color);
         return this;
     }
@@ -176,7 +175,7 @@ public class TeamBuilder {
      * @param displayName The new display name
      * @return this builder, for chaining
      */
-    public TeamBuilder teamDisplayName(String displayName) {
+    public TeamBuilder teamDisplayName(Component displayName) {
         this.team.setTeamDisplayName(displayName);
         return this;
     }

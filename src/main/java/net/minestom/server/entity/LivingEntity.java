@@ -272,10 +272,11 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
             // play damage sound
             final Sound sound = type.getSound(this);
             if (sound != null) {
-                SoundEffectPacket damageSoundPacket =
-                        SoundEffectPacket.create(sound,
-                                getPosition(),
-                                1.0f, 1.0f);
+                SoundEffectPacket damageSoundPacket = new SoundEffectPacket();
+                damageSoundPacket.soundName = sound.getId();
+                damageSoundPacket.position = getPosition();
+                damageSoundPacket.pitch = 1.0f;
+                damageSoundPacket.volume = 1.0f;
                 sendPacketToViewersAndSelf(damageSoundPacket);
             }
         });

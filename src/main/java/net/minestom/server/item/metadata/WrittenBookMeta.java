@@ -1,8 +1,8 @@
 package net.minestom.server.item.metadata;
 
+import net.kyori.adventure.text.Component;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.chat.ChatParser;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
 import org.jetbrains.annotations.NotNull;
 import org.jglrxavpok.hephaistos.nbt.NBTCompound;
 import org.jglrxavpok.hephaistos.nbt.NBTList;
@@ -18,7 +18,7 @@ public class WrittenBookMeta extends ItemMeta {
     private WrittenBookGeneration generation;
     private String author;
     private String title;
-    private List<JsonMessage> pages = new ArrayList<>();
+    private List<Component> pages = new ArrayList<>();
 
     /**
      * Gets if the book is resolved.
@@ -100,7 +100,7 @@ public class WrittenBookMeta extends ItemMeta {
      *
      * @return a modifiable {@link ArrayList} with the pages of the book
      */
-    public List<JsonMessage> getPages() {
+    public List<Component> getPages() {
         return pages;
     }
 
@@ -109,7 +109,7 @@ public class WrittenBookMeta extends ItemMeta {
      *
      * @param pages the array list containing the book pages
      */
-    public void setPages(List<JsonMessage> pages) {
+    public void setPages(List<Component> pages) {
         this.pages = pages;
     }
 
@@ -150,7 +150,7 @@ public class WrittenBookMeta extends ItemMeta {
             final NBTList<NBTString> list = compound.getList("pages");
             for (NBTString page : list) {
                 final String jsonPage = page.getValue();
-                final ColoredText coloredText = ChatParser.toColoredText(jsonPage);
+                final Component coloredText = ChatParser.toComponent(jsonPage);
                 this.pages.add(coloredText);
             }
         }
@@ -172,8 +172,8 @@ public class WrittenBookMeta extends ItemMeta {
         }
         if (!pages.isEmpty()) {
             NBTList<NBTString> list = new NBTList<>(NBTTypes.TAG_String);
-            for (JsonMessage page : pages) {
-                list.add(new NBTString(page.toString()));
+            for (Component page : pages) {
+                list.add(new NBTString(Adventure.COMPONENT_SERIALIZER.serialize(page)));
             }
             compound.set("pages", list);
         }

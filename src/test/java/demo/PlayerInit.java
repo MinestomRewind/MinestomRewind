@@ -2,9 +2,9 @@ package demo;
 
 import demo.generator.ChunkGeneratorDemo;
 import demo.generator.NoiseTestGenerator;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.benchmark.BenchmarkManager;
-import net.minestom.server.chat.ColoredText;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.ItemEntity;
@@ -78,8 +78,8 @@ public class PlayerInit {
             long ramUsage = benchmarkManager.getUsedMemory();
             ramUsage /= 1e6; // bytes to MB
 
-            final ColoredText header = ColoredText.of("RAM USAGE: " + ramUsage + " MB");
-            final ColoredText footer = ColoredText.of(benchmarkManager.getCpuMonitoringMessage());
+            final Component header = Component.text("RAM USAGE: " + ramUsage + " MB");
+            final Component footer = benchmarkManager.getCpuMonitoringMessage();
 
             {
                 PlayerListHeaderAndFooterPacket playerListHeaderAndFooterPacket = new PlayerListHeaderAndFooterPacket();
@@ -128,7 +128,7 @@ public class PlayerInit {
         });
 
         globalEventHandler.addEventCallback(PlayerDeathEvent.class, event -> {
-            event.setChatMessage(ColoredText.of("custom death message"));
+            event.setChatMessage(Component.text("custom death message"));
         });
 
         globalEventHandler.addEventCallback(PlayerBlockPlaceEvent.class, event -> {
@@ -208,7 +208,7 @@ public class PlayerInit {
             {
                 ItemStack item = new ItemStack(Material.DIAMOND_CHESTPLATE, (byte) 1);
                 inventory.setChestplate(item);
-                item.setDisplayName(ColoredText.of("test"));
+                item.setDisplayName(Component.text("test"));
 
                 inventory.refreshSlot((short) PlayerInventoryUtils.CHESTPLATE_SLOT);
 

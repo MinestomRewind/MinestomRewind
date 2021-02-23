@@ -1,6 +1,5 @@
 package net.minestom.server.item.metadata;
 
-import net.minestom.server.chat.ChatColor;
 import net.minestom.server.potion.CustomPotionEffect;
 import net.minestom.server.potion.PotionType;
 import net.minestom.server.registry.Registries;

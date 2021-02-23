@@ -1,6 +1,6 @@
 package net.minestom.server.command.builder;
 
-import net.minestom.server.chat.ChatColor;
+import net.kyori.adventure.text.format.TextColor;
 import net.minestom.server.command.builder.arguments.Argument;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.instance.block.Block;
@@ -129,8 +129,8 @@ public final class Arguments {
      */
     @Deprecated
     @NotNull
-    public ChatColor getColor(@NotNull String id) {
-        return (ChatColor) getObject(id);
+    public TextColor getColor(@NotNull String id) {
+        return (TextColor) getObject(id);
     }
 
     /**

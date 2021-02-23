@@ -22,6 +22,8 @@ public class ServerPacketIdentifier {
     public static final int ENTITY_ANIMATION = 0x0B;
     public static final int SPAWN_PLAYER = 0x0C;
     public static final int COLLECT_ITEM = 0x0D;
+    public static final int SPAWN_OBJECT = 0x0E;
+    public static final int SPAWN_MOB = 0x0F;
     public static final int SPAWN_PAINTING = 0x10;
     public static final int SPAWN_EXPERIENCE_ORB = 0x11;
     public static final int ENTITY_VELOCITY = 0x12;
@@ -55,6 +57,7 @@ public class ServerPacketIdentifier {
     public static final int WINDOW_PROPERTY = 0x31;
     public static final int WINDOW_CONFIRMATION = 0x32;
     // TODO(koesie10): Update sign packet
+    public static final int MAP_DATA = 0x34;
     public static final int UPDATE_BLOCK_ENTITY = 0x35;
     public static final int OPEN_SIGN_EDITOR = 0x36;
     public static final int STATISTICS = 0x37;
@@ -76,11 +79,6 @@ public class ServerPacketIdentifier {
     public static final int PLAYER_LIST_HEADER_AND_FOOTER = 0x47;
     public static final int RESOURCE_PACK_SEND = 0x48;
 
-    // TODO(koesie10): Add these packets
-    public static final int SPAWN_ENTITY = 0x00;
-    public static final int SPAWN_LIVING_ENTITY = 0x02;
-    public static final int MAP_DATA = 0x25;
-
-    public static final int MULTI_BLOCK_CHANGE = 0x3B;
+    public static final int MULTI_BLOCK_CHANGE = 0x22;
 
 }

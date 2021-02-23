@@ -1,10 +1,15 @@
 package net.minestom.server.network;
 
 import io.netty.channel.Channel;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.audience.ForwardingAudience;
+import net.kyori.adventure.audience.MessageType;
+import net.kyori.adventure.identity.Identified;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.chat.ChatColor;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.fakeplayer.FakePlayer;
 import net.minestom.server.event.player.AsyncPlayerPreLoginEvent;
@@ -24,6 +29,7 @@ import net.minestom.server.utils.async.AsyncUtils;
 import net.minestom.server.utils.callback.validator.PlayerValidator;
 import net.minestom.server.utils.validate.Check;
 import org.apache.commons.lang3.StringUtils;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,11 +43,11 @@ import java.util.function.Consumer;
 /**
  * Manages the connected clients.
  */
-public final class ConnectionManager {
+public final class ConnectionManager implements Audience, ForwardingAudience {
 
     private static final long KEEP_ALIVE_DELAY = 10_000;
     private static final long KEEP_ALIVE_KICK = 30_000;
-    private static final ColoredText TIMEOUT_TEXT = ColoredText.of(ChatColor.RED + "Timeout");
+    private static final Component TIMEOUT_TEXT = Component.text("Timeout", NamedTextColor.RED);
 
     private final Queue<Player> waitingPlayers = new ConcurrentLinkedQueue<>();
     private final Set<Player> players = new CopyOnWriteArraySet<>();
@@ -58,7 +64,7 @@ public final class ConnectionManager {
     // The consumers to call once a player connect, mostly used to init events
     private final List<Consumer<Player>> playerInitializations = new CopyOnWriteArrayList<>();
 
-    private JsonMessage shutdownText = ColoredText.of(ChatColor.RED, "The server is shutting down.");
+    private Component shutdownText = Component.text("The server is shutting down.", NamedTextColor.RED);
 
     /**
      * Gets the {@link Player} linked to a {@link PlayerConnection}.
@@ -138,35 +144,15 @@ public final class ConnectionManager {
         return null;
     }
 
-    /**
-     * Sends a {@link JsonMessage} to all online players who validate the condition {@code condition}.
-     *
-     * @param jsonMessage the message to send, probably a {@link net.minestom.server.chat.ColoredText} or {@link net.minestom.server.chat.RichMessage}
-     * @param condition   the condition to receive the message
-     */
-    public void broadcastMessage(@NotNull JsonMessage jsonMessage, @Nullable PlayerValidator condition) {
-        final Collection<Player> recipients = getRecipients(condition);
-
-        if (!recipients.isEmpty()) {
-            final String jsonText = jsonMessage.toString();
-            broadcastJson(jsonText, recipients);
-        }
+    @Override
+    public void sendMessage(final @NonNull Identified source, final @NonNull Component message, final @NonNull MessageType type) {
+        sendMessage(source.identity(), message, type);
     }
 
-    /**
-     * Sends a {@link JsonMessage} to all online players.
-     *
-     * @param jsonMessage the message to send, probably a {@link net.minestom.server.chat.ColoredText} or {@link net.minestom.server.chat.RichMessage}
-     */
-    public void broadcastMessage(@NotNull JsonMessage jsonMessage) {
-        broadcastMessage(jsonMessage, null);
-    }
-
-    private void broadcastJson(@NotNull String json, @NotNull Collection<Player> recipients) {
-        ChatMessagePacket chatMessagePacket =
-                new ChatMessagePacket(json, ChatMessagePacket.Position.SYSTEM_MESSAGE);
-
-        PacketUtils.sendGroupedPacket(recipients, chatMessagePacket);
+    @Override
+    public void sendMessage(final @NonNull Identity source, final @NonNull Component message, final @NonNull MessageType type) {
+        ChatMessagePacket chatMessagePacket = new ChatMessagePacket(message, type == MessageType.CHAT ? ChatMessagePacket.Position.CHAT : ChatMessagePacket.Position.SYSTEM_MESSAGE);
+        PacketUtils.sendGroupedPacket(getOnlinePlayers(), chatMessagePacket);
     }
 
     private Collection<Player> getRecipients(@Nullable PlayerValidator condition) {
@@ -307,7 +293,7 @@ public final class ConnectionManager {
      * @return the kick reason in case on a shutdown
      */
     @NotNull
-    public JsonMessage getShutdownText() {
+    public Component getShutdownText() {
         return shutdownText;
     }
 
@@ -317,7 +303,7 @@ public final class ConnectionManager {
      * @param shutdownText the new shutdown kick reason
      * @see #getShutdownText()
      */
-    public void setShutdownText(@NotNull JsonMessage shutdownText) {
+    public void setShutdownText(@NotNull Component shutdownText) {
         this.shutdownText = shutdownText;
     }
 
@@ -518,5 +504,10 @@ public final class ConnectionManager {
      */
     public void addWaitingPlayer(@NotNull Player player) {
         this.waitingPlayers.add(player);
+    }
+
+    @Override
+    public @NonNull Iterable<? extends Audience> audiences() {
+        return getOnlinePlayers();
     }
 }

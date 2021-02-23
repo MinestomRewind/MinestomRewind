@@ -1,6 +1,7 @@
 package net.minestom.server.network.packet.server.play;
 
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
@@ -10,9 +11,9 @@ public class TitlePacket implements ServerPacket {
 
     public Action action;
 
-    public JsonMessage titleText; // Only text
+    public Component titleText; // Only text
 
-    public JsonMessage subtitleText; // Only text
+    public Component subtitleText; // Only text
 
     public int fadeIn;
     public int stay;
@@ -24,10 +25,10 @@ public class TitlePacket implements ServerPacket {
 
         switch (action) {
             case SET_TITLE:
-                writer.writeSizedString(titleText.toString());
+                writer.writeSizedString(Adventure.COMPONENT_SERIALIZER.serialize(titleText));
                 break;
             case SET_SUBTITLE:
-                writer.writeSizedString(subtitleText.toString());
+                writer.writeSizedString(Adventure.COMPONENT_SERIALIZER.serialize(subtitleText));
                 break;
             case SET_TIMES_AND_DISPLAY:
                 writer.writeInt(fadeIn);

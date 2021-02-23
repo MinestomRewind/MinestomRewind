@@ -1,6 +1,5 @@
 package net.minestom.server.network.packet.server.play;
 
-import net.minestom.server.chat.JsonMessage;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
@@ -10,8 +9,6 @@ public class MapDataPacket implements ServerPacket {
 
     public int mapId;
     public byte scale;
-    public boolean trackingPosition;
-    public boolean locked;
 
     public Icon[] icons;
 
@@ -25,8 +22,6 @@ public class MapDataPacket implements ServerPacket {
     public void write(@NotNull BinaryWriter writer) {
         writer.writeVarInt(mapId);
         writer.writeByte(scale);
-        writer.writeBoolean(trackingPosition);
-        writer.writeBoolean(locked);
 
         if (icons != null && icons.length > 0) {
             writer.writeVarInt(icons.length);
@@ -61,21 +56,13 @@ public class MapDataPacket implements ServerPacket {
 
     public static class Icon {
         public int type;
-        public byte x, z;
         public byte direction;
-        public JsonMessage displayName; // Only text
+        public byte x, z;
 
         private void write(BinaryWriter writer) {
-            writer.writeVarInt(type);
+            writer.writeByte((byte) ((type & 0x0F) | (direction & 0xF0)));
             writer.writeByte(x);
             writer.writeByte(z);
-            writer.writeByte(direction);
-
-            final boolean hasDisplayName = displayName != null;
-            writer.writeBoolean(hasDisplayName);
-            if (hasDisplayName) {
-                writer.writeSizedString(displayName.toString());
-            }
         }
 
     }

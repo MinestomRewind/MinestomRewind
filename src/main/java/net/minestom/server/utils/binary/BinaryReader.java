@@ -1,10 +1,9 @@
 package net.minestom.server.utils.binary;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
+import net.minestom.server.chat.Adventure;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.utils.BlockPosition;
 import net.minestom.server.utils.NBTUtils;
@@ -151,10 +150,9 @@ public class BinaryReader extends InputStream {
         return itemStack;
     }
 
-    public JsonMessage readJsonMessage(int maxLength) {
+    public Component readComponent(int maxLength) {
         final String string = readSizedString(maxLength);
-        final JsonObject jsonObject = JsonParser.parseString(string).getAsJsonObject();
-        return new JsonMessage.RawJsonMessage(jsonObject);
+        return Adventure.COMPONENT_SERIALIZER.deserialize(string);
     }
 
     public ByteBuf getBuffer() {

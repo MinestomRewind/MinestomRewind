@@ -1,7 +1,8 @@
 package net.minestom.server.item.metadata;
 
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.chat.ChatColor;
 import net.minestom.server.utils.clone.CloneUtils;
 import net.minestom.server.utils.clone.PublicCloneable;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +18,7 @@ public class MapMeta extends ItemMeta {
     private int mapId;
     private int mapScaleDirection = 1;
     private List<MapDecoration> decorations = new CopyOnWriteArrayList<>();
-    private ChatColor mapColor = null;
+    private TextColor mapColor = null;
 
     public MapMeta() {
     }
@@ -85,7 +86,7 @@ public class MapMeta extends ItemMeta {
      *
      * @return the map color
      */
-    public ChatColor getMapColor() {
+    public TextColor getMapColor() {
         return mapColor;
     }
 
@@ -96,8 +97,10 @@ public class MapMeta extends ItemMeta {
      *
      * @param mapColor the new map color
      */
-    public void setMapColor(ChatColor mapColor) {
-        mapColor.getId(); // used to throw an error if rgb color is used
+    public void setMapColor(TextColor mapColor) {
+        if (!(mapColor instanceof NamedTextColor)) {
+            throw new IllegalArgumentException("Expected NamedTextColor");
+        }
         this.mapColor = mapColor;
     }
 
@@ -157,7 +160,7 @@ public class MapMeta extends ItemMeta {
             final NBTCompound displayCompound = compound.getCompound("display");
             if (displayCompound.containsKey("MapColor")) {
                 final int color = displayCompound.getAsInt("MapColor");
-                this.mapColor = ChatColor.fromId(color);
+                this.mapColor = NamedTextColor.ofExact(color);
             }
         }
 
@@ -192,7 +195,7 @@ public class MapMeta extends ItemMeta {
                 displayCompound = new NBTCompound();
             }
             if (mapColor != null) {
-                displayCompound.setInt("MapColor", mapColor.getId());
+                displayCompound.setInt("MapColor", mapColor.value());
             }
         }
     }

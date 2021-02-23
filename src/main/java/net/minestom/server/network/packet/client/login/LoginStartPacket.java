@@ -1,28 +1,25 @@
 package net.minestom.server.network.packet.client.login;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.chat.ChatColor;
-import net.minestom.server.chat.ColoredText;
 import net.minestom.server.entity.Player;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.bungee.BungeeCordProxy;
-import net.minestom.server.extras.velocity.VelocityProxy;
 import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.packet.client.ClientPreplayPacket;
 import net.minestom.server.network.packet.server.login.EncryptionRequestPacket;
 import net.minestom.server.network.packet.server.login.LoginDisconnectPacket;
-import net.minestom.server.network.packet.server.login.LoginPluginRequestPacket;
 import net.minestom.server.network.player.NettyPlayerConnection;
 import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.utils.binary.BinaryReader;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class LoginStartPacket implements ClientPreplayPacket {
 
-    private static final ColoredText ALREADY_CONNECTED_JSON = ColoredText.of(ChatColor.RED, "You are already on this server");
+    private static final Component ALREADY_CONNECTED_JSON = Component.text("You are already on this server", NamedTextColor.RED);
 
     public String username;
 
@@ -41,32 +38,6 @@ public class LoginStartPacket implements ClientPreplayPacket {
             if (threshold > 0) {
                 nettyPlayerConnection.startCompression();
             }
-        }
-
-        // Proxy support (only for netty clients)
-        if (isNettyClient) {
-            final NettyPlayerConnection nettyPlayerConnection = (NettyPlayerConnection) connection;
-
-            {
-                // Velocity support
-                if (VelocityProxy.isEnabled()) {
-
-                    final int messageId = ThreadLocalRandom.current().nextInt();
-                    final String channel = VelocityProxy.PLAYER_INFO_CHANNEL;
-
-                    // Important in order to retrieve the channel in the response packet
-                    nettyPlayerConnection.addPluginRequestEntry(messageId, channel);
-
-                    LoginPluginRequestPacket loginPluginRequestPacket = new LoginPluginRequestPacket();
-                    loginPluginRequestPacket.messageId = messageId;
-                    loginPluginRequestPacket.channel = channel;
-                    loginPluginRequestPacket.data = null;
-                    connection.sendPacket(loginPluginRequestPacket);
-
-                    return;
-                }
-            }
-
         }
 
         if (MojangAuth.isEnabled() && isNettyClient) {

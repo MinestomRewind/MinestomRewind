@@ -1,6 +1,8 @@
 package net.minestom.server.entity;
 
 import com.google.common.collect.Queues;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.Viewable;
 import net.minestom.server.collision.BoundingBox;
@@ -963,8 +965,9 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
      * @return the custom name of the entity, null if there is not
      */
     @Nullable
-    public String getCustomName() {
-        return metadata.getIndex((byte) 2, null);
+    public Component getCustomName() {
+        String text = metadata.getIndex((byte) 2, null);
+        return LegacyComponentSerializer.legacySection().deserialize(text);
     }
 
     /**
@@ -972,8 +975,8 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
      *
      * @param customName the custom name of the entity, null to remove it
      */
-    public void setCustomName(@Nullable String customName) {
-        this.metadata.setIndex((byte) 2, Metadata.String(customName == null ? "" : customName));
+    public void setCustomName(@Nullable Component customName) {
+        this.metadata.setIndex((byte) 2, Metadata.String(customName == null ? "" : LegacyComponentSerializer.legacySection().serialize(customName)));
     }
 
     /**

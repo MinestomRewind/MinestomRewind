@@ -1,5 +1,8 @@
 package net.minestom.server.listener;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.chat.*;
 import net.minestom.server.command.CommandManager;
@@ -39,9 +42,9 @@ public class ChatMessageListener {
         // Call the event
         player.callCancellableEvent(PlayerChatEvent.class, playerChatEvent, () -> {
 
-            final Function<PlayerChatEvent, JsonMessage> formatFunction = playerChatEvent.getChatFormatFunction();
+            final Function<PlayerChatEvent, Component> formatFunction = playerChatEvent.getChatFormatFunction();
 
-            JsonMessage textObject;
+            Component textObject;
 
             if (formatFunction != null) {
                 // Custom format
@@ -53,10 +56,8 @@ public class ChatMessageListener {
 
             final Collection<Player> recipients = playerChatEvent.getRecipients();
             if (!recipients.isEmpty()) {
-                final String jsonMessage = textObject.toString();
-
                 // Send the message with the correct player UUID
-                ChatMessagePacket chatMessagePacket = new ChatMessagePacket(jsonMessage, ChatMessagePacket.Position.CHAT);
+                ChatMessagePacket chatMessagePacket = new ChatMessagePacket(textObject, ChatMessagePacket.Position.CHAT);
 
                 PacketUtils.sendGroupedPacket(recipients, chatMessagePacket);
             }
@@ -65,15 +66,15 @@ public class ChatMessageListener {
 
     }
 
-    private static RichMessage buildDefaultChatMessage(PlayerChatEvent chatEvent) {
+    private static Component buildDefaultChatMessage(PlayerChatEvent chatEvent) {
         final String username = chatEvent.getPlayer().getUsername();
 
-        final ColoredText usernameText = ColoredText.of(String.format("<%s>", username));
+        final Component usernameText = Component.text(String.format("<%s>", username));
 
-        return RichMessage.of(usernameText)
-                .setHoverEvent(ChatHoverEvent.showText("Click to send a message to " + username))
-                .setClickEvent(ChatClickEvent.suggestCommand("/msg " + username + StringUtils.SPACE))
-                .append(ColoredText.of(StringUtils.SPACE + chatEvent.getMessage()));
+        return usernameText
+                .hoverEvent(HoverEvent.showText(Component.text("Click to send a message to " + username)))
+                .clickEvent(ClickEvent.suggestCommand("/msg " + username + StringUtils.SPACE))
+                .append(Component.text(StringUtils.SPACE + chatEvent.getMessage()));
     }
 
 }

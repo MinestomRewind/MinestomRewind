@@ -1,7 +1,7 @@
 package net.minestom.demo.largeframebuffers;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.chat.ColoredText;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.type.decoration.EntityItemFrame;
 import net.minestom.server.instance.Instance;
@@ -73,7 +73,7 @@ public class Demo {
         itemFrame.setItemStack(map);
         itemFrame.setInstance(instance);
         itemFrame.setCustomNameVisible(true);
-        itemFrame.setCustomName("MapID: " + id);
+        itemFrame.setCustomName(Component.text("MapID: " + id));
     }
 
     private static void setupMaps(Instance instance, int mapIDStart, int zCoordinate) {

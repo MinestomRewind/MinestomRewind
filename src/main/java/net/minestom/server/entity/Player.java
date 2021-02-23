@@ -1,13 +1,15 @@
 package net.minestom.server.entity;
 
 import com.google.common.collect.Queues;
+import net.kyori.adventure.audience.MessageType;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.inventory.Book;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.attribute.AttributeInstance;
 import net.minestom.server.attribute.Attributes;
-import net.minestom.server.chat.ChatParser;
-import net.minestom.server.chat.ColoredText;
-import net.minestom.server.chat.JsonMessage;
-import net.minestom.server.chat.RichMessage;
+import net.minestom.server.chat.*;
 import net.minestom.server.collision.BoundingBox;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.effects.Effects;
@@ -55,6 +57,7 @@ import net.minestom.server.utils.time.UpdateOption;
 import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.DimensionType;
 import net.minestom.server.world.LevelType;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -118,7 +121,7 @@ public class Player extends LivingEntity implements CommandSender {
     protected final Set<Entity> viewableEntities = new CopyOnWriteArraySet<>();
 
     private int latency;
-    private JsonMessage displayName;
+    private Component displayName;
     private PlayerSkin skin;
 
     private DimensionType dimensionType;
@@ -443,7 +446,7 @@ public class Player extends LivingEntity implements CommandSender {
         if (!isDead()) {
 
             String deathText;
-            JsonMessage chatMessage;
+            Component chatMessage;
 
             // get death screen text to the killed player
             {
@@ -459,7 +462,7 @@ public class Player extends LivingEntity implements CommandSender {
                 if (lastDamageSource != null) {
                     chatMessage = lastDamageSource.buildDeathMessage(this);
                 } else { // may happen if killed by the server without applying damage
-                    chatMessage = ColoredText.of(getUsername() + " was killed by poor programming.");
+                    chatMessage = Component.text(getUsername() + " was killed by poor programming.");
                 }
             }
 
@@ -478,7 +481,7 @@ public class Player extends LivingEntity implements CommandSender {
 
             // #buildDeathMessage can return null, check here
             if (chatMessage != null) {
-                MinecraftServer.getConnectionManager().broadcastMessage(chatMessage);
+                MinecraftServer.getConnectionManager().sendMessage(chatMessage, MessageType.SYSTEM);
             }
 
         }
@@ -697,45 +700,19 @@ public class Player extends LivingEntity implements CommandSender {
     }
 
     @Override
-    public void sendMessage(@NotNull String message) {
-        sendMessage(ColoredText.of(message));
-    }
-
-    /**
-     * Sends a message to the player.
-     *
-     * @param message the message to send,
-     *                you can use {@link ColoredText} and/or {@link RichMessage} to create it easily
-     */
-    public void sendMessage(@NotNull JsonMessage message) {
-        sendJsonMessage(message.toString());
-    }
-
-    /**
-     * Sends a legacy message with the specified color char.
-     *
-     * @param text      the text with the legacy color formatting
-     * @param colorChar the color character
-     */
-    public void sendLegacyMessage(@NotNull String text, char colorChar) {
-        ColoredText coloredText = ColoredText.ofLegacy(text, colorChar);
-        sendJsonMessage(coloredText.toString());
-    }
-
-    /**
-     * Sends a legacy message with the default color char {@link ChatParser#COLOR_CHAR}.
-     *
-     * @param text the text with the legacy color formatting
-     */
-    public void sendLegacyMessage(@NotNull String text) {
-        ColoredText coloredText = ColoredText.ofLegacy(text, ChatParser.COLOR_CHAR);
-        sendJsonMessage(coloredText.toString());
-    }
-
-    public void sendJsonMessage(@NotNull String json) {
-        ChatMessagePacket chatMessagePacket =
-                new ChatMessagePacket(json, ChatMessagePacket.Position.CHAT);
+    public void sendMessage(@NonNull Identity source, @NonNull Component message, @NonNull MessageType type) {
+        ChatMessagePacket chatMessagePacket = new ChatMessagePacket(message, type == MessageType.CHAT ? ChatMessagePacket.Position.CHAT : ChatMessagePacket.Position.SYSTEM_MESSAGE);
         playerConnection.sendPacket(chatMessagePacket);
+    }
+
+    @Override
+    public void playSound(net.kyori.adventure.sound.@NonNull Sound sound, double x, double y, double z) {
+        SoundEffectPacket soundEffectPacket = new SoundEffectPacket();
+        soundEffectPacket.soundName = sound.name().value();
+        soundEffectPacket.position = new Position(x, y, z);
+        soundEffectPacket.volume = sound.volume();
+        soundEffectPacket.pitch = sound.pitch();
+        playerConnection.sendPacket(soundEffectPacket);
     }
 
     /**
@@ -762,9 +739,7 @@ public class Player extends LivingEntity implements CommandSender {
     public void playSound(@NotNull Sound sound, int x, int y, int z, float volume, float pitch) {
         SoundEffectPacket soundEffectPacket = new SoundEffectPacket();
         soundEffectPacket.soundName = sound.getId();
-        soundEffectPacket.x = x;
-        soundEffectPacket.y = y;
-        soundEffectPacket.z = z;
+        soundEffectPacket.position = new Position(x, y, z);
         soundEffectPacket.volume = volume;
         soundEffectPacket.pitch = pitch;
         playerConnection.sendPacket(soundEffectPacket);
@@ -781,14 +756,12 @@ public class Player extends LivingEntity implements CommandSender {
      * @param pitch         the pitch of the sound, between 0.5 and 2.0
      */
     public void playSound(@NotNull String identifier, int x, int y, int z, float volume, float pitch) {
-        SoundEffectPacket namedSoundEffectPacket = new SoundEffectPacket();
-        namedSoundEffectPacket.soundName = identifier;
-        namedSoundEffectPacket.x = x;
-        namedSoundEffectPacket.y = y;
-        namedSoundEffectPacket.z = z;
-        namedSoundEffectPacket.volume = volume;
-        namedSoundEffectPacket.pitch = pitch;
-        playerConnection.sendPacket(namedSoundEffectPacket);
+        SoundEffectPacket soundEffectPacket = new SoundEffectPacket();
+        soundEffectPacket.soundName = identifier;
+        soundEffectPacket.position = new Position(x, y, z);
+        soundEffectPacket.volume = volume;
+        soundEffectPacket.pitch = pitch;
+        playerConnection.sendPacket(soundEffectPacket);
     }
 
     /**
@@ -810,13 +783,51 @@ public class Player extends LivingEntity implements CommandSender {
         playerConnection.sendPacket(packet);
     }
 
-    /**
-     * Sets the header and footer of a player which will be displayed in his tab window.
-     *
-     * @param header the header text, null to set empty
-     * @param footer the footer text, null to set empty
-     */
-    public void sendHeaderFooter(@Nullable JsonMessage header, @Nullable JsonMessage footer) {
+    @Override
+    public void showTitle(@NonNull Title title) {
+        TitlePacket titlePacket = new TitlePacket();
+        titlePacket.action = TitlePacket.Action.SET_TITLE;
+        titlePacket.titleText = title.title();
+        playerConnection.sendPacket(titlePacket);
+
+        TitlePacket subtitlePacket = new TitlePacket();
+        subtitlePacket.action = TitlePacket.Action.SET_SUBTITLE;
+        subtitlePacket.titleText = title.subtitle();
+        playerConnection.sendPacket(subtitlePacket);
+
+        Title.Times times = title.times();
+        if (times != null) {
+            TitlePacket timePacket = new TitlePacket();
+            timePacket.action = TitlePacket.Action.SET_TIMES_AND_DISPLAY;
+            timePacket.fadeIn = (int) (times.fadeIn().toMillis() / MinecraftServer.TICK_MS);
+            timePacket.stay =  (int) (times.stay().toMillis() / MinecraftServer.TICK_MS);
+            timePacket.fadeOut =  (int) (times.fadeOut().toMillis() / MinecraftServer.TICK_MS);
+            playerConnection.sendPacket(timePacket);
+        }
+    }
+
+    @Override
+    public void clearTitle() {
+        TitlePacket titlePacket = new TitlePacket();
+        titlePacket.action = TitlePacket.Action.HIDE;
+        playerConnection.sendPacket(titlePacket);
+    }
+
+    @Override
+    public void resetTitle() {
+        TitlePacket titlePacket = new TitlePacket();
+        titlePacket.action = TitlePacket.Action.RESET;
+        playerConnection.sendPacket(titlePacket);
+    }
+
+    @Override
+    public void sendActionBar(@NonNull Component message) {
+        ChatMessagePacket chatMessagePacket = new ChatMessagePacket(message, ChatMessagePacket.Position.GAME_INFO);
+        playerConnection.sendPacket(chatMessagePacket);
+    }
+
+    @Override
+    public void sendPlayerListHeaderAndFooter(@NonNull Component header, @NonNull Component footer) {
         PlayerListHeaderAndFooterPacket playerListHeaderAndFooterPacket = new PlayerListHeaderAndFooterPacket();
         playerListHeaderAndFooterPacket.header = header;
         playerListHeaderAndFooterPacket.footer = footer;
@@ -824,106 +835,16 @@ public class Player extends LivingEntity implements CommandSender {
         playerConnection.sendPacket(playerListHeaderAndFooterPacket);
     }
 
-    /**
-     * Common method to send a title.
-     *
-     * @param text   the text of the title
-     * @param action the action of the title (where to show it)
-     * @see #sendTitleTime(int, int, int) to specify the display time
-     */
-    private void sendTitle(@NotNull JsonMessage text, @NotNull TitlePacket.Action action) {
-        TitlePacket titlePacket = new TitlePacket();
-        titlePacket.action = action;
+    @Override
+    public void openBook(@NonNull Book book) {
+        WrittenBookMeta meta = new WrittenBookMeta();
+        // TODO(koesie10): These are probably plain or legacy
+        meta.setAuthor(Adventure.COMPONENT_SERIALIZER.serialize(book.author()));
+        meta.setTitle(Adventure.COMPONENT_SERIALIZER.serialize(book.title()));
 
-        switch (action) {
-            case SET_TITLE:
-                titlePacket.titleText = text;
-                break;
-            case SET_SUBTITLE:
-                titlePacket.subtitleText = text;
-                break;
-            default:
-                throw new UnsupportedOperationException("Invalid TitlePacket.Action type!");
-        }
+        meta.setPages(book.pages());
 
-        playerConnection.sendPacket(titlePacket);
-    }
-
-    /**
-     * Sends a title and subtitle message.
-     *
-     * @param title    the title message
-     * @param subtitle the subtitle message
-     * @see #sendTitleTime(int, int, int) to specify the display time
-     */
-    public void sendTitleSubtitleMessage(@NotNull JsonMessage title, @NotNull JsonMessage subtitle) {
-        sendTitle(title, TitlePacket.Action.SET_TITLE);
-        sendTitle(subtitle, TitlePacket.Action.SET_SUBTITLE);
-    }
-
-    /**
-     * Sends a title message.
-     *
-     * @param title the title message
-     * @see #sendTitleTime(int, int, int) to specify the display time
-     */
-    public void sendTitleMessage(@NotNull JsonMessage title) {
-        sendTitle(title, TitlePacket.Action.SET_TITLE);
-    }
-
-    /**
-     * Sends a subtitle message.
-     *
-     * @param subtitle the subtitle message
-     * @see #sendTitleTime(int, int, int) to specify the display time
-     */
-    public void sendSubtitleMessage(@NotNull JsonMessage subtitle) {
-        sendTitle(subtitle, TitlePacket.Action.SET_SUBTITLE);
-    }
-
-    /**
-     * Sends an action bar message.
-     *
-     * @param actionBar the action bar message
-     * @see #sendTitleTime(int, int, int) to specify the display time
-     */
-    public void sendActionBarMessage(@NotNull JsonMessage actionBar) {
-        ChatMessagePacket chatMessagePacket = new ChatMessagePacket(actionBar.toString(), ChatMessagePacket.Position.GAME_INFO);
-        playerConnection.sendPacket(chatMessagePacket);
-    }
-
-    /**
-     * Specifies the display time of a title.
-     *
-     * @param fadeIn  ticks to spend fading in
-     * @param stay    ticks to keep the title displayed
-     * @param fadeOut ticks to spend out, not when to start fading out
-     */
-    public void sendTitleTime(int fadeIn, int stay, int fadeOut) {
-        TitlePacket titlePacket = new TitlePacket();
-        titlePacket.action = TitlePacket.Action.SET_TIMES_AND_DISPLAY;
-        titlePacket.fadeIn = fadeIn;
-        titlePacket.stay = stay;
-        titlePacket.fadeOut = fadeOut;
-        playerConnection.sendPacket(titlePacket);
-    }
-
-    /**
-     * Hides the previous title.
-     */
-    public void hideTitle() {
-        TitlePacket titlePacket = new TitlePacket();
-        titlePacket.action = TitlePacket.Action.HIDE;
-        playerConnection.sendPacket(titlePacket);
-    }
-
-    /**
-     * Resets the previous title.
-     */
-    public void resetTitle() {
-        TitlePacket titlePacket = new TitlePacket();
-        titlePacket.action = TitlePacket.Action.RESET;
-        playerConnection.sendPacket(titlePacket);
+        openBook(meta);
     }
 
     /**
@@ -1062,7 +983,7 @@ public class Player extends LivingEntity implements CommandSender {
      * @return the player display name, null means that {@link #getUsername()} is displayed
      */
     @Nullable
-    public JsonMessage getDisplayName() {
+    public Component getDisplayName() {
         return displayName;
     }
 
@@ -1073,7 +994,7 @@ public class Player extends LivingEntity implements CommandSender {
      *
      * @param displayName the display name, null to display the username
      */
-    public void setDisplayName(@Nullable JsonMessage displayName) {
+    public void setDisplayName(@Nullable Component displayName) {
         this.displayName = displayName;
 
         PlayerListItemPacket infoPacket = new PlayerListItemPacket(PlayerListItemPacket.Action.UPDATE_DISPLAY_NAME);
@@ -1575,7 +1496,7 @@ public class Player extends LivingEntity implements CommandSender {
      *
      * @param text the kick reason
      */
-    public void kick(@NotNull JsonMessage text) {
+    public void kick(@NotNull Component text) {
         final ConnectionState connectionState = playerConnection.getConnectionState();
 
         // Packet type depends on the current player connection state
@@ -1596,7 +1517,7 @@ public class Player extends LivingEntity implements CommandSender {
      * @param message the kick reason
      */
     public void kick(@NotNull String message) {
-        kick(ColoredText.of(message));
+        kick(Component.text(message));
     }
 
     /**

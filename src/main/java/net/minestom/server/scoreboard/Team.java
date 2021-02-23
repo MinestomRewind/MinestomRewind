@@ -1,7 +1,8 @@
 package net.minestom.server.scoreboard;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.chat.ChatColor;
 import net.minestom.server.entity.LivingEntity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.ConnectionManager;
@@ -33,7 +34,7 @@ public class Team {
     /**
      * The display name of the team.
      */
-    private String teamDisplayName;
+    private Component teamDisplayName;
     /**
      * A BitMask.
      */
@@ -47,16 +48,16 @@ public class Team {
      * Used to color the name of players on the team <br>
      * The color of a team defines how the names of the team members are visualized.
      */
-    private ChatColor teamColor;
+    private NamedTextColor teamColor;
 
     /**
      * Shown before the names of the players who belong to this team.
      */
-    private String prefix;
+    private Component prefix;
     /**
      * Shown after the names of the player who belong to this team.
      */
-    private String suffix;
+    private Component suffix;
 
     /**
      * Default constructor to creates a team.
@@ -66,13 +67,13 @@ public class Team {
     protected Team(@NotNull String teamName) {
         this.teamName = teamName;
 
-        this.teamDisplayName = "";
+        this.teamDisplayName = Component.text("");
         this.friendlyFlags = 0x00;
         this.nameTagVisibility = NameTagVisibility.ALWAYS;
 
-        this.teamColor = ChatColor.WHITE;
-        this.prefix = "";
-        this.suffix = "";
+        this.teamColor = NamedTextColor.WHITE;
+        this.prefix = Component.text("");
+        this.suffix = Component.text("");
 
         this.members = new CopyOnWriteArraySet<>();
     }
@@ -124,7 +125,7 @@ public class Team {
      *
      * @param teamDisplayName The new display name
      */
-    public void setTeamDisplayName(String teamDisplayName) {
+    public void setTeamDisplayName(Component teamDisplayName) {
         this.teamDisplayName = teamDisplayName;
     }
 
@@ -133,7 +134,7 @@ public class Team {
      *
      * @param teamDisplayName The new display name
      */
-    public void updateTeamDisplayName(String teamDisplayName) {
+    public void updateTeamDisplayName(Component teamDisplayName) {
         this.setTeamDisplayName(teamDisplayName);
         sendUpdatePacket();
     }
@@ -166,9 +167,9 @@ public class Team {
      * <b>Warning:</b> This is only changed on the <b>server side</b>.
      *
      * @param color The new team color
-     * @see #updateTeamColor(ChatColor)
+     * @see #updateTeamColor(NamedTextColor)
      */
-    public void setTeamColor(@NotNull ChatColor color) {
+    public void setTeamColor(@NotNull NamedTextColor color) {
         this.teamColor = color;
     }
 
@@ -177,7 +178,7 @@ public class Team {
      *
      * @param teamColor The new team color
      */
-    public void updateTeamColor(@NotNull ChatColor teamColor) {
+    public void updateTeamColor(@NotNull NamedTextColor teamColor) {
         this.setTeamColor(teamColor);
         sendUpdatePacket();
     }
@@ -189,7 +190,7 @@ public class Team {
      *
      * @param prefix The new prefix
      */
-    public void setPrefix(String prefix) {
+    public void setPrefix(Component prefix) {
         this.prefix = prefix;
     }
 
@@ -198,7 +199,7 @@ public class Team {
      *
      * @param prefix The new prefix
      */
-    public void updatePrefix(String prefix) {
+    public void updatePrefix(Component prefix) {
         this.setPrefix(prefix);
         sendUpdatePacket();
     }
@@ -210,7 +211,7 @@ public class Team {
      *
      * @param suffix The new suffix
      */
-    public void setSuffix(String suffix) {
+    public void setSuffix(Component suffix) {
         this.suffix = suffix;
     }
 
@@ -219,7 +220,7 @@ public class Team {
      *
      * @param suffix The new suffix
      */
-    public void updateSuffix(String suffix) {
+    public void updateSuffix(Component suffix) {
         this.setSuffix(suffix);
         sendUpdatePacket();
     }
@@ -303,7 +304,7 @@ public class Team {
      *
      * @return the display name
      */
-    public String getTeamDisplayName() {
+    public Component getTeamDisplayName() {
         return teamDisplayName;
     }
 
@@ -332,7 +333,7 @@ public class Team {
      * @return the team color
      */
     @NotNull
-    public ChatColor getTeamColor() {
+    public NamedTextColor getTeamColor() {
         return teamColor;
     }
 
@@ -341,7 +342,7 @@ public class Team {
      *
      * @return the team prefix
      */
-    public String getPrefix() {
+    public Component getPrefix() {
         return prefix;
     }
 
@@ -350,7 +351,7 @@ public class Team {
      *
      * @return the suffix team
      */
-    public String getSuffix() {
+    public Component getSuffix() {
         return suffix;
     }
 

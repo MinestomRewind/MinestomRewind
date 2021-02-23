@@ -1,9 +1,9 @@
 package net.minestom.server.scoreboard;
 
 import it.unimi.dsi.fastutil.ints.IntLinkedOpenHashSet;
-import net.minestom.server.chat.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.chat.ChatParser;
-import net.minestom.server.chat.ColoredText;
 import net.minestom.server.entity.Player;
 import net.minestom.server.network.packet.server.play.DisplayScoreboardPacket;
 import net.minestom.server.network.packet.server.play.ScoreboardObjectivePacket;
@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * and remove him later with {@link #removeViewer(Player)}.
  * <p>
  * Lines can be modified using their respective identifier using
- * {@link #updateLineContent(String, String)} and {@link #updateLineScore(String, int)}.
+ * {@link #updateLineContent(String, Component)} and {@link #updateLineScore(String, int)}.
  */
 public class Sidebar implements Scoreboard {
 
@@ -80,7 +80,7 @@ public class Sidebar implements Scoreboard {
         ScoreboardObjectivePacket scoreboardObjectivePacket = new ScoreboardObjectivePacket();
         scoreboardObjectivePacket.objectiveName = objectiveName;
         scoreboardObjectivePacket.mode = 2; // Update display text
-        scoreboardObjectivePacket.objectiveValue = ColoredText.of(title);
+        scoreboardObjectivePacket.objectiveValue = title;
         scoreboardObjectivePacket.type = ScoreboardObjectivePacket.Type.INTEGER;
 
         sendPacketToViewers(scoreboardObjectivePacket);
@@ -123,7 +123,7 @@ public class Sidebar implements Scoreboard {
      * @param id      The identifier of the {@link ScoreboardLine}
      * @param content The new content for the {@link ScoreboardLine}
      */
-    public void updateLineContent(@NotNull String id, @NotNull String content) {
+    public void updateLineContent(@NotNull String id, @NotNull Component content) {
         final ScoreboardLine scoreboardLine = getLine(id);
         if (scoreboardLine != null) {
             scoreboardLine.refreshContent(content);
@@ -244,7 +244,7 @@ public class Sidebar implements Scoreboard {
         /**
          * The content for the line
          */
-        private final String content;
+        private final Component content;
         /**
          * The score of the line
          */
@@ -261,7 +261,7 @@ public class Sidebar implements Scoreboard {
          */
         private SidebarTeam sidebarTeam;
 
-        public ScoreboardLine(@NotNull String id, @NotNull String content, int line) {
+        public ScoreboardLine(@NotNull String id, @NotNull Component content, int line) {
             this.id = id;
             this.content = content;
             this.line = line;
@@ -285,7 +285,7 @@ public class Sidebar implements Scoreboard {
          * @return The line content
          */
         @NotNull
-        public String getContent() {
+        public Component getContent() {
             return sidebarTeam == null ? content : sidebarTeam.getPrefix();
         }
 
@@ -310,7 +310,7 @@ public class Sidebar implements Scoreboard {
         private void createTeam() {
             this.entityName = ChatParser.COLOR_CHAR + Integer.toHexString(colorName);
 
-            this.sidebarTeam = new SidebarTeam(teamName, content, "", entityName);
+            this.sidebarTeam = new SidebarTeam(teamName, content, Component.text(""), entityName);
         }
 
         private void returnName(IntLinkedOpenHashSet colors) {
@@ -366,7 +366,7 @@ public class Sidebar implements Scoreboard {
          *
          * @param content The new content
          */
-        private void refreshContent(String content) {
+        private void refreshContent(Component content) {
             this.sidebarTeam.refreshPrefix(content);
         }
 
@@ -378,13 +378,13 @@ public class Sidebar implements Scoreboard {
     private static class SidebarTeam {
 
         private final String teamName;
-        private String prefix, suffix;
+        private Component prefix, suffix;
         private final String entityName;
 
-        private final String teamDisplayName = "displaynametest";
+        private final Component teamDisplayName = Component.text("displaynametest");
         private final byte friendlyFlags = 0x00;
         private final TeamsPacket.NameTagVisibility nameTagVisibility = TeamsPacket.NameTagVisibility.NEVER;
-        private final ChatColor teamColor = ChatColor.DARK_GREEN;
+        private final NamedTextColor teamColor = NamedTextColor.DARK_GREEN;
 
 
         /**
@@ -395,7 +395,7 @@ public class Sidebar implements Scoreboard {
          * @param suffix     The team suffix
          * @param entityName The team entity name
          */
-        private SidebarTeam(String teamName, String prefix, String suffix, String entityName) {
+        private SidebarTeam(String teamName, Component prefix, Component suffix, String entityName) {
             this.teamName = teamName;
             this.prefix = prefix;
             this.suffix = suffix;
@@ -439,7 +439,7 @@ public class Sidebar implements Scoreboard {
          * @param prefix The new prefix
          * @return a {@link TeamsPacket} with the updated prefix
          */
-        private TeamsPacket updatePrefix(String prefix) {
+        private TeamsPacket updatePrefix(Component prefix) {
             TeamsPacket teamsPacket = new TeamsPacket();
             teamsPacket.teamName = teamName;
             teamsPacket.action = TeamsPacket.Action.UPDATE_TEAM_INFO;
@@ -466,7 +466,7 @@ public class Sidebar implements Scoreboard {
          *
          * @return the prefix
          */
-        private String getPrefix() {
+        private Component getPrefix() {
             return prefix;
         }
 
@@ -475,7 +475,7 @@ public class Sidebar implements Scoreboard {
          *
          * @param prefix The refreshed prefix
          */
-        private void refreshPrefix(@NotNull String prefix) {
+        private void refreshPrefix(@NotNull Component prefix) {
             this.prefix = prefix;
         }
     }

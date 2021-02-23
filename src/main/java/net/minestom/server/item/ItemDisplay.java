@@ -1,13 +1,13 @@
 package net.minestom.server.item;
 
-import net.minestom.server.chat.JsonMessage;
+import net.kyori.adventure.text.Component;
 
 public class ItemDisplay {
 
-    private JsonMessage displayName;
-    private JsonMessage[] lore;
+    private Component displayName;
+    private Component[] lore;
 
-    public ItemDisplay(JsonMessage displayName, JsonMessage[] lore) {
+    public ItemDisplay(Component displayName, Component[] lore) {
         this.displayName = displayName;
         this.lore = lore;
     }
@@ -17,7 +17,7 @@ public class ItemDisplay {
      *
      * @return the item display name
      */
-    public JsonMessage getDisplayName() {
+    public Component getDisplayName() {
         return displayName;
     }
 
@@ -26,7 +26,7 @@ public class ItemDisplay {
      *
      * @return the item lore
      */
-    public JsonMessage[] getLore() {
+    public Component[] getLore() {
         return lore;
     }
 }

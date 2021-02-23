@@ -1,7 +1,7 @@
 package demo.commands;
 
-import net.minestom.server.chat.ChatColor;
-import net.minestom.server.chat.ColoredText;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Arguments;
 import net.minestom.server.command.builder.Command;
@@ -35,9 +35,9 @@ public class BookCommand extends Command {
         bookMeta.setGeneration(WrittenBookMeta.WrittenBookGeneration.ORIGINAL);
         bookMeta.setTitle(player.getUsername() + "'s Book");
         bookMeta.setPages(List.of(
-                ColoredText.of(ChatColor.RED, "Page one"),
-                ColoredText.of(ChatColor.BRIGHT_GREEN, "Page two"),
-                ColoredText.of(ChatColor.BLUE, "Page three")
+                Component.text("Page one", NamedTextColor.RED),
+                Component.text("Page two", NamedTextColor.GREEN),
+                Component.text("Page three", NamedTextColor.BLUE)
         ));
 
         player.openBook(bookMeta);
