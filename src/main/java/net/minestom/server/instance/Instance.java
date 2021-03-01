@@ -893,9 +893,20 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
         AddEntityToInstanceEvent event = new AddEntityToInstanceEvent(this, entity);
         callCancellableEvent(AddEntityToInstanceEvent.class, event, () -> {
             final Position entityPosition = entity.getPosition();
+            final boolean isPlayer = entity instanceof Player;
+
+            if (isPlayer) {
+                final Player player = (Player) entity;
+                getWorldBorder().init(player);
+            }
 
             // Send all visible entities
             EntityUtils.forEachRange(this, entityPosition, MinecraftServer.getEntityViewDistance(), ent -> {
+                if (isPlayer) {
+                    if (ent.isAutoViewable())
+                        ent.addViewer((Player) entity);
+                }
+
                 if (ent instanceof Player) {
                     if (entity.isAutoViewable())
                         entity.addViewer((Player) ent);

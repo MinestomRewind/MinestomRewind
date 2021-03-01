@@ -60,7 +60,7 @@ public class ChunkDataPacket implements ServerPacket, CacheablePacket {
         int includedCount = 0;
 
         for (byte i = 0; i < CHUNK_SECTION_COUNT; i++) {
-            if (fullChunk || (sections.length == CHUNK_SECTION_COUNT && sections[i] != 0)) {
+            if (fullChunk || sections == null || (sections.length == CHUNK_SECTION_COUNT && sections[i] != 0)) {
                 final short[] section = paletteStorage.getSectionBlocks()[i];
                 if (section.length > 0) { // section contains at least one block
                     mask |= 1 << i;
