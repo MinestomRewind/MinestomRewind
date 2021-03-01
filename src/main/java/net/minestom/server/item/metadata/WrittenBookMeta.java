@@ -1,7 +1,7 @@
 package net.minestom.server.item.metadata;
 
 import net.kyori.adventure.text.Component;
-import net.minestom.server.chat.Adventure;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.chat.ChatParser;
 import org.jetbrains.annotations.NotNull;
 import org.jglrxavpok.hephaistos.nbt.NBTCompound;
@@ -173,7 +173,7 @@ public class WrittenBookMeta extends ItemMeta {
         if (!pages.isEmpty()) {
             NBTList<NBTString> list = new NBTList<>(NBTTypes.TAG_String);
             for (Component page : pages) {
-                list.add(new NBTString(Adventure.COMPONENT_SERIALIZER.serialize(page)));
+                list.add(new NBTString(LegacyComponentSerializer.legacySection().serialize(page)));
             }
             compound.set("pages", list);
         }

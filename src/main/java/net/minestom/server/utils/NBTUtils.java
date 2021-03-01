@@ -5,7 +5,6 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.attribute.Attribute;
 import net.minestom.server.attribute.AttributeOperation;
-import net.minestom.server.chat.Adventure;
 import net.minestom.server.chat.ChatParser;
 import net.minestom.server.data.Data;
 import net.minestom.server.data.DataType;
@@ -283,7 +282,7 @@ public final class NBTUtils {
 
                 final NBTList<NBTString> loreNBT = new NBTList<>(NBTTypes.TAG_String);
                 for (Component line : lore) {
-                    loreNBT.add(new NBTString(Adventure.COMPONENT_SERIALIZER.serialize(line)));
+                    loreNBT.add(new NBTString(LegacyComponentSerializer.legacySection().serialize(line)));
                 }
                 displayNBT.set("Lore", loreNBT);
             }
