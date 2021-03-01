@@ -18,7 +18,7 @@ public class RespawnPacket implements ServerPacket {
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeByte(dimensionType.getId());
+        writer.writeInt(dimensionType.getId());
         writer.writeByte(difficulty.getId());
         writer.writeByte(gameMode.getId());
         writer.writeSizedString(levelType.getId());

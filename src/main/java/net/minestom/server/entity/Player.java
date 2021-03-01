@@ -549,6 +549,16 @@ public class Player extends LivingEntity implements CommandSender {
                 final DimensionType instanceDimensionType = instance.getDimensionType();
                 if (dimensionType != instanceDimensionType) {
                     sendDimension(instanceDimensionType, instance.getLevelType());
+                } else if (!firstSpawn) {
+                    DimensionType changeDimensionType = DimensionType.OVERWORLD;
+                    if (dimensionType == DimensionType.OVERWORLD) {
+                        changeDimensionType = DimensionType.NETHER;
+                    }
+
+                    // It's 1.8, so to respawn we need to switch between dimensions twice
+                    // to make sure everything works after a dimension change.
+                    sendDimension(changeDimensionType, LevelType.DEFAULT);
+                    sendDimension(instanceDimensionType, instance.getLevelType());
                 }
             }
 
@@ -613,6 +623,14 @@ public class Player extends LivingEntity implements CommandSender {
                 refreshVisibleChunks(chunk);
             }
         }
+
+        instance.getWorldBorder().init(this);
+
+        // Send all visible entities
+        EntityUtils.forEachRange(instance, position, MinecraftServer.getEntityViewDistance(), ent -> {
+            if (ent.isAutoViewable())
+                ent.addViewer(this);
+        });
 
         PlayerSpawnEvent spawnEvent = new PlayerSpawnEvent(this, instance, firstSpawn);
         callEvent(PlayerSpawnEvent.class, spawnEvent);
@@ -1428,6 +1446,7 @@ public class Player extends LivingEntity implements CommandSender {
         Check.argCondition(dimensionType.equals(getDimensionType()), "The dimension needs to be different than the current one!");
 
         this.dimensionType = dimensionType;
+        this.levelType = levelType;
         RespawnPacket respawnPacket = new RespawnPacket();
         respawnPacket.dimensionType = dimensionType;
         respawnPacket.difficulty = MinecraftServer.getDifficulty();

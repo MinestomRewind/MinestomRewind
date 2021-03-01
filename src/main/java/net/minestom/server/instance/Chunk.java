@@ -518,7 +518,7 @@ public abstract class Chunk implements Viewable, DataContainer {
      * Sends a full {@link ChunkDataPacket} to all chunk viewers.
      */
     public synchronized void sendChunkUpdate() {
-        PacketUtils.sendGroupedPacket(getViewers(), getFreshFullDataPacket());
+        PacketUtils.sendGroupedPacket(getViewers(), getFreshPartialDataPacket());
     }
 
     /**

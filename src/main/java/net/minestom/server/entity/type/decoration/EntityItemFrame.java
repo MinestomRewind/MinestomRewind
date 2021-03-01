@@ -21,6 +21,11 @@ public class EntityItemFrame extends ObjectEntity {
     }
 
     @Override
+    public boolean hasNoGravity() {
+        return true;
+    }
+
+    @Override
     public int getObjectData() {
         return orientation.ordinal();
     }
@@ -68,7 +73,7 @@ public class EntityItemFrame extends ObjectEntity {
      * Represents the orientation of the frame.
      */
     public enum ItemFrameOrientation {
-        DOWN, UP, NORTH, SOUTH, WEST, EAST
+        SOUTH, WEST, NORTH, EAST
     }
 
 }

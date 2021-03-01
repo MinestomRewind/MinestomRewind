@@ -242,7 +242,7 @@ public class WorldBorder {
      *
      * @param player the player to send the packet to
      */
-    protected void init(@NotNull Player player) {
+    public void init(@NotNull Player player) {
         WorldBorderPacket worldBorderPacket = new WorldBorderPacket();
         worldBorderPacket.action = WorldBorderPacket.Action.INITIALIZE;
         worldBorderPacket.wbAction = new WorldBorderPacket.WBInitialize(centerX, centerZ, oldDiameter, newDiameter, speed,
