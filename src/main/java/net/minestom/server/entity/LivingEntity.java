@@ -46,7 +46,7 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
     // Bounding box used for items' pickup (see LivingEntity#setBoundingBox)
     protected BoundingBox expandedBoundingBox;
 
-    private final Map<String, AttributeInstance> attributeModifiers = new ConcurrentHashMap<>(Attribute.values().length);
+    private final Map<String, AttributeInstance> attributeModifiers = new ConcurrentHashMap<>();
 
     // Abilities
     protected boolean invulnerable;
@@ -474,10 +474,20 @@ public abstract class LivingEntity extends Entity implements EquipmentHandler {
     }
 
     /**
-     * Sets all the attributes to {@link Attribute#getDefaultValue()}
+     * All attributes that should be registered on every living entity.
      */
-    private void setupAttributes() {
-        for (Attribute attribute : Attribute.values()) {
+    private static final Attribute[] BASE_ATTRIBUTES = new Attribute[]{
+            Attributes.MAX_HEALTH,
+            Attributes.KNOCKBACK_RESISTANCE,
+            Attributes.MOVEMENT_SPEED,
+            Attributes.ATTACK_DAMAGE
+    };
+
+    /**
+     * Sets all the attributes on a base living entity.
+     */
+    protected void setupAttributes() {
+        for (Attribute attribute : BASE_ATTRIBUTES) {
             final AttributeInstance attributeInstance = new AttributeInstance(attribute, this::onAttributeChanged);
             this.attributeModifiers.put(attribute.getKey(), attributeInstance);
         }

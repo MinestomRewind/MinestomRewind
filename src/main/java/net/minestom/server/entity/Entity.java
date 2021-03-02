@@ -127,8 +127,8 @@ public abstract class Entity implements Viewable, EventHandler, DataContainer, P
         Entity.entityById.put(id, this);
         Entity.entityByUuid.put(uuid, this);
 
-        // Air, we need at least one attribute
-        metadata.setIndex((byte) 1, Metadata.Short((short) 300));
+        // Always Show Name Tag, we need at least one attribute
+        metadata.setIndex((byte) 3, Metadata.Byte((byte) 0));
     }
 
     public Entity(@Nullable EntityType entityType, @NotNull Position spawnPosition) {
