@@ -3,15 +3,9 @@ package demo.commands;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Arguments;
 import net.minestom.server.command.builder.Command;
-import net.minestom.server.command.builder.arguments.ArgumentType;
-import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
-import net.minestom.server.entity.Entity;
+import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
-import net.minestom.server.entity.metadata.arrow.ArrowMeta;
-import net.minestom.server.entity.type.Projectile;
-import net.minestom.server.entity.type.projectile.EntityArrow;
-
-import java.util.concurrent.ThreadLocalRandom;
+import net.minestom.server.entity.type.projectile.EntityProjectile;
 
 public class ShootCommand extends Command {
 
@@ -37,10 +31,10 @@ public class ShootCommand extends Command {
     private void onShootCommand(CommandSender sender, Arguments args) {
         Player     player = (Player) sender;
         var        pos    = player.getPosition().clone().add(0D, player.getEyeHeight(), 0D);
-        Projectile projectile = new EntityArrow(player, pos);
-        ((Entity) projectile).setInstance(player.getInstance());
+        EntityProjectile projectile = new EntityProjectile(player, EntityType.ARROW);
+        projectile.setInstance(player.getInstance(), pos);
         var dir = pos.getDirection().multiply(30D);
         pos = pos.clone().add(dir.getX(), dir.getY(), dir.getZ());
-        Projectile.shoot(projectile, player, pos, 1D, 0D);
+        projectile.shoot(pos, 1D, 0D);
     }
 }

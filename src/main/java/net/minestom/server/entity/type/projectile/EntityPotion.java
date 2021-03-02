@@ -12,10 +12,10 @@ import org.jetbrains.annotations.Nullable;
  * @deprecated Use {@link net.minestom.server.entity.metadata.item.ThrownPotionMeta} instead.
  */
 @Deprecated
-public class EntityPotion extends AbstractProjectile {
+public class EntityPotion extends Entity {
 
     public EntityPotion(@Nullable Entity shooter, @NotNull Position spawnPosition, @NotNull ItemStack potion) {
-        super(shooter, EntityType.THROWN_POTION, spawnPosition);
+        super(EntityType.THROWN_POTION, spawnPosition);
         setBoundingBox(0.25f, 0.25f, 0.25f);
         setPotion(potion);
     }

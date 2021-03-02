@@ -101,6 +101,7 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
 
     // Network synchronization, send the absolute position of the entity each X milliseconds
     private static final UpdateOption SYNCHRONIZATION_COOLDOWN = new UpdateOption(1500, TimeUnit.MILLISECOND);
+    private UpdateOption customSynchronizationCooldown;
     private long lastAbsoluteSynchronizationTime;
 
     // Events
@@ -669,7 +670,7 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
         }
 
         // Scheduled synchronization
-        if (!CooldownUtils.hasCooldown(time, lastAbsoluteSynchronizationTime, SYNCHRONIZATION_COOLDOWN)) {
+        if (!CooldownUtils.hasCooldown(time, lastAbsoluteSynchronizationTime, getSynchronizationCooldown())) {
             this.lastAbsoluteSynchronizationTime = time;
             sendSynchronization();
         }
@@ -1354,6 +1355,22 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
      */
     public void askSynchronization() {
         this.lastAbsoluteSynchronizationTime = 0;
+    }
+
+    /**
+     * Set custom cooldown for position synchronization.
+     *
+     * @param cooldown custom cooldown for position synchronization.
+     */
+    public void setCustomSynchronizationCooldown(@Nullable UpdateOption cooldown) {
+        this.customSynchronizationCooldown = cooldown;
+    }
+
+    private UpdateOption getSynchronizationCooldown() {
+        if (this.customSynchronizationCooldown != null) {
+            return this.customSynchronizationCooldown;
+        }
+        return SYNCHRONIZATION_COOLDOWN;
     }
 
     protected boolean shouldRemove() {
