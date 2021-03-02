@@ -1,5 +1,6 @@
 package net.minestom.server.listener;
 
+import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.player.PlayerStartDiggingEvent;
 import net.minestom.server.instance.Instance;
@@ -33,8 +34,19 @@ public class PlayerDiggingListener {
             return;
 
         if (status == ClientPlayerDiggingPacket.Status.STARTED_DIGGING) {
-
             final short blockStateId = instance.getBlockStateId(blockPosition);
+
+            //Check if the player is allowed to break blocks based on their game mode
+            if (player.getGameMode() == GameMode.SPECTATOR) {
+                return; //Spectators can't break blocks
+            } else if (player.getGameMode() == GameMode.ADVENTURE) {
+                //Check if the item can break the block with the current item
+                ItemStack itemInMainHand = player.getItemInHand();
+                if (!itemInMainHand.canDestroy(instance.getBlock(blockPosition).getName())) {
+                    return;
+                }
+            }
+
             final boolean instantBreak = player.isCreative() ||
                     player.isInstantBreak() ||
                     Block.fromStateId(blockStateId).breaksInstantaneously();

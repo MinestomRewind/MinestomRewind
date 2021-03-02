@@ -14,13 +14,10 @@ import net.minestom.server.event.Event;
 import net.minestom.server.event.EventCallback;
 import net.minestom.server.event.entity.*;
 import net.minestom.server.event.handler.EventHandler;
-import net.minestom.server.event.item.ArmorEquipEvent;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.CustomBlock;
-import net.minestom.server.inventory.EquipmentHandler;
-import net.minestom.server.item.ItemStack;
 import net.minestom.server.network.packet.server.play.*;
 import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.permission.Permission;
@@ -44,7 +41,6 @@ import net.minestom.server.utils.validate.Check;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.Year;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -106,6 +102,7 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
 
     // Events
     private final Map<Class<? extends Event>, Collection<EventCallback>> eventCallbacks = new ConcurrentHashMap<>();
+    private final Map<String, Collection<EventCallback<?>>> extensionCallbacks = new ConcurrentHashMap<>();
 
     protected Metadata metadata = new Metadata(this);
     protected EntityMeta entityMeta;
@@ -705,6 +702,12 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
         return eventCallbacks;
     }
 
+    @NotNull
+    @Override
+    public Collection<EventCallback<?>> getExtensionCallbacks(String extension) {
+        return extensionCallbacks.computeIfAbsent(extension, e -> new CopyOnWriteArrayList<>());
+    }
+
     /**
      * Each entity has an unique id (server-wide) which will change after a restart.
      *
@@ -830,6 +833,8 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
         this.lastX = this.position.getX();
         this.lastY = this.position.getY();
         this.lastZ = this.position.getZ();
+        this.lastYaw = this.position.getYaw();
+        this.lastPitch = this.position.getPitch();
 
         this.isActive = true;
         this.instance = instance;
