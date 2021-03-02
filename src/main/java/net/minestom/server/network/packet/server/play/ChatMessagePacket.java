@@ -1,6 +1,7 @@
 package net.minestom.server.network.packet.server.play;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.chat.Adventure;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
@@ -11,20 +12,24 @@ import java.util.UUID;
 
 public class ChatMessagePacket implements ServerPacket {
 
-    public String jsonMessage;
+    public Component component;
     public Position position;
 
-    public ChatMessagePacket(String jsonMessage, Position position) {
-        this.jsonMessage = jsonMessage;
-        this.position = position;
-    }
-
     public ChatMessagePacket(Component component, Position position) {
-        this(Adventure.COMPONENT_SERIALIZER.serialize(component), position);
+        this.component = component;
+        this.position = position;
     }
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
+        String jsonMessage;
+        if (position == Position.GAME_INFO) {
+            // The action bar doesn't support colors in components, but does require it
+            jsonMessage = Adventure.COMPONENT_SERIALIZER.serialize(Component.text(LegacyComponentSerializer.legacySection().serialize(component)));
+        } else {
+            jsonMessage = Adventure.COMPONENT_SERIALIZER.serialize(component);
+        }
+
         writer.writeSizedString(jsonMessage);
         writer.writeByte((byte) position.ordinal());
     }
