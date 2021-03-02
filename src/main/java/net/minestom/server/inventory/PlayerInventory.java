@@ -32,7 +32,7 @@ import static net.minestom.server.utils.inventory.PlayerInventoryUtils.*;
  */
 public class PlayerInventory implements InventoryModifier, InventoryClickHandler, EquipmentHandler, DataContainer {
 
-    public static final int INVENTORY_SIZE = 46;
+    public static final int INVENTORY_SIZE = 45;
 
     protected final Player player;
     protected final ItemStack[] items = new ItemStack[INVENTORY_SIZE];

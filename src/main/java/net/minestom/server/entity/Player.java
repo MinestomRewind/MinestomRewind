@@ -255,10 +255,9 @@ public class Player extends LivingEntity implements CommandSender {
         playerConnection.sendPacket(getAddPlayerToList());
 
         // Some client update
-        // TODO(koesie10): Send packets?
-        // this.playerConnection.sendPacket(getPropertiesPacket()); // Send default properties
-        // refreshHealth(); // Heal and send health packet
-        // getInventory().update();
+        this.playerConnection.sendPacket(getPropertiesPacket()); // Send default properties
+        refreshHealth(); // Heal and send health packet
+        getInventory().update();
     }
 
     /**
