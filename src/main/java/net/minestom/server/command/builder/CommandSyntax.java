@@ -49,10 +49,6 @@ public class CommandSyntax {
 
     /**
      * Changes the command condition of this syntax.
-     * <p>
-     * Be aware that changing the command condition will not automatically update players auto-completion.
-     * You can create a new packet containing the changes with
-     * {@link net.minestom.server.command.CommandManager#createDeclareCommandsPacket(Player)}.
      *
      * @param commandCondition the new command condition, null to remove it
      */

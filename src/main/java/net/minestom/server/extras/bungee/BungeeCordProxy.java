@@ -9,8 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * BungeeCord forwarding support. This does not count as a security feature and you will still be required to manage your firewall.
- * <p>
- * Please consider using {@link net.minestom.server.extras.velocity.VelocityProxy} instead.
  */
 public final class BungeeCordProxy {
 

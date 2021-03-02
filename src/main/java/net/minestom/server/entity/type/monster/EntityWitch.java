@@ -7,7 +7,7 @@ import net.minestom.server.entity.type.Monster;
 import net.minestom.server.utils.Position;
 
 /**
- * @deprecated Use {@link net.minestom.server.entity.metadata.monster.raider.WitchMeta} instead.
+ * @deprecated Use {@link net.minestom.server.entity.metadata.monster.WitchMeta} instead.
  */
 @Deprecated
 public class EntityWitch extends EntityCreature implements Monster {

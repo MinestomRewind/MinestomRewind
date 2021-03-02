@@ -16,10 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Item meta for
- * {@link net.minestom.server.item.Material#POTION},
- * {@link net.minestom.server.item.Material#LINGERING_POTION},
- * {@link net.minestom.server.item.Material#SPLASH_POTION},
- * {@link net.minestom.server.item.Material#TIPPED_ARROW}.
+ * {@link net.minestom.server.item.Material#POTION}.
  */
 public class PotionMeta extends ItemMeta {
 

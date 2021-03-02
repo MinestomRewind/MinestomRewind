@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 /**
- * Represents an invisible armor stand showing a {@link JsonMessage}.
+ * Represents an invisible armor stand showing a {@link Component}.
  */
 public class Hologram implements Viewable {
 

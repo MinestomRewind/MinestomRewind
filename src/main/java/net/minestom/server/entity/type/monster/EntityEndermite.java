@@ -6,7 +6,7 @@ import net.minestom.server.entity.type.Monster;
 import net.minestom.server.utils.Position;
 
 /**
- * @deprecated Use {@link EndermiteMeta} instead.
+ * @deprecated Use {@link net.minestom.server.entity.metadata.monster.EndermiteMeta} instead.
  */
 @Deprecated
 public class EntityEndermite extends EntityCreature implements Monster {

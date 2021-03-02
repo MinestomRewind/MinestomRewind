@@ -55,7 +55,6 @@ public class DamageType implements DataContainer {
      *
      * @param killed the player who has been killed
      * @return the death message, null to do not send anything.
-     * Can be for instance, of type {@link ColoredText} or {@link RichMessage}.
      */
     @Nullable
     public Component buildDeathMessage(@NotNull Player killed) {
