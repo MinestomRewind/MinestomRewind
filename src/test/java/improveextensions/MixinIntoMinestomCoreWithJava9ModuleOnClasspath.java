@@ -4,6 +4,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.extensions.Extension;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.world.DimensionType;
+import net.minestom.server.world.LevelType;
 import org.junit.jupiter.api.Assertions;
 import org.opentest4j.AssertionFailedError;
 
@@ -24,7 +25,7 @@ public class MixinIntoMinestomCoreWithJava9ModuleOnClasspath extends Extension {
         List mockedList = mock(List.class);
         when(mockedList.get(0)).thenReturn("Test");
         // force load of InstanceContainer class
-        InstanceContainer c = new InstanceContainer(UUID.randomUUID(), DimensionType.OVERWORLD, null);
+        InstanceContainer c = new InstanceContainer(UUID.randomUUID(), DimensionType.OVERWORLD, LevelType.DEFAULT, null);
         System.out.println(c.toString());
         try {
             Assertions.assertTrue(MixinIntoMinestomCore.success, "InstanceContainer must have been mixed in with improveextensions.InstanceContainerMixin");
