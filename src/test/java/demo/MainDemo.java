@@ -5,6 +5,7 @@ import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerLoginEvent;
+import net.minestom.server.extras.astar.AstarProxy;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.batch.ChunkBatch;
 import net.minestom.server.instance.block.Block;
@@ -20,13 +21,6 @@ public class MainDemo {
     public static void main(String[] args) {
         // Initialization
         MinecraftServer minecraftServer = MinecraftServer.init();
-
-        MinecraftServer.getConnectionManager().onPacketReceive((player, controller, packet) -> {
-//            System.out.println("received packet " + packet + " from " + player);
-        });
-        MinecraftServer.getConnectionManager().onPacketSend((players, controller, packet) -> {
-            System.out.println("sending packet " + packet + " to " + players);
-        });
 
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         // Create the instance
@@ -45,7 +39,7 @@ public class MainDemo {
             player.setGameMode(GameMode.CREATIVE);
         });
 
-        // Start the server on port 25565
+        // Start the server on port 55555
         minecraftServer.start("localhost", 55555);
     }
 

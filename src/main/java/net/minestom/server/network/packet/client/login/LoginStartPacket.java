@@ -5,6 +5,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
 import net.minestom.server.extras.MojangAuth;
+import net.minestom.server.extras.astar.AstarProxy;
 import net.minestom.server.extras.bungee.BungeeCordProxy;
 import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.packet.client.ClientPreplayPacket;
@@ -54,7 +55,7 @@ public class LoginStartPacket implements ClientPreplayPacket {
             EncryptionRequestPacket encryptionRequestPacket = new EncryptionRequestPacket(nettyPlayerConnection);
             nettyPlayerConnection.sendPacket(encryptionRequestPacket);
         } else {
-            final boolean bungee = BungeeCordProxy.isEnabled();
+            final boolean bungee = BungeeCordProxy.isEnabled() || AstarProxy.isEnabled();
             // Offline
             final UUID playerUuid = bungee && isNettyClient ?
                     ((NettyPlayerConnection) connection).getBungeeUuid() :
