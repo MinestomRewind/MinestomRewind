@@ -99,7 +99,7 @@ public class ChunkDataPacket implements ServerPacket, CacheablePacket {
         }
 
         // Biome data
-        if (fullChunk) {
+        if (fullChunk || sections == null) {
             for (int i = 0; i < 256; i++) {
                 data.writeByte(0);
             }
