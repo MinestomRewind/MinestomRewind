@@ -35,7 +35,7 @@ public class BiomesEnumGenerator extends BasicPrismarineEnumGenerator {
     }
 
     private BiomesEnumGenerator(String targetVersion, File targetFolder) throws IOException {
-        super(targetVersion, targetFolder, false);
+        super(targetVersion, targetFolder);
     }
 
     @Override

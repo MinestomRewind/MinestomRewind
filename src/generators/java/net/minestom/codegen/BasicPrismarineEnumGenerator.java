@@ -21,29 +21,9 @@ public abstract class BasicPrismarineEnumGenerator extends MinestomEnumGenerator
 
     private final String targetVersion;
 
-    /**
-     * Are IDs linear? Biomes are not for instance.
-     */
-    private final boolean linear;
-
-    /**
-     * True if the enum is linear and start by 1 instead of 0
-     */
-    private boolean incrementOrdinal;
-
-    protected BasicPrismarineEnumGenerator(String targetVersion, File targetFolder, boolean linear, boolean incrementOrdinal) throws IOException {
-        this.targetVersion = targetVersion;
-        this.linear = linear;
-        this.incrementOrdinal = incrementOrdinal;
-        generateTo(targetFolder);
-    }
-
-    protected BasicPrismarineEnumGenerator(String targetVersion, File targetFolder, boolean linear) throws IOException {
-        this(targetVersion, targetFolder, linear, false);
-    }
-
     protected BasicPrismarineEnumGenerator(String targetVersion, File targetFolder) throws IOException {
-        this(targetVersion, targetFolder, true);
+        this.targetVersion = targetVersion;
+        generateTo(targetFolder);
     }
 
     @Override
@@ -76,27 +56,15 @@ public abstract class BasicPrismarineEnumGenerator extends MinestomEnumGenerator
         ClassName className = ClassName.get(getPackageName(), getClassName());
         ParameterSpec idParam = ParameterSpec.builder(TypeName.INT, "id").build();
         ParameterSpec[] signature = new ParameterSpec[]{idParam};
-        if (linear) {
-            final String ordinalIncrementCondition = incrementOrdinal ? " + 1" : "";
-            final String ordinalIncrementIndex = incrementOrdinal ? " - 1" : "";
-            generator.addStaticMethod("fromId", signature, className, code -> {
-                        code.beginControlFlow("if ($N >= 0 && $N < values().length" + ordinalIncrementCondition + ")", idParam, idParam)
-                                .addStatement("return values()[$N" + ordinalIncrementIndex + "]", idParam)
-                                .endControlFlow()
-                                .addStatement("return null");
-                    }
-            );
-        } else {
-            generator.addStaticMethod("fromId", signature, className, code -> {
-                        code.beginControlFlow("for ($T o : values())", className)
-                                .beginControlFlow("if (o.getId() == id)")
-                                .addStatement("return o")
-                                .endControlFlow()
-                                .endControlFlow()
-                                .addStatement("return null");
-                    }
-            );
-        }
+        generator.addStaticMethod("fromId", signature, className, code -> {
+                    code.beginControlFlow("for ($T o : values())", className)
+                            .beginControlFlow("if (o.getId() == id)")
+                            .addStatement("return o")
+                            .endControlFlow()
+                            .endControlFlow()
+                            .addStatement("return null");
+                }
+        );
     }
 
     protected String identifier(NamespaceID id) {
@@ -112,13 +80,8 @@ public abstract class BasicPrismarineEnumGenerator extends MinestomEnumGenerator
     protected void prepare(EnumGenerator generator) {
         generator.addClassAnnotation(AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "{$S}", "deprecation").build());
         ClassName registriesClass = ClassName.get(Registries.class);
-        if (linear) {
-            generator.setParams(ParameterSpec.builder(ClassName.get(String.class), "namespaceID").build());
-            generator.addMethod("getId", new ParameterSpec[0], TypeName.INT, code -> code.addStatement("return ordinal()" + (incrementOrdinal ? " + 1" : "")));
-        } else {
-            generator.setParams(ParameterSpec.builder(ClassName.get(String.class), "namespaceID").build(), ParameterSpec.builder(TypeName.INT, "id").build());
-            generator.addMethod("getId", new ParameterSpec[0], TypeName.INT, code -> code.addStatement("return $N", "id"));
-        }
+        generator.setParams(ParameterSpec.builder(ClassName.get(String.class), "namespaceID").build(), ParameterSpec.builder(TypeName.INT, "id").build());
+        generator.addMethod("getId", new ParameterSpec[0], TypeName.INT, code -> code.addStatement("return $N", "id"));
         generator.addMethod("getNamespaceID", new ParameterSpec[0], ClassName.get(String.class), code -> code.addStatement("return $N", "namespaceID"));
 
         generator.appendToConstructor(code -> {
@@ -128,11 +91,7 @@ public abstract class BasicPrismarineEnumGenerator extends MinestomEnumGenerator
 
     @Override
     protected void writeSingle(EnumGenerator generator, Container item) {
-        if (linear) {
-            generator.addInstance(identifier(item.name), "\"" + item.name.toString() + "\"");
-        } else {
-            generator.addInstance(identifier(item.name), "\"" + item.name.toString() + "\"", item.id);
-        }
+        generator.addInstance(identifier(item.name), "\"" + item.name.toString() + "\"", item.id);
     }
 
     static class Container implements Comparable<Container> {

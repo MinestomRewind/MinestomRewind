@@ -10,65 +10,68 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum Enchantment {
-    PROTECTION("minecraft:protection"),
+    PROTECTION("minecraft:protection", 0),
 
-    FIRE_PROTECTION("minecraft:fire_protection"),
+    FIRE_PROTECTION("minecraft:fire_protection", 1),
 
-    FEATHER_FALLING("minecraft:feather_falling"),
+    FEATHER_FALLING("minecraft:feather_falling", 2),
 
-    BLAST_PROTECTION("minecraft:blast_protection"),
+    BLAST_PROTECTION("minecraft:blast_protection", 3),
 
-    PROJECTILE_PROTECTION("minecraft:projectile_protection"),
+    PROJECTILE_PROTECTION("minecraft:projectile_protection", 4),
 
-    RESPIRATION("minecraft:respiration"),
+    RESPIRATION("minecraft:respiration", 5),
 
-    AQUA_AFFINITY("minecraft:aqua_affinity"),
+    AQUA_AFFINITY("minecraft:aqua_affinity", 6),
 
-    THORNS("minecraft:thorns"),
+    THORNS("minecraft:thorns", 7),
 
-    DEPTH_STRIDER("minecraft:depth_strider"),
+    DEPTH_STRIDER("minecraft:depth_strider", 8),
 
-    SHARPNESS("minecraft:sharpness"),
+    SHARPNESS("minecraft:sharpness", 16),
 
-    SMITE("minecraft:smite"),
+    SMITE("minecraft:smite", 17),
 
-    BANE_OF_ARTHROPODS("minecraft:bane_of_arthropods"),
+    BANE_OF_ARTHROPODS("minecraft:bane_of_arthropods", 18),
 
-    KNOCKBACK("minecraft:knockback"),
+    KNOCKBACK("minecraft:knockback", 19),
 
-    FIRE_ASPECT("minecraft:fire_aspect"),
+    FIRE_ASPECT("minecraft:fire_aspect", 20),
 
-    LOOTING("minecraft:looting"),
+    LOOTING("minecraft:looting", 21),
 
-    EFFICIENCY("minecraft:efficiency"),
+    EFFICIENCY("minecraft:efficiency", 32),
 
-    SILK_TOUCH("minecraft:silk_touch"),
+    SILK_TOUCH("minecraft:silk_touch", 33),
 
-    UNBREAKING("minecraft:unbreaking"),
+    UNBREAKING("minecraft:unbreaking", 34),
 
-    FORTUNE("minecraft:fortune"),
+    FORTUNE("minecraft:fortune", 35),
 
-    POWER("minecraft:power"),
+    POWER("minecraft:power", 48),
 
-    PUNCH("minecraft:punch"),
+    PUNCH("minecraft:punch", 49),
 
-    FLAME("minecraft:flame"),
+    FLAME("minecraft:flame", 50),
 
-    INFINITY("minecraft:infinity"),
+    INFINITY("minecraft:infinity", 51),
 
-    LUCK_OF_THE_SEA("minecraft:luck_of_the_sea"),
+    LUCK_OF_THE_SEA("minecraft:luck_of_the_sea", 61),
 
-    LURE("minecraft:lure");
+    LURE("minecraft:lure", 62);
 
     private String namespaceID;
 
-    Enchantment(String namespaceID) {
+    private int id;
+
+    Enchantment(String namespaceID, int id) {
         this.namespaceID = namespaceID;
+        this.id = id;
         Registries.enchantments.put(NamespaceID.from(namespaceID), this);
     }
 
     public int getId() {
-        return ordinal();
+        return id;
     }
 
     public String getNamespaceID() {
@@ -76,8 +79,10 @@ public enum Enchantment {
     }
 
     public static Enchantment fromId(int id) {
-        if (id >= 0 && id < values().length) {
-            return values()[id];
+        for (Enchantment o : values()) {
+            if (o.getId() == id) {
+                return o;
+            }
         }
         return null;
     }

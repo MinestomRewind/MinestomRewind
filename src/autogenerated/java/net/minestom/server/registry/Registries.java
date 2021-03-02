@@ -129,19 +129,19 @@ public final class Registries {
     }
 
     /**
-     * Returns the corresponding EntityType matching the given id. Returns 'PIG' if none match.
+     * Returns the corresponding EntityType matching the given id. Returns null if none match.
      */
-    @NotNull
+    @Nullable
     public static EntityType getEntityType(String id) {
         return getEntityType(NamespaceID.from(id));
     }
 
     /**
-     * Returns the corresponding EntityType matching the given id. Returns 'PIG' if none match.
+     * Returns the corresponding EntityType matching the given id. Returns null if none match.
      */
-    @NotNull
+    @Nullable
     public static EntityType getEntityType(NamespaceID id) {
-        return entityTypes.getOrDefault(id, EntityType.PIG);
+        return entityTypes.get(id);
     }
 
     /**

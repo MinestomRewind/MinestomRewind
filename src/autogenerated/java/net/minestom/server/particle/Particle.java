@@ -10,99 +10,102 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum Particle {
-    EXPLODE("minecraft:explode"),
+    EXPLODE("minecraft:explode", 0),
 
-    LARGEEXPLODE("minecraft:largeexplode"),
+    LARGEEXPLODE("minecraft:largeexplode", 1),
 
-    HUGEEXPLOSION("minecraft:hugeexplosion"),
+    HUGEEXPLOSION("minecraft:hugeexplosion", 2),
 
-    FIREWORKSSPARK("minecraft:fireworksSpark"),
+    FIREWORKSSPARK("minecraft:fireworksSpark", 3),
 
-    BUBBLE("minecraft:bubble"),
+    BUBBLE("minecraft:bubble", 4),
 
-    SPLASH("minecraft:splash"),
+    SPLASH("minecraft:splash", 5),
 
-    WAKE("minecraft:wake"),
+    WAKE("minecraft:wake", 6),
 
-    SUSPENDED("minecraft:suspended"),
+    SUSPENDED("minecraft:suspended", 7),
 
-    DEPTHSUSPEND("minecraft:depthsuspend"),
+    DEPTHSUSPEND("minecraft:depthsuspend", 8),
 
-    CRIT("minecraft:crit"),
+    CRIT("minecraft:crit", 9),
 
-    MAGICCRIT("minecraft:magicCrit"),
+    MAGICCRIT("minecraft:magicCrit", 10),
 
-    SMOKE("minecraft:smoke"),
+    SMOKE("minecraft:smoke", 11),
 
-    LARGESMOKE("minecraft:largesmoke"),
+    LARGESMOKE("minecraft:largesmoke", 12),
 
-    SPELL("minecraft:spell"),
+    SPELL("minecraft:spell", 13),
 
-    INSTANTSPELL("minecraft:instantSpell"),
+    INSTANTSPELL("minecraft:instantSpell", 14),
 
-    MOBSPELL("minecraft:mobSpell"),
+    MOBSPELL("minecraft:mobSpell", 15),
 
-    MOBSPELLAMBIENT("minecraft:mobSpellAmbient"),
+    MOBSPELLAMBIENT("minecraft:mobSpellAmbient", 16),
 
-    WITCHMAGIC("minecraft:witchMagic"),
+    WITCHMAGIC("minecraft:witchMagic", 17),
 
-    DRIPWATER("minecraft:dripWater"),
+    DRIPWATER("minecraft:dripWater", 18),
 
-    DRIPLAVA("minecraft:dripLava"),
+    DRIPLAVA("minecraft:dripLava", 19),
 
-    ANGRYVILLAGER("minecraft:angryVillager"),
+    ANGRYVILLAGER("minecraft:angryVillager", 20),
 
-    HAPPYVILLAGER("minecraft:happyVillager"),
+    HAPPYVILLAGER("minecraft:happyVillager", 21),
 
-    TOWNAURA("minecraft:townaura"),
+    TOWNAURA("minecraft:townaura", 22),
 
-    NOTE("minecraft:note"),
+    NOTE("minecraft:note", 23),
 
-    PORTAL("minecraft:portal"),
+    PORTAL("minecraft:portal", 24),
 
-    ENCHANTMENTTABLE("minecraft:enchantmenttable"),
+    ENCHANTMENTTABLE("minecraft:enchantmenttable", 25),
 
-    FLAME("minecraft:flame"),
+    FLAME("minecraft:flame", 26),
 
-    LAVA("minecraft:lava"),
+    LAVA("minecraft:lava", 27),
 
-    FOOTSTEP("minecraft:footstep"),
+    FOOTSTEP("minecraft:footstep", 28),
 
-    CLOUD("minecraft:cloud"),
+    CLOUD("minecraft:cloud", 29),
 
-    REDDUST("minecraft:reddust"),
+    REDDUST("minecraft:reddust", 30),
 
-    SNOWBALLPOOF("minecraft:snowballpoof"),
+    SNOWBALLPOOF("minecraft:snowballpoof", 31),
 
-    SNOWSHOVEL("minecraft:snowshovel"),
+    SNOWSHOVEL("minecraft:snowshovel", 32),
 
-    SLIME("minecraft:slime"),
+    SLIME("minecraft:slime", 33),
 
-    HEART("minecraft:heart"),
+    HEART("minecraft:heart", 34),
 
-    BARRIER("minecraft:barrier"),
+    BARRIER("minecraft:barrier", 35),
 
-    ICONCRACK_("minecraft:iconcrack_"),
+    ICONCRACK_("minecraft:iconcrack_", 36),
 
-    BLOCKCRACK_("minecraft:blockcrack_"),
+    BLOCKCRACK_("minecraft:blockcrack_", 37),
 
-    BLOCKDUST_("minecraft:blockdust_"),
+    BLOCKDUST_("minecraft:blockdust_", 38),
 
-    DROPLET("minecraft:droplet"),
+    DROPLET("minecraft:droplet", 39),
 
-    TAKE("minecraft:take"),
+    TAKE("minecraft:take", 40),
 
-    MOBAPPEARANCE("minecraft:mobappearance");
+    MOBAPPEARANCE("minecraft:mobappearance", 41);
 
     private String namespaceID;
 
-    Particle(String namespaceID) {
+    private int id;
+
+    Particle(String namespaceID, int id) {
         this.namespaceID = namespaceID;
+        this.id = id;
         Registries.particles.put(NamespaceID.from(namespaceID), this);
     }
 
     public int getId() {
-        return ordinal();
+        return id;
     }
 
     public String getNamespaceID() {
@@ -110,8 +113,10 @@ public enum Particle {
     }
 
     public static Particle fromId(int id) {
-        if (id >= 0 && id < values().length) {
-            return values()[id];
+        for (Particle o : values()) {
+            if (o.getId() == id) {
+                return o;
+            }
         }
         return null;
     }

@@ -37,7 +37,7 @@ public class PotionEffectEnumGenerator extends BasicPrismarineEnumGenerator {
     }
 
     private PotionEffectEnumGenerator(String targetVersion, File targetFolder) throws IOException {
-        super(targetVersion, targetFolder, true, true);
+        super(targetVersion, targetFolder);
     }
 
     @Override

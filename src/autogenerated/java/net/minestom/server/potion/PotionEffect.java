@@ -10,61 +10,64 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum PotionEffect {
-    SPEED("minecraft:Speed"),
+    SPEED("minecraft:Speed", 1),
 
-    SLOWNESS("minecraft:Slowness"),
+    SLOWNESS("minecraft:Slowness", 2),
 
-    HASTE("minecraft:Haste"),
+    HASTE("minecraft:Haste", 3),
 
-    MINING_FATIGUE("minecraft:MiningFatigue"),
+    MINING_FATIGUE("minecraft:MiningFatigue", 4),
 
-    STRENGTH("minecraft:Strength"),
+    STRENGTH("minecraft:Strength", 5),
 
-    INSTANT_HEALTH("minecraft:InstantHealth"),
+    INSTANT_HEALTH("minecraft:InstantHealth", 6),
 
-    INSTANT_DAMAGE("minecraft:InstantDamage"),
+    INSTANT_DAMAGE("minecraft:InstantDamage", 7),
 
-    JUMP_BOOST("minecraft:JumpBoost"),
+    JUMP_BOOST("minecraft:JumpBoost", 8),
 
-    NAUSEA("minecraft:Nausea"),
+    NAUSEA("minecraft:Nausea", 9),
 
-    REGENERATION("minecraft:Regeneration"),
+    REGENERATION("minecraft:Regeneration", 10),
 
-    RESISTANCE("minecraft:Resistance"),
+    RESISTANCE("minecraft:Resistance", 11),
 
-    FIRE_RESISTANCE("minecraft:FireResistance"),
+    FIRE_RESISTANCE("minecraft:FireResistance", 12),
 
-    WATER_BREATHING("minecraft:WaterBreathing"),
+    WATER_BREATHING("minecraft:WaterBreathing", 13),
 
-    INVISIBILITY("minecraft:Invisibility"),
+    INVISIBILITY("minecraft:Invisibility", 14),
 
-    BLINDNESS("minecraft:Blindness"),
+    BLINDNESS("minecraft:Blindness", 15),
 
-    NIGHT_VISION("minecraft:NightVision"),
+    NIGHT_VISION("minecraft:NightVision", 16),
 
-    HUNGER("minecraft:Hunger"),
+    HUNGER("minecraft:Hunger", 17),
 
-    WEAKNESS("minecraft:Weakness"),
+    WEAKNESS("minecraft:Weakness", 18),
 
-    POISON("minecraft:Poison"),
+    POISON("minecraft:Poison", 19),
 
-    WITHER("minecraft:Wither"),
+    WITHER("minecraft:Wither", 20),
 
-    HEALTH_BOOST("minecraft:HealthBoost"),
+    HEALTH_BOOST("minecraft:HealthBoost", 21),
 
-    ABSORPTION("minecraft:Absorption"),
+    ABSORPTION("minecraft:Absorption", 22),
 
-    SATURATION("minecraft:Saturation");
+    SATURATION("minecraft:Saturation", 23);
 
     private String namespaceID;
 
-    PotionEffect(String namespaceID) {
+    private int id;
+
+    PotionEffect(String namespaceID, int id) {
         this.namespaceID = namespaceID;
+        this.id = id;
         Registries.potionEffects.put(NamespaceID.from(namespaceID), this);
     }
 
     public int getId() {
-        return ordinal() + 1;
+        return id;
     }
 
     public String getNamespaceID() {
@@ -72,8 +75,10 @@ public enum PotionEffect {
     }
 
     public static PotionEffect fromId(int id) {
-        if (id >= 0 && id < values().length + 1) {
-            return values()[id - 1];
+        for (PotionEffect o : values()) {
+            if (o.getId() == id) {
+                return o;
+            }
         }
         return null;
     }

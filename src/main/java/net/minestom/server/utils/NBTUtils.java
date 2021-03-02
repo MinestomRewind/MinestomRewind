@@ -87,7 +87,7 @@ public final class NBTUtils {
 
             enchantList.add(new NBTCompound()
                     .setShort("lvl", level)
-                    .setString("id", "minecraft:" + enchantment.name().toLowerCase())
+                    .setShort("id", (short) enchantment.getId())
             );
         }
         nbt.set(listName, enchantList);
@@ -141,8 +141,8 @@ public final class NBTUtils {
         }
 
         // Enchantments
-        if (nbt.containsKey("Enchantments")) {
-            loadEnchantments(nbt.getList("Enchantments"), item::setEnchantment);
+        if (nbt.containsKey("ench")) {
+            loadEnchantments(nbt.getList("ench"), item::setEnchantment);
         }
 
         // Attributes
@@ -222,8 +222,8 @@ public final class NBTUtils {
     public static void loadEnchantments(NBTList<NBTCompound> enchantments, EnchantmentSetter setter) {
         for (NBTCompound enchantment : enchantments) {
             final short level = enchantment.getAsShort("lvl");
-            final String id = enchantment.getString("id");
-            final Enchantment enchant = Registries.getEnchantment(id);
+            final short id = enchantment.getAsShort("id");
+            final Enchantment enchant = Enchantment.fromId(id);
             if (enchant != null) {
                 setter.applyEnchantment(enchant, level);
             } else {
@@ -299,7 +299,7 @@ public final class NBTUtils {
         {
             final Map<Enchantment, Short> enchantmentMap = itemStack.getEnchantmentMap();
             if (!enchantmentMap.isEmpty()) {
-                writeEnchant(itemNBT, "Enchantments", enchantmentMap);
+                writeEnchant(itemNBT, "ench", enchantmentMap);
             }
         }
         // End enchantment
