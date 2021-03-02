@@ -16,7 +16,7 @@ import java.util.UUID;
  */
 public class SkullMeta extends ItemMeta {
 
-    private UUID skullOwner;
+    private String skullOwner;
     private PlayerSkin playerSkin;
 
     /**
@@ -27,7 +27,7 @@ public class SkullMeta extends ItemMeta {
      */
     public boolean setOwningPlayer(@NotNull Player player) {
         if (player.getSkin() != null) {
-            this.skullOwner = player.getUuid();
+            this.skullOwner = player.getUsername();
             this.playerSkin = player.getSkin();
             return true;
         }
@@ -40,7 +40,7 @@ public class SkullMeta extends ItemMeta {
      * @return The head's owner.
      */
     @Nullable
-    public UUID getSkullOwner() {
+    public String getSkullOwner() {
         return skullOwner;
     }
 
@@ -49,7 +49,7 @@ public class SkullMeta extends ItemMeta {
      *
      * @param skullOwner The new head owner.
      */
-    public void setSkullOwner(@NotNull UUID skullOwner) {
+    public void setSkullOwner(@NotNull String skullOwner) {
         this.skullOwner = skullOwner;
     }
 
@@ -99,8 +99,8 @@ public class SkullMeta extends ItemMeta {
         if (compound.containsKey("SkullOwner")) {
             NBTCompound skullOwnerCompound = compound.getCompound("SkullOwner");
 
-            if (skullOwnerCompound.containsKey("Id")) {
-                this.skullOwner = Utils.intArrayToUuid(skullOwnerCompound.getIntArray("Id"));
+            if (skullOwnerCompound.containsKey("Name")) {
+                this.skullOwner = skullOwnerCompound.getString("Name");
             }
 
             if (skullOwnerCompound.containsKey("Properties")) {
@@ -126,10 +126,10 @@ public class SkullMeta extends ItemMeta {
     public void write(@NotNull NBTCompound compound) {
         NBTCompound skullOwnerCompound = new NBTCompound();
         // Sets the identifier for the skull
-        skullOwnerCompound.setIntArray("Id", Utils.uuidToIntArray(this.skullOwner));
+        skullOwnerCompound.setString("Name", this.skullOwner);
 
         if (this.playerSkin == null) {
-            this.playerSkin = PlayerSkin.fromUuid(this.skullOwner.toString());
+            this.playerSkin = PlayerSkin.fromUuid(this.skullOwner);
         }
 
         NBTList<NBTCompound> textures = new NBTList<>(NBTTypes.TAG_Compound);

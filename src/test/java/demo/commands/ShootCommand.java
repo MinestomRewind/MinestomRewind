@@ -12,8 +12,7 @@ public class ShootCommand extends Command {
     public ShootCommand() {
         super("shoot");
         setCondition(this::condition);
-        setDefaultExecutor(this::defaultExecutor);
-        addSyntax(this::onShootCommand);
+        setDefaultExecutor(this::onShootCommand);
     }
 
     private boolean condition(CommandSender sender, String commandString) {
@@ -22,10 +21,6 @@ public class ShootCommand extends Command {
             return false;
         }
         return true;
-    }
-
-    private void defaultExecutor(CommandSender sender, Arguments args) {
-        sender.sendMessage("Correct usage: shoot");
     }
 
     private void onShootCommand(CommandSender sender, Arguments args) {
