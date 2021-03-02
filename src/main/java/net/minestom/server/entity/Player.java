@@ -867,7 +867,7 @@ public class Player extends LivingEntity implements CommandSender {
      * @return the player additional hearts
      */
     public float getAdditionalHearts() {
-        return metadata.getIndex((byte) 14, 0f);
+        return metadata.getIndex((byte) 17, 0f);
     }
 
     /**
@@ -876,7 +876,7 @@ public class Player extends LivingEntity implements CommandSender {
      * @param additionalHearts the count of additional hearts
      */
     public void setAdditionalHearts(float additionalHearts) {
-        this.metadata.setIndex((byte) 14, Metadata.Float(additionalHearts));
+        this.metadata.setIndex((byte) 17, Metadata.Float(additionalHearts));
     }
 
     /**
@@ -2205,7 +2205,7 @@ public class Player extends LivingEntity implements CommandSender {
             this.chatColors = chatColors;
             this.displayedSkinParts = displayedSkinParts;
 
-            metadata.setIndex((byte) 16, Metadata.Byte(displayedSkinParts));
+            metadata.setIndex((byte) 10, Metadata.Byte(displayedSkinParts));
 
             this.firstRefresh = false;
 

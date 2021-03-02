@@ -42,6 +42,7 @@ public class ServerPacketIdentifier {
     public static final int SET_EXPERIENCE = 0x1F;
     public static final int ENTITY_PROPERTIES = 0x20;
     public static final int CHUNK_DATA = 0x21;
+    public static final int MULTI_BLOCK_CHANGE = 0x22;
     public static final int BLOCK_CHANGE = 0x23;
     public static final int BLOCK_ACTION = 0x24;
     public static final int BLOCK_BREAK_ANIMATION = 0x25;
@@ -78,7 +79,5 @@ public class ServerPacketIdentifier {
     // Set Compression packet is broken
     public static final int PLAYER_LIST_HEADER_AND_FOOTER = 0x47;
     public static final int RESOURCE_PACK_SEND = 0x48;
-
-    public static final int MULTI_BLOCK_CHANGE = 0x22;
 
 }

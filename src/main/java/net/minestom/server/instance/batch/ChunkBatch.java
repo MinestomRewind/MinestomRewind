@@ -7,6 +7,8 @@ import it.unimi.dsi.fastutil.longs.LongList;
 import net.minestom.server.data.Data;
 import net.minestom.server.instance.*;
 import net.minestom.server.instance.block.CustomBlock;
+import net.minestom.server.network.packet.server.play.MultiBlockChangePacket;
+import net.minestom.server.utils.BlockPosition;
 import net.minestom.server.utils.block.CustomBlockUtils;
 import net.minestom.server.utils.callback.OptionalCallback;
 import net.minestom.server.utils.chunk.ChunkCallback;
@@ -229,10 +231,41 @@ public class ChunkBatch implements InstanceBatch {
     }
 
     private void updateChunk(@Nullable ChunkCallback callback, boolean safeCallback) {
+        int changedBlocksSize = Integer.MAX_VALUE;
+        if (blocks != null) {
+            synchronized (blocks) {
+                changedBlocksSize = blocks.size();
+            }
+        }
 
         // Refresh chunk for viewers
         if (batchOption.isFullChunk()) {
             chunk.sendChunk();
+        } else if (changedBlocksSize < 1024) {
+            MultiBlockChangePacket packet = new MultiBlockChangePacket();
+            packet.chunkX = chunk.getChunkX();
+            packet.chunkZ = chunk.getChunkZ();
+
+            synchronized (blocks) {
+                packet.blockChanges = new MultiBlockChangePacket.BlockChange[blocks.size()];
+
+                for (int i = 0; i < blocks.size(); i++) {
+                    long value = blocks.getLong(i);
+
+                    final short blockId = (short) ((value >> 16) & 0xFFFF);
+                    final int index = (int) ((value >> 32) & 0xFFFFFFFFL);
+
+                    MultiBlockChangePacket.BlockChange change = new MultiBlockChangePacket.BlockChange();
+                    BlockPosition position = ChunkUtils.getBlockPosition(index, packet.chunkX, packet.chunkZ);
+                    change.positionX = position.getX();
+                    change.positionY = position.getY();
+                    change.positionZ = position.getZ();
+                    change.blockStateId = blockId;
+                    packet.blockChanges[i] = change;
+                }
+            }
+
+            chunk.sendPacketsToViewers(packet);
         } else {
             chunk.sendChunkUpdate();
         }
