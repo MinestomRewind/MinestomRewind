@@ -624,6 +624,14 @@ public class Player extends LivingEntity implements CommandSender {
             }
         }
 
+        instance.getWorldBorder().init(this);
+
+        // Send all visible entities
+        EntityUtils.forEachRange(instance, position, MinecraftServer.getEntityViewDistance(), ent -> {
+            if (ent.isAutoViewable())
+                ent.addViewer(this);
+        });
+
         PlayerSpawnEvent spawnEvent = new PlayerSpawnEvent(this, instance, firstSpawn);
         callEvent(PlayerSpawnEvent.class, spawnEvent);
     }
