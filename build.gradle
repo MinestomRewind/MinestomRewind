@@ -170,11 +170,10 @@ dependencies {
 
     api "com.github.Minestom:DependencyGetter:v1.0.1"
 
-    api(platform("net.kyori:adventure-bom:${project.adventureVersion}"))
-    api("net.kyori:adventure-api")
-    api("net.kyori:adventure-text-serializer-gson")
-    api("net.kyori:adventure-text-serializer-legacy")
-    api("net.kyori:adventure-text-serializer-plain")
+    api("net.kyori:adventure-api:${project.adventureVersion}")
+    api("net.kyori:adventure-text-serializer-gson:${project.adventureVersion}")
+    api("net.kyori:adventure-text-serializer-legacy:${project.adventureVersion}")
+    api("net.kyori:adventure-text-serializer-plain:${project.adventureVersion}")
 
     // LWJGL, for map rendering
     lwjglApi platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
