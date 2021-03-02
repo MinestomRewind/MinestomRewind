@@ -34,17 +34,6 @@ public class TestNamespaceIDValidity {
     }
 
     @Test
-    public void noUppercase() {
-        assertThrows(AssertionError.class, () -> {
-            NamespaceID.from("Minecraft:any");
-        });
-
-        assertThrows(AssertionError.class, () -> {
-            NamespaceID.from("minecraft:Any");
-        });
-    }
-
-    @Test
     public void noSpace() {
         assertThrows(AssertionError.class, () -> {
             NamespaceID.from("minecraft:a n y");

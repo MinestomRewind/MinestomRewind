@@ -21,6 +21,7 @@ public class EnumGenerator implements CodeGenerator {
     private final String enumName;
     private ParameterSpec[] parameters;
     private List<Method> methods = new LinkedList<>();
+    private List<Field> fields = new LinkedList<>();
     private List<Instance> instances = new LinkedList<>();
     private List<Field> hardcodedFields = new LinkedList<>();
     private List<AnnotationSpec> annotations = new LinkedList<>();
@@ -50,6 +51,10 @@ public class EnumGenerator implements CodeGenerator {
         methods.add(new Method(true, name, signature, returnType, code, false));
     }
 
+    public void addStaticField(TypeName type, String name, String value) {
+        fields.add(new Field(type, name, value));
+    }
+
     public void addInstance(String name, Object... parameters) {
         instances.add(new Instance(name, parameters));
     }
@@ -76,7 +81,12 @@ public class EnumGenerator implements CodeGenerator {
                     if (i != 0) {
                         format.append(", ");
                     }
-                    format.append("$L");
+                    if (instance.parameters[i] instanceof ConstructorLambda) {
+                        instance.parameters[i] = ((ConstructorLambda) instance.parameters[i]).getClassName();
+                        format.append("$T::new");
+                    } else {
+                        format.append("$L");
+                    }
                 }
 
                 // generate instances
@@ -97,6 +107,13 @@ public class EnumGenerator implements CodeGenerator {
                 enumClass.addField(FieldSpec.builder(property.type, property.name)
                         .addModifiers(Modifier.PRIVATE)
                         .addAnnotations(property.annotations)
+                        .build());
+            }
+
+            for (Field field : fields) {
+                enumClass.addField(FieldSpec.builder(field.type, field.name)
+                        .initializer("$L", field.value)
+                        .addModifiers(Modifier.PRIVATE, Modifier.FINAL, Modifier.STATIC)
                         .build());
             }
 

@@ -1,7 +1,66 @@
 package net.minestom.server.entity;
 
+import java.util.function.BiFunction;
+import net.minestom.server.entity.metadata.EntityMeta;
+import net.minestom.server.entity.metadata.PlayerMeta;
+import net.minestom.server.entity.metadata.ambient.BatMeta;
+import net.minestom.server.entity.metadata.animal.ChickenMeta;
+import net.minestom.server.entity.metadata.animal.CowMeta;
+import net.minestom.server.entity.metadata.animal.HorseMeta;
+import net.minestom.server.entity.metadata.animal.MooshroomMeta;
+import net.minestom.server.entity.metadata.animal.PigMeta;
+import net.minestom.server.entity.metadata.animal.RabbitMeta;
+import net.minestom.server.entity.metadata.animal.SheepMeta;
+import net.minestom.server.entity.metadata.animal.tameable.OcelotMeta;
+import net.minestom.server.entity.metadata.animal.tameable.WolfMeta;
+import net.minestom.server.entity.metadata.arrow.ArrowMeta;
+import net.minestom.server.entity.metadata.flying.GhastMeta;
+import net.minestom.server.entity.metadata.golem.IronGolemMeta;
+import net.minestom.server.entity.metadata.golem.SnowGolemMeta;
+import net.minestom.server.entity.metadata.item.EyeOfEnderMeta;
+import net.minestom.server.entity.metadata.item.FireballMeta;
+import net.minestom.server.entity.metadata.item.ItemEntityMeta;
+import net.minestom.server.entity.metadata.item.SmallFireballMeta;
+import net.minestom.server.entity.metadata.item.SnowballMeta;
+import net.minestom.server.entity.metadata.item.ThrownEggMeta;
+import net.minestom.server.entity.metadata.item.ThrownEnderPearlMeta;
+import net.minestom.server.entity.metadata.item.ThrownExperienceBottleMeta;
+import net.minestom.server.entity.metadata.item.ThrownPotionMeta;
+import net.minestom.server.entity.metadata.minecart.MinecartMeta;
+import net.minestom.server.entity.metadata.monster.BlazeMeta;
+import net.minestom.server.entity.metadata.monster.CaveSpiderMeta;
+import net.minestom.server.entity.metadata.monster.CreeperMeta;
+import net.minestom.server.entity.metadata.monster.EndermanMeta;
+import net.minestom.server.entity.metadata.monster.EndermiteMeta;
+import net.minestom.server.entity.metadata.monster.GiantMeta;
+import net.minestom.server.entity.metadata.monster.GuardianMeta;
+import net.minestom.server.entity.metadata.monster.SilverfishMeta;
+import net.minestom.server.entity.metadata.monster.SpiderMeta;
+import net.minestom.server.entity.metadata.monster.WitchMeta;
+import net.minestom.server.entity.metadata.monster.WitherMeta;
+import net.minestom.server.entity.metadata.monster.skeleton.SkeletonMeta;
+import net.minestom.server.entity.metadata.monster.zombie.ZombieMeta;
+import net.minestom.server.entity.metadata.monster.zombie.ZombiePigmanMeta;
+import net.minestom.server.entity.metadata.other.ArmorStandMeta;
+import net.minestom.server.entity.metadata.other.BoatMeta;
+import net.minestom.server.entity.metadata.other.EndCrystalMeta;
+import net.minestom.server.entity.metadata.other.EnderDragonMeta;
+import net.minestom.server.entity.metadata.other.ExperienceOrbMeta;
+import net.minestom.server.entity.metadata.other.FallingBlockMeta;
+import net.minestom.server.entity.metadata.other.FireworkRocketMeta;
+import net.minestom.server.entity.metadata.other.FishingHookMeta;
+import net.minestom.server.entity.metadata.other.ItemFrameMeta;
+import net.minestom.server.entity.metadata.other.LeashKnotMeta;
+import net.minestom.server.entity.metadata.other.MagmaCubeMeta;
+import net.minestom.server.entity.metadata.other.PaintingMeta;
+import net.minestom.server.entity.metadata.other.PrimedTntMeta;
+import net.minestom.server.entity.metadata.other.SlimeMeta;
+import net.minestom.server.entity.metadata.other.WitherSkullMeta;
+import net.minestom.server.entity.metadata.villager.VillagerMeta;
+import net.minestom.server.entity.metadata.water.SquidMeta;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.utils.NamespaceID;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * //==============================
@@ -10,115 +69,119 @@ import net.minestom.server.utils.NamespaceID;
  */
 @SuppressWarnings({"deprecation"})
 public enum EntityType {
-    FISHING_FLOAT("minecraft:Fishing Float", 0, (byte) 90),
+    FISHING_FLOAT("minecraft:FishingFloat", 0, (byte) 90, 0.25, 0.25, FishingHookMeta::new, EntitySpawnType.OBJECT),
 
-    ITEM("minecraft:Item", 1, (byte) 2),
+    ITEM("minecraft:Item", 1, (byte) 2, 0.25, 0.25, ItemEntityMeta::new, EntitySpawnType.OBJECT),
 
-    THROWN_EGG("minecraft:ThrownEgg", 7, (byte) 62),
+    THROWN_EGG("minecraft:ThrownEgg", 7, (byte) 62, 0.25, 0.25, ThrownEggMeta::new, EntitySpawnType.OBJECT),
 
-    LEASH_KNOT("minecraft:LeashKnot", 8, (byte) 77),
+    LEASH_KNOT("minecraft:LeashKnot", 8, (byte) 77, 0.5, 0.5, LeashKnotMeta::new, EntitySpawnType.OBJECT),
 
-    ARROW("minecraft:Arrow", 10, (byte) 60),
+    ARROW("minecraft:Arrow", 10, (byte) 60, 0.5, 0.5, ArrowMeta::new, EntitySpawnType.OBJECT),
 
-    SNOWBALL("minecraft:Snowball", 11, (byte) 61),
+    SNOWBALL("minecraft:Snowball", 11, (byte) 61, 0.25, 0.25, SnowballMeta::new, EntitySpawnType.OBJECT),
 
-    FIREBALL("minecraft:Fireball", 12, (byte) 63),
+    FIREBALL("minecraft:Fireball", 12, (byte) 63, 0.0, 0.0, FireballMeta::new, EntitySpawnType.OBJECT),
 
-    SMALL_FIREBALL("minecraft:SmallFireball", 13, (byte) 64),
+    SMALL_FIREBALL("minecraft:SmallFireball", 13, (byte) 64, 0.3125, 0.3125, SmallFireballMeta::new, EntitySpawnType.OBJECT),
 
-    THROWN_ENDERPEARL("minecraft:ThrownEnderpearl", 14, (byte) 65),
+    THROWN_ENDERPEARL("minecraft:ThrownEnderpearl", 14, (byte) 65, 0.25, 0.25, ThrownEnderPearlMeta::new, EntitySpawnType.OBJECT),
 
-    EYE_OF_ENDER_SIGNAL("minecraft:EyeOfEnderSignal", 15, (byte) 72),
+    EYE_OF_ENDER_SIGNAL("minecraft:EyeOfEnderSignal", 15, (byte) 72, 0.25, 0.25, EyeOfEnderMeta::new, EntitySpawnType.OBJECT),
 
-    THROWN_POTION("minecraft:ThrownPotion", 16, (byte) 73),
+    THROWN_POTION("minecraft:ThrownPotion", 16, (byte) 73, 0.25, 0.25, ThrownPotionMeta::new, EntitySpawnType.OBJECT),
 
-    THROWN_EXP_BOTTLE("minecraft:ThrownExpBottle", 17, (byte) 75),
+    THROWN_EXP_BOTTLE("minecraft:ThrownExpBottle", 17, (byte) 75, 0.25, 0.25, ThrownExperienceBottleMeta::new, EntitySpawnType.OBJECT),
 
-    ITEM_FRAME("minecraft:ItemFrame", 18, (byte) 71),
+    ITEM_FRAME("minecraft:ItemFrame", 18, (byte) 71, 0.5, 0.5, ItemFrameMeta::new, EntitySpawnType.OBJECT),
 
-    WITHER_SKULL("minecraft:WitherSkull", 19, (byte) 66),
+    WITHER_SKULL("minecraft:WitherSkull", 19, (byte) 66, 0.3125, 0.3125, WitherSkullMeta::new, EntitySpawnType.OBJECT),
 
-    PRIMED_TNT("minecraft:PrimedTnt", 20, (byte) 50),
+    PRIMED_TNT("minecraft:PrimedTnt", 20, (byte) 50, 0.98, 0.98, PrimedTntMeta::new, EntitySpawnType.OBJECT),
 
-    FALLING_SAND("minecraft:FallingSand", 21, (byte) 70),
+    FALLING_SAND("minecraft:FallingSand", 21, (byte) 70, 0.0, 0.0, FallingBlockMeta::new, EntitySpawnType.OBJECT),
 
-    FIREWORKS_ROCKET_ENTITY("minecraft:FireworksRocketEntity", 22, (byte) 76),
+    FIREWORKS_ROCKET_ENTITY("minecraft:FireworksRocketEntity", 22, (byte) 76, 0.25, 0.25, FireworkRocketMeta::new, EntitySpawnType.OBJECT),
 
-    ARMOR_STAND("minecraft:ArmorStand", 30, (byte) 78),
+    ARMOR_STAND("minecraft:ArmorStand", 30, (byte) 78, 0.5, 1.975, ArmorStandMeta::new, EntitySpawnType.OBJECT),
 
-    BOAT("minecraft:Boat", 41, (byte) 1),
+    BOAT("minecraft:Boat", 41, (byte) 1, 1.5, 0.6, BoatMeta::new, EntitySpawnType.OBJECT),
 
-    MINECART_RIDEABLE("minecraft:MinecartRideable", 42, (byte) 10),
+    MINECART_RIDEABLE("minecraft:MinecartRideable", 42, (byte) 10, 0.98, 0.7, MinecartMeta::new, EntitySpawnType.OBJECT),
 
-    MOB("minecraft:Mob", 48, (byte) 48),
+    CREEPER("minecraft:Creeper", 50, (byte) 50, 0.0, 0.0, CreeperMeta::new, EntitySpawnType.MOB),
 
-    MONSTER("minecraft:Monster", 49, (byte) 49),
+    SKELETON("minecraft:Skeleton", 51, (byte) 51, 0.0, 0.0, SkeletonMeta::new, EntitySpawnType.MOB),
 
-    CREEPER("minecraft:Creeper", 50, (byte) 50),
+    SPIDER("minecraft:Spider", 52, (byte) 52, 1.4, 0.9, SpiderMeta::new, EntitySpawnType.MOB),
 
-    SKELETON("minecraft:Skeleton", 51, (byte) 51),
+    GIANT("minecraft:Giant", 53, (byte) 53, 0.0, 0.0, GiantMeta::new, EntitySpawnType.MOB),
 
-    SPIDER("minecraft:Spider", 52, (byte) 52),
+    ZOMBIE("minecraft:Zombie", 54, (byte) 54, 0.6, 1.95, ZombieMeta::new, EntitySpawnType.MOB),
 
-    GIANT("minecraft:Giant", 53, (byte) 53),
+    SLIME("minecraft:Slime", 55, (byte) 55, 0.0, 0.0, SlimeMeta::new, EntitySpawnType.MOB),
 
-    ZOMBIE("minecraft:Zombie", 54, (byte) 54),
+    GHAST("minecraft:Ghast", 56, (byte) 56, 4.0, 4.0, GhastMeta::new, EntitySpawnType.MOB),
 
-    SLIME("minecraft:Slime", 55, (byte) 55),
+    PIG_ZOMBIE("minecraft:PigZombie", 57, (byte) 57, 0.6, 1.95, ZombiePigmanMeta::new, EntitySpawnType.MOB),
 
-    GHAST("minecraft:Ghast", 56, (byte) 56),
+    ENDERMAN("minecraft:Enderman", 58, (byte) 58, 0.6, 2.9, EndermanMeta::new, EntitySpawnType.MOB),
 
-    PIG_ZOMBIE("minecraft:PigZombie", 57, (byte) 57),
+    CAVE_SPIDER("minecraft:CaveSpider", 59, (byte) 59, 0.7, 0.5, CaveSpiderMeta::new, EntitySpawnType.MOB),
 
-    ENDERMAN("minecraft:Enderman", 58, (byte) 58),
+    SILVERFISH("minecraft:Silverfish", 60, (byte) 60, 0.4, 0.3, SilverfishMeta::new, EntitySpawnType.MOB),
 
-    CAVE_SPIDER("minecraft:CaveSpider", 59, (byte) 59),
+    BLAZE("minecraft:Blaze", 61, (byte) 61, 0.0, 0.0, BlazeMeta::new, EntitySpawnType.MOB),
 
-    SILVERFISH("minecraft:Silverfish", 60, (byte) 60),
+    LAVA_SLIME("minecraft:LavaSlime", 62, (byte) 62, 0.0, 0.0, MagmaCubeMeta::new, EntitySpawnType.MOB),
 
-    BLAZE("minecraft:Blaze", 61, (byte) 61),
+    ENDER_DRAGON("minecraft:EnderDragon", 63, (byte) 63, 16.0, 8.0, EnderDragonMeta::new, EntitySpawnType.MOB),
 
-    LAVA_SLIME("minecraft:LavaSlime", 62, (byte) 62),
+    WITHER_BOSS("minecraft:WitherBoss", 64, (byte) 64, 0.9, 3.5, WitherMeta::new, EntitySpawnType.MOB),
 
-    ENDER_DRAGON("minecraft:EnderDragon", 63, (byte) 63),
+    BAT("minecraft:Bat", 65, (byte) 65, 0.5, 0.9, BatMeta::new, EntitySpawnType.MOB),
 
-    WITHER_BOSS("minecraft:WitherBoss", 64, (byte) 64),
+    WITCH("minecraft:Witch", 66, (byte) 66, 0.6, 1.95, WitchMeta::new, EntitySpawnType.MOB),
 
-    BAT("minecraft:Bat", 65, (byte) 65),
+    ENDERMITE("minecraft:Endermite", 67, (byte) 67, 0.4, 0.3, EndermiteMeta::new, EntitySpawnType.MOB),
 
-    WITCH("minecraft:Witch", 66, (byte) 66),
+    GUARDIAN("minecraft:Guardian", 68, (byte) 68, 0.85, 0.85, GuardianMeta::new, EntitySpawnType.MOB),
 
-    ENDERMITE("minecraft:Endermite", 67, (byte) 67),
+    PIG("minecraft:Pig", 90, (byte) 90, 0.9, 0.9, PigMeta::new, EntitySpawnType.MOB),
 
-    GUARDIAN("minecraft:Guardian", 68, (byte) 68),
+    SHEEP("minecraft:Sheep", 91, (byte) 91, 0.9, 1.3, SheepMeta::new, EntitySpawnType.MOB),
 
-    PIG("minecraft:Pig", 90, (byte) 90),
+    COW("minecraft:Cow", 92, (byte) 92, 0.9, 1.3, CowMeta::new, EntitySpawnType.MOB),
 
-    SHEEP("minecraft:Sheep", 91, (byte) 91),
+    CHICKEN("minecraft:Chicken", 93, (byte) 93, 0.4, 0.7, ChickenMeta::new, EntitySpawnType.MOB),
 
-    COW("minecraft:Cow", 92, (byte) 92),
+    SQUID("minecraft:Squid", 94, (byte) 94, 0.95, 0.95, SquidMeta::new, EntitySpawnType.MOB),
 
-    CHICKEN("minecraft:Chicken", 93, (byte) 93),
+    WOLF("minecraft:Wolf", 95, (byte) 95, 0.6, 0.8, WolfMeta::new, EntitySpawnType.MOB),
 
-    SQUID("minecraft:Squid", 94, (byte) 94),
+    MUSHROOM_COW("minecraft:MushroomCow", 96, (byte) 96, 0.9, 1.3, MooshroomMeta::new, EntitySpawnType.MOB),
 
-    WOLF("minecraft:Wolf", 95, (byte) 95),
+    SNOW_MAN("minecraft:SnowMan", 97, (byte) 97, 0.7, 1.9, SnowGolemMeta::new, EntitySpawnType.MOB),
 
-    MUSHROOM_COW("minecraft:MushroomCow", 96, (byte) 96),
+    OZELOT("minecraft:Ozelot", 98, (byte) 98, 0.6, 0.7, OcelotMeta::new, EntitySpawnType.MOB),
 
-    SNOW_MAN("minecraft:SnowMan", 97, (byte) 97),
+    VILLAGER_GOLEM("minecraft:VillagerGolem", 99, (byte) 99, 1.4, 2.9, IronGolemMeta::new, EntitySpawnType.MOB),
 
-    OZELOT("minecraft:Ozelot", 98, (byte) 98),
+    ENTITY_HORSE("minecraft:EntityHorse", 100, (byte) 100, 1.4, 1.6, HorseMeta::new, EntitySpawnType.MOB),
 
-    VILLAGER_GOLEM("minecraft:VillagerGolem", 99, (byte) 99),
+    RABBIT("minecraft:Rabbit", 101, (byte) 101, 0.6, 0.7, RabbitMeta::new, EntitySpawnType.MOB),
 
-    ENTITY_HORSE("minecraft:EntityHorse", 100, (byte) 100),
+    VILLAGER("minecraft:Villager", 120, (byte) 120, 0.0, 0.0, VillagerMeta::new, EntitySpawnType.MOB),
 
-    RABBIT("minecraft:Rabbit", 101, (byte) 101),
+    ENDER_CRYSTAL("minecraft:EnderCrystal", 200, (byte) 51, 0.0, 0.0, EndCrystalMeta::new, EntitySpawnType.OBJECT),
 
-    VILLAGER("minecraft:Villager", 120, (byte) 120),
+    PLAYER("minecraft:Player", 1000, (byte) 0, 0.6, 1.8, PlayerMeta::new, EntitySpawnType.PLAYER),
 
-    ENDER_CRYSTAL("minecraft:EnderCrystal", 200, (byte) 51);
+    PAINTING("minecraft:Painting", 1001, (byte) 0, 0.5, 0.5, PaintingMeta::new, EntitySpawnType.PAINTING),
+
+    EXPERIENCE_ORB("minecraft:ExperienceOrb", 1002, (byte) 0, 0.5, 0.5, ExperienceOrbMeta::new, EntitySpawnType.EXPERIENCE_ORB);
+
+    private static final EntityType[] VALUES = values();
 
     private String namespaceID;
 
@@ -126,10 +189,26 @@ public enum EntityType {
 
     private byte protocolId;
 
-    EntityType(String namespaceID, int id, byte protocolId) {
+    private double width;
+
+    private double height;
+
+    @NotNull
+    private BiFunction<Entity, Metadata, EntityMeta> metaConstructor;
+
+    @NotNull
+    private EntitySpawnType spawnType;
+
+    EntityType(String namespaceID, int id, byte protocolId, double width, double height,
+            @NotNull BiFunction<Entity, Metadata, EntityMeta> metaConstructor,
+            @NotNull EntitySpawnType spawnType) {
         this.namespaceID = namespaceID;
         this.id = id;
         this.protocolId = protocolId;
+        this.width = width;
+        this.height = height;
+        this.metaConstructor = metaConstructor;
+        this.spawnType = spawnType;
         Registries.entityTypes.put(NamespaceID.from(namespaceID), this);
     }
 
@@ -145,7 +224,23 @@ public enum EntityType {
         return namespaceID;
     }
 
-    public static EntityType fromId(int id) {
+    public double getWidth() {
+        return this.width;
+    }
+
+    public double getHeight() {
+        return this.height;
+    }
+
+    public BiFunction<Entity, Metadata, EntityMeta> getMetaConstructor() {
+        return this.metaConstructor;
+    }
+
+    public EntitySpawnType getSpawnType() {
+        return this.spawnType;
+    }
+
+    public static EntityType fromId(short id) {
         for (EntityType o : values()) {
             if (o.getId() == id) {
                 return o;

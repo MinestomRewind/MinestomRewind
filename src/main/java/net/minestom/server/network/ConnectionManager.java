@@ -30,6 +30,7 @@ import net.minestom.server.utils.callback.validator.PlayerValidator;
 import net.minestom.server.utils.validate.Check;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.apache.commons.text.similarity.JaroWinklerDistance;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -101,7 +102,8 @@ public final class ConnectionManager implements Audience, ForwardingAudience {
         String lowercase = username.toLowerCase();
         double currentDistance = 0;
         for (Player player : getOnlinePlayers()) {
-            double distance = StringUtils.getJaroWinklerDistance(lowercase, player.getUsername().toLowerCase());
+            final JaroWinklerDistance jaroWinklerDistance = new JaroWinklerDistance();
+            final double distance = jaroWinklerDistance.apply(lowercase, player.getUsername().toLowerCase());
             if (distance > currentDistance) {
                 currentDistance = distance;
                 exact = player;

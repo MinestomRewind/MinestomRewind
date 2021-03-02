@@ -1,12 +1,17 @@
 package net.minestom.server.entity.type.animal;
 
-import net.minestom.server.entity.EntityCreature;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Metadata;
+import net.minestom.server.entity.metadata.animal.tameable.OcelotMeta;
+import net.minestom.server.entity.type.AgeableCreature;
 import net.minestom.server.entity.type.Animal;
 import net.minestom.server.utils.Position;
 
-public class EntityOcelot extends EntityCreature implements Animal {
+/**
+ * @deprecated Use {@link OcelotMeta} instead.
+ */
+@Deprecated
+public class EntityOcelot extends AgeableCreature implements Animal {
     public EntityOcelot(Position spawnPosition) {
         super(EntityType.OZELOT, spawnPosition);
         setBoundingBox(0.6f, 0.7f, 0.6f);

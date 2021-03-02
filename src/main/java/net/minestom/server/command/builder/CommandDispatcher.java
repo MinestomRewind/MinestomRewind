@@ -1,5 +1,7 @@
 package net.minestom.server.command.builder;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import it.unimi.dsi.fastutil.ints.Int2ObjectRBTreeMap;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.arguments.Argument;
@@ -12,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
@@ -21,6 +24,10 @@ public class CommandDispatcher {
 
     private final Map<String, Command> commandMap = new HashMap<>();
     private final Set<Command> commands = new HashSet<>();
+
+    private final Cache<String, CommandResult> cache = CacheBuilder.newBuilder()
+            .expireAfterWrite(30, TimeUnit.SECONDS)
+            .build();
 
     /**
      * Registers a command,
@@ -99,6 +106,14 @@ public class CommandDispatcher {
     public CommandResult parse(@NotNull String commandString) {
         commandString = commandString.trim();
 
+        // Verify if the result is cached
+        {
+            final CommandResult cachedResult = cache.getIfPresent(commandString);
+            if (cachedResult != null) {
+                return cachedResult;
+            }
+        }
+
         // Split space
         final String[] parts = commandString.split(StringUtils.SPACE);
         final String commandName = parts[0];
@@ -115,27 +130,21 @@ public class CommandDispatcher {
             args = new String[0];
         }
 
-        // Find the used syntax
-        ParsedCommand parsedCommand = findParsedCommand(command, args);
-
         CommandResult result = new CommandResult();
         result.input = commandString;
-        result.parsedCommand = parsedCommand;
-        if (parsedCommand != null && parsedCommand.executor != null) {
-            // Syntax found
-            result.type = CommandResult.Type.SUCCESS;
-        } else {
-            // Syntax not found, use the default executor (if any)
-            result.type = CommandResult.Type.INVALID_SYNTAX;
-            if (parsedCommand == null) { // Prevent overriding argument callback
-                result.parsedCommand = ParsedCommand.withDefaultExecutor(command);
-            }
+        // Find the used syntax and fill CommandResult#type and CommandResult#parsedCommand
+        findParsedCommand(command, args, result);
+
+        // Cache result
+        {
+            this.cache.put(commandString, result);
         }
+
         return result;
     }
 
     @Nullable
-    private ParsedCommand findParsedCommand(@NotNull Command command, @NotNull String[] args) {
+    private ParsedCommand findParsedCommand(@NotNull Command command, @NotNull String[] args, @NotNull CommandResult result) {
         final boolean hasArgument = args.length > 0;
 
         // Search for subcommand
@@ -143,7 +152,7 @@ public class CommandDispatcher {
             final String firstArgument = args[0];
             for (Command subcommand : command.getSubcommands()) {
                 if (Command.isValidName(subcommand, firstArgument)) {
-                    return findParsedCommand(subcommand, Arrays.copyOfRange(args, 1, args.length));
+                    return findParsedCommand(subcommand, Arrays.copyOfRange(args, 1, args.length), result);
                 }
             }
         }
@@ -158,6 +167,9 @@ public class CommandDispatcher {
             if (defaultExecutor != null && !hasArgument) {
                 parsedCommand.executor = defaultExecutor;
                 parsedCommand.arguments = new Arguments();
+
+                result.type = CommandResult.Type.SUCCESS;
+                result.parsedCommand = parsedCommand;
                 return parsedCommand;
             }
         }
@@ -189,6 +201,9 @@ public class CommandDispatcher {
                 parsedCommand.syntax = syntax;
                 parsedCommand.executor = syntax.getExecutor();
                 parsedCommand.arguments = executorArgs;
+
+                result.type = CommandResult.Type.SUCCESS;
+                result.parsedCommand = parsedCommand;
                 return parsedCommand;
             }
 
@@ -210,12 +225,16 @@ public class CommandDispatcher {
                     parsedCommand.callback = argument.getCallback();
                     parsedCommand.argumentSyntaxException = argumentSyntaxException;
 
+                    result.type = CommandResult.Type.INVALID_SYNTAX;
+                    result.parsedCommand = parsedCommand;
                     return parsedCommand;
                 }
             }
         }
 
         // No syntax found
-        return null;
+        result.type = CommandResult.Type.INVALID_SYNTAX;
+        result.parsedCommand = ParsedCommand.withDefaultExecutor(command);
+        return result.parsedCommand;
     }
 }

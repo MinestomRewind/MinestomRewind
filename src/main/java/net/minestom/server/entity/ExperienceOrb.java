@@ -1,8 +1,6 @@
 package net.minestom.server.entity;
 
 import net.minestom.server.instance.Instance;
-import net.minestom.server.network.packet.server.play.SpawnExperienceOrbPacket;
-import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.utils.Position;
 import net.minestom.server.utils.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +16,7 @@ public class ExperienceOrb extends Entity {
 
 
     public ExperienceOrb(short experienceCount, @NotNull Position spawnPosition) {
-        super(null, spawnPosition);
+        super(EntityType.EXPERIENCE_ORB, spawnPosition);
         setGravity(0.02f, 0.04f, 1.96f);
         setBoundingBox(0.5f, 0.5f, 0.5f);
         //todo vanilla sets random velocity here?
@@ -83,25 +81,6 @@ public class ExperienceOrb extends Entity {
     @Override
     public void spawn() {
 
-    }
-
-    @Override
-    public boolean addViewer(@NotNull Player player) {
-        final boolean result = super.addViewer(player); // Add player to viewers list
-        if (!result)
-            return false;
-
-        final PlayerConnection playerConnection = player.getPlayerConnection();
-
-        SpawnExperienceOrbPacket experienceOrbPacket = new SpawnExperienceOrbPacket();
-        experienceOrbPacket.entityId = getEntityId();
-        experienceOrbPacket.position = getPosition();
-        experienceOrbPacket.expCount = experienceCount;
-
-        playerConnection.sendPacket(experienceOrbPacket);
-        playerConnection.sendPacket(getVelocityPacket());
-
-        return true;
     }
 
     /**

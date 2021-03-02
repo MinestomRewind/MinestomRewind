@@ -19,51 +19,37 @@ public class UseItemListener {
         }
 
         final PlayerInventory inventory = player.getInventory();
-        final ItemStack itemStack = inventory.getItemInHand();
+        ItemStack itemStack = inventory.getItemInHand();
         itemStack.onRightClick(player);
         PlayerUseItemEvent useItemEvent = new PlayerUseItemEvent(player, itemStack);
         player.callEvent(PlayerUseItemEvent.class, useItemEvent);
 
+        final PlayerInventory playerInventory = player.getInventory();
+        if (useItemEvent.isCancelled()) {
+            playerInventory.update();
+            return true;
+        }
+
+        itemStack = useItemEvent.getItemStack();
         final Material material = itemStack.getMaterial();
 
         // Equip armor with right click
         if (material.isArmor()) {
-            final PlayerInventory playerInventory = player.getInventory();
-            if (useItemEvent.isCancelled()) {
-                playerInventory.update();
-                return true;
-            }
-
-            final ArmorEquipEvent.ArmorSlot armorSlot;
+            ItemStack currentlyEquipped;
             if (material.isHelmet()) {
-                armorSlot = ArmorEquipEvent.ArmorSlot.HELMET;
+                currentlyEquipped = playerInventory.getHelmet();
+                playerInventory.setHelmet(itemStack);
             } else if (material.isChestplate()) {
-                armorSlot = ArmorEquipEvent.ArmorSlot.CHESTPLATE;
+                currentlyEquipped = playerInventory.getChestplate();
+                playerInventory.setChestplate(itemStack);
             } else if (material.isLeggings()) {
-                armorSlot = ArmorEquipEvent.ArmorSlot.LEGGINGS;
+                currentlyEquipped = playerInventory.getLeggings();
+                playerInventory.setLeggings(itemStack);
             } else {
-                armorSlot = ArmorEquipEvent.ArmorSlot.BOOTS;
+                currentlyEquipped = playerInventory.getBoots();
+                playerInventory.setBoots(itemStack);
             }
-            ArmorEquipEvent armorEquipEvent = new ArmorEquipEvent(player, itemStack, armorSlot);
-            player.callEvent(ArmorEquipEvent.class, armorEquipEvent);
-            final ItemStack armorItem = armorEquipEvent.getArmorItem();
-
-            playerInventory.setItemInHand(ItemStack.getAirItem());
-
-            switch (armorSlot) {
-                case HELMET:
-                    playerInventory.setHelmet(armorItem);
-                    break;
-                case CHESTPLATE:
-                    playerInventory.setChestplate(armorItem);
-                    break;
-                case LEGGINGS:
-                    playerInventory.setLeggings(armorItem);
-                    break;
-                case BOOTS:
-                    playerInventory.setBoots(armorItem);
-                    break;
-            }
+            playerInventory.setItemInHand(currentlyEquipped);
         }
 
         PlayerItemAnimationEvent.ItemAnimationType itemAnimationType = null;

@@ -18,6 +18,7 @@ public class SpawnPaintingPacket implements ServerPacket {
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeVarInt(entityId);
+        writer.writeSizedString(title);
         writer.writeBlockPosition(position);
         writer.writeByte(direction);
     }

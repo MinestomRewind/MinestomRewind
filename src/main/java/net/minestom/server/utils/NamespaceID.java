@@ -11,8 +11,8 @@ import java.util.Objects;
  */
 public class NamespaceID implements CharSequence {
     private static final Int2ObjectOpenHashMap<NamespaceID> cache = new Int2ObjectOpenHashMap<>();
-    private static final String legalLetters = "[0123456789abcdefghijklmnopqrstuvwxyz_-]+";
-    private static final String legalPathLetters = "[0123456789abcdefghijklmnopqrstuvwxyz./_-]+";
+    private static final String legalLetters = "[a-zA-Z0-9_-]+";
+    private static final String legalPathLetters = "[a-zA-Z0-9./_-]+";
 
     private final String domain;
     private final String path;

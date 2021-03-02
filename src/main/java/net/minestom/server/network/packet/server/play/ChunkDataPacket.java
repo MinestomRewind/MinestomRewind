@@ -7,7 +7,7 @@ import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
 import net.minestom.server.utils.cache.CacheablePacket;
-import net.minestom.server.utils.cache.TemporaryPacketCache;
+import net.minestom.server.utils.cache.TemporaryCache;
 import net.minestom.server.world.biomes.Biome;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class ChunkDataPacket implements ServerPacket, CacheablePacket {
 
-    private static final TemporaryPacketCache CACHE = new TemporaryPacketCache(10000L);
+    private static final TemporaryCache<ByteBuf> CACHE = new TemporaryCache<>(10000L);
 
     public boolean fullChunk;
     public boolean unloadChunk;
@@ -118,17 +118,12 @@ public class ChunkDataPacket implements ServerPacket, CacheablePacket {
 
     @NotNull
     @Override
-    public TemporaryPacketCache getCache() {
+    public TemporaryCache<ByteBuf> getCache() {
         return CACHE;
     }
 
     @Override
     public UUID getIdentifier() {
         return identifier;
-    }
-
-    @Override
-    public long getLastUpdateTime() {
-        return lastUpdate;
     }
 }

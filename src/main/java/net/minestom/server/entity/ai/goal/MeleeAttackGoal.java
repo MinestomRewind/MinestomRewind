@@ -24,6 +24,7 @@ public class MeleeAttackGoal extends GoalSelector {
     private final int range;
 
     private boolean stop;
+    private Entity cachedTarget;
 
     /**
      * @param entityCreature the entity to add the goal to
@@ -40,20 +41,25 @@ public class MeleeAttackGoal extends GoalSelector {
 
     @Override
     public boolean shouldStart() {
-        return getTarget() != null;
+        this.cachedTarget = findTarget();
+        return this.cachedTarget != null;
     }
 
     @Override
     public void start() {
-        final Entity target = getTarget();
-        Check.notNull(target, "The target is not expected to be null!");
-        final Position targetPosition = target.getPosition();
+        final Position targetPosition = this.cachedTarget.getPosition();
         entityCreature.getNavigator().setPathTo(targetPosition);
     }
 
     @Override
     public void tick(long time) {
-        final Entity target = getTarget();
+        Entity target;
+        if (this.cachedTarget != null) {
+            target = this.cachedTarget;
+            this.cachedTarget = null;
+        } else {
+            target = findTarget();
+        }
 
         this.stop = target == null;
 
@@ -87,17 +93,5 @@ public class MeleeAttackGoal extends GoalSelector {
     public void end() {
         // Stop following the target
         entityCreature.getNavigator().setPathTo(null);
-    }
-
-    /**
-     * Use {@link EntityCreature#getTarget()} or
-     * the entity target selectors to get the correct target
-     *
-     * @return the target of the entity
-     */
-    @Nullable
-    private Entity getTarget() {
-        final Entity target = entityCreature.getTarget();
-        return target == null ? findTarget() : target;
     }
 }
