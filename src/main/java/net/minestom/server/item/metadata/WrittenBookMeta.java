@@ -16,8 +16,8 @@ public class WrittenBookMeta extends ItemMeta {
 
     private boolean resolved;
     private WrittenBookGeneration generation;
-    private String author;
-    private String title;
+    private Component author;
+    private Component title;
     private List<Component> pages = new ArrayList<>();
 
     /**
@@ -62,7 +62,7 @@ public class WrittenBookMeta extends ItemMeta {
      *
      * @return the author of the book
      */
-    public String getAuthor() {
+    public Component getAuthor() {
         return author;
     }
 
@@ -71,7 +71,7 @@ public class WrittenBookMeta extends ItemMeta {
      *
      * @param author the author of the book
      */
-    public void setAuthor(String author) {
+    public void setAuthor(Component author) {
         this.author = author;
     }
 
@@ -80,7 +80,7 @@ public class WrittenBookMeta extends ItemMeta {
      *
      * @return the title of the book
      */
-    public String getTitle() {
+    public Component getTitle() {
         return title;
     }
 
@@ -89,7 +89,7 @@ public class WrittenBookMeta extends ItemMeta {
      *
      * @param title the title of the book
      */
-    public void setTitle(String title) {
+    public void setTitle(Component title) {
         this.title = title;
     }
 
@@ -141,10 +141,10 @@ public class WrittenBookMeta extends ItemMeta {
             this.generation = WrittenBookGeneration.values()[compound.getInt("generation")];
         }
         if (compound.containsKey("author")) {
-            this.author = compound.getString("author");
+            this.author = ChatParser.toComponent(compound.getString("author"));
         }
         if (compound.containsKey("title")) {
-            this.title = compound.getString("title");
+            this.title = ChatParser.toComponent(compound.getString("title"));
         }
         if (compound.containsKey("pages")) {
             final NBTList<NBTString> list = compound.getList("pages");
@@ -165,10 +165,10 @@ public class WrittenBookMeta extends ItemMeta {
             compound.setInt("generation", generation.ordinal());
         }
         if (author != null) {
-            compound.setString("author", author);
+            compound.setString("author", LegacyComponentSerializer.legacySection().serialize(author));
         }
         if (title != null) {
-            compound.setString("title", title);
+            compound.setString("title", LegacyComponentSerializer.legacySection().serialize(title));
         }
         if (!pages.isEmpty()) {
             NBTList<NBTString> list = new NBTList<>(NBTTypes.TAG_String);

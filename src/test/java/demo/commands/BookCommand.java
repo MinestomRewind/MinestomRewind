@@ -31,9 +31,9 @@ public class BookCommand extends Command {
         Player player = sender.asPlayer();
 
         final WrittenBookMeta bookMeta = new WrittenBookMeta();
-        bookMeta.setAuthor(player.getUsername());
+        bookMeta.setAuthor(Component.text(player.getUsername(), NamedTextColor.RED));
         bookMeta.setGeneration(WrittenBookMeta.WrittenBookGeneration.ORIGINAL);
-        bookMeta.setTitle(player.getUsername() + "'s Book");
+        bookMeta.setTitle(Component.text(player.getUsername() + "'s Book", NamedTextColor.BLUE));
         bookMeta.setPages(List.of(
                 Component.text("Page one", NamedTextColor.RED),
                 Component.text("Page two", NamedTextColor.GREEN),

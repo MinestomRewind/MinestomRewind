@@ -5,6 +5,7 @@ import net.kyori.adventure.audience.MessageType;
 import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.attribute.AttributeInstance;
@@ -805,10 +806,9 @@ public class Player extends LivingEntity implements CommandSender {
     @Override
     public void openBook(@NonNull Book book) {
         WrittenBookMeta meta = new WrittenBookMeta();
-        // TODO(koesie10): These are probably plain or legacy
-        meta.setAuthor(Adventure.COMPONENT_SERIALIZER.serialize(book.author()));
-        meta.setTitle(Adventure.COMPONENT_SERIALIZER.serialize(book.title()));
-
+        meta.setGeneration(WrittenBookMeta.WrittenBookGeneration.ORIGINAL);
+        meta.setAuthor(book.author());
+        meta.setTitle(book.title());
         meta.setPages(book.pages());
 
         openBook(meta);
@@ -820,23 +820,32 @@ public class Player extends LivingEntity implements CommandSender {
      * @param bookMeta The metadata of the book to open
      */
     public void openBook(@NotNull WrittenBookMeta bookMeta) {
-        // Set book in offhand
+        // Set book in main hand
         final ItemStack writtenBook = new ItemStack(Material.WRITTEN_BOOK, (byte) 1);
         writtenBook.setItemMeta(bookMeta);
         final SetSlotPacket setSlotPacket = new SetSlotPacket();
         setSlotPacket.windowId = 0;
-        setSlotPacket.slot = 45;
+        setSlotPacket.slot = 44;
         setSlotPacket.itemStack = writtenBook;
         this.playerConnection.sendPacket(setSlotPacket);
 
+        HeldItemChangePacket heldItemChangePacket = new HeldItemChangePacket();
+        heldItemChangePacket.slot = 8;
+        this.playerConnection.sendPacket(heldItemChangePacket);
+
         // Open the book
-        // TODO(koesie10): Send correct packet
-        // final OpenBookPacket openBookPacket = new OpenBookPacket();
-        // openBookPacket.hand = Hand.OFF;
-        // this.playerConnection.sendPacket(openBookPacket);
+        final PluginMessagePacket pluginMessagePacket = new PluginMessagePacket();
+        pluginMessagePacket.channel = "MC|BOpen";
+        pluginMessagePacket.data = new byte[0];
+        this.playerConnection.sendPacket(pluginMessagePacket);
 
         // Update inventory to remove book (which the actual inventory does not have)
         this.inventory.update();
+
+        // Change back to the original held item
+        heldItemChangePacket = new HeldItemChangePacket();
+        heldItemChangePacket.slot = heldSlot;
+        this.playerConnection.sendPacket(heldItemChangePacket);
     }
 
     @Override
