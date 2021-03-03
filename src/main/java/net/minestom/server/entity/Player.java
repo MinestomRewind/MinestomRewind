@@ -627,6 +627,8 @@ public class Player extends LivingEntity implements CommandSender {
             if (chunk != null) {
                 refreshVisibleChunks(chunk);
             }
+
+            updatePlayerPosition();
         }
 
         instance.getWorldBorder().init(this);
