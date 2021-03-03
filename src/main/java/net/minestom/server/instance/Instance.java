@@ -4,8 +4,15 @@ import com.google.common.collect.Queues;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMaps;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.audience.ForwardingAudience;
+import net.kyori.adventure.audience.MessageType;
+import net.kyori.adventure.identity.Identified;
+import net.kyori.adventure.identity.Identity;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.UpdateManager;
+import net.minestom.server.chat.ForwardingPlayerAudience;
 import net.minestom.server.data.Data;
 import net.minestom.server.data.DataContainer;
 import net.minestom.server.entity.*;
@@ -22,6 +29,7 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockManager;
 import net.minestom.server.instance.block.CustomBlock;
 import net.minestom.server.network.packet.server.play.BlockActionPacket;
+import net.minestom.server.network.packet.server.play.ChatMessagePacket;
 import net.minestom.server.network.packet.server.play.TimeUpdatePacket;
 import net.minestom.server.storage.StorageLocation;
 import net.minestom.server.thread.ThreadProvider;
@@ -37,6 +45,7 @@ import net.minestom.server.utils.time.UpdateOption;
 import net.minestom.server.utils.validate.Check;
 import net.minestom.server.world.DimensionType;
 import net.minestom.server.world.LevelType;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,7 +66,7 @@ import java.util.function.Consumer;
  * you need to be sure to signal the {@link UpdateManager} of the changes using
  * {@link UpdateManager#signalChunkLoad(Instance, int, int)} and {@link UpdateManager#signalChunkUnload(Instance, int, int)}.
  */
-public abstract class Instance implements BlockModifier, EventHandler, DataContainer {
+public abstract class Instance implements BlockModifier, EventHandler, DataContainer, ForwardingPlayerAudience {
 
     protected static final BlockManager BLOCK_MANAGER = MinecraftServer.getBlockManager();
     protected static final UpdateManager UPDATE_MANAGER = MinecraftServer.getUpdateManager();
@@ -1131,5 +1140,10 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
     @NotNull
     public PFInstanceSpace getInstanceSpace() {
         return instanceSpace;
+    }
+
+    @Override
+    public @NonNull Collection<Player> players() {
+        return players;
     }
 }

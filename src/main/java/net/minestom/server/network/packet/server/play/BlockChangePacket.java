@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public class BlockChangePacket implements ServerPacket {
 
     public BlockPosition blockPosition;
-    public int blockStateId;
+    public short blockStateId;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {

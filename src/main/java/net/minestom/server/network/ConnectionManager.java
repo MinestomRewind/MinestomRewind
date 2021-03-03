@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.chat.Adventure;
+import net.minestom.server.chat.ForwardingPlayerAudience;
 import net.minestom.server.entity.Player;
 import net.minestom.server.entity.fakeplayer.FakePlayer;
 import net.minestom.server.event.player.AsyncPlayerPreLoginEvent;
@@ -44,7 +45,7 @@ import java.util.function.Consumer;
 /**
  * Manages the connected clients.
  */
-public final class ConnectionManager implements Audience, ForwardingAudience {
+public final class ConnectionManager implements Audience, ForwardingPlayerAudience {
 
     private static final long KEEP_ALIVE_DELAY = 10_000;
     private static final long KEEP_ALIVE_KICK = 30_000;
@@ -144,35 +145,6 @@ public final class ConnectionManager implements Audience, ForwardingAudience {
                 return player;
         }
         return null;
-    }
-
-    @Override
-    public void sendMessage(final @NonNull Identified source, final @NonNull Component message, final @NonNull MessageType type) {
-        sendMessage(source.identity(), message, type);
-    }
-
-    @Override
-    public void sendMessage(final @NonNull Identity source, final @NonNull Component message, final @NonNull MessageType type) {
-        ChatMessagePacket chatMessagePacket = new ChatMessagePacket(message, type == MessageType.CHAT ? ChatMessagePacket.Position.CHAT : ChatMessagePacket.Position.SYSTEM_MESSAGE);
-        PacketUtils.sendGroupedPacket(getOnlinePlayers(), chatMessagePacket);
-    }
-
-    private Collection<Player> getRecipients(@Nullable PlayerValidator condition) {
-        Collection<Player> recipients;
-
-        // Get the recipients
-        if (condition == null) {
-            recipients = getOnlinePlayers();
-        } else {
-            recipients = new ArrayList<>();
-            getOnlinePlayers().forEach(player -> {
-                final boolean result = condition.isValid(player);
-                if (result)
-                    recipients.add(player);
-            });
-        }
-
-        return recipients;
     }
 
     /**
@@ -509,7 +481,7 @@ public final class ConnectionManager implements Audience, ForwardingAudience {
     }
 
     @Override
-    public @NonNull Iterable<? extends Audience> audiences() {
+    public @NonNull Collection<Player> players() {
         return getOnlinePlayers();
     }
 }
