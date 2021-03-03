@@ -7,13 +7,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class TabCompletePacket implements ServerPacket {
 
-    public int length;
     public String[] matches;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
-        writer.writeVarInt(length);
-
         writer.writeVarInt(matches.length);
         for (String match : matches) {
             writer.writeSizedString(match);

@@ -57,7 +57,6 @@ public class TabCompleteListener {
 
     private static void sendTabCompletePacket(String[] matches, Player player) {
         TabCompletePacket tabCompletePacket = new TabCompletePacket();
-        tabCompletePacket.length = matches.length;
         tabCompletePacket.matches = matches;
 
         player.getPlayerConnection().sendPacket(tabCompletePacket);
