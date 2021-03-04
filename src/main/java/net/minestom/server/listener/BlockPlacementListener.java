@@ -137,9 +137,13 @@ public class BlockPlacementListener {
                 }
 
                 if (!intersect) {
+                    byte metadata = 0;
+                    if (block.getVariations() != null) {
+                        metadata = (byte)usedItem.getDamage();
+                    }
 
                     // BlockPlaceEvent check
-                    PlayerBlockPlaceEvent playerBlockPlaceEvent = new PlayerBlockPlaceEvent(player, block, blockPosition);
+                    PlayerBlockPlaceEvent playerBlockPlaceEvent = new PlayerBlockPlaceEvent(player, block.toStateId(metadata), blockPosition);
                     playerBlockPlaceEvent.consumeBlock(player.getGameMode() != GameMode.CREATIVE);
 
                     player.callEvent(PlayerBlockPlaceEvent.class, playerBlockPlaceEvent);

@@ -567,7 +567,7 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      * @param block the new visual block
      */
     public void refreshBlockId(int x, int y, int z, @NotNull Block block) {
-        refreshBlockStateId(x, y, z, block.getBlockId());
+        refreshBlockStateId(x, y, z, block.toStateId((byte)0));
     }
 
     /**
@@ -579,7 +579,7 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      * @param block         the new visual block
      */
     public void refreshBlockId(@NotNull BlockPosition blockPosition, @NotNull Block block) {
-        refreshBlockStateId(blockPosition, block.getBlockId());
+        refreshBlockStateId(blockPosition, block.toStateId((byte)0));
     }
 
     /**

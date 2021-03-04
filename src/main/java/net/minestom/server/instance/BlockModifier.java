@@ -52,7 +52,7 @@ public interface BlockModifier {
      * Sets a {@link CustomBlock} at a position with a custom state id.
      * <p>
      * The custom block id should be the one returned by {@link CustomBlock#getCustomBlockId()},
-     * and the block state id can be anything you want, state id can be retrieved using {@link Block#getBlockId()}.
+     * and the block state id can be anything you want, state id can be retrieved using {@link Block#toStateId(byte)}.
      *
      * @param x             the block X
      * @param y             the block Y

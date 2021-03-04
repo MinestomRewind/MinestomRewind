@@ -20,13 +20,16 @@ import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
+import net.minestom.server.instance.block.BlockState;
 import net.minestom.server.instance.block.CustomBlock;
+import net.minestom.server.instance.block.states.Stone;
 import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.InventoryType;
 import net.minestom.server.inventory.PlayerInventory;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
 import net.minestom.server.network.ConnectionManager;
+import net.minestom.server.network.packet.server.play.BlockChangePacket;
 import net.minestom.server.network.packet.server.play.PlayerListHeaderAndFooterPacket;
 import net.minestom.server.ping.ResponseDataConsumer;
 import net.minestom.server.utils.PacketUtils;
@@ -132,13 +135,13 @@ public class PlayerInit {
         });
 
         globalEventHandler.addEventCallback(PlayerBlockPlaceEvent.class, event -> {
-            final Block block = Block.fromStateId(event.getBlockStateId());
+            final BlockState block = BlockState.fromStateId(event.getBlockStateId());
 
-            if (block == Block.STONE) {
+            if (block.getBlock() == Block.STONE && block.getVariation() == Stone.STONE) {
                 event.setCustomBlock("custom_block");
                 System.out.println("custom stone");
             }
-            if (block == Block.TORCH) {
+            if (block.getBlock() == Block.TORCH) {
                 event.setCustomBlock((short) 3); // custom torch block
             }
 

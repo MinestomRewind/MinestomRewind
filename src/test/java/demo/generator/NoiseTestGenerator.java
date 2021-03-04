@@ -48,7 +48,7 @@ public class NoiseTestGenerator implements ChunkGenerator {
                         // Data for debugging purpose
                         //SerializableData serializableData = new SerializableDataImpl();
                         //serializableData.set("test", 55, Integer.class);
-                        batch.setBlockStateId(x, y, z, Block.DIRT.getBlockId());
+                        batch.setBlockStateId(x, y, z, Block.DIRT.toStateId((byte) 0));
                     } else {
                         batch.setBlock(x, y, z, Block.STONE);
                     }

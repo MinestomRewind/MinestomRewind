@@ -543,4 +543,8 @@ public enum Block {
     public static Block fromStateId(short blockStateId) {
         return BlockArray.blocks[blockStateId >> 4];
     }
+
+    public static byte toMetadata(short blockStateId) {
+        return (byte) (blockStateId & 0x0F);
+    }
 }

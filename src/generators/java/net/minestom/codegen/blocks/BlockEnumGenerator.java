@@ -240,6 +240,7 @@ public class BlockEnumGenerator extends MinestomEnumGenerator<BlockContainer> {
         generator.addMethod("getVariations", new ParameterSpec[0], ParameterizedTypeName.get(List.class, BlockVariation.class), code -> code.addStatement("return variations"));
         generator.addMethod("toStateId", new ParameterSpec[]{ParameterSpec.builder(TypeName.BYTE, "metadata").build()}, TypeName.SHORT, code -> code.addStatement("return (short) ((id << 4) | (metadata & 15))"));
         generator.addStaticMethod("fromStateId", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockStateId").build()}, className, code -> code.addStatement("return $T.blocks[blockStateId >> 4]", ClassName.get("net.minestom.server.instance.block", "BlockArray")));
+        generator.addStaticMethod("toMetadata", new ParameterSpec[]{ParameterSpec.builder(TypeName.SHORT, "blockStateId").build()}, TypeName.BYTE, code -> code.addStatement("return (byte) (blockStateId & 0xFF)"));
         generator.appendToConstructor(code -> {
             code
                     .addStatement("$T.blocks[id] = this", ClassName.get("net.minestom.server.instance.block", "BlockArray"))

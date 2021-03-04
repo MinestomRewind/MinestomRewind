@@ -53,7 +53,6 @@ public class UseItemListener {
         }
 
         PlayerItemAnimationEvent.ItemAnimationType itemAnimationType = null;
-        boolean riptideSpinAttack = false;
 
         if (material == Material.BOW) {
             itemAnimationType = PlayerItemAnimationEvent.ItemAnimationType.BOW;

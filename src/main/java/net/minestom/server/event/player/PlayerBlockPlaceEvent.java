@@ -7,6 +7,7 @@ import net.minestom.server.event.CancellableEvent;
 import net.minestom.server.event.PlayerEvent;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockManager;
+import net.minestom.server.instance.block.BlockVariation;
 import net.minestom.server.instance.block.CustomBlock;
 import net.minestom.server.utils.BlockPosition;
 import net.minestom.server.utils.validate.Check;
@@ -29,9 +30,9 @@ public class PlayerBlockPlaceEvent extends PlayerEvent implements CancellableEve
 
     private boolean cancelled;
 
-    public PlayerBlockPlaceEvent(@NotNull Player player, @NotNull Block block, @NotNull BlockPosition blockPosition) {
+    public PlayerBlockPlaceEvent(@NotNull Player player, short blockStateId, @NotNull BlockPosition blockPosition) {
         super(player);
-        this.blockStateId = block.getBlockId();
+        this.blockStateId = blockStateId;
         this.blockPosition = blockPosition;
         this.consumeBlock = true;
     }

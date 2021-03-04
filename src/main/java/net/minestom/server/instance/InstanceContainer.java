@@ -244,7 +244,7 @@ public class InstanceContainer extends Instance {
         final Block changedBlock = currentlyChangingBlocks.get(blockPosition);
         if (changedBlock == null)
             return false;
-        return changedBlock.getBlockId() == blockStateId;
+        return changedBlock.toStateId((byte)0) == blockStateId;
     }
 
     @Override

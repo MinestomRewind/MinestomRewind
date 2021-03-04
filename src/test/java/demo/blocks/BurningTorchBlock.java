@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BurningTorchBlock extends CustomBlock {
     public BurningTorchBlock() {
-        super(Block.TORCH.getBlockId(), "torch_block");
+        super(Block.TORCH.toStateId((byte) 0), "torch_block");
     }
 
     @Override
