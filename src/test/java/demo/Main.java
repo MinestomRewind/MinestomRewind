@@ -45,6 +45,7 @@ public class Main {
         commandManager.register(new ShootCommand());
         commandManager.register(new HorseCommand());
         commandManager.register(new HeadCommand());
+        commandManager.register(new PassengerCommand());
 
         commandManager.setUnknownCommandCallback((sender, command) -> sender.sendMessage("unknown command"));
 

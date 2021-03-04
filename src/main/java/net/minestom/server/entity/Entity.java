@@ -2,7 +2,6 @@ package net.minestom.server.entity;
 
 import com.google.common.collect.Queues;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.Viewable;
 import net.minestom.server.collision.BoundingBox;
@@ -69,6 +68,7 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
 
     private BoundingBox boundingBox;
 
+    protected Entity passenger;
     protected Entity vehicle;
 
     // Velocity
@@ -350,6 +350,10 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
         playerConnection.sendPacket(getEntityType().getSpawnType().getSpawnPacket(this));
         playerConnection.sendPacket(getVelocityPacket());
         playerConnection.sendPacket(getMetadataPacket());
+
+        if (hasPassenger()) {
+            playerConnection.sendPacket(getPassengerPacket());
+        }
 
         return true;
     }
@@ -976,6 +980,59 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
     }
 
     /**
+     * Sets the passenger of this entity.
+     *
+     * @param entity the new passenger
+     * @throws IllegalStateException if {@link #getInstance()} returns null
+     */
+    public void setPassenger(@Nullable Entity entity) {
+        Check.stateCondition(instance == null, "You need to set an instance using Entity#setInstance");
+
+        if (entity != null) {
+            if (entity.vehicle != null) {
+                entity.vehicle.setPassenger(null);
+            }
+
+            entity.vehicle = this;
+        } else {
+            this.passenger.vehicle = null;
+        }
+
+        this.passenger = entity;
+
+        sendPacketToViewersAndSelf(getPassengerPacket());
+    }
+
+    @NotNull
+    protected AttachEntityPacket getPassengerPacket() {
+        AttachEntityPacket attachEntityPacket = new AttachEntityPacket();
+        attachEntityPacket.vehicleEntityId = getEntityId();
+        attachEntityPacket.attachedEntityId = passenger != null ? passenger.getEntityId() : -1;
+        attachEntityPacket.leash = false;
+
+        return attachEntityPacket;
+    }
+
+    /**
+     * Gets if the entity has a passenger.
+     *
+     * @return true if the entity has a passenger, false otherwise
+     */
+    public boolean hasPassenger() {
+        return this.passenger != null;
+    }
+
+    /**
+     * Gets the entity's passenger.
+     *
+     * @return the entity's passenger, or null if the entity doesn't have a passenger
+     */
+    @Nullable
+    public Entity getPassenger() {
+        return passenger;
+    }
+
+    /**
      * Entity statuses can be found <a href="https://wiki.vg/Entity_statuses">here</a>.
      *
      * @param status the status to trigger
@@ -1136,6 +1193,10 @@ public class Entity implements Viewable, EventHandler, DataContainer, Permission
         this.cacheX = x;
         this.cacheY = y;
         this.cacheZ = z;
+
+        if (passenger != null) {
+            passenger.refreshPosition(x, y, z);
+        }
 
         final Instance instance = getInstance();
         if (instance != null) {

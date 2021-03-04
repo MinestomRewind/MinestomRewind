@@ -8,13 +8,13 @@ import org.jetbrains.annotations.NotNull;
 public class AttachEntityPacket implements ServerPacket {
 
     public int attachedEntityId;
-    public int holdingEntityId; // Or -1 to detach
+    public int vehicleEntityId; // Or -1 to detach
     public boolean leash;
 
     @Override
     public void write(@NotNull BinaryWriter writer) {
         writer.writeInt(attachedEntityId);
-        writer.writeInt(holdingEntityId);
+        writer.writeInt(vehicleEntityId);
         writer.writeBoolean(leash);
     }
 
