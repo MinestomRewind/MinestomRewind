@@ -13,8 +13,8 @@ import net.minestom.server.network.packet.client.play.ClientPlayerBlockPlacement
 public class UseItemListener {
 
     public static boolean useItemListener(ClientPlayerBlockPlacementPacket packet, Player player) {
-        // TODO(koesie10): Verify
-        if (packet.blockPosition.getX() != -1 || packet.blockPosition.getY() != -1 || packet.blockPosition.getZ() != -1 || packet.blockFace != null) {
+        // Y = -1 = 4096 - 1 = 4095
+        if (packet.blockPosition.getX() != -1 || packet.blockPosition.getY() != 4095 || packet.blockPosition.getZ() != -1 || packet.blockFace != null) {
             return false;
         }
 
