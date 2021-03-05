@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -152,12 +152,11 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.UUID,java.lang.String,net.minestom.server.attribute.Attribute,net.minestom.server.attribute.AttributeOperation,double,net.minestom.server.item.attribute.AttributeSlot)">ItemAttribute</a></span>&#8203;(java.util.UUID&nbsp;uuid,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.UUID,java.lang.String,net.minestom.server.attribute.Attribute,net.minestom.server.attribute.AttributeOperation,double)">ItemAttribute</a></span>&#8203;(java.util.UUID&nbsp;uuid,
              java.lang.String&nbsp;internalName,
              <a href="../../attribute/Attribute.html" title="class in net.minestom.server.attribute">Attribute</a>&nbsp;attribute,
              <a href="../../attribute/AttributeOperation.html" title="enum in net.minestom.server.attribute">AttributeOperation</a>&nbsp;operation,
-             double&nbsp;value,
-             <a href="AttributeSlot.html" title="enum in net.minestom.server.item.attribute">AttributeSlot</a>&nbsp;slot)</code></th>
+             double&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -194,16 +193,11 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="AttributeSlot.html" title="enum in net.minestom.server.item.attribute">AttributeSlot</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSlot()">getSlot</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.UUID</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUuid()">getUuid</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getValue()">getValue</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -232,7 +226,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(java.util.UUID,java.lang.String,net.minestom.server.attribute.Attribute,net.minestom.server.attribute.AttributeOperation,double,net.minestom.server.item.attribute.AttributeSlot)">
+<a id="&lt;init&gt;(java.util.UUID,java.lang.String,net.minestom.server.attribute.Attribute,net.minestom.server.attribute.AttributeOperation,double)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -242,8 +236,7 @@ extends java.lang.Object</pre>
                      java.lang.String&nbsp;internalName,
                      <a href="../../attribute/Attribute.html" title="class in net.minestom.server.attribute">Attribute</a>&nbsp;attribute,
                      <a href="../../attribute/AttributeOperation.html" title="enum in net.minestom.server.attribute">AttributeOperation</a>&nbsp;operation,
-                     double&nbsp;value,
-                     <a href="AttributeSlot.html" title="enum in net.minestom.server.item.attribute">AttributeSlot</a>&nbsp;slot)</pre>
+                     double&nbsp;value)</pre>
 </li>
 </ul>
 </li>
@@ -295,19 +288,10 @@ extends java.lang.Object</pre>
 <a id="getValue()">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>getValue</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getValue()</pre>
-</li>
-</ul>
-<a id="getSlot()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>getSlot</h4>
-<pre class="methodSignature">public&nbsp;<a href="AttributeSlot.html" title="enum in net.minestom.server.item.attribute">AttributeSlot</a>&nbsp;getSlot()</pre>
 </li>
 </ul>
 </li>
