@@ -143,7 +143,7 @@ extends java.lang.Object
 implements <a href="InventoryModifier.html" title="interface in net.minestom.server.inventory">InventoryModifier</a>, <a href="InventoryClickHandler.html" title="interface in net.minestom.server.inventory">InventoryClickHandler</a>, <a href="../Viewable.html" title="interface in net.minestom.server">Viewable</a>, <a href="../data/DataContainer.html" title="interface in net.minestom.server.data">DataContainer</a></pre>
 <div class="block">Represents an inventory which can be viewed by a collection of <a href="../entity/Player.html" title="class in net.minestom.server.entity"><code>Player</code></a>.
  <p>
- You can create one with <a href="#%3Cinit%3E(net.minestom.server.inventory.InventoryType,java.lang.String)"><code>Inventory(InventoryType, String)</code></a> or by making your own subclass.
+ You can create one with <a href="#%3Cinit%3E(net.minestom.server.inventory.InventoryType,net.kyori.adventure.text.Component)"><code>Inventory(InventoryType, Component)</code></a> or by making your own subclass.
  It can then be opened using <a href="../entity/Player.html#openInventory(net.minestom.server.inventory.Inventory)"><code>Player.openInventory(Inventory)</code></a>.</div>
 </li>
 </ul>
@@ -165,8 +165,8 @@ implements <a href="InventoryModifier.html" title="interface in net.minestom.ser
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(net.minestom.server.inventory.InventoryType,java.lang.String)">Inventory</a></span>&#8203;(@NotNull <a href="InventoryType.html" title="enum in net.minestom.server.inventory">InventoryType</a>&nbsp;inventoryType,
-         @NotNull java.lang.String&nbsp;title)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(net.minestom.server.inventory.InventoryType,net.kyori.adventure.text.Component)">Inventory</a></span>&#8203;(@NotNull <a href="InventoryType.html" title="enum in net.minestom.server.inventory">InventoryType</a>&nbsp;inventoryType,
+         @NotNull net.kyori.adventure.text.Component&nbsp;title)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -299,7 +299,7 @@ implements <a href="InventoryModifier.html" title="interface in net.minestom.ser
 </td>
 </tr>
 <tr id="i15" class="rowColor">
-<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<td class="colFirst"><code>@NotNull net.kyori.adventure.text.Component</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTitle()">getTitle</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Gets the inventory title.</div>
@@ -397,7 +397,7 @@ implements <a href="InventoryModifier.html" title="interface in net.minestom.ser
 </tr>
 <tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTitle(java.lang.String)">setTitle</a></span>&#8203;(@NotNull java.lang.String&nbsp;title)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTitle(net.kyori.adventure.text.Component)">setTitle</a></span>&#8203;(@NotNull net.kyori.adventure.text.Component&nbsp;title)</code></th>
 <td class="colLast">
 <div class="block">Changes the inventory title.</div>
 </td>
@@ -469,7 +469,7 @@ implements <a href="InventoryModifier.html" title="interface in net.minestom.ser
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(net.minestom.server.inventory.InventoryType,java.lang.String)">
+<a id="&lt;init&gt;(net.minestom.server.inventory.InventoryType,net.kyori.adventure.text.Component)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -478,7 +478,7 @@ implements <a href="InventoryModifier.html" title="interface in net.minestom.ser
 <pre>public&nbsp;Inventory&#8203;(@NotNull
                  @NotNull <a href="InventoryType.html" title="enum in net.minestom.server.inventory">InventoryType</a>&nbsp;inventoryType,
                  @NotNull
-                 @NotNull java.lang.String&nbsp;title)</pre>
+                 @NotNull net.kyori.adventure.text.Component&nbsp;title)</pre>
 </li>
 </ul>
 </li>
@@ -513,7 +513,7 @@ public&nbsp;@NotNull <a href="InventoryType.html" title="enum in net.minestom.se
 <li class="blockList">
 <h4>getTitle</h4>
 <pre class="methodSignature">@NotNull
-public&nbsp;@NotNull java.lang.String&nbsp;getTitle()</pre>
+public&nbsp;@NotNull net.kyori.adventure.text.Component&nbsp;getTitle()</pre>
 <div class="block">Gets the inventory title.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -521,14 +521,14 @@ public&nbsp;@NotNull java.lang.String&nbsp;getTitle()</pre>
 </dl>
 </li>
 </ul>
-<a id="setTitle(java.lang.String)">
+<a id="setTitle(net.kyori.adventure.text.Component)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setTitle</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setTitle&#8203;(@NotNull
-                     @NotNull java.lang.String&nbsp;title)</pre>
+                     @NotNull net.kyori.adventure.text.Component&nbsp;title)</pre>
 <div class="block">Changes the inventory title.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
