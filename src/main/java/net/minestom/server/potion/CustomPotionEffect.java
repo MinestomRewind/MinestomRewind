@@ -18,16 +18,14 @@ public class CustomPotionEffect implements PublicCloneable<CustomPotionEffect> {
     private final int duration;
     private final boolean ambient;
     private final boolean showParticles;
-    private final boolean showIcon;
 
     public CustomPotionEffect(byte id, byte amplifier, int duration,
-                              boolean ambient, boolean showParticles, boolean showIcon) {
+                              boolean ambient, boolean showParticles) {
         this.id = id;
         this.amplifier = amplifier;
         this.duration = duration;
         this.ambient = ambient;
         this.showParticles = showParticles;
-        this.showIcon = showIcon;
     }
 
     public byte getId() {
@@ -50,21 +48,17 @@ public class CustomPotionEffect implements PublicCloneable<CustomPotionEffect> {
         return showParticles;
     }
 
-    public boolean showIcon() {
-        return showIcon;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomPotionEffect that = (CustomPotionEffect) o;
-        return id == that.id && amplifier == that.amplifier && duration == that.duration && ambient == that.ambient && showParticles == that.showParticles && showIcon == that.showIcon;
+        return id == that.id && amplifier == that.amplifier && duration == that.duration && ambient == that.ambient && showParticles == that.showParticles;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amplifier, duration, ambient, showParticles, showIcon);
+        return Objects.hash(id, amplifier, duration, ambient, showParticles);
     }
 
     @NotNull

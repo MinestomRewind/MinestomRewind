@@ -36,7 +36,7 @@ public class HeadCommand extends Command {
     private void onSelfHeadCommand(CommandSender sender, Arguments args) {
         var player = (Player) sender;
 
-        var stack = new ItemStack(Material.SKULL, (byte) 1, 3);
+        var stack = new ItemStack(Material.SKULL, (byte) 1, (short) 3);
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
         if (!meta.setOwningPlayer(player)) {
             player.sendMessage(Component.text("Missing skin", NamedTextColor.RED));
@@ -51,7 +51,7 @@ public class HeadCommand extends Command {
 
         String username = args.get("username");
 
-        var stack = new ItemStack(Material.SKULL, (byte) 1, 3);
+        var stack = new ItemStack(Material.SKULL, (byte) 1, (short) 3);
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
         meta.setSkullOwner(username);
         meta.setPlayerSkin(PlayerSkin.fromUsername(username));

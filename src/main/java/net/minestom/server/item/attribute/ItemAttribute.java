@@ -12,15 +12,13 @@ public class ItemAttribute {
     private final Attribute attribute;
     private final AttributeOperation operation;
     private final double value;
-    private final AttributeSlot slot;
 
-    public ItemAttribute(UUID uuid, String internalName, Attribute attribute, AttributeOperation operation, double value, AttributeSlot slot) {
+    public ItemAttribute(UUID uuid, String internalName, Attribute attribute, AttributeOperation operation, double value) {
         this.uuid = uuid;
         this.internalName = internalName;
         this.attribute = attribute;
         this.operation = operation;
         this.value = value;
-        this.slot = slot;
     }
 
     public UUID getUuid() {
@@ -41,9 +39,5 @@ public class ItemAttribute {
 
     public double getValue() {
         return value;
-    }
-
-    public AttributeSlot getSlot() {
-        return slot;
     }
 }

@@ -52,7 +52,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
     private ItemMeta itemMeta;
 
     private byte amount;
-    private int damage;
+    private short damage;
 
     private Component displayName;
     private boolean unbreakable;
@@ -62,7 +62,6 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
     private List<ItemAttribute> attributes;
 
     private int hideFlag;
-    private int customModelData;
 
     private StackingRule stackingRule;
     private Data data;
@@ -76,7 +75,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
         this.stackingRule = defaultStackingRule;
     }
 
-    public ItemStack(@NotNull Material material, byte amount, int damage) {
+    public ItemStack(@NotNull Material material, byte amount, short damage) {
         this.identifier = DATA_OWNERSHIP.generateIdentifier();
         this.material = material;
         this.amount = amount;
@@ -140,8 +139,9 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
             throw new IllegalArgumentException("Invalid item NBT, must at least contain 'id' and 'Count' tags");
         final Material material = Registries.getMaterial(nbt.getString("id"));
         final byte count = nbt.getAsByte("Count");
+        final short damage = nbt.containsKey("Damage") ? nbt.getAsShort("Damage") : 0;
 
-        ItemStack s = new ItemStack(material, count);
+        ItemStack s = new ItemStack(material, count, damage);
 
         NBTCompound tag = nbt.getCompound("tag");
         if (tag != null) {
@@ -244,7 +244,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      *
      * @return the item damage
      */
-    public int getDamage() {
+    public short getDamage() {
         return damage;
     }
 
@@ -253,7 +253,7 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
      *
      * @param damage the item damage
      */
-    public void setDamage(int damage) {
+    public void setDamage(short damage) {
         this.damage = damage;
     }
 
@@ -466,24 +466,6 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
     }
 
     /**
-     * Gets the item custom model data.
-     *
-     * @return the item custom model data
-     */
-    public int getCustomModelData() {
-        return customModelData;
-    }
-
-    /**
-     * Changes the item custom model data.
-     *
-     * @param customModelData the new item custom data model
-     */
-    public void setCustomModelData(int customModelData) {
-        this.customModelData = customModelData;
-    }
-
-    /**
      * Adds flags to the item.
      *
      * @param flags the flags to add
@@ -592,12 +574,10 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
     public boolean hasNbtTag() {
         return hasDisplayName() ||
                 hasLore() ||
-                damage != 0 ||
                 isUnbreakable() ||
                 !enchantmentMap.isEmpty() ||
                 !attributes.isEmpty() ||
                 hideFlag != 0 ||
-                customModelData != 0 ||
                 (itemMeta != null && itemMeta.hasNbt()) ||
                 (data != null && !data.isEmpty()) ||
                 !canDestroy.isEmpty() ||
@@ -638,7 +618,6 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
             itemStack.attributes = new ArrayList<>(attributes);
 
             itemStack.hideFlag = hideFlag;
-            itemStack.customModelData = customModelData;
 
             itemStack.canPlaceOn = new HashSet<>(canPlaceOn);
             itemStack.canDestroy = new HashSet<>(canDestroy);
@@ -769,6 +748,11 @@ public class ItemStack implements DataContainer, PublicCloneable<ItemStack> {
         NBTCompound compound = new NBTCompound()
                 .setByte("Count", amount)
                 .setString("id", material.getName());
+
+        if (damage != 0) {
+            compound.setShort("Damage", damage);
+        }
+
         if (hasNbtTag()) {
             NBTCompound additionalTag = new NBTCompound();
             NBTUtils.saveDataIntoNBT(this, additionalTag);

@@ -12,7 +12,6 @@ import net.minestom.server.inventory.Inventory;
 import net.minestom.server.item.Enchantment;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.Material;
-import net.minestom.server.item.attribute.AttributeSlot;
 import net.minestom.server.item.attribute.ItemAttribute;
 import net.minestom.server.item.metadata.ItemMeta;
 import net.minestom.server.registry.Registries;
@@ -118,7 +117,6 @@ public final class NBTUtils {
 
     @SuppressWarnings("ConstantConditions")
     public static void loadDataIntoItem(@NotNull ItemStack item, @NotNull NBTCompound nbt) {
-        if (nbt.containsKey("Damage")) item.setDamage(nbt.getInt("Damage"));
         if (nbt.containsKey("Unbreakable")) item.setUnbreakable(nbt.getAsByte("Unbreakable") == 1);
         if (nbt.containsKey("HideFlags")) item.setHideFlag(nbt.getInt("HideFlags"));
         if (nbt.containsKey("display")) {
@@ -169,17 +167,8 @@ public final class NBTUtils {
                     break;
                 }
 
-                // Find slot, default to the main hand if the nbt tag is invalid
-                AttributeSlot attributeSlot;
-                try {
-                    attributeSlot = AttributeSlot.valueOf(slot.toUpperCase());
-                } catch (IllegalArgumentException e) {
-                    attributeSlot = AttributeSlot.MAINHAND;
-                }
-
                 // Add attribute
-                final ItemAttribute itemAttribute =
-                        new ItemAttribute(uuid, name, attribute, attributeOperation, value, attributeSlot);
+                final ItemAttribute itemAttribute = new ItemAttribute(uuid, name, attribute, attributeOperation, value);
                 item.addAttribute(itemAttribute);
             }
         }
@@ -188,13 +177,6 @@ public final class NBTUtils {
         {
             if (nbt.containsKey("HideFlags")) {
                 item.setHideFlag(nbt.getInt("HideFlags"));
-            }
-        }
-
-        // Custom model data
-        {
-            if (nbt.containsKey("CustomModelData")) {
-                item.setCustomModelData(nbt.getInt("CustomModelData"));
             }
         }
 
@@ -274,15 +256,6 @@ public final class NBTUtils {
             itemNBT.setInt("Unbreakable", 1);
         }
 
-        // Start damage
-        {
-            final int damage = itemStack.getDamage();
-            if (damage > 0) {
-                itemNBT.setInt("Damage", damage);
-            }
-        }
-        // End damage
-
         // Display
         final boolean hasDisplayName = itemStack.hasDisplayName();
         final boolean hasLore = itemStack.hasLore();
@@ -327,9 +300,9 @@ public final class NBTUtils {
                     final UUID uuid = itemAttribute.getUuid();
                     attributesNBT.add(
                             new NBTCompound()
-                                    .setIntArray("UUID", Utils.uuidToIntArray(uuid))
+                                    .setLong("UUIDMost", uuid.getMostSignificantBits())
+                                    .setLong("UUIDLeast", uuid.getLeastSignificantBits())
                                     .setDouble("Amount", itemAttribute.getValue())
-                                    .setString("Slot", itemAttribute.getSlot().name().toLowerCase())
                                     .setString("AttributeName", itemAttribute.getAttribute().getKey())
                                     .setInt("Operation", itemAttribute.getOperation().getId())
                                     .setString("Name", itemAttribute.getInternalName())
@@ -348,15 +321,6 @@ public final class NBTUtils {
             }
         }
         // End hide flags
-
-        // Start custom model data
-        {
-            final int customModelData = itemStack.getCustomModelData();
-            if (customModelData != 0) {
-                itemNBT.setInt("CustomModelData", customModelData);
-            }
-        }
-        // End custom model data
 
         // Start custom meta
         {
