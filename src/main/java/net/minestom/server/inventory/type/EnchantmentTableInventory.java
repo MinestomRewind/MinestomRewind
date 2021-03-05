@@ -1,5 +1,6 @@
 package net.minestom.server.inventory.type;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.inventory.Inventory;
 import net.minestom.server.inventory.InventoryProperty;
 import net.minestom.server.inventory.InventoryType;
@@ -12,7 +13,7 @@ public class EnchantmentTableInventory extends Inventory {
     private final short[] enchantmentShown = new short[EnchantmentSlot.values().length];
     private final short[] enchantmentLevel = new short[EnchantmentSlot.values().length];
 
-    public EnchantmentTableInventory(String title) {
+    public EnchantmentTableInventory(Component title) {
         super(InventoryType.ENCHANTMENT, title);
     }
 

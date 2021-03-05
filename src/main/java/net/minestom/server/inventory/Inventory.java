@@ -1,5 +1,6 @@
 package net.minestom.server.inventory;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.Viewable;
 import net.minestom.server.data.Data;
 import net.minestom.server.data.DataContainer;
@@ -34,7 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Represents an inventory which can be viewed by a collection of {@link Player}.
  * <p>
- * You can create one with {@link Inventory#Inventory(InventoryType, String)} or by making your own subclass.
+ * You can create one with {@link Inventory#Inventory(InventoryType, Component)} or by making your own subclass.
  * It can then be opened using {@link Player#openInventory(Inventory)}.
  */
 public class Inventory implements InventoryModifier, InventoryClickHandler, Viewable, DataContainer {
@@ -47,7 +48,7 @@ public class Inventory implements InventoryModifier, InventoryClickHandler, View
     // the type of this inventory
     private final InventoryType inventoryType;
     // the title of this inventory)
-    private String title;
+    private Component title;
 
     // the size based on the inventory type
     private final int size;
@@ -69,7 +70,7 @@ public class Inventory implements InventoryModifier, InventoryClickHandler, View
 
     private Data data;
 
-    public Inventory(@NotNull InventoryType inventoryType, @NotNull String title) {
+    public Inventory(@NotNull InventoryType inventoryType, @NotNull Component title) {
         this.id = generateId();
         this.inventoryType = inventoryType;
         this.title = title;
@@ -106,7 +107,7 @@ public class Inventory implements InventoryModifier, InventoryClickHandler, View
      * @return the inventory title
      */
     @NotNull
-    public String getTitle() {
+    public Component getTitle() {
         return title;
     }
 
@@ -115,7 +116,7 @@ public class Inventory implements InventoryModifier, InventoryClickHandler, View
      *
      * @param title the new inventory title
      */
-    public void setTitle(@NotNull String title) {
+    public void setTitle(@NotNull Component title) {
         this.title = title;
 
         OpenWindowPacket packet = new OpenWindowPacket();

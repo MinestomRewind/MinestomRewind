@@ -58,7 +58,7 @@ public class PlayerInit {
         instanceContainer.enableAutoChunkLoad(true);
         instanceContainer.setChunkGenerator(chunkGeneratorDemo);
 
-        inventory = new Inventory(InventoryType.CHEST_1_ROW, "Test inventory");
+        inventory = new Inventory(InventoryType.CHEST_1_ROW, Component.text("Test inventory"));
         /*inventory.addInventoryCondition((p, slot, clickType, inventoryConditionResult) -> {
             p.sendMessage("click type inventory: " + clickType);
             System.out.println("slot inv: " + slot)0;
