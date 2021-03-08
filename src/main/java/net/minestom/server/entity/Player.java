@@ -74,44 +74,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class Player extends LivingEntity implements CommandSender {
 
-    /**
-     * @see #getPlayerSynchronizationGroup()
-     */
-    private static volatile int playerSynchronizationGroup = 75;
-
-    /**
-     * For the number of viewers that a player has, the position synchronization packet will be sent
-     * every 1 tick + (viewers/{@code playerSynchronizationGroup}).
-     * (eg with a value of 100, having 300 viewers means sending the synchronization packet every 3 ticks)
-     * <p>
-     * Used to prevent sending exponentially more packets and therefore reduce network load.
-     *
-     * @return the viewers count which would result in a 1 tick delay
-     */
-    public static int getPlayerSynchronizationGroup() {
-        return playerSynchronizationGroup;
-    }
-
-    /**
-     * Changes the viewers count resulting in an additional delay of 1 tick for the position synchronization.
-     *
-     * @param playerSynchronizationGroup the new synchronization group size
-     * @see #getPlayerSynchronizationGroup()
-     */
-    public static void setPlayerSynchronizationGroup(int playerSynchronizationGroup) {
-        Player.playerSynchronizationGroup = playerSynchronizationGroup;
-    }
-
-    /**
-     * Gets the number of tick between each position synchronization.
-     *
-     * @param viewersCount the player viewers count
-     * @return the number of tick between each position synchronization.
-     */
-    public static int getPlayerSynchronizationTickDelay(int viewersCount) {
-        return viewersCount / playerSynchronizationGroup + 1;
-    }
-
     private long lastKeepAliveTime;
     private int lastKeepAlive;
     private boolean answerKeepAlive;
@@ -328,9 +290,7 @@ public class Player extends LivingEntity implements CommandSender {
         callEvent(PlayerTickEvent.class, playerTickEvent);
 
         // Multiplayer sync
-        final boolean syncCooldown = CooldownUtils.hasCooldown(time, lastPlayerSynchronizationTime,
-                TimeUnit.TICK, getPlayerSynchronizationTickDelay(viewers.size()));
-        if (!viewers.isEmpty() && !syncCooldown) {
+        if (!viewers.isEmpty()) {
             this.lastPlayerSynchronizationTime = time;
 
             final boolean positionChanged = position.getX() != lastPlayerSyncX ||
@@ -549,21 +509,20 @@ public class Player extends LivingEntity implements CommandSender {
             final boolean firstSpawn = this.instance == null; // TODO: Handle player reconnections, must be false in that case too
 
             // Send the new dimension if player isn't in any instance or if the dimension is different
-            {
-                final DimensionType instanceDimensionType = instance.getDimensionType();
-                if (dimensionType != instanceDimensionType) {
-                    sendDimension(instanceDimensionType, instance.getLevelType());
-                } else if (!firstSpawn) {
-                    DimensionType changeDimensionType = DimensionType.OVERWORLD;
-                    if (dimensionType == DimensionType.OVERWORLD) {
-                        changeDimensionType = DimensionType.NETHER;
-                    }
-
-                    // It's 1.8, so to respawn we need to switch between dimensions twice
-                    // to make sure everything works after a dimension change.
-                    sendDimension(changeDimensionType, LevelType.DEFAULT);
-                    sendDimension(instanceDimensionType, instance.getLevelType());
+            final DimensionType instanceDimensionType = instance.getDimensionType();
+            final boolean dimensionChange = dimensionType != instanceDimensionType;
+            if (dimensionChange) {
+                sendDimension(instanceDimensionType, instance.getLevelType());
+            } else if (!firstSpawn) {
+                DimensionType changeDimensionType = DimensionType.OVERWORLD;
+                if (dimensionType == DimensionType.OVERWORLD) {
+                    changeDimensionType = DimensionType.NETHER;
                 }
+
+                // It's 1.8, so to respawn we need to switch between dimensions twice
+                // to make sure everything works after a dimension change.
+                sendDimension(changeDimensionType, LevelType.DEFAULT);
+                sendDimension(instanceDimensionType, instance.getLevelType());
             }
 
             // Load all the required chunks
@@ -571,7 +530,7 @@ public class Player extends LivingEntity implements CommandSender {
 
             final ChunkCallback endCallback = chunk -> {
                 // This is the last chunk to be loaded , spawn player
-                spawnPlayer(instance, spawnPosition, firstSpawn, true);
+                spawnPlayer(instance, spawnPosition, firstSpawn, true, true);
             };
 
             // Chunk 0;0 always needs to be loaded
@@ -582,7 +541,7 @@ public class Player extends LivingEntity implements CommandSender {
         } else {
             // The player already has the good version of all the chunks.
             // We just need to refresh his entity viewing list and add him to the instance
-            spawnPlayer(instance, spawnPosition, false, false);
+            spawnPlayer(instance, spawnPosition, false, false, false);
         }
     }
 
@@ -609,7 +568,7 @@ public class Player extends LivingEntity implements CommandSender {
      * @param firstSpawn    true if this is the player first spawn
      */
     private void spawnPlayer(@NotNull Instance instance, @NotNull Position spawnPosition,
-                             boolean firstSpawn, boolean updateChunks) {
+                             boolean firstSpawn, boolean updateChunks, boolean dimensionChange) {
         // Clear previous instance elements
         if (!firstSpawn) {
             this.viewableChunks.forEach(chunk -> chunk.removeViewer(this));
@@ -627,8 +586,6 @@ public class Player extends LivingEntity implements CommandSender {
             if (chunk != null) {
                 refreshVisibleChunks(chunk);
             }
-
-            updatePlayerPosition();
         }
 
         instance.getWorldBorder().init(this);
@@ -638,6 +595,11 @@ public class Player extends LivingEntity implements CommandSender {
             if (ent.isAutoViewable())
                 ent.addViewer(this);
         });
+
+        if (dimensionChange) {
+            updatePlayerPosition(); // So the player doesn't get stuck
+            this.inventory.update();
+        }
 
         PlayerSpawnEvent spawnEvent = new PlayerSpawnEvent(this, instance, firstSpawn);
         callEvent(PlayerSpawnEvent.class, spawnEvent);

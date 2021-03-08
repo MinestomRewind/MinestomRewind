@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 public class ChunkDataPacket implements ServerPacket, CacheablePacket {
-    private static final TemporaryCache<TimedBuffer> CACHE = new TemporaryCache<>(10000L);
+    private static final TemporaryCache<TimedBuffer> CACHE = new TemporaryCache<>(30000L);
 
     public boolean fullChunk;
     public boolean unloadChunk;
