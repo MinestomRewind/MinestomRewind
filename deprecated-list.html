@@ -95,13 +95,37 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h1 title="Deprecated API" class="title">Deprecated API</h1>
 <h2 title="Contents">Contents</h2>
 <ul>
+<li><a href="#interface">Interfaces</a></li>
 <li><a href="#class">Classes</a></li>
 <li><a href="#field">Fields</a></li>
 <li><a href="#method">Methods</a></li>
 <li><a href="#constructor">Constructors</a></li>
 </ul>
 </div>
-<div class="contentContainer"><a id="class">
+<div class="contentContainer"><a id="interface">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<table class="deprecatedSummary">
+<caption><span>Interfaces</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Interface</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/CommandProcessor.html" title="interface in net.minestom.server.command">net.minestom.server.command.CommandProcessor</a></th>
+<td class="colLast">
+<div class="deprecationComment">use <a href="net/minestom/server/command/builder/Command.html" title="class in net.minestom.server.command.builder"><code>Command</code></a> or
+ <a href="net/minestom/server/command/builder/SimpleCommand.html" title="class in net.minestom.server.command.builder"><code>SimpleCommand</code></a> instead</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<a id="class">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -113,6 +137,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tbody>
+<tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/attribute/Attributes.html" title="class in net.minestom.server.attribute">net.minestom.server.attribute.Attributes</a></th>
+<td class="colLast">
+<div class="deprecationComment">use the constants in <a href="net/minestom/server/attribute/Attribute.html" title="class in net.minestom.server.attribute"><code>Attribute</code></a></div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/Arguments.html" title="class in net.minestom.server.command.builder">net.minestom.server.command.builder.Arguments</a></th>
+<td class="colLast">
+<div class="deprecationComment">renamed to <a href="net/minestom/server/command/builder/CommandContext.html" title="class in net.minestom.server.command.builder"><code>CommandContext</code></a></div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/arguments/ArgumentDynamicStringArray.html" title="class in net.minestom.server.command.builder.arguments">net.minestom.server.command.builder.arguments.ArgumentDynamicStringArray</a></th>
+<td class="colLast">
+<div class="deprecationComment">Use <a href="net/minestom/server/command/builder/arguments/Argument.html#setSuggestionCallback(net.minestom.server.command.builder.suggestion.SuggestionCallback)"><code>Argument.setSuggestionCallback(SuggestionCallback)</code></a> with any argument type you want</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/arguments/ArgumentDynamicWord.html" title="class in net.minestom.server.command.builder.arguments">net.minestom.server.command.builder.arguments.ArgumentDynamicWord</a></th>
+<td class="colLast">
+<div class="deprecationComment">Use <a href="net/minestom/server/command/builder/arguments/Argument.html#setSuggestionCallback(net.minestom.server.command.builder.suggestion.SuggestionCallback)"><code>Argument.setSuggestionCallback(SuggestionCallback)</code></a> with any argument type you want</div>
+</td>
+</tr>
 <tr class="altColor">
 <th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/entity/ObjectEntity.html" title="class in net.minestom.server.entity">net.minestom.server.entity.ObjectEntity</a></th>
 <td class="colLast">
@@ -349,6 +397,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/arguments/ArgumentType.html#DynamicStringArray(java.lang.String)">net.minestom.server.command.builder.arguments.ArgumentType.DynamicStringArray&#8203;(String)</a></th>
+<td class="colLast">
+<div class="deprecationComment">will be replaced soon</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/arguments/ArgumentType.html#DynamicWord(java.lang.String,net.minestom.server.command.builder.arguments.minecraft.SuggestionType)">net.minestom.server.command.builder.arguments.ArgumentType.DynamicWord&#8203;(String, SuggestionType)</a></th>
+<td class="colLast">
+<div class="deprecationComment">will be replaced soon</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/arguments/ArgumentType.html#Entities(java.lang.String)">net.minestom.server.command.builder.arguments.ArgumentType.Entities&#8203;(String)</a></th>
+<td class="colLast">
+<div class="deprecationComment">use <a href="net/minestom/server/command/builder/arguments/ArgumentType.html#Entity(java.lang.String)"><code>ArgumentType.Entity(String)</code></a></div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/arguments/ArgumentType.html#Long(java.lang.String)">net.minestom.server.command.builder.arguments.ArgumentType.Long&#8203;(String)</a></th>
+<td class="colLast">
+<div class="deprecationComment">brigadier does not support long</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/Arguments.html#getBlockState(java.lang.String)">net.minestom.server.command.builder.Arguments.getBlockState&#8203;(String)</a></th>
 <td class="colLast">
 <div class="deprecationComment">use <a href="net/minestom/server/command/builder/Arguments.html#get(net.minestom.server.command.builder.arguments.Argument)"><code>Arguments.get(Argument)</code></a>.</div>
@@ -493,15 +565,39 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/builder/Arguments.html#setArg(java.lang.String,java.lang.Object)">net.minestom.server.command.builder.Arguments.setArg&#8203;(String, Object)</a></th>
+<td class="colLast">
+<div class="deprecationComment">use <a href="net/minestom/server/command/builder/CommandContext.html#setArg(java.lang.String,java.lang.Object,java.lang.String)"><code>CommandContext.setArg(String, Object, String)</code></a></div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/CommandManager.html#getCommandProcessor(java.lang.String)">net.minestom.server.command.CommandManager.getCommandProcessor&#8203;(String)</a></th>
+<td class="colLast">
+<div class="deprecationComment">use <a href="net/minestom/server/command/CommandManager.html#getCommand(java.lang.String)"><code>CommandManager.getCommand(String)</code></a> instead</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/CommandManager.html#register(net.minestom.server.command.CommandProcessor)">net.minestom.server.command.CommandManager.register&#8203;(CommandProcessor)</a></th>
+<td class="colLast">
+<div class="deprecationComment">use <a href="net/minestom/server/command/builder/Command.html" title="class in net.minestom.server.command.builder"><code>Command</code></a> or <a href="net/minestom/server/command/builder/SimpleCommand.html" title="class in net.minestom.server.command.builder"><code>SimpleCommand</code></a> instead</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/command/CommandProcessor.html#onWrite(net.minestom.server.command.CommandSender,java.lang.String)">net.minestom.server.command.CommandProcessor.onWrite&#8203;(CommandSender, String)</a></th>
+<td class="colLast">
+<div class="deprecationComment">not called anymore</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/entity/pathfinding/Navigator.html#setPathPosition(net.minestom.server.utils.Position)">net.minestom.server.entity.pathfinding.Navigator.setPathPosition&#8203;(Position)</a></th>
 <td class="colLast">
 <div class="deprecationComment">Please use <a href="net/minestom/server/entity/pathfinding/Navigator.html#setPathTo(net.minestom.server.utils.Position)"><code>Navigator.setPathTo(Position)</code></a></div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/instance/palette/PaletteStorage.html#copy()">net.minestom.server.instance.palette.PaletteStorage.copy()</a></th>
+<th class="colDeprecatedItemName" scope="row"><a href="net/minestom/server/event/item/PickupItemEvent.html#getItemStack()">net.minestom.server.event.item.PickupItemEvent.getItemStack()</a></th>
 <td class="colLast">
-<div class="deprecationComment">use <a href="net/minestom/server/instance/palette/PaletteStorage.html#clone()"><code>PaletteStorage.clone()</code></a></div>
+<div class="deprecationComment">use <a href="net/minestom/server/event/item/PickupItemEvent.html#getItemEntity()"><code>PickupItemEvent.getItemEntity()</code></a> and <a href="net/minestom/server/entity/ItemEntity.html#getItemStack()"><code>ItemEntity.getItemStack()</code></a>.</div>
 </td>
 </tr>
 <tr class="altColor">
