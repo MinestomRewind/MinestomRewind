@@ -15,7 +15,9 @@ import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.inventory.EquipmentHandler;
 import net.minestom.server.item.ItemStack;
+import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.packet.server.play.*;
+import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.scoreboard.Team;
 import net.minestom.server.sound.Sound;
 import net.minestom.server.utils.BlockPosition;
@@ -218,9 +220,10 @@ public class LivingEntity extends Entity implements EquipmentHandler {
                     if (expandedBoundingBox.intersect(itemBoundingBox)) {
                         if (itemEntity.shouldRemove() || itemEntity.isRemoveScheduled())
                             continue;
-                        final ItemStack item = itemEntity.getItemStack();
-                        PickupItemEvent pickupItemEvent = new PickupItemEvent(this, item);
+                        PickupItemEvent pickupItemEvent = new PickupItemEvent(this, itemEntity);
                         callCancellableEvent(PickupItemEvent.class, pickupItemEvent, () -> {
+                            final ItemStack item = itemEntity.getItemStack();
+
                             CollectItemPacket collectItemPacket = new CollectItemPacket();
                             collectItemPacket.collectedEntityId = itemEntity.getEntityId();
                             collectItemPacket.collectorEntityId = getEntityId();
@@ -429,7 +432,7 @@ public class LivingEntity extends Entity implements EquipmentHandler {
      * @return the entity max health
      */
     public float getMaxHealth() {
-        return getAttributeValue(Attributes.MAX_HEALTH);
+        return getAttributeValue(Attribute.MAX_HEALTH);
     }
 
     /**
@@ -438,7 +441,7 @@ public class LivingEntity extends Entity implements EquipmentHandler {
      * Retrieved from {@link #getAttributeValue(Attribute)} with the attribute {@link Attributes#MAX_HEALTH}.
      */
     public void heal() {
-        setHealth(getAttributeValue(Attributes.MAX_HEALTH));
+        setHealth(getAttributeValue(Attribute.MAX_HEALTH));
     }
 
     /**
@@ -456,9 +459,23 @@ public class LivingEntity extends Entity implements EquipmentHandler {
     /**
      * Callback used when an attribute instance has been modified.
      *
-     * @param instance the modified attribute instance
+     * @param attributeInstance the modified attribute instance
      */
-    protected void onAttributeChanged(@NotNull AttributeInstance instance) {
+    protected void onAttributeChanged(@NotNull AttributeInstance attributeInstance) {
+        if (attributeInstance.getAttribute().isShared()) {
+            boolean self = false;
+            if (this instanceof Player) {
+                Player player = (Player) this;
+                PlayerConnection playerConnection = player.playerConnection;
+                // connection null during Player initialization (due to #super call)
+                self = playerConnection != null && playerConnection.getConnectionState() == ConnectionState.PLAY;
+            }
+            if (self) {
+                sendPacketToViewersAndSelf(getPropertiesPacket());
+            } else {
+                sendPacketToViewers(getPropertiesPacket());
+            }
+        }
     }
 
     /**
@@ -504,7 +521,11 @@ public class LivingEntity extends Entity implements EquipmentHandler {
         if (!super.addViewer0(player)) {
             return false;
         }
-        syncEquipments(player.getPlayerConnection());
+        final PlayerConnection playerConnection = player.getPlayerConnection();
+        for (EntityEquipmentPacket entityEquipmentPacket : getEquipmentsPacket()) {
+            playerConnection.sendPacket(entityEquipmentPacket);
+        }
+        playerConnection.sendPacket(getPropertiesPacket());
         return true;
     }
 

@@ -2,12 +2,8 @@ package net.minestom.server.listener;
 
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.player.PlayerMoveEvent;
-import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.Instance;
-import net.minestom.server.network.packet.client.play.ClientPlayerPacket;
-import net.minestom.server.network.packet.client.play.ClientPlayerPositionAndLookPacket;
-import net.minestom.server.network.packet.client.play.ClientPlayerPositionPacket;
-import net.minestom.server.network.packet.client.play.ClientPlayerLookPacket;
+import net.minestom.server.network.packet.client.play.*;
 import net.minestom.server.utils.Position;
 import net.minestom.server.utils.chunk.ChunkUtils;
 import org.jetbrains.annotations.NotNull;
@@ -54,13 +50,6 @@ public class PlayerPositionListener {
 
         // Prevent moving before the player spawned, probably a modified client (or high latency?)
         if (instance == null) {
-            return;
-        }
-
-        // Prevent the player from moving during a teleport
-        final double distance = player.getPosition().getDistance(x, y, z);
-        final int chunkRange = player.getChunkRange() * Chunk.CHUNK_SECTION_SIZE;
-        if (distance >= chunkRange) {
             return;
         }
 

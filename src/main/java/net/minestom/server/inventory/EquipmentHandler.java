@@ -1,10 +1,8 @@
 package net.minestom.server.inventory;
 
-import net.minestom.server.Viewable;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.network.packet.server.play.EntityEquipmentPacket;
-import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.utils.validate.Check;
 import org.jetbrains.annotations.NotNull;
 
@@ -112,29 +110,6 @@ public interface EquipmentHandler {
                 return getBoots();
         }
         throw new IllegalStateException("Something weird happened");
-    }
-
-    /**
-     * Sends all the equipments to a {@link PlayerConnection}.
-     *
-     * @param connection the connection to send the equipments to
-     */
-    default void syncEquipments(@NotNull PlayerConnection connection) {
-        for (EntityEquipmentPacket packet : getEquipmentsPacket()) {
-            connection.sendPacket(packet);
-        }
-    }
-
-    /**
-     * Sends all the equipments to all viewers.
-     */
-    default void syncEquipments() {
-        Check.stateCondition(!(this instanceof Viewable), "Only accessible for Entity");
-
-        Viewable viewable = (Viewable) this;
-        for (EntityEquipmentPacket packet : getEquipmentsPacket()) {
-            viewable.sendPacketToViewersAndSelf(packet);
-        }
     }
 
     /**

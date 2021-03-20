@@ -15,6 +15,7 @@ import net.minestom.server.network.netty.codec.PacketCompressor;
 import net.minestom.server.network.netty.packet.FramedPacket;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.login.SetCompressionPacket;
+import net.minestom.server.utils.BufUtils;
 import net.minestom.server.utils.PacketUtils;
 import net.minestom.server.utils.cache.CacheablePacket;
 import net.minestom.server.utils.cache.TemporaryCache;
@@ -59,6 +60,9 @@ public class NettyPlayerConnection extends PlayerConnection {
     private UUID bungeeUuid;
     private PlayerSkin bungeeSkin;
 
+    private static final int FLUSH_SIZE = 20000;
+    private final ByteBuf tickBuffer = BufUtils.getBuffer(true);
+
     public NettyPlayerConnection(@NotNull SocketChannel channel) {
         super();
         this.channel = channel;
@@ -69,6 +73,7 @@ public class NettyPlayerConnection extends PlayerConnection {
     public void update() {
         // Flush
         if (channel.isActive()) {
+            writeWaitingPackets();
             this.channel.flush();
         }
         // Network stats
@@ -141,47 +146,86 @@ public class NettyPlayerConnection extends PlayerConnection {
                         if (shouldUpdate) {
                             final ByteBuf buffer = PacketUtils.createFramedPacket(serverPacket, false);
                             timedBuffer = new TimedBuffer(buffer, timestamp);
-
-                            temporaryCache.cache(identifier, timedBuffer);
                         }
 
+                        temporaryCache.cache(identifier, timedBuffer);
                         write(new FramedPacket(timedBuffer.getBuffer()));
                     }
 
-                } else
+                } else {
                     write(serverPacket);
-            } else
-                writeAndFlush(serverPacket);
-        }
-    }
-
-    @NotNull
-    public ChannelFuture write(@NotNull Object message) {
-        ChannelFuture channelFuture = channel.write(message);
-
-        if (MinecraftServer.shouldProcessNettyErrors()) {
-            return channelFuture.addListener(future -> {
-                if (!future.isSuccess() && channel.isActive()) {
-                    MinecraftServer.getExceptionManager().handleException(future.cause());
                 }
-            });
-        } else {
-            return channelFuture;
+            } else {
+                // Player is probably not logged yet
+                writeAndFlush(serverPacket);
+            }
         }
     }
 
-    @NotNull
-    public ChannelFuture writeAndFlush(@NotNull Object message) {
+    public void write(@NotNull Object message) {
+        if (message instanceof FramedPacket) {
+            final FramedPacket framedPacket = (FramedPacket) message;
+            synchronized (tickBuffer) {
+                final ByteBuf body = framedPacket.getBody();
+                tickBuffer.writeBytes(body, body.readerIndex(), body.readableBytes());
+                preventiveWrite();
+            }
+            return;
+        } else if (message instanceof ServerPacket) {
+            final ServerPacket serverPacket = (ServerPacket) message;
+            final ByteBuf buffer = PacketUtils.createFramedPacket(serverPacket, true);
+            synchronized (tickBuffer) {
+                tickBuffer.writeBytes(buffer);
+                preventiveWrite();
+            }
+            buffer.release();
+            return;
+        } else if (message instanceof ByteBuf) {
+            synchronized (tickBuffer) {
+                tickBuffer.writeBytes((ByteBuf) message);
+                preventiveWrite();
+            }
+            return;
+        }
+        throw new UnsupportedOperationException("type " + message.getClass() + " is not supported");
+    }
+
+    public void writeAndFlush(@NotNull Object message) {
+        writeWaitingPackets();
         ChannelFuture channelFuture = channel.writeAndFlush(message);
 
         if (MinecraftServer.shouldProcessNettyErrors()) {
-            return channelFuture.addListener(future -> {
+            channelFuture.addListener(future -> {
                 if (!future.isSuccess() && channel.isActive()) {
                     MinecraftServer.getExceptionManager().handleException(future.cause());
                 }
             });
-        } else {
-            return channelFuture;
+        }
+    }
+
+    private void preventiveWrite() {
+        if (tickBuffer.writerIndex() > FLUSH_SIZE) {
+            writeWaitingPackets();
+        }
+    }
+
+    private void writeWaitingPackets() {
+        synchronized (tickBuffer) {
+            final ByteBuf copy = tickBuffer.copy();
+
+            ChannelFuture channelFuture = channel.write(new FramedPacket(copy));
+            channelFuture.addListener(future -> copy.release());
+
+            // Netty debug
+            if (MinecraftServer.shouldProcessNettyErrors()) {
+                channelFuture.addListener(future -> {
+                    if (!future.isSuccess() && channel.isActive()) {
+                        MinecraftServer.getExceptionManager().handleException(future.cause());
+                    }
+                });
+            }
+
+            tickBuffer.clear();
         }
     }
 
@@ -322,6 +366,11 @@ public class NettyPlayerConnection extends PlayerConnection {
     public void refreshServerInformation(@Nullable String serverAddress, int serverPort) {
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
+    }
+
+    @NotNull
+    public ByteBuf getTickBuffer() {
+        return tickBuffer;
     }
 
     public byte[] getNonce() {

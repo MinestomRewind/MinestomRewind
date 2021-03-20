@@ -3,6 +3,7 @@ package net.minestom.server.command.builder.arguments;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.arguments.minecraft.SuggestionType;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
+import net.minestom.server.command.builder.suggestion.SuggestionCallback;
 import net.minestom.server.utils.callback.validator.StringValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +13,10 @@ import org.jetbrains.annotations.Nullable;
  * Same as {@link ArgumentWord} with the exception
  * that this argument can trigger {@link net.minestom.server.command.builder.Command#onDynamicWrite(CommandSender, String)}
  * when the suggestion type is {@link SuggestionType#ASK_SERVER}, or any other suggestions available in the enum.
+ *
+ * @deprecated Use {@link Argument#setSuggestionCallback(SuggestionCallback)} with any argument type you want
  */
+@Deprecated
 public class ArgumentDynamicWord extends Argument<String> {
 
     public static final int SPACE_ERROR = 1;
@@ -63,6 +67,7 @@ public class ArgumentDynamicWord extends Argument<String> {
      * @param dynamicRestriction the dynamic restriction, can be null to disable
      * @return 'this' for chaining
      */
+    @NotNull
     public ArgumentDynamicWord fromRestrictions(@Nullable StringValidator dynamicRestriction) {
         this.dynamicRestriction = dynamicRestriction;
         return this;

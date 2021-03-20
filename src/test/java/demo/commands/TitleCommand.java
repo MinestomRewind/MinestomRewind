@@ -6,34 +6,33 @@ import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.chat.Adventure;
 import net.minestom.server.command.CommandSender;
-import net.minestom.server.command.builder.Arguments;
 import net.minestom.server.command.builder.Command;
-import net.minestom.server.command.builder.arguments.Argument;
+import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.entity.Player;
 
 import java.time.Duration;
 
 public class TitleCommand extends Command {
-    private final Argument<String> contentArgument = ArgumentType.String("content");
-
     public TitleCommand() {
         super("title");
         setDefaultExecutor((source, args) -> {
             source.sendMessage("Unknown syntax (note: title must be quoted)");
         });
 
-        addSyntax(this::handleTitle, contentArgument);
+        var content = ArgumentType.String("content");
+
+        addSyntax(this::handleTitle, content);
     }
 
-    private void handleTitle(CommandSender source, Arguments args) {
+    private void handleTitle(CommandSender source, CommandContext context) {
         if (!source.isPlayer()) {
             source.sendMessage("Only players can run this command!");
             return;
         }
 
         Player player = source.asPlayer();
-        String titleContent = args.get(contentArgument);
+        String titleContent = context.get("content");
 
         Component title;
         try {

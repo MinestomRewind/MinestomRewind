@@ -1,11 +1,9 @@
 package net.minestom.server.command.builder.arguments.minecraft;
 
-import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.arguments.Argument;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
 import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.GameMode;
-import net.minestom.server.entity.Player;
 import net.minestom.server.registry.Registries;
 import net.minestom.server.utils.entity.EntityFinder;
 import net.minestom.server.utils.math.IntRange;
@@ -15,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 /**
  * Represents the target selector argument.
@@ -28,6 +27,7 @@ public class ArgumentEntity extends Argument<EntityFinder> {
     public static final int INVALID_ARGUMENT_NAME = -5;
     public static final int INVALID_ARGUMENT_VALUE = -6;
 
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("[a-zA-Z0-9_]{1,16}");
     private static final String SELECTOR_PREFIX = "@";
     private static final List<String> SELECTOR_VARIABLES = Arrays.asList("@p", "@r", "@a", "@e", "@s");
     private static final List<String> PLAYERS_ONLY_SELECTOR = Arrays.asList("@p", "@r", "@a", "@s");
@@ -85,8 +85,7 @@ public class ArgumentEntity extends Argument<EntityFinder> {
             }
 
             // Check if the input is a valid player name
-            final Player player = MinecraftServer.getConnectionManager().getPlayer(input);
-            if (player != null) {
+            if (USERNAME_PATTERN.matcher(input).matches()) {
                 return new EntityFinder()
                         .setTargetSelector(EntityFinder.TargetSelector.MINESTOM_USERNAME)
                         .setConstantName(input);

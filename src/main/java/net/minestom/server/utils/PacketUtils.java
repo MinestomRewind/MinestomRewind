@@ -25,7 +25,7 @@ import java.util.zip.Deflater;
 public final class PacketUtils {
 
     private static final PacketListenerManager PACKET_LISTENER_MANAGER = MinecraftServer.getPacketListenerManager();
-    private static final ThreadLocal<Deflater> DEFLATER = ThreadLocal.withInitial(Deflater::new);
+    private static final ThreadLocal<Deflater> DEFLATER = ThreadLocal.withInitial(() -> new Deflater(3));
 
     private PacketUtils() {
 
@@ -49,7 +49,7 @@ public final class PacketUtils {
             // Send grouped packet...
             final boolean success = PACKET_LISTENER_MANAGER.processServerPacket(packet, players);
             if (success) {
-                final ByteBuf finalBuffer = createFramedPacket(packet, false);
+                final ByteBuf finalBuffer = createFramedPacket(packet, true);
                 final FramedPacket framedPacket = new FramedPacket(finalBuffer);
 
                 // Send packet to all players
@@ -62,6 +62,8 @@ public final class PacketUtils {
                     if (playerValidator != null && !playerValidator.isValid(player))
                         continue;
 
+                    finalBuffer.retain();
+
                     final PlayerConnection playerConnection = player.getPlayerConnection();
                     if (playerConnection instanceof NettyPlayerConnection) {
                         final NettyPlayerConnection nettyPlayerConnection = (NettyPlayerConnection) playerConnection;
@@ -69,7 +71,10 @@ public final class PacketUtils {
                     } else {
                         playerConnection.sendPacket(packet);
                     }
+
+                    finalBuffer.release();
                 }
+                finalBuffer.release(); // Release last reference
             }
         } else {
             // Write the same packet for each individual players

@@ -132,11 +132,13 @@ public class SkullMeta extends ItemMeta {
             this.playerSkin = PlayerSkin.fromUuid(this.skullOwner);
         }
 
-        NBTList<NBTCompound> textures = new NBTList<>(NBTTypes.TAG_Compound);
-        String value = this.playerSkin.getTextures() == null ? "" : this.playerSkin.getTextures();
-        String signature = this.playerSkin.getSignature() == null ? "" : this.playerSkin.getSignature();
-        textures.add(new NBTCompound().setString("Value", value).setString("Signature", signature));
-        skullOwnerCompound.set("Properties", new NBTCompound().set("textures", textures));
+        if (this.playerSkin != null) {
+            NBTList<NBTCompound> textures = new NBTList<>(NBTTypes.TAG_Compound);
+            String value = this.playerSkin.getTextures() == null ? "" : this.playerSkin.getTextures();
+            String signature = this.playerSkin.getSignature() == null ? "" : this.playerSkin.getSignature();
+            textures.add(new NBTCompound().setString("Value", value).setString("Signature", signature));
+            skullOwnerCompound.set("Properties", new NBTCompound().set("textures", textures));
+        }
 
         compound.set("SkullOwner", skullOwnerCompound);
 

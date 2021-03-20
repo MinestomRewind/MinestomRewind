@@ -398,7 +398,6 @@ public final class ConnectionManager implements Audience, ForwardingPlayerAudien
                                  @NotNull UUID uuid, @NotNull String username,
                                  boolean register) {
         final Player player = getPlayerProvider().createPlayer(uuid, username, connection);
-
         startPlayState(player, register);
 
         return player;

@@ -12,7 +12,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ArgumentString extends Argument<String> {
 
-    public static final char BACKSLASH = '\\';
+    private static final char BACKSLASH = '\\';
+    private static final char DOUBLE_QUOTE = '"';
+    private static final char QUOTE = '\'';
 
     public static final int QUOTE_ERROR = 1;
 
@@ -28,10 +30,19 @@ public class ArgumentString extends Argument<String> {
 
     @NotNull
     public static String staticParse(@NotNull String input) throws ArgumentSyntaxException {
+
+        // Return if not quoted
+        if (!input.contains(String.valueOf(DOUBLE_QUOTE)) &&
+                !input.contains(String.valueOf(QUOTE)) &&
+                !input.contains(String.valueOf(StringUtil.SPACE))) {
+            return input;
+        }
+
         // Check if value start and end with quote
         final char first = input.charAt(0);
         final char last = input.charAt(input.length() - 1);
-        final boolean quote = first == StringUtil.DOUBLE_QUOTE && last == StringUtil.DOUBLE_QUOTE;
+        final boolean quote = input.length() >= 2 &&
+                first == last && (first == DOUBLE_QUOTE || first == QUOTE);
         if (!quote)
             throw new ArgumentSyntaxException("String argument needs to start and end with quotes", input, QUOTE_ERROR);
 
@@ -41,7 +52,7 @@ public class ArgumentString extends Argument<String> {
         // Verify backslashes
         for (int i = 1; i < input.length(); i++) {
             final char c = input.charAt(i);
-            if (c == StringUtil.DOUBLE_QUOTE) {
+            if (c == first) {
                 final char lastChar = input.charAt(i - 1);
                 if (lastChar != BACKSLASH) {
                     throw new ArgumentSyntaxException("Non-escaped quote", input, QUOTE_ERROR);

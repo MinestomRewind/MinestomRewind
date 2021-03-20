@@ -23,8 +23,6 @@ import net.minestom.server.event.handler.EventHandler;
 import net.minestom.server.event.instance.AddEntityToInstanceEvent;
 import net.minestom.server.event.instance.InstanceTickEvent;
 import net.minestom.server.event.instance.RemoveEntityFromInstanceEvent;
-import net.minestom.server.instance.batch.BlockBatch;
-import net.minestom.server.instance.batch.ChunkBatch;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockManager;
 import net.minestom.server.instance.block.CustomBlock;
@@ -222,22 +220,6 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      * @param callback optional callback called when the chunks are done saving
      */
     public abstract void saveChunksToStorage(@Nullable Runnable callback);
-
-    /**
-     * Creates a new {@link BlockBatch} linked to this instance.
-     *
-     * @return a {@link BlockBatch} linked to the instance
-     */
-    public abstract BlockBatch createBlockBatch();
-
-    /**
-     * Creates a new {@link Chunk} batch linked to this instance and the specified chunk.
-     *
-     * @param chunk the chunk to modify
-     * @return a ChunkBatch linked to {@code chunk}
-     * @throws NullPointerException if {@code chunk} is null
-     */
-    public abstract ChunkBatch createChunkBatch(@NotNull Chunk chunk);
 
     /**
      * Gets the instance {@link ChunkGenerator}.
@@ -601,8 +583,8 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      * @param callback the optional callback to run when the chunk is loaded
      */
     public void loadChunk(@NotNull Position position, @Nullable ChunkCallback callback) {
-        final int chunkX = ChunkUtils.getChunkCoordinate((int) position.getX());
-        final int chunkZ = ChunkUtils.getChunkCoordinate((int) position.getZ());
+        final int chunkX = ChunkUtils.getChunkCoordinate(position.getX());
+        final int chunkZ = ChunkUtils.getChunkCoordinate(position.getZ());
         loadChunk(chunkX, chunkZ, callback);
     }
 
@@ -614,8 +596,8 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      * @param callback the optional callback executed when the chunk is loaded (or with a null chunk if not)
      */
     public void loadOptionalChunk(@NotNull Position position, @Nullable ChunkCallback callback) {
-        final int chunkX = ChunkUtils.getChunkCoordinate((int) position.getX());
-        final int chunkZ = ChunkUtils.getChunkCoordinate((int) position.getZ());
+        final int chunkX = ChunkUtils.getChunkCoordinate(position.getX());
+        final int chunkZ = ChunkUtils.getChunkCoordinate(position.getZ());
         loadOptionalChunk(chunkX, chunkZ, callback);
     }
 
@@ -806,8 +788,8 @@ public abstract class Instance implements BlockModifier, EventHandler, DataConta
      */
     @Nullable
     public Chunk getChunkAt(double x, double z) {
-        final int chunkX = ChunkUtils.getChunkCoordinate((int) Math.floor(x));
-        final int chunkZ = ChunkUtils.getChunkCoordinate((int) Math.floor(z));
+        final int chunkX = ChunkUtils.getChunkCoordinate(x);
+        final int chunkZ = ChunkUtils.getChunkCoordinate(z);
         return getChunk(chunkX, chunkZ);
     }
 

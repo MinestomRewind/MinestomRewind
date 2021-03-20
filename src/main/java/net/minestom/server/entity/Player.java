@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.title.Title;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.attribute.Attribute;
 import net.minestom.server.attribute.AttributeInstance;
 import net.minestom.server.attribute.Attributes;
 import net.minestom.server.chat.*;
@@ -65,6 +66,7 @@ import org.jetbrains.annotations.Nullable;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Those are the major actors of the server,
@@ -90,6 +92,7 @@ public class Player extends LivingEntity implements CommandSender {
     private DimensionType dimensionType;
     private LevelType levelType;
     private GameMode gameMode;
+    // Chunks that the player can view
     protected final Set<Chunk> viewableChunks = new CopyOnWriteArraySet<>();
 
     private final Queue<ClientPlayPacket> packets = Queues.newConcurrentLinkedQueue();
@@ -164,7 +167,7 @@ public class Player extends LivingEntity implements CommandSender {
         this.gameMode = GameMode.SURVIVAL;
         this.dimensionType = DimensionType.OVERWORLD; // Default dimension
         this.levelType = LevelType.DEFAULT; // Default level type
-        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.1f);
+        getAttribute(Attribute.MOVEMENT_SPEED).setBaseValue(0.1f);
 
         // FakePlayer init its connection there
         playerConnectionInit();
@@ -582,10 +585,7 @@ public class Player extends LivingEntity implements CommandSender {
             teleport(spawnPosition);
         } else if (updateChunks) {
             // Send newly visible chunks to player once spawned in the instance
-            final Chunk chunk = getChunk();
-            if (chunk != null) {
-                refreshVisibleChunks(chunk);
-            }
+            refreshVisibleChunks();
         }
 
         instance.getWorldBorder().init(this);
@@ -596,7 +596,7 @@ public class Player extends LivingEntity implements CommandSender {
                 ent.addViewer(this);
         });
 
-        if (dimensionChange) {
+        if (dimensionChange || firstSpawn) {
             updatePlayerPosition(); // So the player doesn't get stuck
             this.inventory.update();
         }
@@ -818,15 +818,6 @@ public class Player extends LivingEntity implements CommandSender {
             return type != DamageType.VOID;
         }
         return super.isImmune(type);
-    }
-
-    @Override
-    protected void onAttributeChanged(@NotNull final AttributeInstance attributeInstance) {
-        if (attributeInstance.getAttribute().isShared() &&
-                playerConnection != null &&
-                playerConnection.getConnectionState() == ConnectionState.PLAY) {
-            playerConnection.sendPacket(getPropertiesPacket());
-        }
     }
 
     @Override
@@ -1106,8 +1097,10 @@ public class Player extends LivingEntity implements CommandSender {
         // Update for viewers
         sendPacketToViewersAndSelf(getVelocityPacket());
         sendPacketToViewersAndSelf(getMetadataPacket());
-        playerConnection.sendPacket(getPropertiesPacket());
-        syncEquipments();
+        sendPacketToViewersAndSelf(getPropertiesPacket());
+        for (EntityEquipmentPacket entityEquipmentPacket : getEquipmentsPacket()) {
+            sendPacketToViewersAndSelf(entityEquipmentPacket);
+        }
 
         {
             // Send new chunks
@@ -1220,13 +1213,15 @@ public class Player extends LivingEntity implements CommandSender {
             final int chunkX = ChunkUtils.getChunkCoordX(chunkIndex);
             final int chunkZ = ChunkUtils.getChunkCoordZ(chunkIndex);
 
-            ChunkDataPacket chunkDataPacket = new ChunkDataPacket(null, 0);
+            // TODO prevent the client from getting lag spikes when re-loading large chunks
+            // Probably by having a distinction between visible and loaded (cache) chunks
+            /*ChunkDataPacket chunkDataPacket = new ChunkDataPacket(null, 0);
             chunkDataPacket.chunkX = chunkX;
             chunkDataPacket.chunkZ = chunkZ;
             chunkDataPacket.fullChunk = false;
             chunkDataPacket.unloadChunk = true;
             chunkDataPacket.skylight = newChunk.getHasSky();
-            playerConnection.sendPacket(chunkDataPacket);
+            playerConnection.sendPacket(chunkDataPacket);*/
 
             final Chunk chunk = instance.getChunk(chunkX, chunkZ);
             if (chunk != null)
@@ -1246,6 +1241,13 @@ public class Player extends LivingEntity implements CommandSender {
                 }
                 chunk.addViewer(this);
             });
+        }
+    }
+
+    public void refreshVisibleChunks() {
+        final Chunk chunk = getChunk();
+        if (chunk != null) {
+            refreshVisibleChunks(chunk);
         }
     }
 
@@ -1442,8 +1444,13 @@ public class Player extends LivingEntity implements CommandSender {
             disconnectPacket = new DisconnectPacket(text);
         }
 
-        playerConnection.sendPacket(disconnectPacket);
-        playerConnection.refreshOnline(false);
+        if (playerConnection instanceof NettyPlayerConnection) {
+            ((NettyPlayerConnection) playerConnection).writeAndFlush(disconnectPacket);
+            playerConnection.disconnect();
+        } else {
+            playerConnection.sendPacket(disconnectPacket);
+            playerConnection.refreshOnline(false);
+        }
     }
 
     /**
@@ -1941,11 +1948,15 @@ public class Player extends LivingEntity implements CommandSender {
      * based on which one is the lowest
      */
     public int getChunkRange() {
-        final int serverRange = MinecraftServer.getChunkViewDistance();
         final int playerRange = getSettings().viewDistance;
-        if (playerRange == 0) {
-            return serverRange; // Didn't receive settings packet yet (is the case on login)
+        if (playerRange < 1) {
+            // Didn't receive settings packet yet (is the case on login)
+            // In this case we send the smallest amount of chunks possible
+            // Will be updated in PlayerSettings#refresh.
+            // Non-compliant clients might also be stuck with this view
+            return 3;
         } else {
+            final int serverRange = MinecraftServer.getChunkViewDistance();
             return Math.min(playerRange, serverRange);
         }
     }
@@ -2025,9 +2036,9 @@ public class Player extends LivingEntity implements CommandSender {
         connection.sendPacket(getEntityType().getSpawnType().getSpawnPacket(this));
         connection.sendPacket(getVelocityPacket());
         connection.sendPacket(getMetadataPacket());
-
-        // Equipments synchronization
-        syncEquipments(connection);
+        for (EntityEquipmentPacket entityEquipmentPacket : getEquipmentsPacket()) {
+            connection.sendPacket(entityEquipmentPacket);
+        }
 
         // Team
         if (this.getTeam() != null)
@@ -2171,7 +2182,7 @@ public class Player extends LivingEntity implements CommandSender {
         public void refresh(String locale, byte viewDistance, ChatMode chatMode, boolean chatColors,
                             byte displayedSkinParts) {
 
-            final boolean viewDistanceChanged = !firstRefresh && this.viewDistance != viewDistance;
+            final boolean viewDistanceChanged = this.viewDistance != viewDistance;
 
             this.locale = locale;
             this.viewDistance = viewDistance;
@@ -2185,10 +2196,7 @@ public class Player extends LivingEntity implements CommandSender {
 
             // Client changed his view distance in the settings
             if (viewDistanceChanged) {
-                final Chunk playerChunk = getChunk();
-                if (playerChunk != null) {
-                    refreshVisibleChunks(playerChunk);
-                }
+                refreshVisibleChunks();
             }
         }
 

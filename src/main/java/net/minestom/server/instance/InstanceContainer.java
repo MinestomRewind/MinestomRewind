@@ -10,8 +10,7 @@ import net.minestom.server.entity.Player;
 import net.minestom.server.event.instance.InstanceChunkLoadEvent;
 import net.minestom.server.event.instance.InstanceChunkUnloadEvent;
 import net.minestom.server.event.player.PlayerBlockBreakEvent;
-import net.minestom.server.instance.batch.BlockBatch;
-import net.minestom.server.instance.batch.ChunkBatch;
+import net.minestom.server.instance.batch.ChunkGenerationBatch;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.CustomBlock;
 import net.minestom.server.instance.block.rule.BlockPlacementRule;
@@ -502,16 +501,6 @@ public class InstanceContainer extends Instance {
     }
 
     @Override
-    public BlockBatch createBlockBatch() {
-        return new BlockBatch(this);
-    }
-
-    @Override
-    public ChunkBatch createChunkBatch(@NotNull Chunk chunk) {
-        return new ChunkBatch(this, chunk, false);
-    }
-
-    @Override
     protected void retrieveChunk(int chunkX, int chunkZ, @Nullable ChunkCallback callback) {
         final boolean loaded = chunkLoader.loadChunk(this, chunkX, chunkZ, chunk -> {
             cacheChunk(chunk);
@@ -545,9 +534,9 @@ public class InstanceContainer extends Instance {
 
         if (chunkGenerator != null && chunk.shouldGenerate()) {
             // Execute the chunk generator to populate the chunk
-            final ChunkBatch chunkBatch = new ChunkBatch(this, chunk, true);
+            final ChunkGenerationBatch chunkBatch = new ChunkGenerationBatch(this, chunk);
 
-            chunkBatch.flushChunkGenerator(chunkGenerator, callback);
+            chunkBatch.generate(chunkGenerator, callback);
         } else {
             // No chunk generator, execute the callback with the empty chunk
             OptionalCallback.execute(callback, chunk);

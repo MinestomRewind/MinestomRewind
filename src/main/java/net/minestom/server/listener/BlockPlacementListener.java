@@ -190,7 +190,8 @@ public class BlockPlacementListener {
             }
         } else {
             // Player didn't try to place a block but interacted with one
-            PlayerUseItemOnBlockEvent event = new PlayerUseItemOnBlockEvent(player, usedItem, blockPosition, direction);
+            final BlockPosition usePosition = blockPosition.clone().subtract(offsetX, offsetY, offsetZ);
+            PlayerUseItemOnBlockEvent event = new PlayerUseItemOnBlockEvent(player, usedItem, usePosition, direction);
             player.callEvent(PlayerUseItemOnBlockEvent.class, event);
             refreshChunk = true;
         }

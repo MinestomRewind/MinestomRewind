@@ -2,6 +2,7 @@ package net.minestom.server.command.builder.arguments;
 
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.exception.ArgumentSyntaxException;
+import net.minestom.server.command.builder.suggestion.SuggestionCallback;
 import net.minestom.server.utils.callback.validator.StringArrayValidator;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +11,10 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Same as {@link ArgumentStringArray} with the exception
  * that this argument can trigger {@link net.minestom.server.command.builder.Command#onDynamicWrite(CommandSender, String)}.
+ *
+ * @deprecated Use {@link Argument#setSuggestionCallback(SuggestionCallback)} with any argument type you want
  */
+@Deprecated
 public class ArgumentDynamicStringArray extends Argument<String[]> {
 
     public static final int RESTRICTION_ERROR = 1;

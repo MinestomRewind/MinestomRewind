@@ -3,6 +3,7 @@ package net.minestom.server.network.packet.server.play;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minestom.server.instance.palette.PaletteStorage;
+import net.minestom.server.instance.palette.Section;
 import net.minestom.server.network.packet.server.ServerPacket;
 import net.minestom.server.network.packet.server.ServerPacketIdentifier;
 import net.minestom.server.utils.binary.BinaryWriter;
@@ -61,15 +62,11 @@ public class ChunkDataPacket implements ServerPacket, CacheablePacket {
 
         for (byte i = 0; i < CHUNK_SECTION_COUNT; i++) {
             if (fullChunk || sections == null || (sections.length == CHUNK_SECTION_COUNT && sections[i] != 0)) {
-                final short[] section = paletteStorage.getSectionBlocks()[i];
-                if (section.length > 0) { // section contains at least one block
+                final Section section = paletteStorage.getSections()[i];
+                if (section != null && section.getBlocks().length > 0) { // section contains at least one block
                     mask |= 1 << i;
-                    includedSections[includedCount++] = section;
-                } else {
-                    mask |= 0;
+                    includedSections[includedCount++] = section.getBlocks();
                 }
-            } else {
-                mask |= 0;
             }
         }
 

@@ -3,7 +3,7 @@ package net.minestom.server.command;
 import net.kyori.adventure.audience.MessageType;
 import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
-import net.minestom.server.command.builder.Arguments;
+import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.permission.Permission;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +16,7 @@ import java.util.Set;
  * Sender used in {@link CommandManager#executeServerCommand(String)}.
  * <p>
  * Be aware that {@link #sendMessage(Identity, Component, MessageType)} is empty on purpose because the purpose
- * of this sender is to process the data of {@link Arguments#getReturnData()}.
+ * of this sender is to process the data of {@link CommandContext#getReturnData()}.
  */
 public class ServerSender implements CommandSender {
 

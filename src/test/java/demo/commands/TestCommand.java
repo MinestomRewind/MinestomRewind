@@ -1,11 +1,9 @@
 package demo.commands;
 
 import net.minestom.server.command.CommandSender;
-import net.minestom.server.command.builder.Arguments;
 import net.minestom.server.command.builder.Command;
-import net.minestom.server.command.builder.CommandResult;
-
-import java.util.List;
+import net.minestom.server.command.builder.CommandContext;
+import net.minestom.server.command.builder.suggestion.SuggestionEntry;
 
 import static net.minestom.server.command.builder.arguments.ArgumentType.Integer;
 import static net.minestom.server.command.builder.arguments.ArgumentType.*;
@@ -16,20 +14,26 @@ public class TestCommand extends Command {
         super("testcmd");
         setDefaultExecutor(this::usage);
 
-        addSyntax((sender, args) -> {
-            final CommandResult result = args.get("command");
-            System.out.println("test " + result.getType() + " " + result.getInput());
-        }, Literal("cmd"), Command("command"));
+        var test1 = Word("msg").setSuggestionCallback((sender, context, suggestion) -> {
+            suggestion.addEntry(new SuggestionEntry("test"));
+        });
 
-        addSyntax((sender, args) -> {
-            List<Arguments> groups = args.get("groups");
-            System.out.println("size " + groups.size());
-        }, Literal("loop"), Loop("groups",
-                Group("group", Literal("name"), Word("word1")),
-                Group("group2", Literal("delay"), Integer("number2"))));
+        var test2 = String("msg2").setSuggestionCallback((sender, context, suggestion) -> {
+            suggestion.addEntry(new SuggestionEntry("greer"));
+        });
+
+        addSyntax((sender, context) -> {
+            System.out.println("executed");
+        }, Literal("test"), test1, test2);
+
+        addSyntax((sender, context) -> {
+            System.out.println("cmd syntax");
+        }, Literal("debug"), Command("cmd").setShortcut("testcmd test"));
+
     }
 
-    private void usage(CommandSender sender, Arguments arguments) {
+    private void usage(CommandSender sender, CommandContext context) {
         sender.sendMessage("Incorrect usage");
     }
+
 }

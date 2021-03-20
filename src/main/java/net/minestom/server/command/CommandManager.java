@@ -1,5 +1,6 @@
 package net.minestom.server.command;
 
+import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
@@ -7,7 +8,11 @@ import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.*;
 import net.minestom.server.command.builder.arguments.Argument;
+import net.minestom.server.command.builder.arguments.minecraft.SuggestionType;
 import net.minestom.server.command.builder.condition.CommandCondition;
+import net.minestom.server.command.builder.parser.ArgumentQueryResult;
+import net.minestom.server.command.builder.parser.CommandParser;
+import net.minestom.server.command.builder.parser.CommandQueryResult;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.player.PlayerCommandEvent;
 import net.minestom.server.utils.ArrayUtils;
@@ -98,7 +103,9 @@ public final class CommandManager {
      *
      * @param commandProcessor the command to register
      * @throws IllegalStateException if a command with the same name already exists
+     * @deprecated use {@link Command} or {@link SimpleCommand} instead
      */
+    @Deprecated
     public synchronized void register(@NotNull CommandProcessor commandProcessor) {
         final String commandName = commandProcessor.getCommandName().toLowerCase();
         Check.stateCondition(commandExists(commandName),
@@ -121,7 +128,9 @@ public final class CommandManager {
      *
      * @param commandName the command name
      * @return the command associated with the name, null if not any
+     * @deprecated use {@link #getCommand(String)} instead
      */
+    @Deprecated
     @Nullable
     public CommandProcessor getCommandProcessor(@NotNull String commandName) {
         return commandProcessorMap.get(commandName.toLowerCase());
